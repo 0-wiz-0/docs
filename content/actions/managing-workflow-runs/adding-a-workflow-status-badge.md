@@ -17,7 +17,7 @@ versions:
 You reference the workflow by the name of your workflow file.
 
 ```
-https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/<WORKFLOW_FILE>/badge.svg
+https://github.com/<OWNER>/<REPOSITORY>/workflows/<WORKFLOW_FILE>/badge.svg
 ```
 ## Using the workflow file name
 
