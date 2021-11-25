@@ -6,9 +6,14 @@ redirect_from:
   - /enterprise/admin/installation/installing-github-enterprise-server-on-azure
   - /admin/installation/installing-github-enterprise-server-on-azure
 versions:
-  enterprise-server: '*'
+  ghes: '*'
+type: tutorial
 topics:
+  - Administrator
   - Enterprise
+  - Infrastructure
+  - Set up
+shortTitle: Install on Azure
 ---
 You can deploy {% data variables.product.prodname_ghe_server %} on global Azure or Azure Government.
 
@@ -99,5 +104,5 @@ The {% data variables.product.prodname_ghe_server %} appliance requires a premiu
   
 ## Further reading
   
-- "[System overview](/enterprise/admin/guides/installation/system-overview)"{% if currentVersion ver_gt "enterprise-server@2.22" %}
+- "[System overview](/enterprise/admin/guides/installation/system-overview)"{% ifversion ghes %}
 - "[About upgrades to new releases](/admin/overview/about-upgrades-to-new-releases)"{% endif %}

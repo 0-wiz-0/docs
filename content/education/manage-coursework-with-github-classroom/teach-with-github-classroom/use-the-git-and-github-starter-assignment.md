@@ -1,17 +1,12 @@
 ---
 title: Use the Git and GitHub starter assignment
-intro: You can use the Git & {% data variables.product.company_short %} starter assignment to give students an overview of Git and {% data variables.product.company_short %} fundamentals.
+intro: 'You can use the Git & {% data variables.product.company_short %} starter assignment to give students an overview of Git and {% data variables.product.company_short %} fundamentals.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
 redirect_from:
-- /education/manage-coursework-with-github-classroom/use-the-git-and-github-starter-assignment
+  - /education/manage-coursework-with-github-classroom/use-the-git-and-github-starter-assignment
+shortTitle: Starter assignment
 ---
-
-{% note %}
-
-**Note:** The Git & {% data variables.product.company_short %} starter assignment is in beta and subject to change.
-
-{% endnote %}
 
 The Git & {% data variables.product.company_short %} starter assignment is a pre-made course that summarizes the basics of Git and {% data variables.product.company_short %} and links students to resources to learn more about specific topics.
 

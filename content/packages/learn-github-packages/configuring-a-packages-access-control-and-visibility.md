@@ -6,14 +6,14 @@ redirect_from:
   - /packages/managing-container-images-with-github-container-registry/configuring-access-control-and-visibility-for-container-images
   - /packages/guides/configuring-access-control-and-visibility-for-container-images
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
+shortTitle: Access control & visibility
 ---
-
-{% data reusables.package_registry.container-registry-beta %}
 
 Packages with granular permissions are scoped to a personal user or organization account. You can change the access control and visibility of a package separately from the repository that it is connected (or linked) to.
 
-Currently, only the {% data variables.product.prodname_container_registry %} offers granular permissions for your container image packages.
+Currently, you can only use granular permissions with the {% data variables.product.prodname_container_registry %}. Granular permissions are not supported in our other package registries, such as the npm registry.
 
 For more information about permissions for repository-scoped packages, packages-related scopes for PATs, or managing permissions for your actions workflows, see "[About permissions for GitHub Packages](/packages/learn-github-packages/about-permissions-for-github-packages)."
 
@@ -40,8 +40,6 @@ The selected users will automatically be given access and don't need to accept a
 If you have admin permissions to an organization-owned container image, you can assign read, write, or admin roles to other users and teams. For more information about these permission roles, see "[Visibility and access permissions for container images](#visibility-and-access-permissions-for-container-images)."
 
 If your package is private or internal and owned by an organization, then you can only give access to other organization members or teams.
-
-For organization image containers, organizations admins must enable packages before you can set the visibility to public. For more information, see "[Enabling improved container support with the Container registry](/packages/working-with-a-github-packages-registry/enabling-improved-container-support-with-the-container-registry)."
 
 {% data reusables.package_registry.package-settings-from-org-level %}
 1. On the package settings page, click **Invite teams or people** and enter the name, username, or email of the person you want to give access. You can also enter a team name from the organization to give all team members access.
@@ -99,6 +97,34 @@ To further customize access to your container image, see "[Configuring access to
 
 To further customize access to your container image, see "[Configuring access to container images for an organization](#configuring-access-to-container-images-for-an-organization)."
 
+## Ensuring {% data variables.product.prodname_codespaces %} access to your package
+
+By default, a codespace can seamlessly access certain packages in the {% data variables.product.prodname_dotcom %} Container Registry, such as those published in the same repository with the **Inherit access** option selected. For more information on which access is automatically configured, see "[Accessing images stored in {% data variables.product.prodname_dotcom %} Container Registry](/codespaces/codespaces-reference/allowing-your-codespace-to-access-a-private-image-registry#accessing-images-stored-in-github-container-registry)."
+
+Otherwise, to ensure that a codespace has access to your package, you must grant access to the repository where the codespace is being launched.
+
+The specified repository does not need to be the repository where the source code for the package is kept. You can give codespaces in multiple repositories access to a package.
+
+Once you've selected the package you're interested in sharing with codespaces in a repository, you can grant that repo access.
+
+1. In the right sidebar, click **Package settings**.
+
+   !["Package settings" option in right menu](/assets/images/help/package-registry/package-settings.png)
+   
+2. Under "Manage Codespaces access", click **Add repository**.
+
+   !["Add repository" button](/assets/images/help/package-registry/manage-codespaces-access-blank.png)
+
+3. Search for the repository you want to add.
+
+   !["Add repository" button](/assets/images/help/package-registry/manage-codespaces-access-search.png)
+   
+4. Repeat for any additional repositories you would like to allow access.
+
+5. If the codespaces for a repository no longer need access to an image, you can remove access.
+
+   !["Remove repository" button](/assets/images/help/package-registry/manage-codespaces-access-item.png)
+
 ## Configuring visibility of container images for your personal account
 
 When you first publish a package, the default visibility is private and only you can see the package. You can modify a private or public container image's access by changing the access settings.
@@ -134,8 +160,6 @@ You can choose the visibility of containers that organization members can publis
 When you first publish a package, the default visibility is private and only you can see the package. You can grant users or teams different access roles for your container image through the access settings.
 
 A public package can be accessed anonymously without authentication. Once you make your package public, you cannot make your package private again.
-
-For organization image containers, organizations admins must enable public packages before you can set the visibility to public. For more information, see "[Enabling improved container support with the Container registry](/packages/working-with-a-github-packages-registry/enabling-improved-container-support-with-the-container-registry)."
 
 {% data reusables.package_registry.package-settings-from-org-level %}
 5. Under "Danger Zone", choose a visibility setting:

@@ -2,14 +2,14 @@
 title: Setting exit codes for actions
 shortTitle: Setting exit codes
 intro: 'You can use exit codes to set the status of an action. {% data variables.product.prodname_dotcom %} displays statuses to indicate passing or failing actions.'
-product: '{% data reusables.gated-features.actions %}'
 redirect_from:
   - /actions/building-actions/setting-exit-codes-for-actions
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
-type: 'how_to'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
+type: how_to
 ---
 
 {% data reusables.actions.enterprise-beta %}

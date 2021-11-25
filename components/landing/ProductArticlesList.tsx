@@ -52,8 +52,8 @@ const ProductTreeNodeList = ({ treeNode }: { treeNode: ProductTreeNode }) => {
             >
               <Link href={childNode.href}>{childNode.page.title}</Link>
               {childNode.page.documentType === 'mapTopic' ? (
-                <small className="color-text-secondary d-inline-block">
-                  &nbsp;&bull; {treeNode.childPages.length} articles
+                <small className="color-fg-muted d-inline-block">
+                  &nbsp;&bull; {childNode.childPages.length} articles
                 </small>
               ) : null}
             </li>

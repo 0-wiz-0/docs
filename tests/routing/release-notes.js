@@ -1,4 +1,7 @@
-const { get, getDOM } = require('../helpers/supertest')
+import { get, getDOM } from '../helpers/supertest.js'
+import { jest } from '@jest/globals'
+
+jest.useFakeTimers()
 
 describe('release notes', () => {
   jest.setTimeout(60 * 1000)
@@ -16,12 +19,12 @@ describe('release notes', () => {
     expect(res.headers.location).toBe('https://enterprise.github.com/releases/2.19.0/notes')
   })
 
-  it('renders the release-notes layout if this version\'s release notes are in this repo', async () => {
-    const res = await get('/en/enterprise-server@2.22/admin/release-notes')
+  it("renders the release-notes layout if this version's release notes are in this repo", async () => {
+    const res = await get('/en/enterprise-server@3.0/admin/release-notes')
     expect(res.statusCode).toBe(200)
-    const $ = await getDOM('/en/enterprise-server@2.22/admin/release-notes')
-    expect($('h1').text()).toBe('Enterprise Server 2.22 release notes')
-    expect($('h2').first().text().trim().startsWith('Enterprise Server 2.22.')).toBe(true)
+    const $ = await getDOM('/en/enterprise-server@3.0/admin/release-notes')
+    expect($('h1').text()).toBe('Enterprise Server 3.0 release notes')
+    expect($('h2').first().text().trim().startsWith('Enterprise Server 3.0')).toBe(true)
   })
 
   it('renders the release-notes layout for GitHub AE', async () => {

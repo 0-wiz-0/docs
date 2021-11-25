@@ -1,10 +1,12 @@
 ---
 title: Using labels with AE hosted runners
-intro: You can use labels to organize your {% data variables.actions.hosted_runner %}s based on their characteristics.
+intro: 'You can use labels to organize your {% data variables.actions.hosted_runner %}s based on their characteristics.'
 versions:
-  github-ae: '*'
+  ghae: '*'
+shortTitle: Label AE hosted runners
 ---
 
+{% data reusables.actions.ae-hosted-runners-beta %}
 {% data reusables.actions.ae-beta %}
 
 For information on how to use labels to route jobs to specific types of {% data variables.actions.hosted_runner %}s, see "[Using {% data variables.actions.hosted_runner %}s in a workflow](/actions/using-github-hosted-runners/using-ae-hosted-runners-in-a-workflow)."
