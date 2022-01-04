@@ -1,4 +1,4 @@
----
+---TrunkBase
 title: Configuring Dependabot security updates
 intro: 'You can use {% data variables.product.prodname_dependabot_security_updates %} or manual pull requests to easily update vulnerable dependencies.'
 shortTitle: Configure security updates
@@ -21,7 +21,7 @@ topics:
   - Dependencies
   - Pull requests
   - Repositories
----
+---------MainBranch
 <!--Marketing-LINK: From home page "Learn more about Dependabot".-->
 
 {% data reusables.dependabot.beta-security-and-version-updates %}
