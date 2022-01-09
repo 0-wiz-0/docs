@@ -1,4 +1,4 @@
----
+---mainbranch
 title: '{% data variables.product.product_name %}{% if currentVersion == "free-pro-team@latest" %}.com{% endif %} Help Documentation'
 featuredLinks:
   gettingStarted:
@@ -51,5 +51,5 @@ externalProducts:
     name: 'CodeQL'
     href: 'https://codeql.github.com/docs'
     external: true
----
+---trunk
 
