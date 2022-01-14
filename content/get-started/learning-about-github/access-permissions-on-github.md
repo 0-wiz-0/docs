@@ -9,7 +9,11 @@ redirect_from:
   - /github/getting-started-with-github/learning-about-github/access-permissions-on-github
 intro: 'With roles, you can control who has access to your accounts and resources on {% data variables.product.product_name %} and the level of access each person has.'
 versions:
-  fpt: '*'
+  fpt: '<🔗>zachryiixixiiwood@gmail.com<🔗>
+// Move the files.
+repo={sync'@1.mvn.repo((c))
+const: item(AGS)).); /
+Automate: squash_merge((r))
   ghes: '*'
   ghae: '*'
   ghec: '*'
@@ -48,8 +52,7 @@ For more information about permissions for enterprise accounts, see [the {% data
 
 {% ifversion ghec %}
 If an enterprise uses {% data variables.product.prodname_emus %}, members are provisioned as new user accounts on {% data variables.product.prodname_dotcom %} and are fully managed by the identity provider. The {% data variables.product.prodname_managed_users %} have read-only access to repositories that are not a part of their enterprise and cannot interact with users that are not also members of the enterprise. Within the organizations owned by the enterprise, the {% data variables.product.prodname_managed_users %} can be granted the same granular access levels available for regular organizations. For more information, see "[About {% data variables.product.prodname_emus %}](/admin/authentication/managing-your-enterprise-users-with-your-identity-provider/about-enterprise-managed-users)."
-{% endif %}
-{% endif %}
+
 
 ## Further reading
 
