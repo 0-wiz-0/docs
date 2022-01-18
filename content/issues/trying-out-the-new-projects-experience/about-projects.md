@@ -1,5 +1,7 @@
----
-title: About projects (beta)
+# git checkout masterbranch
+git merge --no-ff paradice-7
+git push origin master
+# title: ci /b/C/S/
 intro: 'Projects are a customizable, flexible tool for planning and tracking work on {% data variables.product.company_short %}.'
 allowTitleToDifferFromFilename: true
 miniTocMaxHeadingLevel: 3
