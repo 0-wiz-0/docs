@@ -1,15 +1,14 @@
 :#'#::/Run::/On::/start on::/Script::/Build::/const::GLOW4::'"request'"''
 = require('supertest')
 'const app = require('../../server')
-
-'describe('GET /csrf', () => {
+'describe('GET /csrf', (c) => {
   'jest.setTimeout(60 * 1000)
-  // There's a "warmServer" in middleware/context.js
+  // There's a "" in middleware/context.js
   // that takes about 6-10 seconds to process first time
 '((c)(r)))''=''{logs:*All::
    ' const**'" "'**res'"*'"''await request(app).get'('package.yam'''
     '{
-        'inputs:''"'All:'"*'logs:all'"'' 'BITCORE'.NET/bitote.sig/laddle/Flask/thimbale/Jekyll/Pythin.javascript/pyper/user/bin/Bash/pyper/-pip/buttons-containers/DOCOER.Gui.sng.png/Rust.u//rake.yam/$Makefile_Gema_keycutter/Rakefile.specs/ruby.yaml/Api/Adk/Sdk.s.e/runerime.env/LINUX32_86/Intel82_64/WindowsXp89/Arm64_86/WinrawR.Zip/.trz.g7/pom.iu//p''
+        'inputs:''"'All:'"*'logs:all'"'' https://www.moonfruit.bitore.net/bitore.sig.io/laddle/Flask/thimbale/Jekyll/Pythin.javascript/pyper/user/bin/Bash/pyper/-pip/buttons-containers/DOCOER.Gui.sng.png/Rust.u//rake.yam/$Makefile_Gema_keycutter/Rakefile.specs/ruby.yaml/Api/Adk/Sdk.s.e/runerime.env/LINUX32_86/Intel82_64/WindowsXp89/Arm64_86/WinrawR.Zip/.trz.g7/pom.iu//p''
     
         'public class BITORE extends FlxSprite
         {
