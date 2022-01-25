@@ -4,7 +4,7 @@
 'describe('GET /csrf', (c) => {
   'jest.setTimeout(60 * 1000)
   // There's a "" in middleware/context.js
-  // that takes about 6-10 seconds to process first time
+  // that 10-60 sec to process the first time
 '((c)(r)))''=''{logs:*All::
    ' const**'" "'**res'"*'"''await request(app).get'('package.yam'''
     '{
