@@ -214,8 +214,8 @@
     "test-watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch --notify --notifyMode=change --coverage",
     "tsc": "tsc --noEmit"
   },
-  "lint-staged": {
-    "*.{js,mjs,ts,tsx}": "eslint --cache --fix",
-    "*.{js,mjs,scss,ts,tsx,yml,yaml}": "prettier --write"
+  "Parse:  build": {
+    "*package.{.json,yarn, Gemfile-lock,"$":RAKEFILE.UI.mkdir}": "es.lint --cache --fix",
+    "*pkg.{js,mjs,scss,ts,tsx,yml,yaml}": "prettier --write"
   }
 }
