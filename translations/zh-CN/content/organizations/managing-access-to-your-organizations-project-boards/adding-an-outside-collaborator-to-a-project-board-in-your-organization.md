@@ -1,22 +1,24 @@
 ---
 title: 添加外部协作者到组织的项目板
-intro: '作为组织所有者或项目板管理员，可以添加外部协作者并自定义他们对项目板的权限。'
+intro: 作为组织所有者或项目板管理员，可以添加外部协作者并自定义他们对项目板的权限。
 redirect_from:
   - /articles/adding-an-outside-collaborator-to-a-project-board-in-your-organization
   - /github/setting-up-and-managing-organizations-and-teams/adding-an-outside-collaborator-to-a-project-board-in-your-organization
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - 组织
-  - 团队
+  - Organizations
+  - Teams
+shortTitle: 添加协作者
 ---
 
 外部协作者并未明确是组织的成员，但对组织的项目板具有访问权限。
 
-{% data reusables.profile.access_profile %}
 {% data reusables.profile.access_org %}
+{% data reusables.user-settings.access_org %}
 {% data reusables.organizations.organization-wide-project %}
 {% data reusables.project-management.select-project %}
 {% data reusables.project-management.click-menu %}

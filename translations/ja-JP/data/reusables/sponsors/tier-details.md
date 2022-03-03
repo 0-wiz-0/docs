@@ -1,3 +1,13 @@
-スポンサーが選択できる層として、最大で10個のスポンサーシップ層を作成できます。 Each tier has its own monthly or one-time payment amount in US dollars and benefits, such as receiving early access to new versions or being featured in the project's README. In addition, you can choose to enable tiers for custom amounts (monthly and one-time).
+You can create up to 10 one-time sponsorship tiers and 10 monthly tiers for sponsors to choose from. 各層には、それぞれの1回あるいは月次の支払い額が米ドルであり、カスタム金額の層を有効化することもできます。 加えて、カスタムの額（月額及び1回）の層の有効化を選択することもできます。
 
-Once you have published a tier, you can't edit the price of that tier. その代わりに、その層を止めて新しい層を作成できます。 Existing sponsors will remain on the retired tier until they change their sponsorship tier, cancel their sponsorship, or their one-time sponsorship period expires.
+各層の謝礼をカスタマイズできます。 たとえば、層の謝礼には以下のようなものがあるでしょう:
+- 新バージョンへの早期アクセス
+- README内にロゴもしくは名前
+- 週次のニュースレターの更新
+- スポンサーが喜ぶその他の謝礼
+
+{% data reusables.sponsors.sponsors-only-repos %} For more information, see "[Adding a repository to a sponsorship tier](/sponsors/receiving-sponsorships-through-github-sponsors/managing-your-sponsorship-tiers#adding-a-repository-to-a-sponsorship-tier)."
+
+You can include a welcome message with information about accessing or receiving rewards, which will be visible after payment and in the welcome email.
+
+層を公開すると、その層の金額は編集できなくなります。 その代わりに、その層を止めて新しい層を作成できます。 終了した層の既存のスポンサーは、スポンサーシップの層を変更するか、スポンサーシップをキャンセルするか、1回のスポンサーシップの期間が終了するまで、そのまま残ります。

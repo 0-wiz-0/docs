@@ -1,13 +1,18 @@
 ---
 title: Migrações
+intro: 'A API de migração permite que você faça a migração dos repositórios e usuários da sua organização de {% data variables.product.prodname_dotcom_the_website %} para {% data variables.product.prodname_ghe_server %}.'
 redirect_from:
   - /v3/migrations
   - /v3/migration
   - /v3/migration/migrations
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
+  ghes: '>3.3'
+  ghae: issue-6184
 topics:
-  - api
+  - API
+miniTocMaxHeadingLevel: 3
 ---
 
 {% for operation in currentRestOperations %}
@@ -16,7 +21,7 @@ topics:
 
 ## organização
 
-A API de migrações só está disponível para os proprietários de organizações autenticadas. For more information, see "[Permission levels for an organization](/organizations/managing-peoples-access-to-your-organization-with-roles/permission-levels-for-an-organization#permission-levels-for-an-organization)" and "[Other authentication methods](/rest/overview/other-authentication-methods)."
+A API de migrações só está disponível para os proprietários de organizações autenticadas. Para obter mais informações, consulte "[Funções em organização](/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization#permission-levels-for-an-organization)" e "[Outros métodos de autenticação](/rest/overview/other-authentication-methods)".
 
 {% data variables.migrations.organization_migrations_intro %}
 
@@ -24,6 +29,7 @@ A API de migrações só está disponível para os proprietários de organizaç�
   {% if operation.subcategory == 'orgs' %}{% include rest_operation %}{% endif %}
 {% endfor %}
 
+{% ifversion fpt or ghec %}
 ## Importações de código-fonte
 
 {% data variables.migrations.source_imports_intro %}
@@ -108,7 +114,7 @@ Um exemplo mais detalhado pode ser visto neste diagrama:
 {% for operation in currentRestOperations %}
   {% if operation.subcategory == 'source-imports' %}{% include rest_operation %}{% endif %}
 {% endfor %}
-
+{% endif %}
 ## Usuário
 
 A API de migrações do usuário só está disponível para proprietários de contas autenticadas. Para obter mais informações, consulte "[Outros métodos de autenticação](/rest/overview/other-authentication-methods)".

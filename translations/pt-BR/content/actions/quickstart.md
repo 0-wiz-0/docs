@@ -1,32 +1,34 @@
 ---
 title: Início rápido para GitHub Actions
-intro: 'Try out the features of {% data variables.product.prodname_actions %} in 5 minutes or less.'
+intro: 'Experimente as funcionalidades de {% data variables.product.prodname_actions %} em 5 minutos ou menos.'
 allowTitleToDifferFromFilename: true
 redirect_from:
   - /actions/getting-started-with-github-actions/starting-with-preconfigured-workflow-templates
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
-type: 'quick_start'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
+type: quick_start
 topics:
-  - 'Princípios básicos'
+  - Fundamentals
+shortTitle: QuickStart
 ---
 
 {% data reusables.actions.enterprise-beta %}
 {% data reusables.actions.enterprise-github-hosted-runners %}
-{% data reusables.actions.ae-beta %}
 
-### Introdução
+## Introdução
 
-You only need a {% data variables.product.prodname_dotcom %} repository to create and run a {% data variables.product.prodname_actions %} workflow. In this guide, you'll add a workflow that demonstrates some of the essential features of {% data variables.product.prodname_actions %}.
+Você precisa apenas de um repositório de {% data variables.product.prodname_dotcom %} para criar e executar um fluxo de trabalho de {% data variables.product.prodname_actions %}. Neste guia, você adicionará um fluxo de trabalho que demonstra algumas das funcionalidades essenciais de {% data variables.product.prodname_actions %}.
 
-The following example shows you how {% data variables.product.prodname_actions %} jobs can be automatically triggered, where they run, and how they can interact with the code in your repository.
+O exemplo a seguir mostra como os trabalhos de {% data variables.product.prodname_actions %} podem ser acionados automaticamente, onde são executados e como podem interagir com o código no seu repositório.
 
-### Criar o seu primeiro fluxo de trabalho
+## Criar o seu primeiro fluxo de trabalho
 
-1. Do seu repositório no {% data variables.product.prodname_dotcom %}, crie um novo arquivo no diretório `.github/workflows` denominado `github-actions-demo.yml`. Para obter mais informações, consulte "[Criar arquivos](/github/managing-files-in-a-repository/creating-new-files)".
-2. Copie o conteúdo de YAML a seguir para o arquivo `github-actions-demo.yml`:
+1. Crie um diretório `.github/workflows` no repositório {% data variables.product.prodname_dotcom %} se este diretório não existir.
+2. No diretório `.github/workflows`, crie um arquivo denominado `github-actions-demo.yml`. Para obter mais informações, consulte "[Criar arquivos](/github/managing-files-in-a-repository/creating-new-files)".
+3. Copie o conteúdo de YAML a seguir para o arquivo `github-actions-demo.yml`:
     {% raw %}
     ```yaml{:copy}
     name: GitHub Actions Demo
@@ -51,9 +53,9 @@ The following example shows you how {% data variables.product.prodname_actions %
     {% endraw %}
 3. Vá até o final da página e selecione **Criar um novo branch para este commit e iniciar um pull request**. Em seguida, para criar um pull request, clique em **Propor novo arquivo**. ![Arquivo do fluxo de trabalho do commit](/assets/images/help/repository/actions-quickstart-commit-new-file.png)
 
-Committing the workflow file to a branch in your repository triggers the `push` event and runs your workflow.
+Fazer commit do arquivo de fluxo de trabalho para um branch em seu repositório aciona o evento `push` e executa seu fluxo de trabalho.
 
-### Visualizar seus resultados do fluxo de trabalho
+## Visualizar os resultados do seu fluxo de trabalho
 
 {% data reusables.repositories.navigate-to-repo %}
 {% data reusables.repositories.actions-tab %}
@@ -63,27 +65,26 @@ Committing the workflow file to a branch in your repository triggers the `push` 
 1. Na lista de execuções do fluxo de trabalho, clique no nome da execução que você deseja visualizar.
 
    ![Nome da execução do fluxo de trabalho](/assets/images/help/repository/actions-quickstart-run-name.png)
-1. Under **Jobs** , click the **Explore-GitHub-Actions** job.
+1. Em **Trabalhos**, clique no trabalho **Explore-GitHub-Actions**.
 
-   ![Locate job](/assets/images/help/repository/actions-quickstart-job.png)
-1. The log shows you how each of the steps was processed. Expand any of the steps to view its details.
+   ![Localizar trabalho](/assets/images/help/repository/actions-quickstart-job.png)
+1. O registro mostra como cada uma das etapas foi processada. Expanda qualquer um dos passos para ver seus detalhes.
 
-   ![Example workflow results](/assets/images/help/repository/actions-quickstart-logs.png)
+   ![Exemplos de resultados do fluxo de trabalho](/assets/images/help/repository/actions-quickstart-logs.png)
 
-   For example, you can see the list of files in your repository: ![Example action detail](/assets/images/help/repository/actions-quickstart-log-detail.png)
+   Por exemplo, você pode ver a lista de arquivos no seu repositório: ![Exemplo do detalhe da ação](/assets/images/help/repository/actions-quickstart-log-detail.png)
 
-### Mais modelos de fluxo de trabalho
+## Mais fluxos de trabalho iniciais
 
 {% data reusables.actions.workflow-template-overview %}
 
-### Próximas etapas
+## Próximas etapas
 
-The example workflow you just added runs each time code is pushed to the branch, and shows you how {% data variables.product.prodname_actions %} can work with the contents of your repository. Mas este é apenas o início do que você pode fazer com {% data variables.product.prodname_actions %}:
+O exemplo do fluxo de trabalho que você acabou de adicionar é executado cada vez que o código for enviado para o branch e mostra como {% data variables.product.prodname_actions %} pode funcionar com o conteúdo do seu repositório. Mas este é apenas o início do que você pode fazer com {% data variables.product.prodname_actions %}:
 
 - O seu repositório pode conter vários fluxos de trabalho que ativam diferentes tarefas com base em diferentes eventos.
-- You can use a workflow to install software testing apps and have them automatically test your code on {% data variables.product.prodname_dotcom %}'s runners.
+- Você pode usar um fluxo de trabalho para instalar aplicativos de teste de software e fazer com que testem automaticamente seu código nos executores de {% data variables.product.prodname_dotcom %}.
 
 O {% data variables.product.prodname_actions %} pode ajudá-lo a automatizar quase todos os aspectos dos processos de desenvolvimento do seu aplicativo. Pronto para começar? Aqui estão alguns recursos úteis para dar seus próximos passos com {% data variables.product.prodname_actions %}:
 
 - "[Aprenda {% data variables.product.prodname_actions %}](/actions/learn-github-actions)" para obter um tutorial aprofundado.
-- "[Guias](/actions/guides)" para casos e exemplos específicos de uso.

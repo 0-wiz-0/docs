@@ -3,13 +3,18 @@ title: Primeiros passos com a segurança do código
 shortTitle: Introdução
 intro: 'Introdução à segurança de código com {% data variables.product.product_name %}.'
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.0'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - segurança
+  - Repositories
+  - Dependencies
+  - Vulnerabilities
+children:
+  - /github-security-features
+  - /securing-your-repository
+  - /securing-your-organization
+  - /adding-a-security-policy-to-your-repository
 ---
 
-### Índice
-
-{% link_in_list /about-securing-your-repository %}

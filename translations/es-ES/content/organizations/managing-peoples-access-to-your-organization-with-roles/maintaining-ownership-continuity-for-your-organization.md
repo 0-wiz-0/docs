@@ -6,26 +6,35 @@ redirect_from:
   - /articles/changing-a-persons-role-to-owner
   - /github/setting-up-and-managing-organizations-and-teams/changing-a-persons-role-to-owner
   - /github/setting-up-and-managing-organizations-and-teams/managing-ownership-continuity-for-your-organization
-permissions: Los propietarios de organizaciones pueden promover a cualquier miembro de una organización a propietario de la misma.
+  - /github/setting-up-and-managing-organizations-and-teams/maintaining-ownership-continuity-for-your-organization
+permissions: Organization owners can promote any member of an organization to an organization owner.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - organizations
-  - equipos
+  - Organizations
+  - Teams
+shortTitle: Mantener la continuidad de la propiedad
 ---
 
-### Acerca de mantener la continuidad de propiedad para tu organización
+## Acerca de mantener la continuidad de propiedad para tu organización
 
 {% data reusables.organizations.org-ownership-recommendation %}
 
 Los propietarios de una organización tienen acceso administrativo completo a la misma. {% data reusables.organizations.new-org-permissions-more-info %}
 
-### Designar un propietario de organización
+{% note %}
 
-{% data reusables.profile.access_profile %}
+**Nota**: Como propietario de la organización, puedes cambiar el rol de otros miembros de la organización para que sean propietarios. No puedes cambiar tu propio rol.
+
+{% endnote %}
+
+## Designar un propietario de organización
+
 {% data reusables.profile.access_org %}
+{% data reusables.user-settings.access_org %}
 {% data reusables.organizations.people %}
 4. Selecciona la persona o las personas que quisieras promover a propietario. ![Lista de miembros con dos miembros seleccionados](/assets/images/help/teams/list-of-members-selected-bulk.png)
 5. Arriba de la lista de miembros, usa el menú desplegable y haz clic en **Change role...** (Cambiar rol). ![Menú desplegable con la opción para eliminar miembros](/assets/images/help/teams/user-bulk-management-options.png)

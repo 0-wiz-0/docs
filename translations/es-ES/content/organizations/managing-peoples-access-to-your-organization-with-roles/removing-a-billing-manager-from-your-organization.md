@@ -5,11 +5,13 @@ redirect_from:
   - /articles/removing-a-billing-manager-from-your-organization
   - /github/setting-up-and-managing-organizations-and-teams/removing-a-billing-manager-from-your-organization
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
-  - organizations
-  - equipos
-  - facturación
+  - Organizations
+  - Teams
+  - Billing
+shortTitle: Eliminar gerente de facturación
 ---
 
 {% warning %}
@@ -18,8 +20,5 @@ topics:
 
 {% endwarning %}
 
-{% data reusables.profile.access_profile %}
-{% data reusables.profile.access_org %}
-{% data reusables.organizations.org_settings %}
-{% data reusables.organizations.billing %}
-5. En la lista de Gerentes de facturación, al lado del nombre de la persona que quieres eliminar, haz clic en {% octicon "x" aria-label="X symbol" %}. ![Eliminar gerente de facturación](/assets/images/help/billing/settings_billing_managers_remove_manager.png)
+{% data reusables.organizations.billing-settings %}
+1. En la lista de "Gerentes de facturación", debajo de "Adminsitración de la facturación", junto al nombre de la persona que quieres eliminar, haz clic en **Eliminar**. ![Eliminar gerente de facturación](/assets/images/help/billing/settings_billing_managers_remove_manager.png)

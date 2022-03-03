@@ -1,28 +1,30 @@
 ---
 title: 为仓库创建拉取请求模板
-intro: '将拉取请求模板添加到仓库后，项目贡献者会自动在拉取请求正文中看到模板的内容。'
+intro: 将拉取请求模板添加到仓库后，项目贡献者会自动在拉取请求正文中看到模板的内容。
 redirect_from:
   - /articles/creating-a-pull-request-template-for-your-repository
   - /github/building-a-strong-community/creating-a-pull-request-template-for-your-repository
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - 社区
+  - Community
+shortTitle: 创建 PR 模板
 ---
 
 更多信息请参阅“[关于议题和拉取请求模板](/articles/about-issue-and-pull-request-templates)”。
 
-您可以在任何支持的文件夹中创建 *PULL_REQUEST_TEMPLATE/* 子目录，以包含多个拉取请求模板，并使用 `template` 查询参数指定填充拉取请求正文的模板。 更多信息请参阅“[关于使用查询参数自动化议题和拉取请求](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)”。
+您可以在任何支持的文件夹中创建 *PULL_REQUEST_TEMPLATE/* 子目录，以包含多个拉取请求模板，并使用 `template` 查询参数指定填充拉取请求正文的模板。 For more information, see "[Using query parameters to create a pull request](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/using-query-parameters-to-create-a-pull-request)."
 
-{% if currentVersion == "free-pro-team@latest" or enterpriseServerVersions contains currentVersion %}
+{% ifversion fpt or ghes or ghec %}
 
-您可以为组织{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.19" %} 或用户帐户{% endif %} 创建默认的拉取请求模板。 更多信息请参阅“[创建默认社区健康文件](/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)”。
+您可以为组织{% ifversion fpt or ghes or ghec %}或用户帐户{% endif %}创建默认的拉取请求模板。 更多信息请参阅“[创建默认社区健康文件](/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)”。
 
 {% endif %}
 
-### 添加拉取请求模板
+## 添加拉取请求模板
 
 {% data reusables.repositories.navigate-to-repo %}
 {% data reusables.files.add-file %}
@@ -39,7 +41,7 @@ topics:
 {% data reusables.files.choose_commit_branch %} 模板可供协作者用来合并到仓库的默认分支。
 {% data reusables.files.propose_new_file %}
 
-### 延伸阅读
+## 延伸阅读
 
 - "[关于议题和拉取请求模板](/articles/about-issue-and-pull-request-templates)"
 - "[关于使用查询参数自动化议题和拉取请求](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)"

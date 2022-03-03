@@ -1,8 +1,8 @@
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_gt "enterprise-server@3.0" %}
+{% ifversion ghes > 3.0 or ghae %}
 
 {% note %}
 
-**Note:** The {% data variables.product.prodname_secret_scanning %} API is currently in beta and subject to change.
+**ノート:** {% data variables.product.prodname_secret_scanning %} APIは現在ベータで、変更されることがあります。
 
 {% endnote %}
 
