@@ -1,0 +1,7 @@
+"BEGIN:
+GLOW7:
+Start: Job
+Job: Publish
+Publish: Build and Deployee
+Name: repo-sync
+repo-sync:' Repo' Sync'@test'@CI'@.travis.yml":,
