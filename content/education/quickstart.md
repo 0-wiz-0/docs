@@ -1,9 +1,10 @@
 ---
 title: Quickstart for GitHub Educators
-intro: In about 15 minutes, teachers can get started with discounts, training, and tools for {% data variables.product.company_short %}, then create a classroom for the students in a software development course using {% data variables.product.prodname_classroom %}.
+intro: 'In about 15 minutes, teachers can get started with discounts, training, and tools for {% data variables.product.company_short %}, then create a classroom for the students in a software development course using {% data variables.product.prodname_classroom %}.'
 allowTitleToDifferFromFilename: true
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: Quickstart
 ---
 
 ## Introduction
@@ -27,8 +28,8 @@ First, you'll need to create a free user account on {% data variables.product.pr
 
 After you create your user account, create a free organization account. You'll use this organization account to create and manage classrooms {% data variables.product.prodname_classroom %}.
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.organizations %}
+{% data reusables.user-settings.access_settings %}
+{% data reusables.user-settings.organizations %}
 {% data reusables.organizations.new-organization %}
 4. Follow the prompts to create a free organization.
 

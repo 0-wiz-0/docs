@@ -36,26 +36,12 @@ upcoming_changes:
     criticality: 破壊的
     owner: tambling
   - 
-    location: Sponsorship.maintainer
-    description: '`maintainer`は削除されます。代わりに`Sponsorship.sponsorable`を使ってください。'
-    reason: '`Sponsorship.maintainer`は削除されます。'
-    date: '2020-04-01T00:00:00+00:00'
-    criticality: 破壊的
-    owner: antn
-  - 
     location: EnterprisePendingMemberInvitationEdge.isUnlicensed
     description: '`isUnlicensed`は削除されます。'
     reason: 保留中の全メンバーはライセンスを消費します
     date: '2020-07-01T00:00:00+00:00'
     criticality: 破壊的
     owner: BrentWheeldon
-  - 
-    location: EnterpriseOwnerInfo.pendingCollaborators
-    description: '`pendingCollaborators`は削除されます。代わりに`pendingCollaboratorInvitations`フィールドを使用してください。'
-    reason: リポジトリの招待は、招待者だけではなくメールにも関連づけられるようになりました。
-    date: '2020-10-01T00:00:00+00:00'
-    criticality: 破壊的
-    owner: jdennes
   - 
     location: Issue.timeline
     description: '`timeline`は削除されます。代わりにIssue.timelineItemsを使ってください。'
@@ -71,20 +57,6 @@ upcoming_changes:
     criticality: 破壊的
     owner: mikesea
   - 
-    location: RepositoryInvitationOrderField.INVITEE_LOGIN
-    description: '`INVITEE_LOGIN`は削除されます。'
-    reason: '`INVITEE_LOGIN` は有効なフィールド値ではなくなりました。リポジトリの招待は、招待者だけではなく、メールにも関連付けられるようになりました。'
-    date: '2020-10-01T00:00:00+00:00'
-    criticality: 破壊的
-    owner: jdennes
-  - 
-    location: Sponsorship.sponsor
-    description: '`sponsor`は削除されます。代わりに`Sponsorship.sponsorEntity`を使ってください。'
-    reason: '`Sponsorship.sponsor`は削除されます。'
-    date: '2020-10-01T00:00:00+00:00'
-    criticality: 破壊的
-    owner: nholden
-  - 
     location: EnterpriseMemberEdge.isUnlicensed
     description: '`isUnlicensed`は削除されます。'
     reason: すべてのメンバーはライセンスを消費します
@@ -95,13 +67,6 @@ upcoming_changes:
     location: EnterpriseOutsideCollaboratorEdge.isUnlicensed
     description: '`isUnlicensed`は削除されます。'
     reason: すべての外部コラボレータはライセンスを消費します
-    date: '2021-01-01T00:00:00+00:00'
-    criticality: 破壊的
-    owner: BrentWheeldon
-  - 
-    location: EnterprisePendingCollaboratorEdge.isUnlicensed
-    description: '`isUnlicensed`は削除されます。'
-    reason: すべての保留中のコラボレータはライセンスを消費します
     date: '2021-01-01T00:00:00+00:00'
     criticality: 破壊的
     owner: BrentWheeldon
@@ -119,3 +84,38 @@ upcoming_changes:
     date: '2021-06-21'
     criticality: 破壊的
     owner: reybard
+  - 
+    location: ReactionGroup.users
+    description: '`users`は削除されます。代わりに`reactors`フィールドを使ってください。'
+    reason: リアクターは、マネキン、ボット、Organizationになることができます。
+    date: '2021-10-01T00:00:00+00:00'
+    criticality: 破壊的
+    owner: synthead
+  - 
+    location: PullRequest.viewerCanOverrideMergeQueue
+    description: '`viewerCanOverrideMergeQueue` will be removed. Use PullRequest.viewerCanMergeAsAdmin instead.'
+    reason: '`viewer_can_override_merge_queue` will be removed'
+    date: '2022-04-01'
+    criticality: 破壊的
+    owner: cbeaman
+  - 
+    location: Repository.defaultMergeQueue
+    description: '`defaultMergeQueue` will be removed. Use `Repository.mergeQueue` instead.'
+    reason: '`defaultMergeQueue` will be removed.'
+    date: '2022-04-01'
+    criticality: 破壊的
+    owner: colinshum
+  - 
+    location: AddPullRequestToMergeQueueInput.branch
+    description: '`branch` will be removed.'
+    reason: PRs are added to the merge queue for the base branch, the `branch` argument is now a no-op
+    date: '2022-07-01T00:00:00+00:00'
+    criticality: 破壊的
+    owner: jhunschejones
+  - 
+    location: Enterprise.userAccounts
+    description: '`userAccounts` will be removed. Use the `Enterprise.members` field instead.'
+    reason: The `Enterprise.userAccounts` field is being removed.
+    date: '2022-07-01T00:00:00+00:00'
+    criticality: 破壊的
+    owner: jdennes
