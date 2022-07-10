@@ -2,13 +2,18 @@
 title: Installing GitHub Enterprise Server on XenServer
 intro: 'To install {% data variables.product.prodname_ghe_server %} on XenServer, you must deploy the {% data variables.product.prodname_ghe_server %} disk image to a XenServer host.'
 redirect_from:
-  - /enterprise/admin/guides/installation/installing-github-enterprise-on-xenserver/
+  - /enterprise/admin/guides/installation/installing-github-enterprise-on-xenserver
   - /enterprise/admin/installation/installing-github-enterprise-server-on-xenserver
   - /admin/installation/installing-github-enterprise-server-on-xenserver
 versions:
-  enterprise-server: '*'
+  ghes: <=3.2
+type: tutorial
 topics:
+  - Administrator
   - Enterprise
+  - Infrastructure
+  - Set up
+shortTitle: Install on XenServer
 ---
 
 {% note %}
@@ -29,10 +34,9 @@ topics:
 
 ## Downloading the {% data variables.product.prodname_ghe_server %} image
 
-{% data reusables.enterprise_installation.enterprise-download-procedural %}
 {% data reusables.enterprise_installation.download-license %}
 {% data reusables.enterprise_installation.download-appliance %}
-4. Select {% data variables.product.prodname_dotcom %} On-premises, then click **XenServer (VHD)**.
+4. Under "{% data variables.product.prodname_dotcom %} On-premises", select the "Select your hypervisor" dropdown menu and click **XenServer (VHD)**.
 5. To download your license file, click **Download license**.
 
 ## Creating the {% data variables.product.prodname_ghe_server %} instance
@@ -54,5 +58,5 @@ topics:
 
 ## Further reading
 
-- "[System overview](/enterprise/admin/guides/installation/system-overview)"{% if currentVersion ver_gt "enterprise-server@2.22" %}
+- "[System overview](/enterprise/admin/guides/installation/system-overview)"{% ifversion ghes %}
 - "[About upgrades to new releases](/admin/overview/about-upgrades-to-new-releases)"{% endif %}

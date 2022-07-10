@@ -6,11 +6,13 @@ redirect_from:
   - /enterprise/admin/user-management/continuous-integration-using-jenkins
   - /admin/user-management/continuous-integration-using-jenkins
 versions:
-  enterprise-server: '*'
+  ghes: '*'
+  ghae: '*'
 type: reference
 topics:
   - CI
   - Enterprise
+shortTitle: CI using Jenkins
 ---
 ## Requirements
 
