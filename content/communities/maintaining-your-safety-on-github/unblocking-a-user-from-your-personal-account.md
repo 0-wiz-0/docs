@@ -5,9 +5,11 @@ redirect_from:
   - /articles/unblocking-a-user-from-your-personal-account
   - /github/building-a-strong-community/unblocking-a-user-from-your-personal-account
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Community
+shortTitle: Unblock from your account
 ---
 
 When you unblock a user, they'll be able to invite you to be a collaborator to their repositories. If they [@mention you](/articles/basic-writing-and-formatting-syntax/#mentioning-people-and-teams) anywhere on GitHub, you'll receive notifications.
@@ -18,8 +20,8 @@ You can unblock a user in your account settings or from the user's profile page.
 
 ## Unblocking a user in your account settings
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.blocked_users %}
+{% data reusables.user-settings.access_settings %}
+{% data reusables.user-settings.blocked_users %}
 3. Under "Blocked users", next to the user you'd like to unblock, click **Unblock**.
 ![Unblock user button](/assets/images/help/organizations/org-unblock-user-button.png)
 

@@ -6,7 +6,7 @@ redirect_from:
   - /enterprise/admin/enterprise-management/about-cluster-nodes
   - /admin/enterprise-management/about-cluster-nodes
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: overview
 topics:
   - Clustering
@@ -21,7 +21,7 @@ Each node must have a root volume, as well as a separate data volume. These are 
 | :-: | :-: | :-: |
 | `job-server`,<br/>`memcache-server`,<br/>`web-server` | 14 GB | 1 GB |
 | `consul-server`,<br/>`mysql-server`,<br/>`redis-server` | 14 GB | 10 GB |
-| `git-server`,<br/>`metrics-server`,<br/>`pages-server`,<br/>`storage-server` | 7 GB | 10 GB |
+| `git-server`,<br/>`metrics-server`,<br/>`pages-server`,<br/>`storage-server` | 14 GB | 10 GB |
 | `elasticsearch-server` | 14 GB | 10 GB |
 
 ## Services required for clustering

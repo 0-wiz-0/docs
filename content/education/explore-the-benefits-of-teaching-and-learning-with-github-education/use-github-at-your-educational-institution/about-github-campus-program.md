@@ -8,7 +8,8 @@ redirect_from:
   - /education/explore-the-benefits-of-teaching-and-learning-with-github-education/about-github-education
   - /education/explore-the-benefits-of-teaching-and-learning-with-github-education/about-github-campus-program
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: GitHub Campus Program
 ---
 {% data variables.product.prodname_campus_program %} is a package of premium {% data variables.product.prodname_dotcom %} access for teaching-focused institutions that grant degrees, diplomas, or certificates. {% data variables.product.prodname_campus_program %} includes:
 
@@ -18,7 +19,7 @@ versions:
 - Exclusive access to new features, GitHub Education-specific swag, and free developer tools from {% data variables.product.prodname_dotcom %} partners
 - Automated access to premium {% data variables.product.prodname_education %} features, like the {% data variables.product.prodname_student_pack %}
 
-To read about how GitHub is used by educators, see [GitHub Education stories.](https://education.github.com/stories)
+To read about how GitHub is used by educators, see [GitHub Education stories](https://education.github.com/stories).
 
 ## {% data variables.product.prodname_campus_program %} terms and conditions
 
@@ -28,10 +29,10 @@ To read about how GitHub is used by educators, see [GitHub Education stories.](h
 
 - You must offer {% data variables.product.prodname_dotcom %} to all of your technical and academic departments and your school’s logo will be shared on the GitHub Education website as a {% data variables.product.prodname_campus_program %} Partner.
 
-- New organizations in your enterprise are automatically added to your enterprise account. To add organizations that existed before your school joined the {% data variables.product.prodname_campus_program %}, please contact [GitHub Education Support](https://support.github.com/contact/education). For more information about administrating your enterprise, see "[Setting up and managing your enterprise](/github/setting-up-and-managing-your-enterprise)." New organizations in your enterprise are automatically added to your enterprise account. To add organizations that existed before your school joined the {% data variables.product.prodname_campus_program %}, please contact GitHub Education Support. 
+- New organizations in your enterprise are automatically added to your enterprise account. To add organizations that existed before your school joined the {% data variables.product.prodname_campus_program %}, please contact [GitHub Education Support](https://support.github.com/contact/education). For more information about administrating your enterprise, see the [enterprise administrators documentation](/admin). New organizations in your enterprise are automatically added to your enterprise account. To add organizations that existed before your school joined the {% data variables.product.prodname_campus_program %}, please contact GitHub Education Support. 
 
 
-To read more about {% data variables.product.prodname_dotcom %}'s privacy practices, see ["Global Privacy Practices"](/github/site-policy/global-privacy-practices)
+To read more about {% data variables.product.prodname_dotcom %}'s privacy practices, see "[Global Privacy Practices](/github/site-policy/global-privacy-practices)."
 
 ## {% data variables.product.prodname_campus_program %} Application Eligibility
 
