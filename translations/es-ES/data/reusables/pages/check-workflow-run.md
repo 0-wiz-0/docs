@@ -1,8 +1,10 @@
-{% ifversion fpt %}
-1. Si tu sitio de {% data variables.product.prodname_pages %} se compiló desde un repositorio público, este se compila y despliega con un flujo de trabajo de {% data variables.product.prodname_actions %} a menos de que hayas configurado a tu sitio de {% data variables.product.prodname_pages %} para que utilice una herramienta de IC diferente. Para obtener más información sobre cómo ver el estado del flujo de trabajo, consulta la sección "[Ver el historial de ejecución del flujo de trabajo](/actions/monitoring-and-troubleshooting-workflows/viewing-workflow-run-history)".
+{% ifversion build-pages-with-actions %}
+1. Your {% data variables.product.prodname_pages %} site is built and deployed with a {% data variables.product.prodname_actions %} workflow. For more information, see "[Viewing workflow run history](/actions/monitoring-and-troubleshooting-workflows/viewing-workflow-run-history)".
 
-{% note %}
+  {% note %}
 
-{% data reusables.pages.pages-builds-with-github-actions-public-beta %}
+  **Note:** {% data variables.product.prodname_actions %} is free for public repositories. Usage charges apply for private and internal repositories that go beyond the monthly allotment of free minutes. Para obtener más información, consulta la sección "[Límites de uso, facturación y administración](/actions/reference/usage-limits-billing-and-administration)".
 
-{% endnote %}{% endif %}
+  {% endnote %}
+
+{% endif %}

@@ -20,7 +20,7 @@ miniTocMaxHeadingLevel: 3
 
 Las ejecuciones de flujo de trabajo a menudo reutilizan las mismas salidas o dependencias descargadas de una ejecución a otra. Por ejemplo, las herramientas de administración de paquetes y dependencias como Maven, Gradle, npm y Yarn mantienen una caché local de las dependencias descargadas.
 
-{% ifversion fpt or ghec %} Los jobs en los ejecutores hospedados en {% data variables.product.prodname_dotcom %} inician en un ambiente virtual limpio y deben descargar dependencias en cada ocasión, lo que provoca que una mayor utilización de red, un tiempo de ejecución más largo y un costo incrementado. {% endif %}Para ayudar a agilizar el tiempo que toma el recrear archivos como dependencias, {% data variables.product.prodname_dotcom %} puede almacenar los archivos en caché que utilizas frecuentemente en los flujos de trabajo.
+{% ifversion fpt or ghec %} Jobs on {% data variables.product.prodname_dotcom %}-hosted runners start in a clean runner image and must download dependencies each time, causing increased network utilization, longer runtime, and increased cost. {% endif %}Para ayudar a agilizar el tiempo que toma el recrear archivos como dependencias, {% data variables.product.prodname_dotcom %} puede almacenar los archivos en caché que utilizas frecuentemente en los flujos de trabajo.
 
 Para almacenar las dependencias en caché para un job, puedes utilizar la {% data variables.product.prodname_dotcom %}acción de [cache`` de ](https://github.com/actions/cache). La acción crea y restablece un caché identificado con una llave única. Como alternativa, si estás almacenando los siguientes administradores de paquetes en caché, el utilizar sus acciones respectivas de setup-* requiere de una configuración mínima y creará y restablecerá los cachés de dependencia para ti.
 
@@ -251,5 +251,7 @@ Para obtener más información sobre cómo cambiar las políticas del límite de
 ## Administrar los cachés
 
 Puedes utilizar la API de REST de {% data variables.product.product_name %} para administrar tus cachés. {% ifversion actions-cache-list-delete-apis %}Puedes utilizar la API para listar y borrar entradas de caché y ver tu uso de caché.{% elsif actions-cache-management %}En la actualidad, puedes utilizar la API para ver tu uso de caché y esperar más funcionalidades en las actualizaciones futuras.{% endif %} Para obtener más información, consulta la sección "[Caché de {% data variables.product.prodname_actions %}](/rest/actions/cache)" en la documentación de la API de REST.
+
+You can also install a {% data variables.product.prodname_cli %} extension to manage your caches from the command line. For more information about the extension, see [the extension documentation](https://github.com/actions/gh-actions-cache#readme). For more information about {% data variables.product.prodname_cli %} extensions, see "[Using GitHub CLI extensions](/github-cli/github-cli/using-github-cli-extensions)."
 
 {% endif %}
