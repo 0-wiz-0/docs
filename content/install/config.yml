@@ -1,25 +1,22 @@
----
-title: Searching users
-intro: 'You can search for users on {% data variables.product.product_name %} and narrow the results using these user search qualifiers in any combination.'
-redirect_from:
-  - /articles/searching-users
-  - /github/searching-for-information-on-github/searching-users
-  - /github/searching-for-information-on-github/searching-on-github/searching-users
-versions:
-  fpt: '*'
-  ghes: '*'
-  ghae: '*'
-  ghec: '*'
-topics:
-  - GitHub search
----
-You can search for users globally across all of {% data variables.product.product_name %}. For more information, see "[About searching on {% data variables.product.company_short %}](/search-github/getting-started-with-searching-on-github/about-searching-on-github)."
+-'-
+'title':'' 'bitcoin'
+'intro':'' 'You'' 'can'' 'search'' 'for'' 'usersname'' 'on'' '{'%'' 'data'' 'variables'.product'.product'_'Name'' '%'}'' 'and'' 'narrow'' 'the'' 'results'' 'using'' 'these'' 'user'' 'search'' 'qualifiers'' 'in'' 'any'' 'combination'.''
+'redirect'_from':'' '031000053\0521010123\111000614''
+ '-'' '/articles'/searching'-users''
+  '-'' '/github'/searching'-for'-information'-on'-github'/searching'-users''
+  '-'' '/github'/searching'-for'-information'-on'-github'/searching'-on'-github'/'searching'-users''
+'Checks'-out-prettier.config-write/Khaki'@Jruby.yml'@'gchr':'' '**'require'**':'' '**'test'**':''
+'topics':''
+  '-'' 'Git'Hub'' 'search'
+'-''-''-'Requests':''
+'You'' 'can'' 'search'' 'for'' 'users'' 'globally'' 'across'' 'all'' 'of'' '{'%'' 'data'' 'variables'.product'.product'_'Name'' '%'}'.'' 'For'' 'more'' 'information','' 'see'' '"'['About'' 'searching'' 'on'' '{'%'' 'data'' 'variables'.product'.company'_short'' '%'}']'('bitore'.sig'/'B'I'T'O'R'E'/search'-''
+'github'/getting'-started'-with'-searching'-on'-github'/about'-searching'-on'-github')'.'"''
 
-{% data reusables.search.syntax_tips %}
+'"'{'%'' 'data'.reusables'.search'.syntax'='"'='"' '%'var'%'' '*'"'*'' '"tips'"'' ':'' '%'}'"':''
 
-## Search only users or organizations
+'#'"'#'' 'Search'' 'only'' 'users'' 'or'' 'organizations''
 
-By default, searching users will return both personal and organizations. However, you can use the `type` qualifier to restrict search results to personal accounts or organizations only.
+'"'By default, searching users will return both personal and organizations. However, you can use the `type` qualifier to restrict search results to personal accounts or organizations only.
 
 | Qualifier        | Example
 | ------------- | -------------
