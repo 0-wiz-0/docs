@@ -1,41 +1,45 @@
 ---
-title: Reordering commits
-intro: "You can use {% data variables.product.prodname_desktop %} to reorder commits in your branch's history."
+title: Reordenando commits
+intro: 'Você pode usar {% data variables.product.prodname_desktop %} para reordenar commits no histórico do seu branch.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 5f68af5f2798e6780a91515886130f2b3ca7e6aa
+ms.sourcegitcommit: 80842b4e4c500daa051eff0ccd7cde91c2d4bb36
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/12/2022
+ms.locfileid: '145095172'
 ---
+## Sobre reordenar um commit
 
-## About reordering a commit
+A reordenação permite que você altere o seu histórico de commit para fornecer um progresso mais significativo de commits. {% data variables.product.prodname_desktop %} permite que você arraste e solte commits no histórico do seu branch para reordená-los.
 
-Reordering allows you to alter your commit history to provide a more meaningful progression of commits. {% data variables.product.prodname_desktop %} allows you to drag-and-drop commits in your branch's history to reorder them.
-
-## Reordering a commit
+## Reordenando um commit
 
 {% data reusables.desktop.current-branch-menu %}
-2. In the list of branches, click the branch with the commits that you want to reorder.
+2. Na lista de branches, clique no branch com os commits que você deseja reordenar.
 {% data reusables.desktop.history-tab %}
-4. Drag the commit that you want to reorder and drop it between two adjoining commits.
-  ![reorder drag and drop](/assets/images/help/desktop/reorder-drag-and-drop.png)
-While the application reorders the commits, a **Reorder in process** dialog indicates the progress of the change.
+4. Arraste o commit que você deseja reordenar e solte-o entre dois commits adjacentes.
+  ![reordenar arrastar e soltar](/assets/images/help/desktop/reorder-drag-and-drop.png) Enquanto o aplicativo reordena os commits, uma caixa de diálogo **Reordenação em processo** indica o andamento da alteração.
 
-## Error messages when reordering commits
+## Mensagens de erro ao reordenar commits
 
-When you reorder commits, you may see one of the following notifications or error messages.
+Ao reordenar os commits, você pode ver uma das seguintes notificações ou mensagens de erro.
 
-* A notification states that the requested change to the branch will require a force push to update the remote branch. This is shown when the commits that you reordered were previously pushed to the remote branch. Force pushing alters the commit history of the branch and will affect other collaborators who are working in that branch.  Select **Begin reorder** to start the reorder, and then click **Force push origin** to push your changes.
+* Uma notificação afirma que a alteração solicitada no branch exigirá um push forçado para atualizar o branch remoto. Isto é mostrado quando os commits que você reordenou anteriormente foram enviados por push para o branch remoto. O push forçado altera o histórico de commit do branch e afetará outros colaboradores que estão trabalhando nesse branch.  Selecione **Iniciar reordenação** para iniciar a reordenação e clique em **Forçar a origem do push** para efetuar push das alterações.
 
-  ![reorder force push dialog](/assets/images/help/desktop/reorder-force-push-dialog.png)
+  ![reordenar o diálogo do push forçado](/assets/images/help/desktop/reorder-force-push-dialog.png)
 
-* An error states that the reorder failed because there is a merge commit among the reordered commits.
+* Um erro afirma que ocorreu uma falha ao reordenar porque há um commit de merge entre os commits reordenados.
 
-  ![reorder merge commit dialog](/assets/images/help/desktop/reorder-merge-commit-dialog.png)
+  ![reordenar diálogo de confirmação de merge](/assets/images/help/desktop/reorder-merge-commit-dialog.png)
 
-* A notification is shown indicating that there are uncommitted changes present on your current branch. Select **Stash Changes and Continue** to store the changes and proceed, or select **Close** to dismiss the message and commit the changes. When there are no longer any uncommitted changes, you can reorder your commits.
+* Uma notificação é exibida indicando que há alterações não confirmadas presentes no seu branch atual. Selecione **Fazer Stash das Alterações e Continuar** para armazenar as alterações e continuar ou **Fechar** para ignorar a mensagem e fazer commit das alterações. Quando não houver mais alterações sem commit, você poderá reordenar seus commits.
 
-  ![reorder stash dialog](/assets/images/help/desktop/reorder-stash-dialog.png)
+  ![reordenar diálogo de stash](/assets/images/help/desktop/reorder-stash-dialog.png)
 
-* A message states that there are merge conflicts that you must resolve before the application can continue reordering commits on your branch.
-    1. Click **View conflicts** to see the conflicts.
-    {% data reusables.desktop.resolve-merge-conflicts %}
-
-  ![reorder resolve conflicts message](/assets/images/help/desktop/reorder-resolve-conflicts.png)
+* Uma mensagem afirma que existem conflitos de merge que você deve resolver antes que o aplicativo possa continuar reordenando os commits no seu branch.
+    1. Clique em **Exibir conflitos** para ver os conflitos.
+      ![mensagem resolver conflitos de reordenação](/assets/images/help/desktop/reorder-resolve-conflicts.png) {% data reusables.desktop.resolve-merge-conflicts %}
+   3. Quando todos os conflitos forem resolvidos, você poderá reordenar os seus commits.
+  

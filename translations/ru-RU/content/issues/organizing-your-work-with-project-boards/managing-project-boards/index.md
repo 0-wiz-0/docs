@@ -1,11 +1,9 @@
 ---
-title: Managing project boards
-shortTitle: Managing project boards
-intro: Learn how to create and manage project boards
+title: 'Управление {% data variables.product.prodname_projects_v1 %}'
+shortTitle: 'Managing {% data variables.product.prodname_projects_v1 %}'
+intro: 'Узнайте, как создавать {% data variables.projects.projects_v1_boards %} и управлять ими'
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  feature: projects-v1
 topics:
   - Issues
   - Projects
@@ -23,5 +21,12 @@ children:
   - /deleting-a-project-board
 redirect_from:
   - /github/managing-your-work-on-github/managing-project-boards
+allowTitleToDifferFromFilename: true
+ms.openlocfilehash: b4034bc9c9ffd29709ac491c6729787c958dd50b
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148109568'
 ---
-
+{% data reusables.projects.project_boards_old %}

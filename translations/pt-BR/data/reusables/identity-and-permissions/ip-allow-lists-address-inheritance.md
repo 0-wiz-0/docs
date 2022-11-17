@@ -1,3 +1,11 @@
-If you select **Enable IP allow list configuration for installed GitHub Apps** in your allow list settings, then IP addresses from installed {% data variables.product.prodname_github_apps %} are added to your allow list. This happens irrespective of whether your allow list is currently enabled. If you install a {% data variables.product.prodname_github_app %} and then the creator of that application changes the addresses in its allow list, your allow list is automatically updated with those changes.
+---
+ms.openlocfilehash: ce7aa40d4312947c099afb8c1a8b88bacd021847
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: "145093313"
+---
+Se você selecionar **Habilitar a configuração de lista de permissões de IP para aplicativos GitHub instalados** em suas configurações de lista de permissões, os endereços IP dos dados {% data variables.product.prodname_github_apps %} serão adicionados a sua lista de permissões. Isso acontece independentemente de a sua lista de permissão estar habilitada. Se você instalar um {% data variables.product.prodname_github_app %}, o criador desse aplicativo muda o endereço na sua lista de permissões e esta é atualizada automaticamente com essas alterações.
 
-You can identify the IP addresses that have been automatically added from {% data variables.product.prodname_github_apps %} by reviewing the description field. The description for these IP addresses is: "Managed by the NAME GitHub App." Unlike addresses you add manually, you cannot edit, delete, or disable IP addresses that are automatically added from {% data variables.product.prodname_github_apps %}.
+Você pode identificar os endereços IP que foram automaticamente adicionados de {% data variables.product.prodname_github_apps %} revisando o campo de descrição. A descrição para esses endereços IP é: "Gerenciado pelo NOME do aplicativo GitHub". Ao contrário dos endereços adicionados manualmente, você não pode editar, excluir ou desabilitar endereços IP adicionados automaticamente a partir de {% data variables.product.prodname_github_apps %}.

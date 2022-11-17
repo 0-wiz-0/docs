@@ -1,68 +1,90 @@
 ---
-title: Evacuating a cluster node
-intro: You can evacuate data services on a cluster node.
+title: Эвакуация узла кластера
+intro: Службы данных можно эвакуировать на узел кластера.
 redirect_from:
   - /enterprise/admin/clustering/evacuating-a-cluster-node
   - /enterprise/admin/enterprise-management/evacuating-a-cluster-node
   - /admin/enterprise-management/evacuating-a-cluster-node
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Clustering
   - Enterprise
+ms.openlocfilehash: 9f98059b0ff0fbc26027aeb6c2154033ce54a1fb
+ms.sourcegitcommit: 5f40f9341dd1e953f4be8d1642f219e628e00cc8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/04/2022
+ms.locfileid: '148009038'
 ---
+## Сведения об эвакуации узлов кластера
 
-If you only have three nodes in your data services cluster, you can't evacuate the nodes, because `ghe-spokes` doesn’t have another place to make a copy. If you have four or more, `ghe-spokes` will move all the repositories off of the evacuated node.
+В конфигурации кластера для {% data variables.product.product_name %} можно эвакуировать узел перед отключением узла от сети. Эвакуация гарантирует, что остальные узлы на уровне служб будут содержать все данные службы. Например, при замене виртуальной машины для узла в кластере необходимо сначала эвакуировать узел.
 
-If you're taking a node offline that has any data services (like git, pages, or storage) evacuate each node before taking the node offline.
+Дополнительные сведения об узлах и уровнях служб для {% data variables.product.prodname_ghe_server %}см. в разделе [Сведения об узлах кластера](/admin/enterprise-management/configuring-clustering/about-cluster-nodes).
 
-1. Find the `uuid` of the node in with the `ghe-config`command.
+{% warning %}
 
-    ```
-    $ ghe-config cluster._hostname_.uuid
-    ```
+**Предупреждения**
 
-2. You'll need to monitor the status of your node while the data is being copied. Ideally, the node shouldn't be taken offline until the copying is complete. To monitor the status of your node, run any of the following commands:
+- Чтобы избежать потери данных, {% data variables.product.company_short %} настоятельно рекомендует эвакуировать узел перед его отключением от сети. 
 
-    For Git
-    ```
-    ghe-spokes evac-status
-    ```
-    For {% data variables.product.prodname_pages %}
-    {% raw %}
-    ```
-    echo "select count(*) from pages_replicas where host = 'pages-server-<uuid>'" | ghe-dbconsole -y
-    ```
-    {% endraw %}
-    For storage
-    ```
-    ghe-storage evacuation-status
-    ```
+- Если у вас есть только три узла в кластере служб данных, вы не сможете эвакуировать узлы, поскольку в `ghe-spokes` нет другого места для создания копий. Если у вас четыре или более, `ghe-spokes` переместит все репозитории из эвакуированного узла.
 
-3. After the copying is complete, you can evacuate the storage service. Run any of the following commands:
+{% endwarning %}
 
-    For Git
-    {% raw %}
-    ```
-    ghe-spokes server evacuate git-server-<uuid>
-    ```
-    {% endraw %}
-    For {% data variables.product.prodname_pages %}
-    {% raw %}
-    ```
-    ghe-dpages evacuate pages-server-<uuid>
-    ```
-    {% endraw %}
-    For storage, take the node offline
-    {% raw %}
-    ```
-    ghe-storage offline storage-server-<uuid>
-    ```
-    {% endraw %}
-      then evacuate
-    {% raw %}
-    ```
-    ghe-storage evacuate storage-server-<uuid>
-    ```
-    {% endraw %}
+## Эвакуация узла кластера
+
+Если вы планируете перевести узел в автономный режим, но он при этом выполняет роль службы данных, например `git-server`, `pages-server`или `storage-server`, необходимо эвакуировать каждый узел, прежде чем отключить узел от сети.
+
+{% data reusables.enterprise_clustering.ssh-to-a-node %}
+1. Чтобы найти UUID узла для эвакуации, выполните следующую команду. Замените `HOSTNAME` именем узла.
+
+   ```shell
+   $ ghe-config cluster.HOSTNAME.uuid
+   ```
+1. Отслеживайте состояние узла, пока {% data variables.product.product_name %} копирует данные. Не отключайте узел от сети до завершения копирования. Чтобы отслеживать состояние узла, выполните любую из следующих команд, заменив UUID `UUID` в шаге 2.
+
+   - **Git**.
+
+     ```shell
+     $ ghe-spokes evac-status git-server-UUID
+     ```
+
+   - **{% data variables.product.prodname_pages %}** :
+
+     ```shell
+     $ echo "select count(*) from pages_replicas where host = 'pages-server-UUID'" | ghe-dbconsole -y
+     ```
+
+   - **Хранилище**.
+
+     ```shell
+     $ ghe-storage evacuation-status storage-server-UUID
+     ```
+1. После завершения копирования можно эвакуировать узел, выполнив любую из следующих команд, заменив UUID `UUID` из шага 2.
+
+   - **Git**.
+
+     ```shell
+     $ ghe-spokes server evacuate git-server-UUID \'REASON FOR EVACUATION\'
+     ```
+
+   - **{% data variables.product.prodname_pages %}** :
+
+     ```shell
+     $ ghe-dpages evacuate pages-server-UUID
+     ```
+
+   - Для **хранилища** сначала переведите узел в автономный режим, выполнив следующую команду.
+
+     ```shell
+     $ ghe-storage offline storage-server-UUID
+     ```
+
+     После отключения узла хранилища можно эвакуировать узел, выполнив следующую команду.
+
+     ```shell
+     $ ghe-storage evacuate storage-server-UUID
+     ```

@@ -1,47 +1,53 @@
 ---
-title: About milestones
-intro: You can use milestones to track progress on groups of issues or pull requests in a repository.
+title: Сведения о вехах
+intro: Вы можете использовать веху для отслеживания хода выполнения в группах проблем или запросов на вытягивание в репозитории.
 redirect_from:
   - /github/managing-your-work-on-github/tracking-the-progress-of-your-work-with-milestones/about-milestones
   - /articles/about-milestones
   - /github/managing-your-work-on-github/about-milestones
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Pull requests
+ms.openlocfilehash: eab1d31cb7c7099d047306348afed01c3cfd9817
+ms.sourcegitcommit: 80842b4e4c500daa051eff0ccd7cde91c2d4bb36
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/12/2022
+ms.locfileid: '145135305'
 ---
+При [создании вехи](/articles/creating-and-editing-milestones-for-issues-and-pull-requests) ее можно [связать с проблемами и запросами на вытягивание](/articles/associating-milestones-with-issues-and-pull-requests).
 
-When you [create a milestone](/articles/creating-and-editing-milestones-for-issues-and-pull-requests), you can [associate it with issues and pull requests](/articles/associating-milestones-with-issues-and-pull-requests).
+Для более эффективного управления проектом можно [просмотреть сведения о вехе](/articles/viewing-your-milestone-s-progress). На странице вехи можно просмотреть следующие сведения:
 
-To better manage your project, you can [view details about your milestone](/articles/viewing-your-milestone-s-progress). From the milestone page, you can see:
+- предоставленное пользователем описание вехи, которое может включать общие сведения о проекте, а также данные о командах и запланированных датах выполнения;
+- дата выполнения вехи;
+- процент выполнения вехи;
+- количество открытых и закрытых проблем и запросов на вытягивание, связанных с вехой;
+- список открытых и закрытых проблем и запросов на вытягивание, связанных с вехой.
 
-- A user-provided description of the milestone, which can include information like a project overview, relevant teams, and projected due dates
-- The milestone's due date
-- The milestone's completion percentage
-- The number of open and closed issues and pull requests associated with the milestone
-- A list of the open and closed issues and pull requests associated with the milestone
+Кроме того, на странице вехи можно изменить саму веху и создать новые проблемы, которые по умолчанию будут связываться с ней.
 
-Additionally, you can edit the milestone from the milestone page and create new issues that are, by default, associated with the milestone.
+![Страница вехи](/assets/images/help/issues/milestone-info-page.png)
 
-![Milestone page](/assets/images/help/issues/milestone-info-page.png)
+## Определение приоритетов для проблем и запросов на вытягивание в вехах
 
-### Prioritizing issues and pull requests in milestones
-
-You can prioritize open issues and pull requests in a milestone by clicking to the left of an issue or pull request's checkbox, dragging it to a new location, and dropping it.
+Вы можете определить приоритеты для открытых проблем и запросов на вытягивание в вехе. Для этого нужно щелкнуть слева от флажка проблемы или запроса на вытягивание и перетащить соответствующий элемент в нужное место.
 
 {% note %}
 
-**Note:** If there are more than 500 open issues in a milestone, you won't be able to prioritize issues.
+**Примечание**. Если веха содержит более 500 открытых проблем, определять приоритеты для них нельзя.
 
 {% endnote %}
 
-![Reordered milestone](/assets/images/help/issues/milestone-reordered.gif)
+![Переупорядоченная веха](/assets/images/help/issues/milestone-reordered.gif)
 
-### Дополнительная литература
+## Дополнительные материалы
 
-- "[Creating and editing milestones for issues and pull requests](/articles/creating-and-editing-milestones-for-issues-and-pull-requests)"
-- "[Associating milestones with issues and pull requests](/articles/associating-milestones-with-issues-and-pull-requests)"
-- "[Filtering issues and pull requests by milestone](/articles/filtering-issues-and-pull-requests-by-milestone)"
-- "[Viewing your milestone's progress](/articles/viewing-your-milestone-s-progress)"
+- [Создание и изменение вех для проблем и запросов на вытягивание](/articles/creating-and-editing-milestones-for-issues-and-pull-requests)
+- [Связывание вех с проблемами и запросами на вытягивание](/articles/associating-milestones-with-issues-and-pull-requests)
+- [Фильтрация проблем и запросов на вытягивание по вехам](/articles/filtering-issues-and-pull-requests-by-milestone)
+- [Просмотр хода выполнения для вехи](/articles/viewing-your-milestone-s-progress)

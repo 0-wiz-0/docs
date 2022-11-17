@@ -1,65 +1,71 @@
 ---
-title: About GitHub Marketplace
-intro: 'Learn about {% data variables.product.prodname_marketplace %} where you can share your apps and actions publicly with all {% data variables.product.product_name %} users.'
+title: Сведения о GitHub Marketplace
+intro: 'Узнайте о {% data variables.product.prodname_marketplace %}, где можно предоставлять общий доступ к приложениям и действиям для всех пользователей {% data variables.product.product_name %}.'
 redirect_from:
-  - /apps/marketplace/getting-started/
+  - /apps/marketplace/getting-started
   - /marketplace/getting-started
   - /developers/github-marketplace/about-github-marketplace
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+ms.openlocfilehash: 5a722d35fb74607b9200a1fe30d804df44330cea
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145089730'
 ---
+[{% data variables.product.prodname_marketplace %}](https://github.com/marketplace) позволяет находить разработчиков, которые хотят расширить и улучшить свои рабочие процессы {% data variables.product.prodname_dotcom %}. Вы можете предлагать разработчикам бесплатные и платные средства в {% data variables.product.prodname_marketplace %}. В {% data variables.product.prodname_marketplace %} разработчикам предлагаются два типа средств: {% data variables.product.prodname_actions %} и приложения. Для добавления каждого средства в {% data variables.product.prodname_marketplace %} требуется особая процедура.
 
-[{% data variables.product.prodname_marketplace %}](https://github.com/marketplace) connects you to developers who want to extend and improve their {% data variables.product.prodname_dotcom %} workflows. You can list free and paid tools for developers to use in {% data variables.product.prodname_marketplace %}. {% data variables.product.prodname_marketplace %} offers developers two types of tools: {% data variables.product.prodname_actions %} and Apps, and each tool requires different steps for adding it to {% data variables.product.prodname_marketplace %}.
-
-### GitHub Actions
+## Действия GitHub
 
 {% data reusables.actions.actions-not-verified %}
 
-To learn about publishing {% data variables.product.prodname_actions %} in {% data variables.product.prodname_marketplace %}, see "[Publishing actions in GitHub Marketplace](/actions/creating-actions/publishing-actions-in-github-marketplace)."
+Сведения о публикации {% data variables.product.prodname_actions %} в {% data variables.product.prodname_marketplace %} см. в разделе [Публикация действий в GitHub Marketplace](/actions/creating-actions/publishing-actions-in-github-marketplace).
 
-### Приложения
+## Приложения
 
-Anyone can share their apps with other users for free on {% data variables.product.prodname_marketplace %} but only apps owned by organizations can sell their app.
+Любой пользователь может бесплатно делиться своими приложениями с другими людьми на {% data variables.product.prodname_marketplace %}, но продавать можно только приложения, принадлежащие организациям. 
 
-To publish paid plans for your app and display a marketplace badge, you must complete the publisher verification process. For more information, see "[Applying for publisher verification for your organization](/developers/github-marketplace/applying-for-publisher-verification-for-your-organization)" or "[Requirements for listing an app](/developers/github-marketplace/requirements-for-listing-an-app)."
+Для публикации платных планов приложения и получения эмблемы Marketplace необходимо пройти процедуру подтверждения издателя. Дополнительные сведения см. в разделе [Подача заявки на проверку издателя для организации](/developers/github-marketplace/applying-for-publisher-verification-for-your-organization) или [Требования к описанию приложения](/developers/github-marketplace/requirements-for-listing-an-app).
 
-Once the organization meets the requirements, someone with owner permissions in the organization can publish paid plans for any of their apps. Each app with a paid plan also goes through a financial onboarding process to enable payments.
+Если организация соответствует требованиям, ее сотрудник с разрешениями владельца может публиковать платные планы для любых своих приложений. Каждое приложение с платным планом также проходит процедуру подключения для обеспечения возможности оплаты.
 
-To publish apps with free plans, you only need to meet the general requirements for listing any app. For more information, see "[Requirements for all GitHub Marketplace listings](/developers/github-marketplace/requirements-for-listing-an-app#requirements-for-all-github-marketplace-listings)."
+Для публикации приложений с бесплатными планами необходимо соответствовать общим требованиям к публикации приложений. Дополнительные сведения см. в разделе [Требования ко всем публикациям в GitHub Marketplace](/developers/github-marketplace/requirements-for-listing-an-app#requirements-for-all-github-marketplace-listings).
 
-#### New to apps?
+### Нет опыта работы с приложениями?
 
-If you're interested in creating an app for {% data variables.product.prodname_marketplace %}, but you're new to {% data variables.product.prodname_github_apps %} or {% data variables.product.prodname_oauth_app %}s, see "[Building {% data variables.product.prodname_github_apps %}](/developers/apps/building-github-apps)" or "[Building {% data variables.product.prodname_oauth_app %}s](/developers/apps/building-oauth-apps)."
+Если вы хотите создать приложение для {% data variables.product.prodname_marketplace %}, но не знакомы с {% data variables.product.prodname_github_apps %} или {% data variables.product.prodname_oauth_apps %}, см. раздел [Создание {% data variables.product.prodname_github_apps %}](/developers/apps/building-github-apps) или [Создание {% data variables.product.prodname_oauth_apps %}](/developers/apps/building-oauth-apps).
 
-#### GitHub Apps vs. OAuth Apps
+### {% data variables.product.prodname_github_apps %} и {% data variables.product.prodname_oauth_apps %}
 
-{% data reusables.marketplace.github_apps_preferred %}, although you can list both OAuth and {% data variables.product.prodname_github_app %}s in {% data variables.product.prodname_marketplace %}. For more information, see "[Differences between {% data variables.product.prodname_github_apps %} and {% data variables.product.prodname_oauth_app %}s](/apps/differences-between-apps/)" and "[Migrating {% data variables.product.prodname_oauth_app %}s to {% data variables.product.prodname_github_apps %}](/apps/migrating-oauth-apps-to-github-apps/)."
+{% data reusables.marketplace.github_apps_preferred %}, но в {% data variables.product.prodname_marketplace %} можно размещать как приложения OAuth, так и {% data variables.product.prodname_github_apps %}. Дополнительные сведения см. в разделах [Различия между {% data variables.product.prodname_github_apps %} и {% data variables.product.prodname_oauth_apps %}](/apps/differences-between-apps/) и [Перенос {% data variables.product.prodname_oauth_apps %} в {% data variables.product.prodname_github_apps %}](/apps/migrating-oauth-apps-to-github-apps/).
 
-### Publishing an app to {% data variables.product.prodname_marketplace %} overview
+## Обзор публикации приложения в {% data variables.product.prodname_marketplace %}
 
-When you have finished creating your app, you can share it with other users by publishing it to {% data variables.product.prodname_marketplace %}. In summary, the process is:
+Завершив создание приложения, вы можете поделиться им с другими пользователями, опубликовав его в {% data variables.product.prodname_marketplace %}. В целом процесс выглядит так:
 
-1. Review your app carefully to ensure that it will behave as expected in other repositories and that it follows best practice guidelines. For more information, see "[Security best practices for apps](/developers/github-marketplace/security-best-practices-for-apps)" and "[Requirements for listing an app](/developers/github-marketplace/requirements-for-listing-an-app#best-practice-for-customer-experience)."
+1. Внимательно проверьте приложение: оно должно правильно работать в других репозиториях и соответствовать рекомендациям. Дополнительные сведения см. в разделах [Рекомендации по обеспечению безопасности приложений](/developers/github-marketplace/security-best-practices-for-apps) и [Требования к описанию приложения](/developers/github-marketplace/requirements-for-listing-an-app#best-practice-for-customer-experience).
 
-1. Add webhook events to the app to track user billing requests. For more information about the {% data variables.product.prodname_marketplace %} API, webhook events, and billing requests, see "[Using the {% data variables.product.prodname_marketplace %} API in your app](/developers/github-marketplace/using-the-github-marketplace-api-in-your-app)."
+1. Добавьте в приложение события веб-перехватчика для отслеживания пользовательских запросов на выставление счетов. Дополнительные сведения об API {% data variables.product.prodname_marketplace %}, событиях веб-перехватчиков и запросах на выставление счетов см. в разделе [Использование API {% data variables.product.prodname_marketplace %} в приложении](/developers/github-marketplace/using-the-github-marketplace-api-in-your-app).
 
-1. Create a draft {% data variables.product.prodname_marketplace %} listing. For more information, see "[Drafting a listing for your app](/developers/github-marketplace/drafting-a-listing-for-your-app)."
+1. Создайте черновик профиля в {% data variables.product.prodname_marketplace %}. Дополнительные сведения см. в разделе [Создание черновика размещения для приложения](/developers/github-marketplace/drafting-a-listing-for-your-app).
 
-1. Add a pricing plan. For more information, see "[Setting pricing plans for your listing](/developers/github-marketplace/setting-pricing-plans-for-your-listing)."
+1. Добавьте ценовой план. Дополнительные сведения см. в статье [Настройка тарифных планов для описания](/developers/github-marketplace/setting-pricing-plans-for-your-listing).
 
-1. Read and accept the terms of the "[{% data variables.product.prodname_marketplace %} Developer Agreement](/articles/github-marketplace-developer-agreement/)."
+1. Прочтите и примите условия [Соглашения {% data variables.product.prodname_marketplace %} для разработчиков](/free-pro-team@latest/github/site-policy/github-marketplace-developer-agreement).
 
-1. Submit your listing for publication in {% data variables.product.prodname_marketplace %}. For more information, see "[Submitting your listing for publication](/developers/github-marketplace/submitting-your-listing-for-publication)."
+1. Отправьте профиль на публикацию в {% data variables.product.prodname_marketplace %}. Дополнительные сведения см. в разделе [Отправка описания для публикации](/developers/github-marketplace/submitting-your-listing-for-publication).
 
-### Seeing how your app is performing
+## Просмотр показателей приложения
 
-You can access metrics and transactions for your listing. Дополнительные сведения см. в:
+Вы можете просматривать метрики и транзакции для профиля. Дополнительные сведения см. в разделе:
 
-- "[Viewing metrics for your listing](/developers/github-marketplace/viewing-metrics-for-your-listing)"
-- "[Viewing transactions for your listing](/developers/github-marketplace/viewing-transactions-for-your-listing)"
+- [Просмотр метрики для вашего вывода списка](/developers/github-marketplace/viewing-metrics-for-your-listing)
+- [Просмотр транзакций для профиля](/developers/github-marketplace/viewing-transactions-for-your-listing)
 
-### Contacting Support
+## Обращение в службу поддержки 
 
-If you have questions about {% data variables.product.prodname_marketplace %}, please contact {% data variables.contact.contact_support %} directly.
+Если у вас есть вопросы о {% data variables.product.prodname_marketplace %}, обращайтесь непосредственно в {% data variables.contact.contact_support %}.

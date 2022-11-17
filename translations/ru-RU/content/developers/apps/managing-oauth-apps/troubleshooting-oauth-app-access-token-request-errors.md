@@ -1,27 +1,34 @@
 ---
-title: Troubleshooting OAuth App access token request errors
+title: Устранение ошибок при запросе маркеров доступа для приложения OAuth
 intro: '{% data reusables.shortdesc.troubleshooting_access_token_reques_errors_oauth_apps %}'
 redirect_from:
-  - /apps/building-integrations/managing-oauth-apps/troubleshooting-oauth-app-access-token-request-errors/
+  - /apps/building-integrations/managing-oauth-apps/troubleshooting-oauth-app-access-token-request-errors
   - /apps/managing-oauth-apps/troubleshooting-oauth-app-access-token-request-errors
   - /developers/apps/troubleshooting-oauth-app-access-token-request-errors
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - OAuth Apps
+shortTitle: Troubleshoot token request
+ms.openlocfilehash: 7764d0e1f23a3d2dac841412ea0120487c8f6560
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145089797'
 ---
-
 {% note %}
 
-**Note:** These examples only show JSON responses.
+**Примечание**. В этих примерах показаны только ответы JSON.
 
 {% endnote %}
 
-### Incorrect client credentials
+## Неверные учетные данные клиента
 
-If the client\_id and or client\_secret you pass are incorrect you will receive this error response.
+Если передан неверный \_идентификатор или секрет клиента\_, вы получите этот ответ об ошибке.
 
 ```json
 {
@@ -31,11 +38,11 @@ If the client\_id and or client\_secret you pass are incorrect you will receive 
 }
 ```
 
-To solve this error, make sure you have the correct credentials for your {% data variables.product.prodname_oauth_app %}. Double check the `client_id` and `client_secret` to make sure they are correct and being passed correctly to {% data variables.product.product_name %}.
+Чтобы устранить ошибку, убедитесь в наличии правильных учетных данных для {% data variables.product.prodname_oauth_app %}. Тщательно проверьте правильность значений `client_id` и `client_secret` и их передачи в {% data variables.product.product_name %}.
 
-### Redirect URI mismatch
+## Несоответствие URI перенаправления
 
-If you provide a `redirect_uri` that doesn't match what you've registered with your {% data variables.product.prodname_oauth_app %}, you'll receive this error message:
+Если вы указали `redirect_uri`, который не совпадает с зарегистрированным в {% data variables.product.prodname_oauth_app %}, вы получите следующее сообщение об ошибке:
 
 ```json
 {
@@ -45,9 +52,9 @@ If you provide a `redirect_uri` that doesn't match what you've registered with y
 }
 ```
 
-To correct this error, either provide a `redirect_uri` that matches what you registered or leave out this parameter to use the default one registered with your application.
+Чтобы исправить эту ошибку, укажите `redirect_uri`, который соответствует зарегистрированному, или оставьте этот параметр пустым, чтобы использовался зарегистрированный по умолчанию с приложением.
 
-### Bad verification code
+## Неверный код проверки
 
 ```json
 {
@@ -58,7 +65,7 @@ To correct this error, either provide a `redirect_uri` that matches what you reg
 }
 ```
 
-If the verification code you pass is incorrect, expired, or doesn't match what you received in the first request for authorization you will receive this error.
+Если переданный код проверки неверен, просрочен или не соответствует тому, что вы получили в первом запросе на авторизацию, вы получите эту ошибку.
 
 ```json
 {
@@ -68,4 +75,4 @@ If the verification code you pass is incorrect, expired, or doesn't match what y
 }
 ```
 
-To solve this error, start the [OAuth authorization process again](/apps/building-oauth-apps/authorizing-oauth-apps/) and get a new code.
+Чтобы устранить ошибку, запустите [процесс авторизации OAuth еще раз](/apps/building-oauth-apps/authorizing-oauth-apps/) и получите новый код.

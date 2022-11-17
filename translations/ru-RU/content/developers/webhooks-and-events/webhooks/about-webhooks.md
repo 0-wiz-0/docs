@@ -1,36 +1,42 @@
 ---
-title: About webhooks
-intro: Learn the basics of how webhooks work to help you build and set up integrations.
+title: Сведения о веб-перехватчиках
+intro: 'Узнайте, как веб-перехватчики помогают вам создать и настроить интеграции.'
 redirect_from:
   - /webhooks
   - /developers/webhooks-and-events/about-webhooks
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Webhooks
+ms.openlocfilehash: 08b038d5a35c4c692502545e640d04993d169b6a
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145112387'
 ---
+Веб-перехватчики позволяют создавать или настраивать интеграции, такие как [{% data variables.product.prodname_github_apps %}](/apps/building-github-apps/) или [{% data variables.product.prodname_oauth_apps %}](/apps/building-oauth-apps/), которые подписываются на определенные события на сайте GitHub.com. Когда запускается одно из этих событий, мы отправляем полезные данные HTTP POST веб-перехватчику, используя настроенный URL-адрес. Веб-перехватчики можно использовать для обновления внешнего средства отслеживания проблем, активации сборок CI, обновления зеркала резервного копирования или даже развертывания на рабочем сервере. Вы ограничены только вашим воображением.
 
-Webhooks allow you to build or set up integrations, such as [{% data variables.product.prodname_github_app %}s](/apps/building-github-apps/) or [{% data variables.product.prodname_oauth_app %}s](/apps/building-oauth-apps/), which subscribe to certain events on GitHub.com. When one of those events is triggered, we'll send a HTTP POST payload to the webhook's configured URL. Webhooks can be used to update an external issue tracker, trigger CI builds, update a backup mirror, or even deploy to your production server. You're only limited by your imagination.
+Веб-перехватчики можно установить в {% ifversion ghes or ghae %} [{% data variables.product.prodname_enterprise %}](/rest/reference/enterprise-admin#global-webhooks/),{% endif %} [организации][org-hooks], в определенном [репозитории][repo-hooks] или в {% data variables.product.prodname_github_app %}. После установки веб-перехватчик будет отправляться каждый раз, когда возникнет одно или несколько событий подписки.
 
-Webhooks can be installed on{% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %} [{% data variables.product.prodname_enterprise %}](/rest/reference/enterprise-admin#global-webhooks/),{% endif %} an [organization][org-hooks], a specific [repository][repo-hooks], or a {% data variables.product.prodname_github_app %}. Once installed, the webhook will be sent each time one or more subscribed events occurs.
+Можно создать до {% ifversion ghes or ghae %}250{% else %}20{% endif %} веб-перехватчиков для каждого события в каждом экземпляре целевого объекта установки {% ifversion ghes or ghae %}({% data variables.product.prodname_ghe_server %}, для конкретной организации или конкретного репозитория).{% else %}(для конкретной организации или конкретного репозитория).{% endif %}
 
-You can create up to {% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %}250{% else %}20{% endif %} webhooks for each event on each installation target {% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %}({% data variables.product.prodname_ghe_server %} instance, specific organization, or specific repository).{% else %}(specific organization or specific repository).{% endif %}
-
-### События
+## События
 
 {% data reusables.webhooks.webhooks_intro %}
 
-Each event corresponds to a certain set of actions that can happen to your organization and/or repository. For example, if you subscribe to the `issues` event you'll receive detailed payloads every time an issue is opened, closed, labeled, etc.
+Каждое событие соответствует определенному набору действий, которые могут произойти в вашей организации и (или) репозитории. Например, если подписаться на событие `issues`, вы будете получать детализированные полезные данные при каждом открытии, закрытии, маркировке проблемы и т. д.
 
-For a complete list of available webhook events and their payloads, see "[Webhook events and payloads](/developers/webhooks-and-events/webhook-events-and-payloads)."
+Полный список доступных событий веб-перехватчика и их полезных данных см. в разделе [События и полезные данные веб-перехватчика](/developers/webhooks-and-events/webhook-events-and-payloads).
 
-### Ping event
+## Событие проверки связи
 
 {% data reusables.webhooks.ping_short_desc %}
 
-For more information about the `ping` event webhook payload, see the [`ping`](/webhooks/event-payloads/#ping) event.
+Дополнительные сведения о полезных данных веб-перехватчика события `ping` см. в этом событии [`ping`](/webhooks/event-payloads/#ping).
 
 [org-hooks]: /rest/reference/orgs#webhooks/
-[repo-hooks]: /rest/reference/repos#hooks
+[repo-hooks]: /rest/reference/repos#webhooks

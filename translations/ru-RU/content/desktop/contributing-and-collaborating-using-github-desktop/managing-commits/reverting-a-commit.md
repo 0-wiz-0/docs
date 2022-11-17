@@ -1,33 +1,34 @@
 ---
-title: Reverting a commit
-intro: You can revert a specific commit to remove its changes from your branch.
+title: Возврат фиксации
+intro: 'Вы можете отменить конкретную фиксацию, чтобы удалить изменения из ветви.'
 redirect_from:
   - /desktop/contributing-to-projects/reverting-a-commit
   - /desktop/contributing-and-collaborating-using-github-desktop/reverting-a-commit
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: f6cf6f120beff99bdb1c8bfd7868bb157e68d5dd
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145092301'
 ---
-
-When you revert to a previous commit, the revert is also a commit. The original commit also remains in the repository's history.
+При возврате к предыдущей фиксации возврат также является фиксацией. Исходная фиксация также остается в журнале репозитория.
 
 {% tip %}
 
-**Tip:** When you revert multiple commits, it's best to revert in order from newest to oldest. If you revert commits in a different order, you may see merge conflicts.
+**Совет**. Несколько фиксаций рекомендуется возвращать в порядке от самых новых к самым старым. При возврате фиксаций в другом порядке могут возникнуть конфликты слияния.
 
 {% endtip %}
 
 {% mac %}
 
-{% data reusables.desktop.history-tab %}
-{% data reusables.desktop.revert-commit %}
-  ![The Revert option above the diff view](/assets/images/help/desktop/commit-revert-mac.png)
+{% data reusables.desktop.history-tab %} {% data reusables.desktop.revert-commit %} ![ Команда "Вернуть" над представлением различий](/assets/images/help/desktop/commit-revert-mac.png)
 
 {% endmac %}
 
 {% windows %}
 
-{% data reusables.desktop.history-tab %}
-{% data reusables.desktop.revert-commit %}
-  ![The Revert option above the diff view](/assets/images/help/desktop/commit-revert-win.png)
+{% data reusables.desktop.history-tab %} {% data reusables.desktop.revert-commit %} ![ Команда "Вернуть" над представлением различий](/assets/images/help/desktop/commit-revert-win.png)
 
 {% endwindows %}

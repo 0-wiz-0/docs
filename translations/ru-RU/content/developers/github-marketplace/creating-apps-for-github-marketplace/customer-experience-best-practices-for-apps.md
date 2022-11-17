@@ -1,24 +1,30 @@
 ---
-title: Customer experience best practices for apps
-intro: Guidelines for creating an app that will be easy to use and understand.
+title: Рекомендации по взаимодействию приложений с клиентами
+intro: Рекомендации по созданию удобного в использовании и интуитивно-понятного приложения.
 shortTitle: Customer experience best practice
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
 redirect_from:
   - /developers/github-marketplace/customer-experience-best-practices-for-apps
+ms.openlocfilehash: f45e3f88e7fdeb4c1d82264abb4e59c1057fe711
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145089786'
 ---
+Если вы будете следовать этим рекомендациям, это поможет вам обеспечить хорошее взаимодействие с клиентами.
 
-If you follow these best practices it will help you to provide a good customer experience.
+## Взаимодействие с клиентами
 
-### Customer communication
+- Маркетинговые материалы для приложения должны точно описывать его поведение.
+- Приложения должны содержать ссылки на документацию для пользователей, описывающую настройку и использование приложения.
+- Клиенты должны видеть свой план в разделе выставления счетов, профиле или настройках учетной записи в приложении.
+- Клиенты должны иметь возможность устанавливать и использовать приложение как с личной учетной записью, так и с учетной записью организации. Они должны иметь возможность просматривать и управлять приложением отдельно для этих учетных записей.
 
-- Marketing materials for the app should accurately represent the app's behavior.
-- Apps should include links to user-facing documentation that describe how to set up and use the app.
-- Customers should be able to see what type of plan they have in the billing, profile, or account settings section of the app.
-- Customers should be able to install and use your app on both a personal account and an organization account. They should be able to view and manage the app on those accounts separately.
-
-### Plan management
+## Управление планами
 
 {% data reusables.marketplace.marketplace-billing-ui-requirements %}

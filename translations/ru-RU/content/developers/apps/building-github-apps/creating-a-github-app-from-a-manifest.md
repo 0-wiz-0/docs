@@ -1,88 +1,95 @@
 ---
-title: Creating a GitHub App from a manifest
-intro: 'A GitHub App Manifest is a preconfigured GitHub App you can share with anyone who wants to use your app in their personal repositories. The manifest flow allows someone to quickly create, install, and start extending a GitHub App without needing to register the app or connect the registration to the hosted app code.'
+title: Создание приложения GitHub на основе манифеста
+intro: 'Манифест приложения GitHub — это предварительно настроенное приложение GitHub, к которому можно предоставить общий доступ всем пользователям, желающим использовать приложение в личных репозиториях. Поток манифеста позволяет пользователю быстро создать, установить и начать расширение приложения GitHub без регистрации приложения или подключать регистрацию к коду размещенного приложения.'
 redirect_from:
   - /apps/building-github-apps/creating-github-apps-from-a-manifest
   - /developers/apps/creating-a-github-app-from-a-manifest
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
+shortTitle: App creation manifest flow
+ms.openlocfilehash: 9ff6fa93e0f31de16e6ee2d96f1d7665742151d3
+ms.sourcegitcommit: 6bd8fe6d49214743f82fa2dc71847c241f140c87
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/07/2022
+ms.locfileid: '148135720'
 ---
+## Сведения о манифестах приложений GitHub
 
-### About GitHub App Manifests
+Чтобы создать приложение GitHub на основе манифеста, достаточно указать URL-адрес и имя приложения. Манифест содержит разрешения, события и URL-адрес веб-перехватчика, которые необходимы для автоматической регистрации приложения. Поток манифеста создает регистрацию приложения GitHub и извлекает секрет веб-перехватчика приложения, закрытый ключ (PEM-файл), а также идентификатор приложения GitHub. Пользователь, создающий приложение на основе манифеста, становится владельцем приложения и может [изменять параметры конфигурации приложения](/apps/managing-github-apps/modifying-a-github-app/), удалять его или передавать его другому пользователю на GitHub.
 
-When someone creates a GitHub App from a manifest, they only need to follow a URL and name the app. The manifest includes the permissions, events, and webhook URL needed to automatically register the app. The manifest flow creates the GitHub App registration and retrieves the app's webhook secret, private key (PEM file), and GitHub App ID. The person who creates the app from the manifest will own the app and can choose to [edit the app's configuration settings](/apps/managing-github-apps/modifying-a-github-app/), delete it, or transfer it to another person on GitHub.
+Чтобы начать работу с манифестами приложений GitHub или просмотреть пример реализации, можно использовать [Probot](https://probot.github.io/). Дополнительные сведения см. в разделе [Реализация потока манифеста приложения GitHub с помощью Probot](#using-probot-to-implement-the-github-app-manifest-flow).
 
-You can use [Probot](https://probot.github.io/) to get started with GitHub App Manifests or see an example implementation. See "[Using Probot to implement the GitHub App Manifest flow](#using-probot-to-implement-the-github-app-manifest-flow)" to learn more.
+Ниже описываются некоторые сценарии, в которых можно создавать предварительно настроенные приложения с использованием манифестов приложений GitHub:
 
-Here are some scenarios where you might use GitHub App Manifests to create preconfigured apps:
+* Помощь новым участникам команды в скорейшем освоении разработки приложений GitHub.
+* Предоставление другим пользователям возможности расширять приложение GitHub с помощью API GitHub без необходимости его настройки.
+* Создание справочных проектов приложений GitHub для совместного использования сообществом GitHub.
+* Необходимость обеспечить развертывание приложения GitHub в среде разработки и рабочей среде в одной и той же конфигурации.
+* Отслеживание исправлений в конфигурации приложения GitHub.
 
-* Help new team members come up-to-speed quickly when developing GitHub Apps.
-* Allow others to extend a GitHub App using the GitHub APIs without requiring them to configure an app.
-* Create GitHub App reference designs to share with the GitHub community.
-* Ensure you deploy GitHub Apps to development and production environments using the same configuration.
-* Track revisions to a GitHub App configuration.
+## Реализация потока манифеста приложения GitHub
 
-### Implementing the GitHub App Manifest flow
-
-The GitHub App Manifest flow uses a handshaking process similar to the [OAuth flow](/apps/building-oauth-apps/authorizing-oauth-apps/). The flow uses a manifest to [register a GitHub App](/apps/building-github-apps/creating-a-github-app/) and receives a temporary `code` used to retrieve the app's private key, webhook secret, and ID.
+Поток манифеста приложения GitHub использует процесс подтверждения, аналогичный [потоку OAuth](/apps/building-oauth-apps/authorizing-oauth-apps/). Этот поток использует манифест для [регистрации приложения GitHub](/apps/building-github-apps/creating-a-github-app/) и получает временный код (`code`), который используется для получения закрытого ключа приложения, секрета веб-перехватчика и идентификатора.
 
 {% note %}
 
-**Note:** You must complete all three steps in the GitHub App Manifest flow within one hour.
+**Примечание**. Все эти три шага необходимо выполнить в потоке манифеста приложения GitHub в течение одного часа.
 
 {% endnote %}
 
-Follow these steps to implement the GitHub App Manifest flow:
+Реализация потока приложения GitHub состоит из следующих этапов:
 
-1. You redirect people to GitHub to create a new GitHub App.
-1. GitHub redirects people back to your site.
-1. You exchange the temporary code to retrieve the app configuration.
+1. Вы перенаправляете пользователей на GitHub для создания нового приложения GitHub.
+1. GitHub перенаправляет пользователей обратно на ваш сайт.
+1. Вы обмениваете временный код для получения конфигурации приложения.
 
-#### 1. You redirect people to GitHub to create a new GitHub App
+### 1. Вы перенаправляете пользователей на GitHub для создания нового приложения GitHub
 
-To redirect people to create a new GitHub App, [provide a link](#examples) for them to click that sends a `POST` request to `https://github.com/settings/apps/new` for a user account or `https://github.com/organizations/ORGANIZATION/settings/apps/new` for an organization account, replacing `ORGANIZATION` with the name of the organization account where the app will be created.
+Чтобы перенаправить пользователей для создания нового приложения GitHub, [предоставьте им ссылку](#examples), при щелчке на которой отправляется запрос `POST` по адресу `https://github.com/settings/apps/new` для получения личной учетной записи или `https://github.com/organizations/ORGANIZATION/settings/apps/new` для получения учетной записи организации (при этом `ORGANIZATION` заменяется на имя учетной записи организации, в которой будет создано приложение).
 
-You must include the [GitHub App Manifest parameters](#github-app-manifest-parameters) as a JSON-encoded string in a parameter called `manifest`. You can also include a `state` [parameter](#parameters) for additional security.
+[Параметры манифеста приложения GitHub](#github-app-manifest-parameters) необходимо включить в параметр с именем `manifest` в виде строки с кодировкой JSON. Также для дополнительной безопасности вы можете включить [параметр](#parameters) `state`.
 
-The person creating the app will be redirected to a GitHub page with an input field where they can edit the name of the app you included in the `manifest` parameter. If you do not include a `name` in the `manifest`, they can set their own name for the app in this field.
+Пользователь, создающий приложение, будет перенаправлен на страницу GitHub с полем ввода, в котором можно изменить имя приложения, указанное в параметре `manifest`. Если в параметре `manifest` не задано `name`, пользователь может указать в этом поле собственное имя приложения.
 
-![Create a GitHub App Manifest](/assets/images/github-apps/create-github-app-manifest.png)
+![Создание манифеста приложения GitHub](/assets/images/github-apps/create-github-app-manifest.png)
 
-##### GitHub App Manifest parameters
+#### Параметры манифеста приложения GitHub
 
- | Name                  | Тип                | Description                                                                                                                                                                                                                                              |
- | --------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
- | `name`                | `строка`           | The name of the GitHub App.                                                                                                                                                                                                                              |
- | `url`                 | `строка`           | **Required.** The homepage of your GitHub App.                                                                                                                                                                                                           |
- | `hook_attributes`     | `объект`           | The configuration of the GitHub App's webhook.                                                                                                                                                                                                           |
- | `redirect_url`        | `строка`           | The full URL to redirect to after a user initiates the creation of a GitHub App from a manifest.{% if currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@next" or currentVersion ver_gt "enterprise-server@3.0" %}
- | `callback_urls`       | `array of strings` | A full URL to redirect to after someone authorizes an installation. You can provide up to 10 callback URLs.{% else %}
- | `callback_url`        | `строка`           | A full URL to redirect to after someone authorizes an installation.{% endif %}
- | `описание`            | `строка`           | A description of the GitHub App.                                                                                                                                                                                                                         |
- | `public`              | `boolean`          | Set to `true` when your GitHub App is available to the public or `false` when it is only accessible to the owner of the app.                                                                                                                             |
- | `default_events`      | `array`            | The list of [events](/webhooks/event-payloads) the GitHub App subscribes to.                                                                                                                                                                             |
- | `default_permissions` | `объект`           | The set of [permissions](/rest/reference/permissions-required-for-github-apps) needed by the GitHub App. The format of the object uses the permission name for the key (for example, `issues`) and the access type for the value (for example, `write`). |
+ Имя | Тип | Описание
+-----|------|-------------
+`name` | `string` | Имя приложения GitHub.
+`url` | `string` | **Обязательный.** Домашняя страница приложения GitHub.
+`hook_attributes` | `object` | Конфигурация веб-перехватчика приложения GitHub.
+`redirect_url` | `string` | Полный URL-адрес, на который осуществляется перенаправление после того, как пользователь инициирует создание приложения GitHub на основе манифеста.
+`callback_urls` | `array of strings` | Полный URL-адрес для перенаправления после авторизации установки. Вы можете указать до 10 URL-адресов обратного вызова.
+`setup_url` | `string` | Полный URL-адрес для перенаправления пользователей после установки приложения GitHub, если требуется дополнительная настройка.
+`description` | `string` | Описание приложения GitHub.
+`public` | `boolean` | Задайте значение `true`, если приложение GitHub доступно для всех пользователей, или `false` — если оно доступно только владельцу.
+`default_events` | `array` | Список [событий](/webhooks/event-payloads), на которые подписывается приложение GitHub.
+`default_permissions` | `object` | Набор [разрешений](/rest/reference/permissions-required-for-github-apps), необходимых приложению GitHub. Формат объекта использует имя разрешения в качестве ключа (например, `issues`) и тип доступа в качестве значения (например, `write`).
 
-The `hook_attributes` object has the following key:
+Объект `hook_attributes` содержит следующие ключи:
 
-| Name     | Тип       | Description                                                                        |
-| -------- | --------- | ---------------------------------------------------------------------------------- |
-| `url`    | `строка`  | **Required.** The URL of the server that will receive the webhook `POST` requests. |
-| `active` | `boolean` | Deliver event details when this hook is triggered, defaults to true.               |
+Имя | Тип | Описание
+-----|------|-------------
+`url` | `string` | **Обязательный.** URL-адрес сервера, который будет получать запросы `POST` веб-перехватчика.
+`active` | `boolean` | Доставка сведений о событии при активации этого перехватчика. По умолчанию используется значение true.
 
-##### Parameters
+#### Параметры
 
- | Name    | Тип      | Description                                 |
- | ------- | -------- | ------------------------------------------- |
- | `state` | `строка` | {% data reusables.apps.state_description %}
+ Имя | Тип | Описание
+-----|------|-------------
+`state`| `string` | {% data reusables.apps.state_description %}
 
-##### Примеры
+#### Примеры
 
-This example uses a form on a web page with a button that triggers the `POST` request for a user account:
+В этом примере на веб-странице размещается форма с кнопкой, которая активирует запрос `POST` для получения личной учетной записи.
 
 ```html
 <form action="https://github.com/settings/apps/new?state=abc123" method="post">
@@ -99,9 +106,9 @@ This example uses a form on a web page with a button that triggers the `POST` re
      "url": "https://example.com/github/events",
    },
    "redirect_url": "https://example.com/redirect",
-   {% if currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@next" or currentVersion ver_gt "enterprise-server@3.0" %}"callback_urls": [
+   "callback_urls": [
      "https://example.com/callback"
-   ],{% else %}"callback_url": "https://example.com/callback",{% endif %}
+   ],
    "public": true,
    "default_permissions": {
      "issues": "write",
@@ -117,7 +124,7 @@ This example uses a form on a web page with a button that triggers the `POST` re
 </script>
 ```
 
-This example uses a form on a web page with a button that triggers the `POST` request for an organization account. Replace `ORGANIZATION` with the name of the organization account where you want to create the app.
+В этом примере на веб-странице размещается форма с кнопкой, которая активирует запрос `POST` для получения учетной записи организации. Замените `ORGANIZATION` именем учетной записи организации, в которой вы хотите создать приложение.
 
 ```html
 <form action="https://github.com/organizations/ORGANIZATION/settings/apps/new?state=abc123" method="post">
@@ -134,9 +141,9 @@ This example uses a form on a web page with a button that triggers the `POST` re
      "url": "https://example.com/github/events",
    },
    "redirect_url": "https://example.com/redirect",
-   {% if currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@next" or currentVersion ver_gt "enterprise-server@3.0" %}"callback_urls": [
+   "callback_urls": [
      "https://example.com/callback"
-   ],{% else %}"callback_url": "https://example.com/callback",{% endif %}
+   ],
    "public": true,
    "default_permissions": {
      "issues": "write",
@@ -152,54 +159,49 @@ This example uses a form on a web page with a button that triggers the `POST` re
 </script>
 ```
 
-#### 2. GitHub redirects people back to your site
+### 2. GitHub перенаправляет пользователей обратно на ваш сайт
 
-When the person clicks **Create GitHub App**, GitHub redirects back to the `redirect_url` with a temporary `code` in a code parameter. Например:
+Когда пользователь нажимает кнопку **Создать приложение GitHub**, GitHub выполняет обратное перенаправление к `redirect_url` с использованием временного кода (`code`) в параметре кода. Пример:
 
     https://example.com/redirect?code=a180b1a3d263c81bc6441d7b990bae27d4c10679
 
-If you provided a `state` parameter, you will also see that parameter in the `redirect_url`. Например:
+Если задан параметр `state`, этот параметр также будет представлен в параметре `redirect_url`. Пример:
 
     https://example.com/redirect?code=a180b1a3d263c81bc6441d7b990bae27d4c10679&state=abc123
 
-#### 3. You exchange the temporary code to retrieve the app configuration
+### 3. Вы обмениваете временный код для получения конфигурации приложения
 
-To complete the handshake, send the temporary `code` in a `POST` request to the [Create a GitHub App from a manifest](/rest/reference/apps#create-a-github-app-from-a-manifest) endpoint. The response will include the `id` (GitHub App ID), `pem` (private key), and `webhook_secret`. GitHub creates a webhook secret for the app automatically. You can store these values in environment variables on the app's server. For example, if your app uses [dotenv](https://github.com/bkeepers/dotenv) to store environment variables, you would store the variables in your app's `.env` file.
+Чтобы завершить подтверждение, отправьте временный код (`code`) в запросе `POST` в конечную точку [создания приложения GitHub на основе манифеста](/rest/reference/apps#create-a-github-app-from-a-manifest). Ответ будет содержать `id` (идентификатор приложения GitHub), `pem` (закрытый ключ) и `webhook_secret`. GitHub создает секрет веб-перехватчика для приложения автоматически. Эти значения можно хранить в переменных среды на сервере приложения. Например, если для хранения переменных среды, в приложении используется [dotenv](https://github.com/bkeepers/dotenv), эти переменные будут храниться в файле `.env` приложения.
 
-You must complete this step of the GitHub App Manifest flow within one hour.
+Этот шаг в потоке манифеста приложения GitHub необходимо выполнить в течение одного часа.
 
 {% note %}
 
-**Note:** This endpoint is rate limited. See [Rate limits](/rest/reference/rate-limit) to learn how to get your current rate limit status.
+**Примечание**. Для этой конечной точки устанавливается ограничение скорости. Сведения о том, как узнать текущее состояние ограничения скорости, см. в разделе [Ограничения скорости](/rest/reference/rate-limit).
 
 {% endnote %}
 
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_lt "enterprise-server@2.21" %}
-{% data reusables.pre-release-program.fury-pre-release %}
-{% data reusables.pre-release-program.api-preview-warning %}
-{% endif %}
-
     POST /app-manifests/{code}/conversions
 
-For more information about the endpoint's response, see [Create a GitHub App from a manifest](/rest/reference/apps#create-a-github-app-from-a-manifest).
+Дополнительные сведения об ответе конечной точки см. в разделе [Создание приложения GitHub на основе манифеста](/rest/reference/apps#create-a-github-app-from-a-manifest).
 
-When the final step in the manifest flow is completed, the person creating the app from the flow will be an owner of a registered GitHub App that they can install on any of their personal repositories. They can choose to extend the app using the GitHub APIs, transfer ownership to someone else, or delete it at any time.
+После выполнения последнего шага в потоке манифеста пользователь, создающий приложение из потока, станет владельцем зарегистрированного приложения GitHub и сможет устанавливать его в любом из своих личных репозиториев. Владелец также может расширить приложение с помощью API GitHub, передать права владения другому пользователю или в любой момент удалить его.
 
-### Using Probot to implement the GitHub App Manifest flow
+## Реализация потока манифеста приложения GitHub с помощью Probot
 
-[Probot](https://probot.github.io/) is a framework built with [Node.js](https://nodejs.org/) that performs many of the tasks needed by all GitHub Apps, like validating webhooks and performing authentication. Probot implements the [GitHub App manifest flow](#implementing-the-github-app-manifest-flow), making it easy to create and share GitHub App reference designs with the GitHub community.
+[Probot](https://probot.github.io/) — это созданная на основе [Node.js](https://nodejs.org/) платформа, которая выполняет многие используемые всеми приложениями GitHub задачи, в том числе проверку веб-перехватчиков и проверку подлинности. Probot реализует [поток манифеста приложения GitHub](#implementing-the-github-app-manifest-flow), благодаря чему упрощается создание справочных проектов приложений GitHub и их совместное использование сообществом GitHub.
 
-To create a Probot App that you can share, follow these steps:
+Чтобы создать доступное для совместного использования приложение Probot, сделайте следующее:
 
-1. [Generate a new GitHub App](https://probot.github.io/docs/development/#generating-a-new-app).
-1. Open the project you created, and customize the settings in the `app.yml` file. Probot uses the settings in `app.yml` as the [GitHub App Manifest parameters](#github-app-manifest-parameters).
-1. Add your application's custom code.
-1. [Run the GitHub App locally](https://probot.github.io/docs/development/#running-the-app-locally) or [host it anywhere you'd like](#hosting-your-app-with-glitch). When you navigate to the hosted app's URL, you'll find a web page with a **Register GitHub App** button that people can click to create a preconfigured app. The web page below is Probot's implementation of [step 1](#1-you-redirect-people-to-github-to-create-a-new-github-app) in the GitHub App Manifest flow:
+1. [Создайте новое приложение GitHub](https://probot.github.io/docs/development/#generating-a-new-app).
+1. Откройте созданный проект и настройте параметры в файле `app.yml`. Probot использует параметры в файле `app.yml` в качестве [параметров манифеста приложения GitHub](#github-app-manifest-parameters).
+1. Добавьте код своего приложения.
+1. [Запустите приложение GitHub локально](https://probot.github.io/docs/development/#running-the-app-locally) или [разместите его в любом месте](#hosting-your-app-with-glitch). При переходе по URL-адресу размещенного приложения появится веб-страница с кнопкой **Зарегистрировать приложение GitHub**, с помощью которой пользователь может создать предварительно настроенное приложение. На представленной ниже веб-странице показано, как Probot реализует [шаг 1](#1-you-redirect-people-to-github-to-create-a-new-github-app) в потоке манифеста приложения GitHub:
 
-![Register a Probot GitHub App](/assets/images/github-apps/github_apps_probot-registration.png)
+![Регистрация приложения Probot GitHub](/assets/images/github-apps/github_apps_probot-registration.png)
 
-Using [dotenv](https://github.com/bkeepers/dotenv), Probot creates a `.env` file and sets the `APP_ID`, `PRIVATE_KEY`, and `WEBHOOK_SECRET` environment variables with the values [retrieved from the app configuration](#3-you-exchange-the-temporary-code-to-retrieve-the-app-configuration).
+Используя [dotenv](https://github.com/bkeepers/dotenv), Probot создает файл `.env` и присваивает переменным среды `APP_ID`, `PRIVATE_KEY` и `WEBHOOK_SECRET` значения, [полученные из конфигурации приложения](#3-you-exchange-the-temporary-code-to-retrieve-the-app-configuration).
 
-#### Hosting your app with Glitch
+### Размещение приложения с помощью Glitch
 
-You can see an [example Probot app](https://glitch.com/~auspicious-aardwolf) that uses [Glitch](https://glitch.com/) to host and share the app. The example uses the [Checks API](/rest/reference/checks) and selects the necessary Checks API events and permissions in the `app.yml` file. Glitch is a tool that allows you to "Remix your own" apps. Remixing an app creates a copy of the app that Glitch hosts and deploys. See "[About Glitch](https://glitch.com/about/)" to learn about remixing Glitch apps.
+Вы можете ознакомиться с [примером приложения Probot](https://glitch.com/~auspicious-aardwolf), которое использует [Glitch](https://glitch.com/) для размещения и совместного использования приложения. В этом примере используется [API проверок](/rest/reference/checks) и выбираются необходимые события и разрешения этого API в файле `app.yml`. Glitch — это инструмент, позволяющий делать "ремиксы" собственных приложений. При этом создается копия приложения, которая размещается и развертывается средствами Glitch. Дополнительные сведения о создании ремиксов приложений с помощью Glitch см. на [этой странице](https://glitch.com/about/).

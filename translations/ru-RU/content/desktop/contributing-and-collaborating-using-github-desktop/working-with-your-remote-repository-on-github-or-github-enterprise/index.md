@@ -1,13 +1,22 @@
 ---
-title: Working with your remote repository on GitHub or GitHub Enterprise
-intro: 'As you make changes to your project locally, you can keep them up-to-date with your remote repository. In Git, a *remote* is the server where your code is stored. In your case, that server is a repository on {% data variables.product.prodname_dotcom %} or {% data variables.product.prodname_enterprise %}.'
+title: Работа с удаленным репозиторием в GitHub или GitHub Enterprise
+intro: 'При локальном внесении изменений в проект их можно актуализировать в удаленном репозитории. В Git *удаленный* — это сервер, на котором хранится код. В вашем случае этот сервер является репозиторием на {% data variables.product.prodname_dotcom %} или {% data variables.product.prodname_enterprise %}.'
 redirect_from:
   - /desktop/contributing-to-projects/working-with-your-remote-repository-on-github-or-github-enterprise
 versions:
-  free-pro-team: '*'
+  fpt: '*'
 children:
   - /creating-an-issue-or-pull-request
   - /viewing-a-pull-request-in-github-desktop
+  - /viewing-and-re-running-checks-in-github-desktop
+  - /configuring-notifications-in-github-desktop
   - /changing-a-remotes-url-from-github-desktop
+shortTitle: Work with your remote repo
+ms.openlocfilehash: 60c2f41546ff085ea8f8d56142da6a3c7a81ebae
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145117475'
 ---
 

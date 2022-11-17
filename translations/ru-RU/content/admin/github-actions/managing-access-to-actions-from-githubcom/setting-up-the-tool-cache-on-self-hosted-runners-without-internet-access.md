@@ -1,83 +1,89 @@
 ---
-title: Setting up the tool cache on self-hosted runners without internet access
-intro: 'To use the included `actions/setup` actions on self-hosted runners without internet access, you must first populate the runner''s tool cache for your workflows.'
+title: Настройка кэша инструментов для локально размещенных средств выполнения без доступа к Интернету
+intro: 'Чтобы использовать включенные действия `actions/setup` для локальных модулей выполнения без доступа к Интернету, необходимо сначала заполнить кэш инструментов средства выполнения тестов для рабочих процессов.'
 redirect_from:
   - /enterprise/admin/github-actions/setting-up-the-tool-cache-on-self-hosted-runners-without-internet-access
   - /admin/github-actions/setting-up-the-tool-cache-on-self-hosted-runners-without-internet-access
 versions:
-  enterprise-server: '>=2.22'
-  github-ae: next
+  ghes: '*'
+  ghae: '*'
+type: tutorial
 topics:
+  - Actions
   - Enterprise
+  - Networking
+  - Storage
+shortTitle: Tool cache for offline runners
+ms.openlocfilehash: fe1b070880db8353064f1be5a26b0a63a5e92cf5
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147529299'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
-{% data reusables.actions.ae-beta %}
-
-### About the included setup actions and the runner tool cache
+## Сведения включенных действиях по настройке и кэше инструментов для средств выполнения
 
 {% data reusables.actions.enterprise-no-internet-actions %}
 
-Most official {% data variables.product.prodname_dotcom %}-authored actions are automatically bundled with {% data variables.product.product_name %}. However, self-hosted runners without internet access require some configuration before they can use the included `actions/setup-LANGUAGE` actions, such as `setup-node`.
+Большинство официальных действий, созданных {% data variables.product.prodname_dotcom %}, автоматически объединяются с {% data variables.product.product_name %}. Однако для локально размещенных средств выполнения без доступа к Интернету требуется провести некоторые настройки, прежде чем они смогут использовать включенные действия `actions/setup-LANGUAGE`, такие как `setup-node`.
 
-The `actions/setup-LANGUAGE` actions normally need internet access to download the required environment binaries into the runner's tool cache. Self-hosted runners without internet access can't download the binaries, so you must manually populate the tool cache on the runner.
+Как правило, действиям `actions/setup-LANGUAGE` необходим доступ к Интернету, чтобы скачать нужные необходимые двоичные файлы среды в кэш инструментов для средств запуска. Локально размещенные средств выполнения без доступа к Интернету не могут скачивать двоичные файлы, поэтому необходимо вручную заполнить кэш инструментов в средстве выполнения.
 
-You can populate the runner tool cache by running a {% data variables.product.prodname_actions %} workflow on {% data variables.product.prodname_dotcom_the_website %} that uploads a {% data variables.product.prodname_dotcom %}-hosted runner's tool cache as an artifact, which you can then transfer and extract on your internet-disconnected self-hosted runner.
+Для этого запустите рабочий процесс {% data variables.product.prodname_actions %} на сайте {% data variables.product.prodname_dotcom_the_website %}, который отправляет кэш инструментов размещенного в {% data variables.product.prodname_dotcom %} средства выполнения, в качестве артефакта, который затем можно передать и извлечь в локально размещенном средстве выполнения, отключенного от Интернета.
 
 {% note %}
 
-**Note:** You can only use a {% data variables.product.prodname_dotcom %}-hosted runner's tool cache for a self-hosted runner that has an identical operating system and architecture. For example, if you are using a `ubuntu-18.04` {% data variables.product.prodname_dotcom %}-hosted runner to generate a tool cache, your self-hosted runner must be a 64-bit Ubuntu 18.04 machine. For more information on {% data variables.product.prodname_dotcom %}-hosted runners, see "<a href="/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources" class="dotcom-only">Virtual environments for GitHub-hosted runners</a>."
+**Примечание.** Кэш размещенного в {% data variables.product.prodname_dotcom %} средства выполнения можно использовать только для локально размещенного средства выполнения, имеющего идентичную операционную систему и архитектуру. Например, если для создания кэша инструментов используется размещаемое {% data variables.product.prodname_dotcom %} средство выполнения `ubuntu-22.04`, локально размещенное средство выполнения должно быть 64-разрядным компьютером с Ubuntu 22.04. Дополнительные сведения о средствах выполнения тестов, размещенных в {% data variables.product.prodname_dotcom %}, см. в разделе [Сведения о средствах выполнения тестов, размещенных в {% data variables.product.prodname_dotcom %}](/free-pro-team@latest/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources).
 
 {% endnote %}
 
-### Требования
+## Предварительные требования
 
-* Determine which development environments your self-hosted runners will need. The following example demonstrates how to populate a tool cache for the `setup-node` action, using Node.js versions 10 and 12.
-* Access to a repository on {% data variables.product.prodname_dotcom_the_website %} that you can use to run a workflow.
-* Access to your self-hosted runner's file system to populate the tool cache folder.
+* Определите, какие среды разработки потребуются локально размещенным средствам выполнения. В следующем примере показано, как заполнить кэш инструментов для действия `setup-node` с помощью Node.js версий 10 и 12.
+* Доступ к репозиторию на сайте {% data variables.product.prodname_dotcom_the_website %}, который можно использовать для выполнения рабочего процесса.
+* Доступ к файловой системе локально размещенного средства выполнения для заполнения папки кэша инструментов.
 
-### Populating the tool cache for a self-hosted runner
+## Заполнение кэша инструментов для локально размещенного средства выполнения
 
-1. On {% data variables.product.prodname_dotcom_the_website %}, navigate to a repository that you can use to run a {% data variables.product.prodname_actions %} workflow.
-1. Create a new workflow file in the repository's `.github/workflows` folder that uploads an artifact containing the {% data variables.product.prodname_dotcom %}-hosted runner's tool cache.
+1. На сайте {% data variables.product.prodname_dotcom_the_website %} перейдите в репозиторий, который можно использовать для выполнения рабочего процесса {% data variables.product.prodname_actions %}.
+1. В папке `.github/workflows` репозитория создайте файл рабочего процесса, который отправляет артефакт, содержащий кэш инструментов средства выполнения, размещенного в {% data variables.product.prodname_dotcom %}.
 
-   The following example demonstrates a workflow that uploads the tool cache for an Ubuntu 18.04 environment, using the `setup-node` action with Node.js versions 10 and 12.
+   В следующем примере демонстрируется рабочий процесс, который отправляет кэш инструментов для среды Ubuntu 22.04, используя действие `setup-node` с Node.js версий 10 и 12.
 
-   {% raw %}
    ```yaml
    name: Upload Node.js 10 and 12 tool cache
    on: push
    jobs:
      upload_tool_cache:
-       runs-on: ubuntu-18.04
+       runs-on: ubuntu-22.04
        steps:
          - name: Clear any existing tool cache
            run: |
-             mv "${{ runner.tool_cache }}" "${{ runner.tool_cache }}.old"
-             mkdir -p "${{ runner.tool_cache }}"
+             mv "{% raw %}${{ runner.tool_cache }}" "${{ runner.tool_cache }}.old"{% endraw %}
+             mkdir -p "{% raw %}${{ runner.tool_cache }}{% endraw %}"
          - name: Setup Node 10
-           uses: actions/setup-node@v1
+           uses: {% data reusables.actions.action-setup-node %}
            with:
              node-version: 10.x
          - name: Setup Node 12
-           uses: actions/setup-node@v1
+           uses: {% data reusables.actions.action-setup-node %}
            with:
              node-version: 12.x
          - name: Archive tool cache
            run: |
-             cd "${{ runner.tool_cache }}"
+             cd "{% raw %}${{ runner.tool_cache }}{% endraw %}"
              tar -czf tool_cache.tar.gz *
          - name: Upload tool cache artifact
-           uses: actions/upload-artifact@v2
+           uses: {% data reusables.actions.action-upload-artifact %}
            with:
-             path: ${{runner.tool_cache}}/tool_cache.tar.gz
+             path: {% raw %}${{runner.tool_cache}}/tool_cache.tar.gz{% endraw %}
    ```
-   {% endraw %}
-1. Download the tool cache artifact from the workflow run. For instructions on downloading artifacts, see "[Downloading workflow artifacts](/actions/managing-workflow-runs/downloading-workflow-artifacts)."
-1. Transfer the tool cache artifact to your self hosted runner and extract it to the local tool cache directory. The default tool cache directory is `RUNNER_DIR/_work/_tool`. If the runner hasn't processed any jobs yet, you might need to create the `_work/_tool` directories.
+1. Скачайте артефакт кэша инструментов из выполнения рабочего процесса. Инструкции по скачиванию артефактов см. в статье "[Скачивание артефактов рабочего процесса](/actions/managing-workflow-runs/downloading-workflow-artifacts)".
+1. Перенесите артефакт кэша инструментов в локально размещенное средство выполнения и извлеките его в локальный каталог кэша инструментов. Каталог кэша инструментов по умолчанию — `RUNNER_DIR/_work/_tool` Если средство выполнения еще не обработало никаких заданий, может потребоваться создать каталоги `_work/_tool`.
 
-    After extracting the tool cache artifact uploaded in the above example, you should have a directory structure on your self-hosted runner that is similar to the following example:
+    После извлечения артефакта кэша инструментов, отправленного в приведенном выше примере, у вас должна быть структура каталогов в локально размещенном средстве выполнения, аналогичная приведенной в следующем примере:
 
     ```
     RUNNER_DIR
@@ -87,9 +93,9 @@ You can populate the runner tool cache by running a {% data variables.product.pr
         └── _tool
             └── node
                 ├── 10.22.0
-                │   └── ...
+                │   └── ...
                 └── 12.18.3
                     └── ...
     ```
 
-Your self-hosted runner without internet access should now be able to use the `setup-node` action. If you are having problems, make sure that you have populated the correct tool cache for your workflows. For example, if you need to use the `setup-python` action, you will need to populate the tool cache with the Python environment you want to use.
+Теперь локально размещенное средство выполнения без доступа к Интернету может использовать действие `setup-node`. Если у вас возникли проблемы, убедитесь, что заполнен правильный кэш инструментов для рабочих процессов. Например, если необходимо использовать действие `setup-python`, необходимо заполнить кэш инструментов нужным окружением Python.

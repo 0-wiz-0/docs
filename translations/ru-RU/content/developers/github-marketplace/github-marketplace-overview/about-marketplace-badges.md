@@ -1,41 +1,46 @@
 ---
-title: About marketplace badges
-intro: 'Learn about the badges that you may see for some apps and actions listings on {% data variables.product.prodname_marketplace %}.'
+title: Сведения о значках в Marketplace
+intro: 'Сведения об индикаторах событий, которые могут отображаться для некоторых списков приложений и действий в {% data variables.product.prodname_marketplace %}.'
 redirect_from:
   - /developers/github-marketplace/about-verified-creator-badges
   - /developers/github-marketplace/about-marketplace-badges
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
+ms.openlocfilehash: bba9137fc39c1bc101a75650dcea03e651d37fff
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145089725'
 ---
+## Для приложений GitHub
 
-### For GitHub Apps
+Некоторые приложения в {% data variables.product.prodname_marketplace %} имеют значок {% octicon "verified" aria-label="The verified badge" %} и подсказку "Подтвержденные домен и электронная почта издателя". Это означает, что приложение принадлежит организации, для которой:
 
-Certain apps on the {% data variables.product.prodname_marketplace %} have the {% octicon "verified" aria-label="The verified badge" %} badge and a tooltip that says "Publisher domain and email verified". This means that the app is owned by an organization that has:
+- Проверено владение доменом, и организация имеет значок подтверждения в своем профиле.
+- Подтвержден адрес электронной почты, чтобы служба поддержки {% data variables.product.prodname_dotcom %} могла связаться с организацией
+- Требуется двухфакторная проверка подлинности в рамках организации. Дополнительные сведения см. в разделе [Настройка требования двухфакторной проверки подлинности в организации](/organizations/keeping-your-organization-secure/requiring-two-factor-authentication-in-your-organization).
 
-- Verified ownership of their domain and has a verified badge on their profile
-- Confirmed their email address so {% data variables.product.prodname_dotcom %} Support can reach the organization
-- Required two-factor authentication for their organization. For more information, see "[Requiring two-factor authentication in your organization](/organizations/keeping-your-organization-secure/requiring-two-factor-authentication-in-your-organization)."
+![Значок Marketplace для приложений GitHub](/assets/images/marketplace/apps-with-verified-publisher-badge-tooltip.png)
 
-![Marketplace badge for GitHub Apps](/assets/images/marketplace/apps-with-verified-publisher-badge-tooltip.png)
-
-{% note %}
-{% data variables.product.prodname_dotcom %} does not analyze the app. The marketplace badge {% octicon "verified" aria-label="The verified badge" %} only confirms that the publisher meets the requirements listed above.
+{% note %} {% data variables.product.prodname_dotcom %} не анализирует приложения. Значок Marketplace {% octicon "verified" aria-label="The verified badge" %} только подтверждает, что издатель соответствует указанным выше требованиям.
 {% endnote %}
 
-To learn how you can add this badge to your app, see "[Applying for publisher verification for your organization](/developers/github-marketplace/applying-for-publisher-verification-for-your-organization)."
+Сведения о добавлении этого значка к своему приложению см. в разделе [Подача заявки на подтверждение издателя для вашей организации](/developers/github-marketplace/applying-for-publisher-verification-for-your-organization).
 
-Some apps on the {% data variables.product.prodname_marketplace %} have the {% octicon "verified" aria-label="The verified badge" %} badge and a tooltip that says "App meets the requirements for listing" instead of, "Publisher domain and email verified." This means that the app meets the listing requirements described in "[Requirements for listing an app](/developers/github-marketplace/requirements-for-listing-an-app)," but the publisher has not been verified, as described in "[Applying for publisher verification for your organization](/developers/github-marketplace/applying-for-publisher-verification-for-your-organization)". Apps with this badge cannot change their pricing plan until the publisher successfully applies for verification.
+Некоторые приложения в {% data variables.product.prodname_marketplace %} имеют значок {% octicon "verified" aria-label="The verified badge" %} и подсказку "Приложение удовлетворяет требованиям к регистрации", а не "Подтвержденные домен и электронная почта издателя". Это означает, что приложение соответствует требованиям к описанию, описанным в разделе [Требования для регистрации приложения](/developers/github-marketplace/requirements-for-listing-an-app), но издатель не был проверен, как описано в разделе [Подача заявки на подтверждение издателя для вашей организации](/developers/github-marketplace/applying-for-publisher-verification-for-your-organization). Приложения с таким значком не могут изменить свой тарифный план, пока издатель не подаст заявку и не пройдет подтверждение.
 
-![Marketplace badge for GitHub Apps](/assets/images/marketplace/apps-with-unverified-publisher-badge-tooltip.png)
+![Значок Marketplace для приложений GitHub](/assets/images/marketplace/apps-with-unverified-publisher-badge-tooltip.png)
 
-For more information about the requirements for listing an app on {% data variables.product.prodname_marketplace %}, see "[Requirements for listing an app on {% data variables.product.prodname_marketplace %}](/marketplace/getting-started/requirements-for-listing-an-app-on-github-marketplace/)."
+Дополнительные сведения о требованиях к регистрации приложения в {% data variables.product.prodname_marketplace %} см. в разделе [Требования для регистрации приложения в {% data variables.product.prodname_marketplace %}](/marketplace/getting-started/requirements-for-listing-an-app-on-github-marketplace/).
 
-For information on finding apps to use, see "[Searching {% data variables.product.prodname_marketplace %}](/github/searching-for-information-on-github/searching-github-marketplace)."
+Сведения о поиске приложений см. в разделе [Поиск в {% data variables.product.prodname_marketplace %}](/search-github/searching-on-github/searching-github-marketplace).
 
-### For GitHub actions
+## Для GitHub Actions 
 
-Actions with the {% octicon "verified" aria-label="The verified badge" %}, or  verified creator  badge,  indicate that {% data variables.product.prodname_dotcom %} has verified the creator of the action as a partner organization.
+Наличие значка {% octicon "verified" aria-label="The verified badge" %} (то есть подтвержденный создатель) у действия означает, что создатель действия является подтвержденной партнерской организацией на {% data variables.product.prodname_dotcom %}.
 
-![Verified creator badge for GitHub Actions](/assets/images/marketplace/verified-creator-badge-for-actions.png)
+![Значок подтвержденного создателя на GitHub Actions](/assets/images/marketplace/verified-creator-badge-for-actions.png)
 
-For information on how to publish a GitHub action to {% data variables.product.prodname_marketplace %}, see "[Publishing actions in GitHub Marketplace](/actions/creating-actions/publishing-actions-in-github-marketplace)."
+Сведения о том, как опубликовать действие GitHub в {% data variables.product.prodname_marketplace %}, см. в разделе [Публикация действий в GitHub Marketplace](/actions/creating-actions/publishing-actions-in-github-marketplace).

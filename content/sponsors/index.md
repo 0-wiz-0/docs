@@ -27,7 +27,11 @@ featuredLinks:
     - /sponsors/about-github-sponsors-for-open-source-contributors
 layout: product-landing
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
+communityRedirect:
+  name: Provide GitHub Feedback
+  href: 'https://github.com/orgs/community/discussions/categories/sponsors'
 children:
   - /getting-started-with-github-sponsors
   - /sponsoring-open-source-contributors

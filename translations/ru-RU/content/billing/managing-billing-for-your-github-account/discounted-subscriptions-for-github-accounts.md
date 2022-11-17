@@ -1,16 +1,16 @@
 ---
-title: Discounted subscriptions for GitHub accounts
-intro: '{% data variables.product.product_name %} provides discounts to students, educators, educational institutions, nonprofits, and libraries.'
+title: Скидки на подписки для учетных записей GitHub
+intro: '{% data variables.product.product_name %} предоставляет скидки учащимся, преподавателям, учебным заведениям, некоммерческим организациям и библиотекам.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/discounted-subscriptions-for-github-accounts
-  - /articles/discounted-personal-accounts/
-  - /articles/discounted-organization-accounts/
-  - /articles/discounted-billing-plans/
+  - /articles/discounted-personal-accounts
+  - /articles/discounted-organization-accounts
+  - /articles/discounted-billing-plans
   - /articles/discounted-subscriptions-for-github-accounts
-  - /github/setting-up-and-managing-billing-and-payments-on-github/discounted-subscriptions-for-github-accounts
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-your-github-account/discounted-subscriptions-for-github-accounts
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: reference
 topics:
   - Accounts
@@ -18,28 +18,34 @@ topics:
   - Discounts
   - Nonprofits
   - User account
+shortTitle: Discounted subscriptions
+ms.openlocfilehash: ba3dc51e5619bc8ef660e3743bd866cfa83337c3
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147573727'
 ---
-
 {% tip %}
 
-**Tip**: Discounts for {% data variables.product.prodname_dotcom %} do not apply to subscriptions for other paid products and features.
+**Совет**. Скидки для {% data variables.product.prodname_dotcom %} не применяются к подпискам для других платных продуктов и функций.
 
 {% endtip %}
 
-### Discounts for personal accounts
+## Скидки для личных учетных записей
 
-In addition to the unlimited public and private repositories for students and faculty with {% data variables.product.prodname_free_user %}, verified students can apply for the {% data variables.product.prodname_student_pack %} to receive additional benefits from {% data variables.product.prodname_dotcom %} partners. For more information, see "[Apply for a student developer pack](/education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-a-student-developer-pack)."
+Кроме неограниченных общедоступных и частных репозиториев для учащихся и преподавателей с планом {% data variables.product.prodname_free_user %}, подтвержденные учащиеся могут подать заявку на {% data variables.product.prodname_student_pack %} для получения дополнительных преимуществ от партнеров {% data variables.product.prodname_dotcom %}. Дополнительные сведения см. в разделе [Заявка на {% data variables.product.prodname_global_campus %} в качестве учащегося](/free-pro-team@latest/education/explore-the-benefits-of-teaching-and-learning-with-github-education/github-global-campus-for-students/apply-to-github-global-campus-as-a-student).
 
-### Discounts for schools and universities
+## Скидки для школ и университетов
 
-Verified academic faculty can apply for {% data variables.product.prodname_team %} for teaching or academic research. For more information, see "[Use {% data variables.product.prodname_dotcom %} in your classroom and research](/education/explore-the-benefits-of-teaching-and-learning-with-github-education/use-github-in-your-classroom-and-research)." You can also request educational materials goodies for your students. For more information, visit [{% data variables.product.prodname_education %}](https://education.github.com/).
+Подтвержденный преподавательский состав может подать заявку на план {% data variables.product.prodname_team %} для преподавания или научных исследований. Дополнительные сведения см. в разделе [{% data variables.product.prodname_global_campus %} для преподавателей](/free-pro-team@latest/education/explore-the-benefits-of-teaching-and-learning-with-github-education/github-global-campus-for-teachers). Вы также можете запросить учебные материалы для учащихся. Дополнительные сведения см. на портале [{% data variables.product.prodname_education %}](https://education.github.com/).
 
-### Discounts for nonprofits and libraries
+## Скидки для некоммерческих организаций и библиотек
 
-{% data variables.product.product_name %} provides free {% data variables.product.prodname_team %} for organizations with unlimited private repositories, unlimited collaborators, and a full feature set to qualifying 501(c)3 (or equivalent) organizations and libraries. You can request a discount for your organization on [our nonprofit page](https://github.com/nonprofit).
+{% data variables.product.product_name %} предоставляет бесплатный план {% data variables.product.prodname_team %} для организаций с неограниченными частными репозиториями, неограниченными участниками совместной работы и полным набором функций для библиотек и организаций типа 501(c)3 (или эквивалентного). Вы можете запросить скидку для своей организации на [нашей странице для некоммерческих организаций](https://github.com/nonprofit).
 
-If your organization already has a paid subscription, your organization's last transaction will be refunded once your nonprofit discount has been applied.
+Если у вашей организации уже есть платная подписка, после применения скидки для некоммерческих организаций последняя финансовая транзакция вашей организации будет возвращена.
 
-### Дополнительная литература
+## Дополнительные материалы
 
-- "[About billing on {% data variables.product.prodname_dotcom %}](/articles/about-billing-on-github)"
+- [Сведения о выставлении счетов в {% data variables.product.prodname_dotcom %}](/articles/about-billing-on-github)

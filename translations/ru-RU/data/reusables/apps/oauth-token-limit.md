@@ -1,1 +1,9 @@
-There is a limit of ten tokens that are issued per user/application/scope combination. If the application requests enough tokens to go over one of the limits, older tokens _with the same scope being requested_ will stop working.
+---
+ms.openlocfilehash: 7ba9671bd3dc7314442653709d74a10cc65adbc1
+ms.sourcegitcommit: 5f9527483381cfb1e41f2322f67c80554750a47d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: "147884838"
+---
+На одного пользователя, приложение или область действия можно использовать до десяти токенов. Если приложение создает больше десяти токенов для одного и того пользователя и одних и тех же областей, самые старые токены с одним и тем же сочетанием пользователя, приложения и областей отзываются.

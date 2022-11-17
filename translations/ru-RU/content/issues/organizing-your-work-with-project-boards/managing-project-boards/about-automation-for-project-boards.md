@@ -1,44 +1,51 @@
 ---
-title: About automation for project boards
-intro: You can configure automatic workflows to keep the status of project board cards in sync with the associated issues and pull requests.
+title: 'Сведения об автоматизации компонента "{% data variables.product.prodname_projects_v1 %}"'
+intro: 'Вы можете настроить автоматизированные рабочие процессы, чтобы синхронизировать состояние карточек компонента "{% data variables.projects.projects_v1_board %}" со связанными проблемами и запросами на вытягивание.'
 redirect_from:
   - /github/managing-your-work-on-github/managing-project-boards/about-automation-for-project-boards
   - /articles/about-automation-for-project-boards
   - /github/managing-your-work-on-github/about-automation-for-project-boards
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  feature: projects-v1
 topics:
   - Pull requests
+shortTitle: 'Automation for {% data variables.product.prodname_projects_v1 %}'
+allowTitleToDifferFromFilename: true
+ms.openlocfilehash: 28c4719cca14dff54d971b9a081837c172f4da76
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148108980'
 ---
+{% data reusables.projects.project_boards_old %}
 
-{% data reusables.project-management.automate-project-board-permissions %}  For more information, see "[Project board permissions for an organization](/articles/project-board-permissions-for-an-organization)."
+{% data reusables.project-management.automate-project-board-permissions %} Дополнительные сведения: [{% data variables.product.prodname_projects_v1_caps %} и разрешения для организации](/articles/project-board-permissions-for-an-organization).
 
-You can automate actions based on triggering events for project board columns. This eliminates some of the manual tasks in managing a project board. For example, you can configure a "To do" column, where any new issues or pull requests you add to a project board are automatically moved to the configured column. For more information, see "[Configuring automation for project boards](/articles/configuring-automation-for-project-boards)."
+Вы можете автоматизировать действия на основе активирующих событий для столбцов, которые содержит {% data variables.projects.projects_v1_board %}. Это позволит устранить некоторые ручные задачи, с помощью которых управляется {% data variables.projects.projects_v1_board %}. Например, можно настроить столбец "Текущие", чтобы все новые добавляемые проблемы или запросы на вытягивание, которые теперь содержит {% data variables.projects.projects_v1_board %}, автоматически перемещались в настроенный столбец. Дополнительные сведения: [Настройка автоматизации компонента "{% data variables.product.prodname_projects_v1 %}"](/articles/configuring-automation-for-project-boards).  
 
 {% data reusables.project-management.use-automated-template %}
 
 {% data reusables.project-management.copy-project-boards %}
 
-Project board automation can also help teams develop a shared understanding of a project board's purpose and the team's development process by creating a standard workflow for certain actions.
+{% data variables.projects.projects_v1_board_caps %} с автоматизацией также помогает командам специалистов получить общее понимание того, какое назначение имеет {% data variables.projects.projects_v1_board %} и какой в команде процесс разработки, за счет создания стандартного рабочего процесса для определенных действий.
 
 {% data reusables.project-management.resync-automation %}
 
-### Automation options
+## Параметры автоматизации
 
-| Column preset | Configuration options     |
-| ------------- | ------------------------- |
-| To do         | <ul><li>Move all newly added issues here</li><li>Move all newly added pull requests here</li><li>Move all reopened issues here</li><li>Move all reopened pull requests here</li></ul> |
-| In progress   | <ul><li>Move all newly opened pull requests here</li><li>Move all reopened issues here</li><li>Move all reopened pull requests here</li><li>Move all pull requests that meet the base branch's minimum number of required reviews here</li><li>Move all pull requests that no longer meet the base branch's minimum number of required reviews here</li></ul> |
-| Done          | <ul><li>Move all closed issues here</li><li>Move all merged pull requests here</li><li>Move all closed, unmerged pull requests here</li></ul> |
+| Предустановка столбца | Варианты настройки |
+| --- | --- |
+| Действие | <ul><li>Переместить все недавно добавленные проблемы сюда</li><li>Переместить все недавно добавленные запросы на вытягивание сюда</li><li>Переместить все повторно открытые проблемы сюда</li><li>Переместить все повторно открытые запросы на вытягивание сюда</li></ul> |
+| Выполняется | <ul><li>Переместить все недавно открытые запросы на вытягивание сюда</li><li>Переместить все повторно открытые проблемы сюда</li><li>Переместить все повторно открытые запросы на вытягивание сюда</li><li>Переместить все запросы на вытягивание, соответствующие минимальному количеству обязательных проверок базовой ветви, сюда</li><li>Переместить все запросы на вытягивание, больше не соответствующие минимальному количеству обязательных проверок базовой ветви, сюда</li></ul> |
+| Готово | <ul><li>Переместить все закрытые проблемы сюда</li><li>Переместить все объединенные запросы на вытягивание сюда</li><li>Переместить все закрытые и не объединенные запросы на вытягивание сюда</li></ul> |
 
-### Project progress tracking
+## Отслеживание хода выполнения проекта
 
-You can track the progress on your project board. Cards in the "To do", "In progress", or "Done" columns count toward the overall project progress. {% data reusables.project-management.project-progress-locations %}
+Ваша {% data variables.projects.projects_v1_board %} позволяет отслеживать ход работы. Карточки в столбцах "Действие", "Выполняется" или "Готово" учитываются в общем ходе выполнения проекта. {% data reusables.project-management.project-progress-locations %}
 
-For more information, see "[Tracking progress on your project board](/github/managing-your-work-on-github/tracking-progress-on-your-project-board)."
+Дополнительные сведения: [Отслеживание хода выполнения в компоненте "{% data variables.product.prodname_project_v1 %}"](/github/managing-your-work-on-github/tracking-progress-on-your-project-board).
 
-### Дополнительная литература
-- "[Configuring automation for project boards](/articles/configuring-automation-for-project-boards)"{% if currentVersion == "free-pro-team@latest" %}
-- "[Copying a project board](/articles/copying-a-project-board)"{% endif %}
+## Дополнительные материалы
+- [Настройка автоматизации компонента "{% data variables.product.prodname_projects_v1 %}"](/articles/configuring-automation-for-project-boards){% ifversion fpt or ghec %}
+- [Копирование компонента "{% data variables.product.prodname_project_v1 %}"](/articles/copying-a-project-board){% endif %}

@@ -1,103 +1,135 @@
 ---
-title: Initializing GitHub AE
-intro: 'To get your enterprise ready to use, you can complete the initial configuration of {% data variables.product.product_name %}.'
+title: Инициализация GitHub AE
+intro: 'Чтобы подготовить ваше предприятие к использованию, можно выполнить начальную настройку {% data variables.product.product_name %}.'
 versions:
-  github-ae: '*'
+  ghae: '*'
 type: how_to
 topics:
   - Enterprise
 redirect_from:
   - /admin/configuration/initializing-github-ae
+  - /enterprise-server@latest/admin/configuration/configuring-your-enterprise/initializing-github-ae
+ms.openlocfilehash: a3c32a770bbf58be3589824302fe3a32be0e239a
+ms.sourcegitcommit: ced661bdffebd0f96f6f76db109fbe31983448ba
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/16/2022
+ms.locfileid: '148167055'
 ---
+## Сведения об инициализации
 
-### About initialization
+Прежде чем инициализировать организацию, необходимо приобрести {% data variables.product.product_name %}. За дополнительными сведениями обратитесь в {% data variables.contact.contact_enterprise_sales %}.
 
-Before you can initialize your enterprise, you must purchase {% data variables.product.product_name %}. For more information, contact {% data variables.contact.contact_enterprise_sales %}.
-
-After you purchase {% data variables.product.product_name %}, we'll ask you to provide an email address and username for the person you want to initialize the enterprise. Your dedicated technical account manager in {% data variables.contact.enterprise_support %} will create an account for the enterprise owner and send the enterprise owner an email to log into {% data variables.product.product_name %} and complete the initialization. Make sure the information you provide matches the intended enterprise owner's information in the IdP. For more information about enterprise owners, see "[Roles in an enterprise](/github/setting-up-and-managing-your-enterprise/roles-in-an-enterprise#enterprise-owner)."
+{% data reusables.github-ae.initialize-enterprise %} Убедитесь в том, что предоставленные сведения соответствуют сведениям о предполагаемом владельце организации у поставщика удостоверений. Дополнительные сведения о владельцах организаций см. в разделе [Роли в организации](/admin/user-management/managing-users-in-your-enterprise/roles-in-an-enterprise#enterprise-owner).
 
 {% note %}
 
-**Notes**:
+**Примечания**
 
-- If the initial password for {% data variables.product.prodname_ghe_managed %} expires before you finish initialization, you can request a password reset at any time from your invitation email.
+- Если срок действия первоначального пароля для {% data variables.product.prodname_ghe_managed %} истекает до завершения инициализации, вы можете в любое время запросить сброс пароля из сообщения электронной почты с приглашением.
 
-- Store the initial username and password for {% data variables.product.prodname_ghe_managed %} securely in a password manager. {% data reusables.saml.contact-support-if-your-idp-is-unavailable %}
+- Храните исходные имя пользователя и пароль для {% data variables.product.prodname_ghe_managed %} безопасным образом в диспетчере паролей. {% data reusables.saml.contact-support-if-your-idp-is-unavailable %}
 
 {% endnote %}
 
-During initialization, the enterprise owner will name your enterprise, configure SAML SSO, create policies for all organizations in your enterprise, and configure a support contact for your users.
+Во время инициализации владелец организации присвоит ей имя, настроит единый вход SAML, создаст политики для всех отделов организации и настроит контактные данные службы поддержки для пользователей.
 
-### Требования
+## Предварительные требования
 
-To begin initialization, you will receive an invitation email from {% data variables.product.company_short %}. Before you configure {% data variables.product.prodname_ghe_managed %}, review the following prerequisites.
+Вы получите приглашение по электронной почте от {% data variables.product.company_short %}, чтобы можно было начать инициализацию. Перед настройкой {% data variables.product.prodname_ghe_managed %} ознакомьтесь с приведенными ниже предварительными требованиями.
 
 
-1. To initialize {% data variables.product.product_location %}, you must have a SAML identity provider (IdP). {% data reusables.saml.ae-uses-saml-sso %} To connect your IdP to your enterprise during initialization, you should have your IdP's Entity ID (SSO) URL, Issuer ID URL, and public signing certificate (Base64-encoded). For more information, see "[About identity and access management for your enterprise](/admin/authentication/about-identity-and-access-management-for-your-enterprise)."
+Чтобы инициализировать {% data variables.location.product_location %}, необходимо иметь поставщик удостоверений SAML (IdP). {% data reusables.saml.ae-uses-saml-sso %} Чтобы подключить поставщик удостоверений к организации во время инициализации, необходимо знать URL-адрес идентификатора сущности (единого входа) IdP, URL-адрес идентификатора издателя и открытый сертификат для подписи (в кодировке Base64). Дополнительные сведения см. в разделе [Сведения об управлении удостоверениями и доступом для предприятия](/admin/authentication/about-identity-and-access-management-for-your-enterprise).
 
-    {% note %}
+{% note %}
 
-    **Note**: {% data reusables.saml.create-a-machine-user %}
+**Примечание**. {% data reusables.saml.create-a-machine-user %}
 
-    {% endnote %}
+{% endnote %}
 
-2. {% data reusables.saml.assert-the-administrator-attribute %}
+## Вход в организацию и присвоение ей имени
 
-### Signing in and naming your enterprise
+1. Следуйте инструкциям в приветственном сообщении электронной почты, чтобы перейти в организацию.
+2. Введите учетные данные в поле "Изменить пароль", а затем нажмите кнопку **Изменить пароль**.
+3. В поле "Как бы вы хотели назвать вашу учетную запись организации?" введите имя организации и нажмите кнопку **Сохранить и продолжить**.
+  ![Кнопка "Сохранить и продолжить" для присвоения имени организации](/assets/images/enterprise/configuration/ae-enterprise-configuration.png)
 
-1. Follow the instructions in your welcome email to reach your enterprise.
-2. Type your credentials under "Change password", then click **Change password**.
-3. Under "What would you like your enterprise account to be named?", type the enterprise's name, then click **Save and continue**. !["Save and continue" button for naming an enterprise](/assets/images/enterprise/configuration/ae-enterprise-configuration.png)
+## Подключение поставщика удостоверений к организации
 
-### Connecting your IdP to your enterprise
+Чтобы настроить проверку подлинности для {% data variables.product.product_name %}, необходимо предоставить {% data variables.product.product_name %} сведения о поставщике удостоверений SAML. {% data variables.product.company_short %} рекомендует использовать Azure AD в качестве поставщика удостоверений. Дополнительные сведения см. в разделе [Настройка проверки подлинности и подготовки с использованием поставщика удостоверений](/admin/authentication/configuring-authentication-and-provisioning-with-your-identity-provider).
 
-To configure authentication for {% data variables.product.product_name %}, you must provide {% data variables.product.product_name %} with the details for your SAML IdP. {% data variables.product.company_short %} recommends using Azure AD as your IdP. For more information, see "[Configuring authentication and provisioning with your identity provider](/admin/authentication/configuring-authentication-and-provisioning-with-your-identity-provider)."
+1. Справа в разделе "Настройка поставщика удостоверений" нажмите кнопку **Настроить**.
+  ![Кнопка "Настроить" для настройки поставщика удостоверений](/assets/images/enterprise/configuration/ae-idp-configure.png)
+1. В поле "URL-адрес для входа" скопируйте и вставьте URL-адрес поставщика удостоверений SAML.
+  ![Текстовое поле для URL-адреса входа поставщика удостоверений SAML](/assets/images/enterprise/configuration/ae-idp-sign-on-url.png)
+1. В поле "Издатель" скопируйте и вставьте URL-адрес издателя для поставщика удостоверений SAML.
+  ![Текстовое поле для URL-адреса издателя поставщика удостоверений SAML](/assets/images/enterprise/configuration/ae-idp-issuer-url.png)
+1. В поле "Общедоступный сертификат" скопируйте и вставьте открытый сертификат поставщика удостоверений SAML.
+  ![Текстовое поле для открытого сертификата поставщика удостоверений SAML](/assets/images/enterprise/configuration/ae-idp-public-certificate.png)
+1. Нажмите кнопку **Проверить конфигурацию SAML**, чтобы убедиться в правильности введенных сведений.
+  ![Кнопка "Проверить конфигурацию SAML"](/assets/images/enterprise/configuration/ae-test-saml-configuration.png)
+1. Выберите команду **Сохранить**.
+  ![Кнопка "Сохранить" для конфигурации поставщика удостоверений](/assets/images/enterprise/configuration/ae-save.png)
+1. {% data reusables.saml.assert-the-administrator-attribute %}
 
-1. To the right of "Set up your identity provider", click **Configure**. !["Configure" button for IdP configuration](/assets/images/enterprise/configuration/ae-idp-configure.png)
-1. Under "Sign on URL", copy and paste the URL for your SAML IdP. ![Text field for SAML IdP's sign-on URL](/assets/images/enterprise/configuration/ae-idp-sign-on-url.png)
-1. Under "Issuer", copy and paste the issuer URL for your SAML IdP. ![Text field for SAML IdP's issuer URL](/assets/images/enterprise/configuration/ae-idp-issuer-url.png)
-1. Under "Public certificate", copy and paste the public certificate for your SAML IdP. ![Text field for SAML IdP's public certificate](/assets/images/enterprise/configuration/ae-idp-public-certificate.png)
-1. Click **Test SAML configuration** to ensure that the information you've entered is correct. !["Test SAML configuration" button](/assets/images/enterprise/configuration/ae-test-saml-configuration.png)
-1. Click **Save**. !["Save" button for IdP configuration](/assets/images/enterprise/configuration/ae-save.png)
+## Настройка политик организации
 
-### Setting your enterprise policies
+Настраивая политики, вы устанавливаете ограничения на управление репозиториями и отделами вашей организации. Их можно перенастроить после инициализации.
 
-Configuring policies will set limitations for repository and organization management for your enterprise. These can be reconfigured after the initialization process.
+1. Справа в разделе "Настройка политик организации" нажмите кнопку **Настроить**.
+  ![Кнопка "Настроить" для настройки политик](/assets/images/enterprise/configuration/ae-policies-configure.png)
+2. В разделе "Разрешения репозиториев по умолчанию" в раскрывающемся меню выберите уровень разрешений по умолчанию для репозиториев организации. Если у пользователя есть несколько путей доступа к организации (индивидуальный, через команду или в качестве сотрудника организации), наивысший из имеющихся уровней разрешений переопределяет все более низкие уровни. Если необходимо разрешить отделам организации задавать собственные разрешения по умолчанию на доступ к репозиториям, выберите пункт **Без политики**.
+  ![Раскрывающееся меню для выбора разрешений по умолчанию на доступ к репозиториям](/assets/images/enterprise/configuration/ae-repository-permissions-menu.png)
+3. В разделе "Создание репозитория" укажите, следует ли разрешить участникам создавать репозитории. Если необходимо разрешить отделам организации задавать разрешения, выберите пункт **Без политики**.
+  ![Кнопка "Участники могут создавать репозитории" для настройки политик организации](/assets/images/enterprise/configuration/ae-repository-creation-permissions.png)
+4. В разделе "Создание вилок репозиториев" выберите, следует ли разрешить создание вилок частных и внутренних репозиториев. Если необходимо разрешить отделам организации задавать разрешения, выберите пункт **Без политики**.
+  ![Раскрывающееся меню для выбора разрешений на создание вилок репозиториев](/assets/images/enterprise/configuration/ae-repository-forking-menu.png)
+5. В разделе "Приглашения в репозитории" укажите, могут ли сотрудники или владельцы организации приглашать участников совместной работы в репозитории. Если необходимо разрешить отделам организации задавать разрешения, выберите пункт **Без политики**.
+  ![Раскрывающееся меню для выбора разрешений на приглашение в репозитории](/assets/images/enterprise/configuration/ae-repository-invitations-menu.png)
+6. В разделе "Видимость репозиториев по умолчанию" в раскрывающемся меню выберите видимость по умолчанию для новых репозиториев.
+  ![Раскрывающееся меню для выбора видимости репозиториев по умолчанию](/assets/images/enterprise/configuration/ae-repository-visibility-menu.png)
+7. В разделе "Пользователи могут создавать отделы" в раскрывающемся меню выберите, следует ли разрешить сотрудникам организации создавать отделы.
+  ![Раскрывающееся меню для выбора разрешений на создание отделов](/assets/images/enterprise/configuration/ae-organization-creation-permissions-menu.png)
+8. В разделе "Принудительная отправка" в раскрывающемся меню выберите, следует ли разрешать или запретить принудительную отправку.
+  ![Раскрывающееся меню для настройки принудительной отправки](/assets/images/enterprise/configuration/ae-force-pushes-configuration-menu.png)
+9. В разделе "Доступ к GIT по SSH" в раскрывающемся меню выберите, следует ли включить доступ к GIT по протоколу SSH для всех репозиториев в организации.
+  ![Раскрывающееся меню для настройки доступа к GIT по SSH](/assets/images/enterprise/configuration/ae-git-ssh-access-menu.png)
+10. Нажмите кнопку **Сохранить**.
+  ![Кнопка "Сохранить" для конфигурации политик организации](/assets/images/enterprise/configuration/ae-save.png)
+11. Если необходимо сбросить все выбранные параметры, нажмите кнопку "Вернуться к политикам по умолчанию".
+  ![Ссылка для сброса всех политик по умолчанию](/assets/images/enterprise/configuration/ae-reset-default-options.png)
 
-1. To the right of "Set your enterprise policies", click **Configure**. !["Configure" button for policies configuration](/assets/images/enterprise/configuration/ae-policies-configure.png)
-2. Under "Default Repository Permissions", use the drop-down menu and click a default permissions level for repositories in your enterprise. If a person has multiple avenues of access to an organization, either individually, through a team, or as an organization member, the highest permission level overrides any lower permission levels. Optionally, to allow organizations within your enterprise to set their default repository permissions, click **No policy** ![Drop-down menu for default repository permissions options](/assets/images/enterprise/configuration/ae-repository-permissions-menu.png)
-3. Under "Repository creation", choose whether you want to allow members to create repositories. Optionally, to allow organizations within your enterprise to set permissions, click **No policy**. !["Members can create repositories" button for enterprise policies configuration](/assets/images/enterprise/configuration/ae-repository-creation-permissions.png)
-4. Under "Repository forking", choose whether to allow forking of private and internal repositories. Optionally, to allow organizations within your enterprise to set permissions, click **No policy** ![Drop-down menu for repository forking permissions options](/assets/images/enterprise/configuration/ae-repository-forking-menu.png)
-5. Under "Repository invitations", choose whether members or organization owners can invite collaborators to repositories. Optionally, to allow organizations within your enterprise to set permissions, click **No policy** ![Drop-down menu for repository invitation permissions options](/assets/images/enterprise/configuration/ae-repository-invitations-menu.png)
-6. Under "Default repository visibility", use the drop-down menu and click the default visibility setting for new repositories. ![Drop-down menu for default repository visibility options](/assets/images/enterprise/configuration/ae-repository-visibility-menu.png)
-7. Under "Users can create organizations", use the drop-down menu to enable or disable organization creation access for members of the enterprise. ![Drop-down menu for organization creation permissions options](/assets/images/enterprise/configuration/ae-organization-creation-permissions-menu.png)
-8. Under "Force pushes", use the drop-down menu and choose whether to allow or block force pushes. ![Drop-down menu for force pushes configuration options](/assets/images/enterprise/configuration/ae-force-pushes-configuration-menu.png)
-9. Under "Git SSH access", use the drop-down menu and choose whether to enable Git SSH access for all repositories in the enterprise. ![Drop-down menu for Git SSH access options](/assets/images/enterprise/configuration/ae-git-ssh-access-menu.png)
-10. Click **Save** !["Save" button for enterprise policies configuration](/assets/images/enterprise/configuration/ae-save.png)
-11. Optionally, to reset all selections, click "Reset to default policies". ![Link to reset all default policies](/assets/images/enterprise/configuration/ae-reset-default-options.png)
+## Настройка контактных данных внутренней службы поддержки
 
-### Setting your internal support contact
+Вы можете настроить способ, которым пользователи будут обращаться во внутреннюю группу поддержки. Его можно перенастроить после инициализации.
 
-You can configure the method your users will use to contact your internal support team. This can be reconfigured after the initialization process.
+1. Справа в разделе "Контактные данные внутренней службы поддержки" нажмите кнопку **Настроить**.
+  ![Кнопка "Настроить" для настройки контактных данных внутренней службы поддержки](/assets/images/enterprise/configuration/ae-support-configure.png)
+2. В разделе "Контактные данные внутренней службы поддержки" выберите способ обращения в службу поддержки для пользователей организации: по URL-адресу или адресу электронной почты. Затем введите контактные данные службы поддержки.
+  ![Текстовое поле для контактного URL-адреса внутренней службы поддержки](/assets/images/enterprise/configuration/ae-support-link-url.png)
+3. Выберите команду **Сохранить**.
+  ![Кнопка "Сохранить" для настроенных контактных данных службы поддержки организации](/assets/images/enterprise/configuration/ae-save.png)
 
-1. To the right of "Internal support contact", click **Configure**. !["Configure" button for internal support contact configuration](/assets/images/enterprise/configuration/ae-support-configure.png)
-2. Under "Internal support contact", select the method for users of your enterprise to contact support, through a URL or an e-mail address. Then, type the support contact information. ![Text field for internal support contact URL](/assets/images/enterprise/configuration/ae-support-link-url.png)
-3. Click **Save**. !["Save" button for enterprise support contact configuration](/assets/images/enterprise/configuration/ae-save.png)
+## Настройка параметров электронной почты
 
-### Setting your email settings
+После инициализации можно перенастроить любые из эти параметров. Дополнительные сведения см. в разделе [Настройка электронной почты для уведомлений](/admin/configuration/configuring-email-for-notifications).
 
-Once this is initialized, you can reconfigure any settings after the initialization process. For more information, see "[Configuring email for notifications](/admin/configuration/configuring-email-for-notifications)."
+1. Справа в разделе "Настройка параметров электронной почты" нажмите кнопку **Настроить**.
+  ![Кнопка "Настроить" для параметров электронной почты](/assets/images/enterprise/configuration/ae-email-configure.png)
+2. Установите флажок **Включить электронную почту**. В результате будет включена как исходящая, так и входящая электронная почта, однако для работы входящей электронной почты необходимо также настроить параметры DNS. Дополнительные сведения см. в разделе [Настройка параметров DNS и брандмауэра для разрешения входящих сообщений электронной почты](/admin/configuration/configuring-email-for-notifications#configuring-dns-and-firewall-settings-to-allow-incoming-emails).
+ ![Флажок "Включить" для параметров электронной почты](/assets/images/enterprise/configuration/ae-enable-email-configure.png)
+3. Настройте параметры сервера электронной почты.
+    - В поле **Адрес сервера** введите адрес SMTP-сервера.
+    - В поле **Порт** введите порт, используемый SMTP-сервером для отправки электронной почты.
+    - В поле **Домен** введите доменное имя, которое SMTP-сервер будет отправлять с ответом HELO, если таковой имеется.
+    - В раскрывающемся списке **Проверка подлинности** выберите тип шифрования, используемый SMTP-сервером.
+    - В поле **Адрес электронной почты для автоматической рассылки** введите адрес электронной почты, который будет использоваться в полях "От" и "Кому" для всех уведомлений.
 
-1. To the right of "Configure email settings", click **Configure**. !["Configure" button for email settings configuration](/assets/images/enterprise/configuration/ae-email-configure.png)
-2. Select **Enable email**. This will enable both outbound and inbound email, however, for inbound email to work you will also need to configure your DNS settings. For more information, see "[Configuring DNS and firewall settings to allow incoming emails](/admin/configuration/configuring-email-for-notifications#configuring-dns-and-firewall-settings-to-allow-incoming-emails)." !["Enable" checkbox for email settings configuration](/assets/images/enterprise/configuration/ae-enable-email-configure.png)
-3. Complete your email server settings:
-    - In the **Server address** field, type the address of your SMTP server.
-    - In the **Port** field, type the port that your SMTP server uses to send email.
-    - In the **Domain** field, type the domain name that your SMTP server will send with a HELO response, if any.
-    - In the **Authentication** dropdown, choose the type of encryption used by your SMTP server.
-    - In the **No-reply email address** field, type the email address to use in the From and To fields for all notification emails.
-
-4. If you want to discard all incoming emails that are addressed to the no-reply email address, select **Discard email addressed to the no-reply email address**. !["Discard" checkbox for email settings configuration](/assets/images/enterprise/configuration/ae-discard-email.png)
-5. Click **Test email settings**. !["Test email settings" button for email settings configuration](/assets/images/enterprise/configuration/ae-test-email.png)
-6. Under "Send test email to," type the email address where you want to send a test email, then click **Send test email**. !["Send test email" button for email settings configuration](/assets/images/enterprise/configuration/ae-send-test-email.png)
-7. Click **Save**. !["Save" button for enterprise support contact configuration](/assets/images/enterprise/configuration/ae-save.png)
+4. Если вы хотите отменить все входящие сообщения электронной почты, поступающие на адрес для автоматической рассылки, установите флажок **Отменить сообщения на адрес электронной почты для автоматической рассылки**.
+  ![Флажок "Отменить" для настройки параметров электронной почты](/assets/images/enterprise/configuration/ae-discard-email.png)
+5. Нажмите **Проверить параметры электронной почты**.
+  ![Кнопка "Проверить параметры электронной почты" для настройки параметров электронной почты](/assets/images/enterprise/configuration/ae-test-email.png)
+6. В поле "Куда отправить тестовое сообщение" введите адрес электронной почты, на который хотите отправить тестовое сообщение, а затем нажмите кнопку **Отправить тестовое сообщение**.
+  ![Кнопка "Отправить тестовое сообщение" для настройки параметров электронной почты](/assets/images/enterprise/configuration/ae-send-test-email.png)
+7. Выберите команду **Сохранить**.
+  ![Кнопка "Сохранить" для настроенных контактных данных службы поддержки организации](/assets/images/enterprise/configuration/ae-save.png)

@@ -1,69 +1,76 @@
 ---
-title: Managing projects using Jira
-intro: 'You can integrate Jira with {% data variables.product.prodname_enterprise %} for project management.'
+title: Управление проектами с помощью Jira
+intro: 'Jira можно интегрировать с {% data variables.product.product_name %} для управления проектами.'
 redirect_from:
-  - /enterprise/admin/guides/installation/project-management-using-jira/
-  - /enterprise/admin/articles/project-management-using-jira/
+  - /enterprise/admin/guides/installation/project-management-using-jira
+  - /enterprise/admin/articles/project-management-using-jira
   - /enterprise/admin/developer-workflow/managing-projects-using-jira
   - /enterprise/admin/developer-workflow/customizing-your-instance-with-integrations
   - /enterprise/admin/user-management/managing-projects-using-jira
   - /admin/user-management/managing-projects-using-jira
 versions:
-  enterprise-server: '*'
+  ghes: '*'
+  ghae: '*'
 type: how_to
 topics:
   - Enterprise
   - Project management
+shortTitle: Project management with Jira
+ms.openlocfilehash: da1a02894bf8c916089de94a8642396ba7ceabe4
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145115144'
 ---
+## Подключение Jira к организации {% data variables.product.prodname_enterprise %}
 
-### Connecting Jira to a {% data variables.product.prodname_enterprise %} organization
+1. Войдите в учетную запись {% data variables.product.prodname_enterprise %} по адресу http[s]://[имя_узла]/login. Если вход уже выполнен, щелкните логотип {% data variables.product.prodname_dotcom %} в левом верхнем углу.
+2. Щелкните значок профиля под логотипом {% data variables.product.prodname_dotcom %} и выберите организацию, к которой нужно подключить Jira.
 
-1. Sign into your {% data variables.product.prodname_enterprise %} account at http[s]://[hostname]/login. If already signed in, click on the {% data variables.product.prodname_dotcom %} logo in the top left corner.
-2. Click on your profile icon under the {% data variables.product.prodname_dotcom %} logo and select the organization you would like to connect with Jira.
+  ![Выбор организации](/assets/images/enterprise/orgs-and-teams/profile-select-organization.png)
 
-  ![Select an organization](/assets/images/enterprise/orgs-and-teams/profile-select-organization.png)
+3. Щелкните ссылку **Изменить параметры _имя организации_**.
 
-3. Click on the **Edit _organization name_ settings** link.
+  ![Изменение параметров организации](/assets/images/enterprise/orgs-and-teams/edit-organization-settings.png)
 
-  ![Edit organization settings](/assets/images/enterprise/orgs-and-teams/edit-organization-settings.png)
+4. На левой боковой панели в разделе **Параметры разработки** щелкните **Приложения OAuth**.
 
-4. In the left sidebar, under **Developer settings**, click **OAuth Apps**.
+  ![Выбор приложений OAuth](/assets/images/enterprise/orgs-and-teams/organization-dev-settings-oauth-apps.png)
 
-  ![Select OAuth Apps](/assets/images/enterprise/orgs-and-teams/organization-dev-settings-oauth-apps.png)
+5. Нажмите кнопку **Зарегистрировать новое приложение**.
 
-5. Click on the **Register new application** button.
+  ![Кнопка "Зарегистрировать новое приложение"](/assets/images/enterprise/orgs-and-teams/register-oauth-application-button.png)
 
-  ![Register new application button](/assets/images/enterprise/orgs-and-teams/register-oauth-application-button.png)
+6. Задайте значения параметрам:
+    - В поле **Имя приложения** введите "Jira" или любое имя, которое вы хотите использовать для идентификации экземпляра Jira.
+    - В поле **URL-адрес домашней страницы** введите полный URL-адрес экземпляра Jira.
+    - В поле **URL-адрес обратного вызова авторизации** введите полный URL-адрес экземпляра Jira.
+7. Нажмите кнопку **Зарегистрировать приложение**.
+8. Запомните отображаемые в верхней части страницы **идентификатор клиента** и **секрет клиента**. Они понадобятся для настройки экземпляра Jira.
 
-6. Fill in the application settings:
-    - In the **Application name** field, type "Jira" or any name you would like to use to identify the Jira instance.
-    - In the **Homepage URL** field, type the full URL of your Jira instance.
-    - In the **Authorization callback URL** field, type the full URL of your Jira instance.
-7. Click **Register application**.
-8. At the top of the page, note the **Client ID** and **Client Secret**. You will need these for configuring your Jira instance.
+## Настройка экземпляра Jira
 
-### Jira instance configuration
+1. В экземпляре Jira войдите в учетную запись с правами администратора.
+2. В верхней части страницы щелкните значок параметров (шестеренка) и выберите **Приложения**.
 
-1. On your Jira instance, log into an account with administrative access.
-2. At the top of the page, click the settings (gear) icon and choose **Applications**.
+  ![Выбор приложений в параметрах Jira](/assets/images/enterprise/orgs-and-teams/jira/jira-applications.png)
 
-  ![Select Applications on Jira settings](/assets/images/enterprise/orgs-and-teams/jira/jira-applications.png)
+3. На левой боковой панели в разделе **Интеграции** щелкните **Учетные записи DVCS**.
 
-3. In the left sidebar, under **Integrations**, click **DVCS accounts**.
+  ![Меню интеграций Jira — учетные записи DVCS](/assets/images/enterprise/orgs-and-teams/jira/jira-integrations-dvcs.png)
 
-  ![Jira Integrations menu - DVCS accounts](/assets/images/enterprise/orgs-and-teams/jira/jira-integrations-dvcs.png)
+4. Щелкните **Связать учетную запись Bitbucket Cloud или {% data variables.product.prodname_dotcom %}** .
 
-4. Click **Link Bitbucket Cloud or {% data variables.product.prodname_dotcom %} account**.
+  ![Связывание учетной записи GitHub с Jira](/assets/images/enterprise/orgs-and-teams/jira/jira-link-github-account.png)
 
-  ![Link GitHub account to Jira](/assets/images/enterprise/orgs-and-teams/jira/jira-link-github-account.png)
-
-5. In the **Add New Account** modal, fill in your {% data variables.product.prodname_enterprise %} settings:
-    - From the **Host** dropdown menu, choose **{% data variables.product.prodname_enterprise %}**.
-    - In the **Team or User Account** field, type the name of your {% data variables.product.prodname_enterprise %} organization or personal account.
-    - In the **OAuth Key** field, type the Client ID of your {% data variables.product.prodname_enterprise %} developer application.
-    - In the **OAuth Secret** field, type the Client Secret for your {% data variables.product.prodname_enterprise %} developer application.
-    - If you don't want to link new repositories owned by your {% data variables.product.prodname_enterprise %} organization or personal account, deselect **Auto Link New Repositories**.
-    - If you don't want to enable smart commits, deselect **Enable Smart Commits**.
-    - Click **Add**.
-6. Review the permissions you are granting to your {% data variables.product.prodname_enterprise %} account and click **Authorize application**.
-7. If necessary, type your password to continue.
+5. В модальном окне **Добавление новой учетной записи** задайте значения параметрам {% data variables.product.prodname_enterprise %}:
+    - В раскрывающемся меню **Узел** выберите **{% data variables.product.prodname_enterprise %}** .
+    - В поле **Команда или учетная запись пользователя** введите имя вашей организации {% data variables.product.prodname_enterprise %} или личной учетной записи.
+    - В поле **Ключ OAuth** введите идентификатор клиента приложения разработчика {% data variables.product.prodname_enterprise %}.
+    - В поле **Секрет OAuth** введите секрет клиента приложения разработчика {% data variables.product.prodname_enterprise %}.
+    - Если вы не хотите связывать новые репозитории, принадлежащие вашей организации {% data variables.product.prodname_enterprise %} или учетной записи пользователя, снимите флажок **Автоматически связывать новые репозитории**.
+    - Если вы не хотите включать смарт-фиксации, снимите флажок **Включить смарт-фиксации**.
+    - Нажмите кнопку **Добавить**.
+6. Просмотрите разрешения, которые вы предоставляете учетной записи {% data variables.product.prodname_enterprise %}, и щелкните **Авторизовать приложение**.
+7. При необходимости введите пароль для продолжения.

@@ -5,26 +5,31 @@ redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/renewing-your-clients-paid-organization
   - /articles/renewing-your-client-s-paid-organization
   - /articles/renewing-your-clients-paid-organization
-  - /github/setting-up-and-managing-billing-and-payments-on-github/renewing-your-clients-paid-organization
   - /github/setting-up-and-managing-billing-and-payments-on-github/setting-up-paid-organizations-for-procurement-companies/renewing-your-clients-paid-organization
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Organizations
+shortTitle: Renewing paid organization
+ms.openlocfilehash: 2b3f7e96a44cad8acaf782afb6f1c911c74f1c2d
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145087762'
 ---
-
 {% data reusables.organizations.reseller-ask-to-become-billing-manager %}
 
 {% tip %}
 
-**参考**: 支払いマネージャーはいつでも、[Organization の有料シートの数を更新](/articles/upgrading-or-downgrading-your-client-s-paid-organization)することもできます。
+**ヒント**: 課金マネージャーは、[Organization の有料シート数をいつでも変更する](/articles/upgrading-or-downgrading-your-client-s-paid-organization)こともできます。
 
 {% endtip %}
 
-### Organization のクレジットカードを更新する
+## Organization のクレジットカードを更新する
 
-{% data reusables.organizations.billing-settings %}
-{% data reusables.dotcom_billing.update_payment_method %}
-1. Under "Payment method", click **New Card**. ![Billing New Card button](/assets/images/help/billing/billing-new-card-button.png)
-{% data reusables.dotcom_billing.enter-payment-info %}
+{% data reusables.organizations.billing-settings %} {% data reusables.dotcom_billing.update_payment_method %}
+1. [支払い方法] の **[新しいカード]** をクリックします。
+![[新しいカードの請求] ボタン](/assets/images/help/billing/billing-new-card-button.png) {% data reusables.dotcom_billing.enter-payment-info %}

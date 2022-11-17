@@ -1,33 +1,36 @@
 ---
 title: Activar las características opcionales para las apps
-intro: 'Puedes probar las características nuevas para tus {% data variables.product.prodname_github_apps %} y {% data variables.product.prodname_oauth_app %}s.'
+intro: 'Puedes probar características nuevas para tus {% data variables.product.prodname_github_apps %} y {% data variables.product.prodname_oauth_apps %}.'
 redirect_from:
   - /developers/apps/activating-beta-features-for-apps
   - /developers/apps/activating-optional-features-for-apps
 versions:
-  free-pro-team: '*'
-  github-ae: '*'
-  enterprise-server: '>=2.22'
+  fpt: '*'
+  ghae: '*'
+  ghes: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
+shortTitle: Activate optional features
+ms.openlocfilehash: 918fe1dd7ba466fccc4d54d02fca6b13fe6e4e86
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145092207'
 ---
-
 {% warning %}
 
-**Advertencia:** {% if currentVersion ver_lt "enterprise-server@3.1" %} Las características beta {% else %} Las características opcionales {% endif %} están sujetas a cambios.
+**Advertencia:** Estas características están sujetas a cambios.
 
 {% endwarning %}
 
-### Activar las características {% if currentVersion ver_lt "enterprise-server@3.1" %} beta {% else %} opcionales{% endif %} para {% data variables.product.prodname_github_apps %}
+## Activar las características opcionales para las {% data variables.product.prodname_github_apps %}
 
-{% data reusables.user-settings.access_settings %}
-{% data reusables.user-settings.developer_settings %}
-3. Selecciona la {% data variables.product.prodname_github_app %} par ala cual quieras habilitar {% if currentVersion ver_lt "enterprise-server@3.1" %} un beta {% else %} una característica opcional {% endif %}.
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.developer_settings %}
+3. Selecciona la {% data variables.product.prodname_github_app %} para la cuál quieras habilitar una característica opcional.
 {% data reusables.apps.optional_feature_activation %}
 
-### Activar características {% if currentVersion ver_lt "enterprise-server@3.1" %} beta {% else %} opcionales{% endif %} para las {% data variables.product.prodname_oauth_app %}s
+## Activar características opcionales para las {% data variables.product.prodname_oauth_apps %}
 
-{% data reusables.user-settings.access_settings %}
-{% data reusables.user-settings.developer_settings %}
-{% data reusables.user-settings.oauth_apps %}
-{% data reusables.apps.optional_feature_activation %}
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.developer_settings %} {% data reusables.user-settings.oauth_apps %} {% data reusables.apps.optional_feature_activation %}

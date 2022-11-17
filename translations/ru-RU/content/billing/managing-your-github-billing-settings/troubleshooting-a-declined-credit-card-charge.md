@@ -1,37 +1,43 @@
 ---
-title: Troubleshooting a declined credit card charge
-intro: 'If the credit card you use to pay for {% data variables.product.product_name %} is declined, you can take several steps to ensure that your payments go through and that you are not locked out of your account.'
+title: Устранение неполадок с отклоненной оплатой с кредитной карты
+intro: 'Если кредитная карта, используемая для оплаты {% data variables.product.product_name %}, отклонена, можно выполнить ряд действий, чтобы убедиться, что ваши платежи проводятся и у вас не заблокирован доступ к вашей учетной записи.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/troubleshooting-a-declined-credit-card-charge
-  - /articles/what-do-i-do-if-my-card-is-declined/
+  - /articles/what-do-i-do-if-my-card-is-declined
   - /articles/troubleshooting-a-declined-credit-card-charge
-  - /github/setting-up-and-managing-billing-and-payments-on-github/troubleshooting-a-declined-credit-card-charge
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-your-github-billing-settings/troubleshooting-a-declined-credit-card-charge
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Troubleshooting
+shortTitle: Declined credit card charge
+ms.openlocfilehash: 44ed836d24e23ceb7e805cccdad6e70203381bf5
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '147884224'
 ---
+Если ваша карта отклонена, мы отправим вам сообщение электронной почты с указанием причины. У вас будет несколько дней, чтобы устранить проблему, после чего мы попробуем списать с вас средства снова.
 
-If your card is declined, we'll send you an email about why the payment was declined. You'll have a few days to resolve the problem before we try charging you again.
+## Проверка срока действия карты
 
-### Check your card's expiration date
+Если срок действия карты истек, вам потребуется обновить платежные данные в своей учетной записи. Дополнительные сведения см. в разделе [Добавление или изменение метода оплаты](/articles/adding-or-editing-a-payment-method).
 
-If your card has expired, you'll need to update your account's payment information. For more information, see "[Adding or editing a payment method](/articles/adding-or-editing-a-payment-method)."
+## Проверка правил вашего банка по ограничениям на использование карт
 
-### Verify your bank's policy on card restrictions
+Некоторые международные банки устанавливают ограничения на трансграничные операции, автоматически повторяемые транзакции и оплату в системах электронной торговли. Если вы не можете оплатить покупку с помощью международной кредитной карты, узнайте в своем банке, действуют ли какие-нибудь ограничения для вашей карты.
 
-Some international banks place restrictions on international, e-commerce, and automatically recurring transactions. If you're having trouble making a payment with your international credit card, call your bank to see if there are any restrictions on your card.
+Мы также поддерживаем платежи через PayPal. Дополнительные сведения см. в разделе [Добавление или изменение метода оплаты](/articles/adding-or-editing-a-payment-method).
 
-We also support payments through PayPal. For more information, see "[Adding or editing a payment method](/articles/adding-or-editing-a-payment-method)."
+## Обращение в банк за подробными сведениями о транзакции
 
-### Contact your bank for details about the transaction
+Ваш банк по запросу может предоставить дополнительную информацию о конкретном отклоненном платеже. Если в отношении вашей карты действуют ограничения, позвоните в банк и предоставьте следующие сведения:
 
-Your bank can provide additional information about declined payments if you specifically ask about the attempted transaction. If there are restrictions on your card and you need to call your bank, provide this information to your bank:
-
-- **The amount you're being charged.** The amount for your subscription appears on your account's receipts. For more information, see "[Viewing your payment history and receipts](/articles/viewing-your-payment-history-and-receipts)."
-- **The date when {% data variables.product.product_name %} bills you.** Your account's billing date appears on your receipts.
-- **The transaction ID number.** Your account's transaction ID appears on your receipts.
-- **The merchant name.** The merchant name is {% data variables.product.prodname_dotcom %}.
-- **The error message your bank sent with the declined charge.** You can find your bank's error message on the email we send you when a charge is declined.
+- **Сумма, которую вы должны оплатить.** Стоимость подписки отображается в квитанциях для вашей учетной записи. Дополнительные сведения см. в разделе "[Просмотр истории платежей и квитанций](/articles/viewing-your-payment-history-and-receipts)".
+- **Дата выставления счета за {% data variables.product.product_name %}.** Дата выставления счетов для учетной записи есть в квитанциях.
+- **Идентификатор транзакции.** Идентификатор транзакции вашей учетной записи есть в квитанциях.
+- **Имя продавца.** Имя продавца — {% data variables.product.prodname_dotcom %}.
+- **Сообщение об ошибке, отправленное банком при отклонении платежа.** Сообщение об ошибке от вашего банка включается в сообщение электронной почты, которое мы отправим вам при отклонении платежа.
