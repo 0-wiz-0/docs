@@ -1,22 +1,31 @@
 ---
-title: REST API overview
-shortTitle: 개요
-intro: 'Learn about resources, libraries, previews and troubleshooting for {% data variables.product.prodname_dotcom %}''s REST API.'
+title: REST API 개요
+shortTitle: Overview
+intro: '{% data variables.product.prodname_dotcom %}의 REST API에 대한 리소스, 라이브러리, 미리 보기 및 문제 해결에 대해 알아봅니다.'
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - API
+children:
+  - /resources-in-the-rest-api
+  - /media-types
+  - /other-authentication-methods
+  - /troubleshooting
+  - /api-previews
+  - /libraries
+  - /openapi-description
+  - /endpoints-available-for-github-apps
+  - /endpoints-available-for-fine-grained-personal-access-tokens
+  - /permissions-required-for-github-apps
+  - /permissions-required-for-fine-grained-personal-access-tokens
+ms.openlocfilehash: 413b4771d77508a1916473009891e1444fa5ea32
+ms.sourcegitcommit: d697e0ea10dc076fd62ce73c28a2b59771174ce8
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 10/20/2022
+ms.locfileid: '148098105'
 ---
 
-### Table of Contents
-
-{% link_in_list /resources-in-the-rest-api %}
-{% link_in_list /media-types %}
-{% link_in_list /other-authentication-methods %}
-{% link_in_list /troubleshooting %}
-{% link_in_list /api-previews %}
-{% link_in_list /libraries %}
-{% link_in_list /openapi-description %}
-{% link_in_list /endpoints-available-for-github-apps %}

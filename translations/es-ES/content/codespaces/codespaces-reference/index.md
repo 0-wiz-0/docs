@@ -1,14 +1,21 @@
 ---
 title: Referencia
-intro: 'This section contains references that will allow you to be successful with {% data variables.product.prodname_codespaces %}'
+intro: 'Esta sección contiene referencias que te permitirán tener éxito con {% data variables.product.prodname_github_codespaces %}.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
+children:
+  - /allowing-your-codespace-to-access-a-private-image-registry
+  - /using-github-copilot-in-github-codespaces
+  - /using-the-github-codespaces-plugin-for-jetbrains
+  - /using-the-vs-code-command-palette-in-codespaces
+  - /security-in-github-codespaces
+  - /disaster-recovery-for-github-codespaces
+ms.openlocfilehash: 87692cd862e791f3e6ffa2be2b07f34c6158e617
+ms.sourcegitcommit: e8c012864f13f9146e53fcb0699e2928c949ffa8
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 11/09/2022
+ms.locfileid: '148159201'
 ---
 
-{% data reusables.codespaces.release-stage %}
-
-{% link_with_intro /about-billing-for-codespaces %}
-
-{% link_with_intro /troubleshooting-your-codespace %}
-
-{% link_with_intro /allowing-your-codespace-to-access-a-private-image-registry %}
