@@ -1,3 +1,1 @@
-1. En la esquina superior derecha de {% data variables.product.product_name %}, haz clic en tu foto de perfil y luego haz clic en **Tus codespaces**.
-
-  ![Opción de menú 'Tus codespaces'](/assets/images/help/codespaces/your-codespaces-option.png)
+1. Navigate to the "Your codespaces" page at [github.com/codespaces](https://github.com/codespaces).

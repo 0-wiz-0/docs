@@ -1,6 +1,15 @@
-{% if currentVersion == "free-pro-team@latest" %}{% data variables.product.prodname_secret_scanning_caps %} is available for all public repositories, and for private repositories owned by organizations where {% data variables.product.prodname_GH_advanced_security %} is enabled.
-{%- elsif currentVersion ver_gt "enterprise-server@3.0" or currentVersion == "github-ae@next" %}{% data variables.product.prodname_secret_scanning_caps %} is available for organization-owned repositories where {% data variables.product.prodname_GH_advanced_security %} is enabled.
-{%- elsif currentVersion == "github-ae@latest" %}
-{% data variables.product.prodname_secret_scanning_caps %} is available as part of {% data variables.product.prodname_GH_advanced_security %}, which is free during the beta release.
-{%- else %}
-{% data variables.product.prodname_secret_scanning_caps %} está disponível se você tiver uma licença para {% data variables.product.prodname_GH_advanced_security %}.{% endif %} {% data reusables.advanced-security.more-info-ghas %}
+---
+ms.openlocfilehash: 3e32ef8b3fc53f1818f1d09b8461aa00e50f200c
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: "145093467"
+---
+<!--This reusable describes the GHAS secret scanning feature. For a reusable that also covers the free secret scanning for public repositories on GitHub.com, use `secret-scanning-partner.md`  -->
+
+{%- ifversion ghec or ghes %} A {% data variables.product.prodname_secret_scanning_GHAS_caps %} está disponível para os repositórios pertencentes à organização no {% data variables.product.product_name %} se a sua empresa tem uma licença do {% data variables.product.prodname_GH_advanced_security %}.
+
+{%- elsif ghae %} A {% data variables.product.prodname_secret_scanning_caps %} está disponível para os repositórios pertencentes à organização no {% data variables.product.product_name %}. Esse é um recurso do {% data variables.product.prodname_GH_advanced_security %} (gratuito durante a versão beta).
+
+{%- endif %} {% ifversion not ghae %}Para obter mais informações, confira "[Produtos do GitHub](/articles/githubs-products)".{% endif %}

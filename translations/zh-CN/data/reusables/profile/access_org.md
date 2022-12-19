@@ -1,5 +1,10 @@
-{% if currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@latest" or currentVersion ver_gt "enterprise-server@2.21" %}1. 在 {% data variables.product.product_name %} 的右上角，单击您的个人资料照片，然后单击 **Your organizations（您的组织）**。
-![个人资料菜单中的组织](/assets/images/help/profile/your-organizations.png)
-  {% else %}1. 在 {% data variables.product.product_name %} 的右上角，单击您的个人资料照片，然后单击 **Your profile（您的个人资料）**。
-  ![个人资料照片](/assets/images/enterprise/settings/top_right_avatar.png)
- 2. 在您的个人资料页面左侧的“Organizations（组织）”下，单击组织的图标。 ![organization icons](/assets/images/help/profile/profile_orgs_box.png){% endif %}
+---
+ms.openlocfilehash: 08564f054c871af7f61db8dba021b32a618a6e18
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/10/2022
+ms.locfileid: "145100237"
+---
+1. 在 {% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom_the_website %}{% else %}{% data variables.product.product_name %}{% endif %} 的右上角，单击你的个人资料照片，然后单击“你的组织”。
+  ![贵组织在配置文件菜单中](/assets/images/help/profile/your-organizations.png)

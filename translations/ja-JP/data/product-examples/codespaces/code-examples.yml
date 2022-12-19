@@ -1,0 +1,36 @@
+- title: Node.jsサンプルプロジェクト
+  description: カスタムdevコンテナとあわせてNode.jsプロジェクトを試してください
+  languages: Javascript
+  href: microsoft/vscode-remote-try-node
+  tags:
+    - development containers
+- title: Pythonサンプルプロジェクト
+  description: カスタムdevコンテナとあわせてPythonプロジェクトを試してください
+  languages: Python
+  href: microsoft/vscode-remote-try-python
+  tags:
+    - development containers
+- title: Javaサンプルプロジェクト
+  description: カスタムdevコンテナとあわせてJavaプロジェクトを試してください
+  languages: Java
+  href: microsoft/vscode-remote-try-java
+  tags:
+    - development containers
+- title: Goサンプルプロジェクト
+  description: カスタムdevコンテナとあわせてGoプロジェクトを試してください
+  languages: Go
+  href: microsoft/vscode-remote-try-go
+  tags:
+    - development containers
+- title: Rustサンプルプロジェクト
+  description: カスタムdevコンテナとあわせてRustプロジェクトを試してください
+  languages: Rust
+  href: microsoft/vscode-remote-try-rust
+  tags:
+    - development containers
+- title: PHPサンプルプロジェクト
+  description: カスタムdevコンテナとあわせてPHPプロジェクトを試してください
+  languages: PHP
+  href: microsoft/vscode-remote-try-php
+  tags:
+    - development containers

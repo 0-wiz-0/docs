@@ -1,38 +1,34 @@
 ---
 title: Gerenciar fluxos de trabalho
-shortTitle: Gerenciar fluxos de trabalho
-intro: 'Você pode visualizar o status e os resultados de cada etapa do seu fluxo de trabalho, cancelar um fluxo de trabalho pendente, {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" or currentVersion == "github-ae@latest" %}revisar implantações, {% endif %}visualizar acúmulos de execução de trabalhos faturáveis, depurar e executar novamente um fluxo de trabalho que falhou, pesquisar e fazer o download de registros e artefatos.'
+shortTitle: Managing workflow runs
+intro: 'Você pode executar novamente ou cancelar um fluxo de trabalho, {% ifversion fpt or ghes or ghae %}examinar implantações, {% endif %}ver as minutas de execução de trabalhos faturáveis e baixar artefatos.'
 redirect_from:
   - /actions/configuring-and-managing-workflows/managing-a-workflow-run
-  - /articles/viewing-your-repository-s-workflows
-  - /articles/viewing-your-repositorys-workflows
   - /articles/managing-a-workflow-run
   - /github/automating-your-workflow-with-github-actions/managing-a-workflow-run
   - /actions/automating-your-workflow-with-github-actions/managing-a-workflow-run
   - /actions/configuring-and-managing-workflows/configuring-and-managing-workflow-files-and-runs
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 children:
-  - /using-the-visualization-graph
-  - /viewing-workflow-run-history
-  - /using-workflow-run-logs
   - /manually-running-a-workflow
-  - /re-running-a-workflow
+  - /re-running-workflows-and-jobs
   - /canceling-a-workflow
   - /approving-workflow-runs-from-public-forks
   - /reviewing-deployments
   - /disabling-and-enabling-a-workflow
+  - /skipping-workflow-runs
   - /deleting-a-workflow-run
-  - /viewing-job-execution-time
   - /downloading-workflow-artifacts
   - /removing-workflow-artifacts
-  - /enabling-debug-logging
-  - /adding-a-workflow-status-badge
+ms.openlocfilehash: fe5f7c461fc03392bcc93713887b1cc1d4293207
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145095094'
 ---
-
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
-{% data reusables.actions.ae-beta %}
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" or currentVersion == "github-ae@latest" %}{% endif %}
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}

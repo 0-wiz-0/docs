@@ -9,78 +9,77 @@ redirect_from:
   - /packages/using-github-packages-with-your-projects-ecosystem/configuring-npm-for-use-with-github-packages
   - /packages/guides/configuring-npm-for-use-with-github-packages
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
+shortTitle: npm registry
+ms.openlocfilehash: adcaf9cadc6202075e4f89e2287cdf2b733efc3f
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147705020'
 ---
+{% data reusables.package_registry.packages-ghes-release-stage %} {% data reusables.package_registry.packages-ghae-release-stage %}
 
-{% data reusables.package_registry.packages-ghes-release-stage %}
-{% data reusables.package_registry.packages-ghae-release-stage %}
+{% data reusables.package_registry.admins-can-configure-package-types %}
 
-{% data reusables.package_registry.default-name %} たとえば、{% data variables.product.prodname_dotcom %}は`OWNER/test`というリポジトリ内の`com.example:test`という名前のパッケージを公開します。
-
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}
-### 公開したnpmバージョンに対する制限
+{% ifversion packages-npm-v2 %} {% else %}
+## 公開したnpmバージョンに対する制限
 
 {% data variables.product.prodname_registry %}に公開したnpmパッケージのバージョンが1000を超える場合、使用中にパフォーマンスの問題やタイムアウトが発生することがあります。
 
 サービスのパフォーマンスを向上させるため、将来的には1,000を超えるパッケージのバージョンを{% data variables.product.prodname_dotcom %}に公開できなくなります。 この制限に達しないバージョンであれば、今後も読み取り可能です。
 
-この制限に達した場合は、パッケージのバージョンを削除するよう検討するか、サポートにお問い合わせください。 この制限が施行されるようになると、ドキュメントが更新され、この制限を回避する方法が記載されることになります。 詳しい情報については、 「{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" %}[パッケージを削除および復元する](/packages/learn-github-packages/deleting-and-restoring-a-package){% elsif currentVersion ver_lt "enterprise-server@3.1" or currentVersion == "github-ae@latest" %}[パッケージを削除する](/packages/learn-github-packages/deleting-a-package){% endif %}」または「[サポートへの連絡](/packages/learn-github-packages/about-github-packages#contacting-support)」を参照してください。
-
+この制限に達した場合は、パッケージのバージョンを削除するよう検討するか、サポートにお問い合わせください。 この制限が施行されるようになると、ドキュメントが更新され、この制限を回避する方法が記載されることになります。 詳細については、「[パッケージを削除および復元する](/packages/learn-github-packages/deleting-and-restoring-a-package)」または「[サポートに問い合わせる](/packages/learn-github-packages/about-github-packages#contacting-support)」を参照してください。
 {% endif %}
 
-### {% data variables.product.prodname_registry %} への認証を行う
+## {% data variables.product.prodname_registry %} への認証を行う
 
 {% data reusables.package_registry.authenticate-packages %}
 
-{% data reusables.package_registry.authenticate-packages-github-token %}
+{% ifversion packages-npm-v2 %} {% data reusables.package_registry.authenticate_with_pat_for_v2_registry %}
 
-#### 個人アクセストークンでの認証
+また、{% data variables.product.prodname_codespaces %} と {% data variables.product.prodname_actions %} に対して、パッケージにアクセス許可を個別に付与することもできます。 詳しくは、「[パッケージへの Codespaces のアクセスの確保](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#ensuring-codespaces-access-to-your-package)」と、「[パッケージへのワークフロー アクセスの確認](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#ensuring-workflow-access-to-your-package)」をご覧ください。
+{% endif %}
+
+### 個人アクセストークンでの認証
 
 {% data reusables.package_registry.required-scopes %}
 
-ユーザごとの*~/.npmrc*ファイルを編集して個人アクセストークンを含めるか、コマンドラインからユーザ名と個人アクセストークンを使ってnpmにログインすることによって、npmで{% data variables.product.prodname_registry %}の認証を受けられます。
+ユーザーごとの *~/.npmrc* ファイルを編集して個人用アクセス トークンを含めるか、コマンド ラインでユーザー名と個人用アクセス トークンを使用して npm にログインすることによって、npm で {% data variables.product.prodname_registry %} に対して認証を行うことができます。
 
-*~/.npmrc*ファイルに個人アクセストークンを追加して認証を受けるには、プロジェクトの*~/.npmrc*ファイルを編集して、以下の行を含めてください。{% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %}*HOSTNAME* は {% data variables.product.product_location %}のホスト名で、{% endif %}*TOKEN*は個人アクセストークンで置き換えてください。 *~/.npmrc*ファイルが存在しない場合は、新しく作成してください。
+*~/.npmrc* ファイルに個人用アクセス トークンを追加して認証を行うには、プロジェクトの *~/.npmrc* ファイルを編集して次の行を含めます。{% ifversion ghes or ghae %}*HOSTNAME* は {% data variables.product.product_location %} のホスト名に、{% endif %}*TOKEN* は個人用アクセス トークンに置き換えます。 存在しない場合は、新しい *~/.npmrc* ファイルを作成します。
 
-{% if enterpriseServerVersions contains currentVersion %}
-パッケージの作成に関する詳しい情報については[maven.apache.orgのドキュメンテーション](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)を参照してください。
-{% endif %}
+{% ifversion ghes %}インスタンスで Subdomain Isolation が有効になっている場合: {% endif %}
 
 ```shell
-//{% if currentVersion == "free-pro-team@latest" %}npm.pkg.github.com{% else %}npm.<em>HOSTNAME</em>/{% endif %}/:_authToken=<em>TOKEN</em>
+//{% ifversion fpt or ghec %}npm.pkg.github.com{% else %}npm.<em>HOSTNAME</em>/{% endif %}/:_authToken=<em>TOKEN</em>
 ```
 
-{% if enterpriseServerVersions contains currentVersion %}
-たとえば、以下の*OctodogApp*と*OctocatApp*は同じリポジトリに公開されます。
+{% ifversion ghes %}インスタンスで Subdomain Isolation が無効になっている場合:
 
 ```shell
-$ npm login --registry=https://npm.pkg.github.com
-> Username: <em>USERNAME</em>
-> Password: <em>TOKEN</em>
-> Email: <em>PUBLIC-EMAIL-ADDRESS</em>
+//<em>HOSTNAME</em>/_registry/npm/:_authToken=<em>TOKEN</em>
 ```
 {% endif %}
 
-npmにログインすることで認証を受けるには、`npm login`コマンドを使ってください。*USERNAME*は{% data variables.product.prodname_dotcom %}のユーザ名で、*TOKEN*は個人アクセストークンで、*PUBLIC-EMAIL-ADDRESS*はメールアドレスで置き換えてください。
+npm にログインして認証を行うには、`npm login` コマンドを使用します。*USERNAME* は {% data variables.product.prodname_dotcom %} ユーザー名に、*TOKEN* は個人用アクセス トークンに、*PUBLIC-EMAIL-ADDRESS* はメール アドレスに置き換えます。
 
-{% data variables.product.prodname_registry %}がnpmを使用するデフォルトのパッケージレジストリではなく、`npm audit` コマンドを使用する場合、{% data variables.product.prodname_registry %}への認証時には、パッケージの所有者権限と共に`--scope`フラグを使用することをおすすめします。
+{% data variables.product.prodname_registry %} が npm を使用するための既定のパッケージ レジストリではなく、`npm audit` コマンドを使用する場合は、{% data variables.product.prodname_registry %} に対する認証時に、パッケージの所有者と共に `--scope` フラグを使用することをお勧めします。
 
-{% if enterpriseServerVersions contains currentVersion %}
-パッケージの作成に関する詳しい情報については[maven.apache.orgのドキュメンテーション](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)を参照してください。
-{% endif %}
+{% ifversion ghes %}インスタンスで Subdomain Isolation が有効になっている場合: {% endif %}
 
 ```shell
-$ npm login --scope=@<em>OWNER</em> --registry=https://{% if currentVersion == "free-pro-team@latest" %}npm.pkg.github.com{% else %}npm.<em>HOSTNAME</em>/{% endif %}
+$ npm login --scope=@<em>OWNER</em> --registry=https://{% ifversion fpt or ghec %}npm.pkg.github.com{% else %}npm.<em>HOSTNAME</em>/{% endif %}
 
 > Username: <em>USERNAME</em>
 > Password: <em>TOKEN</em>
 > Email: <em>PUBLIC-EMAIL-ADDRESS</em>
 ```
 
-{% if enterpriseServerVersions contains currentVersion %}
-たとえば、以下の*OctodogApp*と*OctocatApp*は同じリポジトリに公開されます。
+{% ifversion ghes %}インスタンスで Subdomain Isolation が無効になっている場合:
 
 ```shell
 $ npm login --scope=@<em>OWNER</em> --registry=https://<em>HOSTNAME</em>/_registry/npm/
@@ -90,81 +89,83 @@ $ npm login --scope=@<em>OWNER</em> --registry=https://<em>HOSTNAME</em>/_regist
 ```
 {% endif %}
 
-### パッケージを公開する
+## パッケージの公開
 
 {% note %}
 
-**注釈:** パッケージ名およびスコープには小文字のみを使用する必要があります。
+**注:** パッケージ名とスコープには小文字のみを使用する必要があります。
 
 {% endnote %}
 
-デフォルトでは、{% data variables.product.prodname_registry %}は*package.json*ファイルのnameフィールドで指定された{% data variables.product.prodname_dotcom %}のリポジトリにパッケージを公開します。 たとえば`@my-org/test`という名前のパッケージを{% data variables.product.prodname_dotcom %}リポジトリの`my-org/test`に公開します。 パッケージディレクトリに*README.md*ファイルを置くことで、パッケージリスティングページのためのまとめを追加できます。 詳しい情報については、npmのドキュメンテーション中の「[Working with package.json](https://docs.npmjs.com/getting-started/using-a-package.json)」及び「[How to create Node.js Modules](https://docs.npmjs.com/getting-started/creating-node-modules)」を参照してください。
+{% ifversion packages-npm-v2 %}{% data variables.product.prodname_registry %} レジストリは、Organization 内または個人アカウント内に npm パッケージを格納し、パッケージをリポジトリに関連付けることができます。 権限をリポジトリから継承するか、リポジトリとは別に細かい権限を設定するかを選ぶことができます。
+{% endif %}
 
-`URL`フィールドを*package.json*ファイルに含めることで、同じ{% data variables.product.prodname_dotcom %}のリポジトリに複数のパッケージを公開できます。 詳しい情報については「[同じリポジトリへの複数パッケージの公開](#publishing-multiple-packages-to-the-same-repository)」を参照してください。
+既定では、{% data variables.product.prodname_registry %} は *package.json* ファイルの name フィールドで指定された {% data variables.product.prodname_dotcom %} リポジトリにパッケージを公開します。 たとえば、`@my-org/test` という名前のパッケージは、`my-org/test` {% data variables.product.prodname_dotcom %} リポジトリに公開することになります。 [npm v8.5.3](https://github.com/npm/cli/releases/tag/v8.5.3) 以降を実行している場合は、パッケージ ディレクトリに *README.md* ファイルを含めることで、パッケージのリスト ページの概要を追加できます。 詳しくは、[package.json の利用](https://docs.npmjs.com/getting-started/using-a-package.json)と [Node.js モジュールの作成方法](https://docs.npmjs.com/getting-started/creating-node-modules)に関する npm のドキュメントをご覧ください。
 
-プロジェクト内にあるローカルの *.npmrc* ファイルか、*package.json* の `publishConfig` オプションを使って、スコープのマッピングを設定できます。 {% data variables.product.prodname_registry %}はスコープ付きのnpmパッケージのみをサポートしています。 スコープ付きパッケージには、`@owner/name` というフォーマットの名前が付いています。 スコープ付きパッケージの先頭には常に `@` 記号が付いています。 スコープ付きの名前を使うには、*package.json* の名前を更新する必要がある場合があります。 たとえば、`"name": "@codertocat/hello-world-npm"` のようになります。
+`URL` フィールドを *package.json* ファイルに含めることで、同じ {% data variables.product.prodname_dotcom %} リポジトリに複数のパッケージを公開できます。 詳しくは、「[同じリポジトリへの複数パッケージの公開](#publishing-multiple-packages-to-the-same-repository)」をご覧ください。
+
+{% ifversion fpt or ghec %}パッケージが公開されても、リポジトリに自動的にリンクされることはありません。 ただし、ユーザー インターフェイスまたはコマンド ラインを使用して、公開済みのパッケージをリポジトリにリンクすることはできます。 詳細については、「[リポジトリのパッケージへの接続](/packages/learn-github-packages/connecting-a-repository-to-a-package)」を参照してください。
+{% endif %}
+
+プロジェクト内にあるローカルの *.npmrc* ファイルか、*package.json* の `publishConfig` オプションを使用して、プロジェクトのスコープのマッピングを設定できます。 {% data variables.product.prodname_registry %}はスコープ付きのnpmパッケージのみをサポートしています。 スコープ付きのパッケージには、`@owner/name` 形式の名前が付いています。 スコープ付きのパッケージの先頭には常に `@` 記号が付いています。 スコープ付きの名前を使うには、*package.json* で名前を更新する必要がある場合があります。 たとえば、`"name": "@codertocat/hello-world-npm"` のようにします。
+
+{% ifversion packages-npm-v2 %} パッケージを最初に公開する場合、既定の可視性はプライベートです。 パッケージがリポジトリにリンクされている場合、パッケージの可視性はリポジトリの可視性に依存します。 可視性を変更したりアクセス権限を設定するには、「[パッケージのアクセス制御と可視性の設定](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)」を参照してください。
+{% endif %}
 
 {% data reusables.package_registry.viewing-packages %}
 
-#### ローカルの*.npmrc*ファイルを使ったパッケージの公開
+### ローカルの *.npmrc* ファイルを使用したパッケージの公開
 
-*.npmrc*ファイルを使って、プロジェクトのスコープのマッピングを設定できます。 *.npmrc*ファイル中で{% data variables.product.prodname_registry %} URLとアカウントオーナーを使い、{% data variables.product.prodname_registry %}がどこへパッケージリクエストをまわせばいいか把握できるようにしてください。 *.npmrc*を使う事で、他の開発者が{% data variables.product.prodname_registry %}の代わりにうっかりパッケージをnpmjs.orgに公開してしまうのを避けることができます。
+*.npmrc* ファイルを使用して、プロジェクトのスコープのマッピングを設定できます。 *.npmrc* ファイルで {% data variables.product.prodname_registry %} の URL とアカウント所有者を使い、{% data variables.product.prodname_registry %} がパッケージ要求のルーティング先を把握できるようにしてください。 *.npmrc* ファイルを使うことで、他の開発者がパッケージを {% data variables.product.prodname_registry %} ではなく npmjs.org に誤って公開することを防止できます。
 
-{% data reusables.package_registry.authenticate-step %}
-{% data reusables.package_registry.create-npmrc-owner-step %}
-{% data reusables.package_registry.add-npmrc-to-repo-step %}
-1. プロジェクトの*package.json*中のパッケージ名を確認してください。 `name`フィールドは、スコープとパッケージの名前を含まなければなりません。 たとえば、パッケージの名前が "test" で、"My-org" {% data variables.product.prodname_dotcom %} Organizationに公開する場合、*package.json*の`name`フィールドは `@my-org/test`とする必要があります。
-{% data reusables.package_registry.verify_repository_field %}
-{% data reusables.package_registry.publish_package %}
+{% data reusables.package_registry.authenticate-step %} {% data reusables.package_registry.create-npmrc-owner-step %} {% data reusables.package_registry.add-npmrc-to-repo-step %}
+1. プロジェクトの *package.json* にあるパッケージの名前を確認します。 `name` フィールドには、スコープとパッケージの名前が含まれている必要があります。 たとえば、パッケージの名前が "test" で、"My-org" {% data variables.product.prodname_dotcom %} Organization に公開する場合、*package.json* の `name` フィールドは `@my-org/test` にする必要があります。
+{% data reusables.package_registry.verify_repository_field %} {% data reusables.package_registry.publish_package %}
 
-#### *package.json*ファイル中の`publishConfig`を利用したパッケージの公開
+### *package.json* ファイルでの `publishConfig` を使用したパッケージの公開
 
-*package.json*ファイル中の`publishConfig`要素を使い、パッケージを公開したいレジストリを指定できます。 詳しい情報についてはnpmドキュメンテーションの「[Configの公開](https://docs.npmjs.com/files/package.json#publishconfig)」を参照してください。
+*package.json* ファイルで `publishConfig` 要素を使用して、パッケージを公開するレジストリを指定できます。 詳細については、npm ドキュメントの「[publishConfig](https://docs.npmjs.com/files/package.json#publishconfig)」を参照してください。
 
-1. パッケージの*package.json*ファイルを編集して、`publishConfig`エントリを含めてください。
-  {% if enterpriseServerVersions contains currentVersion %}
-  パッケージの作成に関する詳しい情報については[maven.apache.orgのドキュメンテーション](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)を参照してください。
-  {% endif %}
+1. パッケージの *package.json* ファイルを編集して、`publishConfig` のエントリを含めるようにします。
+  {% ifversion ghes %}インスタンスで Subdomain Isolation が有効になっている場合: {% endif %}
   ```shell
   "publishConfig": {
-    "registry":"https://{% if currentVersion == "free-pro-team@latest" %}npm.pkg.github.com{% else %}npm.<em>HOSTNAME</em>/{% endif %}"
+    "registry":"https://{% ifversion fpt or ghec %}npm.pkg.github.com{% else %}npm.<em>HOSTNAME</em>/{% endif %}"
   },
   ```
-  {% if enterpriseServerVersions contains currentVersion %}
-  たとえば、以下の*OctodogApp*と*OctocatApp*は同じリポジトリに公開されます。
+  {% ifversion ghes %}インスタンスで Subdomain Isolation が無効になっている場合:
    ```shell
    "publishConfig": {
      "registry":"https://<em>HOSTNAME</em>/_registry/npm/"
    },
   ```
-  {% endif %}
-{% data reusables.package_registry.verify_repository_field %}
-{% data reusables.package_registry.publish_package %}
+  {% endif %} {% data reusables.package_registry.verify_repository_field %} {% data reusables.package_registry.publish_package %}
 
-### 同じリポジトリへの複数パッケージの公開
+## 同じリポジトリへの複数パッケージの公開
 
-複数のパッケージを同じリポジトリに公開するには、{% data variables.product.prodname_dotcom %}リポジトリのURLを各パッケージの*package.json*ファイル中の`repository`フィールドに含めることができます。
+複数のパッケージを同じリポジトリに公開する場合は、{% data variables.product.prodname_dotcom %} リポジトリの URL を、各パッケージの *package.json* ファイルの `repository` フィールドに含めます。
 
 リポジトリのURLが正しいことを確認するには、REPOSITORYを公開したいパッケージを含むリポジトリ名で、OWNERをリポジトリを所有している{% data variables.product.prodname_dotcom %}のユーザもしくはOrganizationアカウント名で置き換えてください。
 
 {% data variables.product.prodname_registry %} は、パッケージ名の代わりに、このURLを元にしてリポジトリを照合します。
 
 ```shell
-"repository":"https://{% if currentVersion == "free-pro-team@latest" %}github.com{% else %}<em>HOSTNAME</em>{% endif %}/<em>OWNER</em>/<em>REPOSITORY</em>",
+"repository":"https://{% ifversion fpt or ghec %}github.com{% else %}<em>HOSTNAME</em>{% endif %}/<em>OWNER</em>/<em>REPOSITORY</em>",
 ```
 
-### パッケージをインストールする
+## パッケージのインストール
 
-プロジェクトの*package.json*ファイルに依存関係としてパッケージを追加することで、{% data variables.product.prodname_registry %}からパッケージをインストールできます。 プロジェクトにおける *package.json* の利用に関する詳しい情報については、npm ドキュメンテーションの「[package.json を使って作業する](https://docs.npmjs.com/getting-started/using-a-package.json)」を参照してください。
+プロジェクトの *package.json* ファイルに依存関係としてパッケージを追加することで、{% data variables.product.prodname_registry %} からパッケージをインストールできます。 プロジェクトで *package.json* を使用する方法について詳しくは、[package.json の利用](https://docs.npmjs.com/getting-started/using-a-package.json)に関する npm のドキュメントをご覧ください。
 
-デフォルトでは、パッケージは1つのOrganizationから追加できます。 詳しい情報については「[他のOrganizationからのパッケージのインストール](#installing-packages-from-other-organizations)」を参照してください。
+デフォルトでは、パッケージは1つのOrganizationから追加できます。 詳しくは、「[他の Organization からのパッケージのインストール](#installing-packages-from-other-organizations)」をご覧ください。
 
-また、*.npmrc*ファイルをプロジェクトに追加して、パッケージのインストールのすべてのリクエストが{% data variables.product.prodname_registry %}を経由するようにしなければなりません。 すべてのパッケージリクエストを{% data variables.product.prodname_registry %}を経由させると、*npmjs.com*からスコープ付き及びスコープ付きではないパッケージの両方を利用できます。 詳しい情報については npm ドキュメンテーションの「[npm-scope](https://docs.npmjs.com/misc/scope)」を参照してください。
+プロジェクトに *.npmrc* ファイルを追加して、パッケージをインストールするためのすべての要求が {% data variables.product.prodname_registry %} {% ifversion ghae %}にルーティングされる{% else %}を経由する{% endif %}ようにする必要もあります。 {% ifversion fpt or ghes or ghec %}すべてのパッケージ要求を {% data variables.product.prodname_registry %} 経由になるようにルーティングすると、*npmjs.org* のスコープ付きおよびスコープなしのパッケージをどちらも使用できるようになります。詳しくは、[npm のスコープ](https://docs.npmjs.com/misc/scope)に関する npm のドキュメントをご覧ください。{% endif %}
 
-{% data reusables.package_registry.authenticate-step %}
-{% data reusables.package_registry.create-npmrc-owner-step %}
-{% data reusables.package_registry.add-npmrc-to-repo-step %}
-4. インストールしているパッケージを使うには、プロジェクトの*package.json*を設定してください。 {% data variables.product.prodname_registry %}のためにパッケージの依存関係を*package.json*ファイルに追加するには、`@my-org/server`というように完全なスコープ付きのパッケージ名を指定してください。 *npmjs.com*からのパッケージについては、`@babel/core`あるいは`@lodash`というような完全な名前を指定してください。 たとえば、以下の*package.json*は`@octo-org/octo-app`パッケージを依存関係として使っています。
+{% ifversion ghae %}既定では、使用できるのは Enterprise でホストされている npm パッケージのみであって、スコープなしのパッケージは使用できません。 パッケージのスコープ指定について詳しくは、[npm のスコープ](https://docs.npmjs.com/misc/scope)に関する npm のドキュメントをご覧ください。 必要に応じて、{% data variables.product.prodname_dotcom %} のサポートが npmjs.org への上流プロキシを有効にできます。上流プロキシが有効になると、要求されたパッケージが Enterprise で見つからなかった場合、{% data variables.product.prodname_registry %} は npmjs.org に対するプロキシの要求を行います。  
+{% endif %}
+
+{% data reusables.package_registry.authenticate-step %} {% data reusables.package_registry.create-npmrc-owner-step %} {% data reusables.package_registry.add-npmrc-to-repo-step %}
+4. インストールするパッケージを使用するように、プロジェクトの *package.json* を構成します。 {% data variables.product.prodname_registry %} のためにパッケージの依存関係を *package.json* ファイルに追加するには、`@my-org/server` のように完全なスコープ付きのパッケージ名を指定してください。 *npmjs.com* のパッケージの場合は、`@babel/core` または `@lodash` のように完全な名前を指定してください。 たとえば、次の *package.json* では、依存関係として `@octo-org/octo-app` パッケージが使用されます。
 
   ```json
   {
@@ -185,21 +186,18 @@ $ npm login --scope=@<em>OWNER</em> --registry=https://<em>HOSTNAME</em>/_regist
   $ npm install
   ```
 
-#### 他のOrganizationからのパッケージのインストール
+### 他のOrganizationからのパッケージのインストール
 
-デフォルトでは、1つのOrganizationからのみ{% data variables.product.prodname_registry %}パッケージを利用できます。 パッケージリクエストを複数のOrganizationおよびユーザにルーティングしたい場合、*.npmrc*ファイルに行を追加できます。 {% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %}*HOSTNAME*を、{% data variables.product.product_location %}のホスト名で、{% endif %}*OWNER*を、プロジェクトを含むリポジトリを所有しているユーザもしくはOrganizationアカウント名で置き換えてください。
+デフォルトでは、1つのOrganizationからのみ{% data variables.product.prodname_registry %}パッケージを利用できます。 パッケージ要求を複数の Organization とユーザーにルーティングする場合は、 *.npmrc* ファイルに行を追加できます。{% ifversion ghes or ghae %}*HOSTNAME* は {% data variables.product.product_location %} のホスト名に、{% endif %}*OWNER* はプロジェクトが含まれているリポジトリを所有するユーザーまたは Organization アカウントの名前に置き換えます。
 
-{% if enterpriseServerVersions contains currentVersion %}
-パッケージの作成に関する詳しい情報については[maven.apache.orgのドキュメンテーション](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)を参照してください。
-{% endif %}
+{% ifversion ghes %}インスタンスで Subdomain Isolation が有効になっている場合: {% endif %}
 
 ```shell
-@<em>OWNER</em>:registry=https://{% if currentVersion == "free-pro-team@latest" %}npm.pkg.github.com{% else %}npm.<em>HOSTNAME</em>{% endif %}
-@<em>OWNER</em>:registry=https://{% if currentVersion == "free-pro-team@latest" %}npm.pkg.github.com{% else %}npm.<em>HOSTNAME</em>{% endif %}
+@<em>OWNER</em>:registry=https://{% ifversion fpt or ghec %}npm.pkg.github.com{% else %}npm.<em>HOSTNAME</em>{% endif %}
+@<em>OWNER</em>:registry=https://{% ifversion fpt or ghec %}npm.pkg.github.com{% else %}npm.<em>HOSTNAME</em>{% endif %}
 ```
 
-{% if enterpriseServerVersions contains currentVersion %}
-たとえば、以下の*OctodogApp*と*OctocatApp*は同じリポジトリに公開されます。
+{% ifversion ghes %}インスタンスで Subdomain Isolation が無効になっている場合:
 
 ```shell
 @<em>OWNER</em>:registry=https://<em>HOSTNAME</em>/_registry/npm
@@ -207,12 +205,8 @@ $ npm login --scope=@<em>OWNER</em> --registry=https://<em>HOSTNAME</em>/_regist
 ```
 {% endif %}
 
-{% if currentVersion ver_gt "enterprise-server@2.22" %}
-### 公式NPMレジストリを使用する
+{% ifversion ghes %}
+## 公式NPMレジストリを使用する
 
-{% data variables.product.prodname_registry %}では、{% data variables.product.prodname_ghe_server %}管理者がこの機能を有効化している場合、`registry.npmjs.com`の公式NPMにアクセスできます。 詳しい情報については、[公式NPMレジストリに接続する](/admin/packages/configuring-packages-support-for-your-enterprise#connecting-to-the-official-npm-registry)」を参照してください。
+{% data variables.product.prodname_registry %} では、`registry.npmjs.com` の公式 NPM レジストリにアクセスできます ({% data variables.product.prodname_ghe_server %} 管理者がこの機能を有効にしている場合)。 詳しくは、「[公式 NPM レジストリに接続する](/admin/packages/configuring-packages-support-for-your-enterprise#connecting-to-the-official-npm-registry)」をご覧ください。
 {% endif %}
-
-### 参考リンク
-
-- 「{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" %}[パッケージを削除および復元する](/packages/learn-github-packages/deleting-and-restoring-a-package){% elsif currentVersion ver_lt "enterprise-server@3.1" or currentVersion == "github-ae@latest" %}[パッケージを削除する](/packages/learn-github-packages/deleting-a-package){% endif %}」
