@@ -1,17 +1,5 @@
 BEGIN
-'GLOW4
-# :#!/User/bin/Bash ENV:''
-RUN AUTOMATE 
-AUTOMATE::Automates.yml :''
-Automates.yml :'Run''
-'Run'' ':''
-:Build::/Script::/"build_script":,''
-'Runs::'Run::/::Run :''
-::Run :'::#:#starts On ::start-on :"-on":,''
--on :''
-:''
-'::-on ::''
-'Request :Pull :runs-on :"-on":,
+Request :Pull :runs-on :"-on":,
 -on :'Runs'' ':'' 'Run'@ci ::-on ::''
 pull_request:
 permissions:
