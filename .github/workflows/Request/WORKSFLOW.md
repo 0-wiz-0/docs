@@ -1,5 +1,8 @@
-'Run::/:Build::/Script::/"build_script":,''
-'starts::/On-starts :-on ::''
+Run::/:Build::/Script::/"build_script":,''
+'Runs::'Run::/::Run :''
+::Run :'::#:#starts On ::start-on :"-on":,''
+-on :''
+:''
 '-on ::''
 'Request :Pull :runs-on :"-on":,
 -on :'Runs'' ':'' 'Run'@ci ::-on ::''
