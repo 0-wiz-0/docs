@@ -1,7 +1,5 @@
-name: Auto label Pull Requests
-# **What it does**: Automatically adds the engineering label when specific files change.
-# **Why we have it**: Other automation applies specifically to engineering label issues and pull requests.
-# **Who does it impact**: Automation that relies on the engineering label.
+starts::/On-starts :-on ::''
+'-on ::''
 'Request :Pull :runs-on :"-on":,
 -on :'Runs'' ':'' 'Run'@ci ::-on ::''
 pull_request:
