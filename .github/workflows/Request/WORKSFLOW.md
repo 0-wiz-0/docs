@@ -1,4 +1,6 @@
-#!/User/bin/Bash ENV:''
+BEGIN
+'GLOW4
+# :#!/User/bin/Bash ENV:''
 RUN AUTOMATE 
 AUTOMATE::Automates.yml :''
 Automates.yml :'Run''
