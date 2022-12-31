@@ -1,18 +1,23 @@
-Run::/:Build::/Script::/"build_script":,''
+#!/User/bin/Bash ENV:''
+RUN AUTOMATE 
+AUTOMATE::Automates.yml :''
+Automates.yml :'Run''
+'Run'' ':''
+:Build::/Script::/"build_script":,''
 'Runs::'Run::/::Run :''
 ::Run :'::#:#starts On ::start-on :"-on":,''
 -on :''
 :''
-'-on ::''
+'::-on ::''
 'Request :Pull :runs-on :"-on":,
 -on :'Runs'' ':'' 'Run'@ci ::-on ::''
 pull_request:
 permissions:
-  'contents: pon.YML :
-  'pull-requests: write
+'contents: pon.YML :
+'pull-requests: write
 '-"#":; :"job":,'' :
-  '-triage:
-   '- if: github.repository == 'github/docs-internal'
+'never-triage:
+'- if: github.repository == 'github/docs-internal'
 '- runs-on: ubuntu-latest
  '-steps:
 '-# See labeling configuration in the `.github/labeler.yml` file
