@@ -1,11 +1,11 @@
-Puedes ejecutar tu codespace en una selección de tres tipos de máquina remota: Básica, Estándar o Premium. Cada una de estas tiene un nivel de recursos y de facturación diferentes.<!-- For information, see "\[About billing for Codespaces\](/github/developing-online-with-codespaces/about-billing-for-codespaces)." -->{% note %}
+---
+ms.openlocfilehash: 2a61633813730ae2a55d43d2d2cf976fda95784f
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/10/2022
+ms.locfileid: "147111118"
+---
+Normalmente, puedes ejecutar tu codespace en la máquina remota de tu elección, desde 2 hasta 32 núcleos. Cada una de estas tiene un nivel de recursos y de facturación diferentes. Para obtener información, consulta "[Acerca de la facturación de {% data variables.product.prodname_github_codespaces %}](/billing/managing-billing-for-github-codespaces/about-billing-for-github-codespaces)".
 
-**Nota:**{% data reusables.codespaces.about-billing-for-codespaces %}
-
-{% endnote %}
-
-El cambiar entre tipos de máquina te proporciona la flexibilidad para elegir los recursos más adecuados para tu trabajo. Algunas tareas podrían requerir tipos de máquina diferentes:
-
-* **Básico** para actualizar un archivo y levantar una solicitud de cambios
-* **Estándar** para editar un sitio web
-* **Premium** para tareas de cálculos altos tales como análilsis de datos
+De forma predeterminada, al crear un codespace se utiliza el tipo de máquina con los recursos válidos más bajos. 

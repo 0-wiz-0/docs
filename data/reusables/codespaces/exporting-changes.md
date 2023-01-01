@@ -1,0 +1,1 @@
+If your organization reaches its spending limit, people will no longer be able to create or resume codespaces that are billable to your organization. However, they can still [export any work in progress changes to a new branch](/codespaces/troubleshooting/exporting-changes-to-a-branch).

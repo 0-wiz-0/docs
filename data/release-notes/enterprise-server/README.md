@@ -22,16 +22,16 @@ Note that patch files can be deprecated individually (i.e., hidden on the docs s
 
 ### Middleware processing
 
-The YAML data is processed and sorted by `middleware/contextualizers/release-notes.js` and added to the `context` object.
+The YAML data is processed and sorted by `middleware/contextualizers/ghes-release-notes.js` and added to the `context` object.
 
 ### Layouts
 
-The `context` object data is rendered by `layouts/release-notes.html` and `includes/enterprise-server-release-notes.html`.
+The `context` object data is rendered by `components/release-notes`.
 
-The release notes page has a custom design with CSS in `stylesheets/release-notes.scss` and client-side JavaScript in `javascripts/release-notes.js`.
+The release notes page has a custom design with CSS in `stylesheets/release-notes.scss`.
 
 ### Schema
 
-The schema that validates the YAML data lives in `tests/helpers/schemas/ghes-release-notes-schema.js`. See the schema file to find out the required and optional properties.
+The schema that validates the YAML data lives in `tests/helpers/schemas/release-notes-schema.js`. See the schema file to find out the required and optional properties.
 
 The schema is exercised by a test in `tests/linting/lint-files.js`. The test will fail if the data does not pass validation.
