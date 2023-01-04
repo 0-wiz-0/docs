@@ -47,6 +47,7 @@ Mailgun | Mailgun API Key
 MessageBird | MessageBird API Key
 npm | npm Access Token
 NuGet | NuGet API Key
+OpenAI | OpenAI API Key
 Palantir | Palantir JSON Web Token
 Plivo | Plivo Auth Token
 Postman | Postman API Key
@@ -76,3 +77,4 @@ Stripe | Stripe Test API Restricted Key
 Tencent Cloud | Tencent Cloud Secret ID
 Twilio | Twilio Account String Identifier
 Twilio | Twilio API Key
+Valour | Valour Access Token
