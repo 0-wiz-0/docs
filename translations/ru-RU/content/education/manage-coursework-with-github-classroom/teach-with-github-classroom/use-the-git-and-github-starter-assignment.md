@@ -1,101 +1,109 @@
 ---
-title: Use the Git and GitHub starter assignment
-intro: 'You can use the Git & {% data variables.product.company_short %} starter assignment to give students an overview of Git and {% data variables.product.company_short %} fundamentals.'
+title: Использование начального назначения Git и GitHub
+intro: 'Можно использовать начальное назначение Git и {% data variables.product.company_short %} для предоставления учащимся основных сведений о Git и информации о принципах работы с {% data variables.product.company_short %}.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+permissions: 'Organization owners who are admins for a classroom can use Git & {% data variables.product.company_short %} starter assignments. {% data reusables.classroom.classroom-admins-link %}'
 redirect_from:
   - /education/manage-coursework-with-github-classroom/use-the-git-and-github-starter-assignment
+shortTitle: Starter assignment
+ms.openlocfilehash: fa4c3e648efee4e73a9ab3fc9e2d99897a09c9f3
+ms.sourcegitcommit: bafb4fe4c8c086a510eafee6e54a2d172fd3a01b
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/16/2022
+ms.locfileid: '148046574'
 ---
+Начальное назначение Git & {% data variables.product.company_short %} — это предварительно подготовленный курс, который резюмирует основы Git и {% data variables.product.company_short %} и направляет учащихся на ресурсы, где можно узнать больше о конкретных темах.
 
-{% note %}
-
-**Note:** The Git & {% data variables.product.company_short %} starter assignment is in beta and subject to change.
-
-{% endnote %}
-
-The Git & {% data variables.product.company_short %} starter assignment is a pre-made course that summarizes the basics of Git and {% data variables.product.company_short %} and links students to resources to learn more about specific topics.
-
-### Требования
+## Предварительные требования
 
 {% data reusables.classroom.assignments-classroom-prerequisite %}
 
-### Creating the starter assignment
+## Создание начального назначения
 
-#### If there are no existing assignments in the classroom
+### Если в классе нет существующих назначений
 
-1. Sign into {% data variables.product.prodname_classroom_with_url %}.
-2. Navigate to a classroom.
-3. In the {% octicon "repo" aria-label="The repo icon" %} **Assignments** tab, click  **Use starter assignment**.
+1. Войдите в {% data variables.product.prodname_classroom_with_url %}.
+2. Перейдите к аудитории.
+3. На вкладке {% octicon "repo" aria-label="The repo icon" %} **Назначения** щелкните **Использовать начальное назначение**.
 
 <div class="procedural-image-wrapper">
   <img alt="Creating your first assignment" class="procedural-image-wrapper" src="/assets/images/help/classroom/assignments-create-first-assignment.png">
 </div>
 
-#### If there already are existing assignments in the classroom
+### Если в классе уже есть назначения
 
-1. Sign into {% data variables.product.prodname_classroom_with_url %}.
-2. Navigate to a classroom.
-3. In the {% octicon "repo" aria-label="The repo icon" %} **Assignments** tab, click the link on the blue banner.
+1. Войдите в {% data variables.product.prodname_classroom_with_url %}.
+2. Перейдите к аудитории.
+3. На вкладке {% octicon "repo" aria-label="The repo icon" %} **Назначения** щелкните ссылку на синий баннер.
 
 <div class="procedural-image-wrapper">
   <img alt="The 'New assignment' button" class="procedural-image-wrapper" src="/assets/images/help/classroom/assignments-click-new-starter-assignment-button.png">
 </div>
 
-### Setting up the basics for an assignment
+## Настройка основных сведений о задании
 
-Import the starter course into your organization, name your assignment, decide whether to assign a deadline, and choose the visibility of assignment repositories.
+Импортируйте начальный курс в организацию, назовите назначение, решите, назначать ли крайний срок, и выберите видимость репозиториев назначений.
 
-- [Importing the assignment](#importing-the-assignment)
-- [Naming an assignment](#naming-an-assignment)
-- [Assigning a deadline for an assignment](#assigning-a-deadline-for-an-assignment)
-- [Choosing an assignment type](#choosing-an-assignment-type)
-- [Choosing a visibility for assignment repositories](#choosing-a-visibility-for-assignment-repositories)
+- [Предварительные требования](#prerequisites)
+- [Создание начального назначения](#creating-the-starter-assignment)
+  - [Если в классе нет существующих назначений](#if-there-are-no-existing-assignments-in-the-classroom)
+  - [Если в классе уже есть назначения](#if-there-already-are-existing-assignments-in-the-classroom)
+- [Настройка основных сведений о назначении](#setting-up-the-basics-for-an-assignment)
+  - [Импорт назначения](#importing-the-assignment)
+  - [Присвоение имени назначению](#naming-the-assignment)
+  - [Назначение крайнего срока выполнения для задания](#assigning-a-deadline-for-an-assignment)
+  - [Выбор видимости для репозиториев задания](#choosing-a-visibility-for-assignment-repositories)
+- [Приглашение учащихся в назначение](#inviting-students-to-an-assignment)
+- [Следующие шаги](#next-steps)
+- [Дополнительные материалы](#further-reading)
 
-#### Importing the assignment
+### Импорт назначения
 
-You first need to import the Git & {% data variables.product.product_name %} starter assignment into your organization.
+Сначала необходимо импортировать начальное назначение Git & {% data variables.product.product_name %} в организацию.
 
 <div class="procedural-image-wrapper">
   <img alt="The `Import the assignment` button" class="procedural-image-wrapper" src="/assets/images/help/classroom/assignments-import-starter-assignment.png">
 </div>
 
-#### Naming the assignment
+### Присвоение имени назначению
 
-For an individual assignment, {% data variables.product.prodname_classroom %} names repositories by the repository prefix and the student's {% data variables.product.product_name %} username. By default, the repository prefix is the assignment title. For example, if you name an assignment "assignment-1" and the student's username on {% data variables.product.product_name %} is @octocat, the name of the assignment repository for @octocat will be `assignment-1-octocat`.
+Для отдельного задания {% data variables.product.prodname_classroom %} устанавливает имена репозиториев, состоящие из префикса репозитория и имени пользователя учащегося {% data variables.product.product_name %}. По умолчанию префикс репозитория используется в качестве заголовка задания. Например, если имя задания — "assignment-1", а имя пользователя учащегося в {% data variables.product.product_name %} — @octocat, репозиторий задания для @octocat получит имя `assignment-1-octocat`.
 
 {% data reusables.classroom.assignments-type-a-title %}
 
-#### Assigning a deadline for an assignment
+### Назначение крайнего срока выполнения для задания
 
 {% data reusables.classroom.assignments-guide-assign-a-deadline %}
 
-#### Choosing a visibility for assignment repositories
+### Выбор видимости для репозиториев задания
 
-The repositories for an assignment can be public or private. If you use private repositories, only the student can see the feedback you provide. Under "Repository visibility," select a visibility.
+Репозитории для задания могут быть общедоступными или частными. Если используются частные репозитории, то отзыв сможет увидеть только учащийся. В разделе "Видимость репозитория" выберите видимость.
 
-When you're done, click **Continue**. {% data variables.product.prodname_classroom %} will create the assignment and bring you to the assignment page.
+По завершении нажмите кнопку **Продолжить**. {% data variables.product.prodname_classroom %} создаст назначение и откроется страница назначения.
 
 <div class="procedural-image-wrapper">
   <img alt="'Continue' button" class="procedural-image-wrapper" src="/assets/images/help/classroom/assignments-click-continue-button.png">
 </div>
 
-### Inviting students to an assignment
+## Приглашение учащихся в задание
 
 {% data reusables.classroom.assignments-guide-invite-students-to-assignment %}
 
-You can see whether a student has joined the classroom and accepted or submitted an assignment in the **All students** tab for the assignment. {% data reusables.classroom.assignments-to-prevent-submission %}
+На вкладке **Все учащиеся** для назначения можно увидеть, присоединился ли учащийся к классу, а также принял ли он назначение и отправил ли он его. {% data reusables.classroom.assignments-to-prevent-submission %}
 
 <div class="procedural-image-wrapper">
   <img alt="Individual assignment" class="procedural-image-wrapper" src="/assets/images/help/classroom/assignment-individual-hero.png">
 </div>
 
-The Git & {% data variables.product.company_short %} starter assignment is only available for individual students, not for groups. Once you create the assignment, students can start work on the assignment.
+Начальное назначение Git & {% data variables.product.company_short %} доступно только для отдельных учащихся, а не для групп. После создания назначения учащиеся могут начать работу над ним.
 
-### Дальнейшие шаги
+## Дальнейшие действия
 
-- Make additional assignments customized to your course. For more information, see "[Create an individual assignment](/education/manage-coursework-with-github-classroom/create-an-individual-assignment)" and "[Create a group assignment](/education/manage-coursework-with-github-classroom/create-a-group-assignment)."
+- Адаптируйте дополнительные назначения для курса. Дополнительные сведения см. в разделе [Создание индивидуального назначения](/education/manage-coursework-with-github-classroom/create-an-individual-assignment), [Создание назначения для группы](/education/manage-coursework-with-github-classroom/create-a-group-assignment) и [Повторное использование назначения](/education/manage-coursework-with-github-classroom/teach-with-github-classroom/reuse-an-assignment).
 
-### Дополнительная литература
+## Дополнительные материалы
 
-- "[Use {% data variables.product.prodname_dotcom %} in your classroom and research](/education/explore-the-benefits-of-teaching-and-learning-with-github-education/use-github-in-your-classroom-and-research)"
-- "[Connect a learning management system to {% data variables.product.prodname_classroom %}](/education/manage-coursework-with-github-classroom/connect-a-learning-management-system-to-github-classroom)"
+- [{% data variables.product.prodname_global_campus %} для преподавателей](/education/explore-the-benefits-of-teaching-and-learning-with-github-education/github-global-campus-for-teachers)
+- "[Подключение курса системы управления обучением к аудитории](/education/manage-coursework-with-github-classroom/teach-with-github-classroom/connect-a-learning-management-system-course-to-a-classroom)"

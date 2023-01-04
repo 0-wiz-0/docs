@@ -1,60 +1,90 @@
 ---
-title: Rate limits for GitHub Apps
+title: Ограничения скорости для приложений GitHub
 intro: '{% data reusables.shortdesc.rate_limits_github_apps %}'
 redirect_from:
-  - /early-access/integrations/rate-limits/
-  - /apps/building-integrations/setting-up-and-registering-github-apps/about-rate-limits-for-github-apps/
-  - /apps/building-github-apps/rate-limits-for-github-apps/
+  - /early-access/integrations/rate-limits
+  - /apps/building-integrations/setting-up-and-registering-github-apps/about-rate-limits-for-github-apps
+  - /apps/building-github-apps/rate-limits-for-github-apps
   - /apps/building-github-apps/understanding-rate-limits-for-github-apps
   - /developers/apps/rate-limits-for-github-apps
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
+shortTitle: Rate limits
+ms.openlocfilehash: b699bd6ca5e36d14f42c6745f94acb5fa5ebdf65
+ms.sourcegitcommit: d697e0ea10dc076fd62ce73c28a2b59771174ce8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/20/2022
+ms.locfileid: '148098604'
 ---
+{% data reusables.enterprise.rate_limit %}
 
-### Server-to-server requests
+{% data reusables.rest-api.always-check-your-limit %}
 
-{% if currentVersion == "free-pro-team@latest" %}
+{% ifversion ghec or fpt %}
 
-Different server-to-server request rate limits apply to {% data variables.product.prodname_github_app %}s if the app is installed on organizations or repositories owned by a {% data variables.product.prodname_ghe_cloud %} account.
+## Сведения об ограничениях скорости для приложений
 
-#### Normal server-to-server rate limits
-
-{% endif %}
-
-{% data reusables.apps.api-rate-limits-non-ghec %}
-
-{% if currentVersion == "free-pro-team@latest" %}
-
-#### {% data variables.product.prodname_ghe_cloud %} server-to-server rate limits
-
-{% data variables.product.prodname_github_app %}s that are installed on an organization or repository owned by a {% data variables.product.prodname_ghe_cloud %} account and make server-to-server requests have a rate limit of 15,000 requests per hour.
+Ограничения скорости для {% data variables.product.prodname_github_apps %} и {% data variables.product.prodname_oauth_apps %} зависят от плана организации, в которой устанавливается приложение. Дополнительные сведения см. в статьях [Продукты {% data variables.product.company_short %}](/get-started/learning-about-github/githubs-products) и [Типы учетных записей {% data variables.product.company_short %}](/get-started/learning-about-github/types-of-github-accounts#organization-accounts).
 
 {% endif %}
 
-### User-to-server requests
+## Запросы между серверами
 
-{% data variables.product.prodname_github_app %}s can also act [on behalf of a user](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-and-authorizing-users-for-github-apps), making user-to-server requests.
+{% ifversion ghec or fpt %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-
-Different user-to-server request rate limits apply to {% data variables.product.prodname_github_app %}s if the app is installed on organizations or repositories owned by a {% data variables.product.prodname_ghe_cloud %} account and the authenticated user also belongs to the same {% data variables.product.prodname_ghe_cloud %} account.
-
-#### Normal user-to-server rate limits
+### Ограничения скорости между серверами по умолчанию для {% data variables.product.prodname_dotcom_the_website %}
 
 {% endif %}
 
-User-to-server requests are rate limited at 5,000 requests per hour and per authenticated user. All OAuth applications authorized by that user, personal access tokens owned by that user, and requests authenticated with that user's{% if currentVersion == "github-ae@latest" %} token{% else %} username and password{% endif %} share the same quota of 5,000 requests per hour for that user.
+{% data variables.product.prodname_github_apps %}, которые выполняют запросы между серверами, используют минимальный предел скорости установки, составляющий 5000 запросов в час. Если приложение установлено в организации с более чем 20 пользователями, приложение получает еще 50 запросов в час для каждого пользователя. Установка с более чем 20 репозиториями получает еще 50 запросов в час для каждого репозитория. Максимальное ограничение скорости для установки составляет 12 500 запросов в час.
 
-{% if currentVersion == "free-pro-team@latest" %}
+{% ifversion fpt or ghec %}
 
-#### {% data variables.product.prodname_ghe_cloud %} user-to-server rate limits
-
-When a user belongs to a {% data variables.product.prodname_ghe_cloud %} account, user-to-server requests to resources owned by the same {% data variables.product.prodname_ghe_cloud %} account are rate limited at 15,000 requests per hour and per authenticated user. All OAuth applications authorized by that user, personal access tokens owned by that user, and {% data variables.product.prodname_ghe_cloud %} requests authenticated with that user's username and password share the same quota of 5,000 requests per hour for that user.
+### Ограничения скорости между серверами для {% data variables.product.prodname_ghe_cloud %}
 
 {% endif %}
 
-For more detailed information about rate limits, see "[Rate limiting](/rest/overview/resources-in-the-rest-api#rate-limiting)" for REST API and "[Resource limitations](/graphql/overview/resource-limitations)" for GraphQL API.
+{% ifversion fpt or ghec %}
+
+{% данных variables.product.prodname_github_apps %}, установленных в организации в организации на {% данных variables.location.product_location %}, подлежат ограничению в 15 000 запросов в час в организации, которая установила приложение.
+
+{% endif %}
+
+## Запросы от пользователя к серверу
+
+{% data variables.product.prodname_github_apps %} и {% data variables.product.prodname_oauth_apps %} также могут действовать от имени пользователя, выполняя запросы от пользователя к серверу после авторизации пользователя в приложении. Дополнительные сведения см. в статьях [Авторизация {% data variables.product.prodname_github_apps %}](/authentication/keeping-your-account-and-data-secure/authorizing-github-apps) и [Авторизация {% data variables.product.prodname_oauth_apps %}](/authentication/keeping-your-account-and-data-secure/authorizing-oauth-apps).
+
+Запросы от пользователя к серверу из {% data variables.product.prodname_oauth_apps %} проходят проверку подлинности с помощью токена OAuth. Запросы от пользователя к серверу из {% data variables.product.prodname_github_apps %} проходят проверку подлинности с помощью токена OAuth либо маркера доступа пользователя с истекающим сроком действия. Дополнительные сведения см. в статьях [Идентификация и авторизация для {% data variables.product.prodname_github_apps %}](/developers/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps#identifying-and-authorizing-users-for-github-apps) и [Авторизация {% data variables.product.prodname_oauth_apps %}](/developers/apps/building-oauth-apps/authorizing-oauth-apps).
+
+{% ifversion fpt or ghec %}
+
+### Ограничения скорости запросов от пользователя к серверу по умолчанию для {% data variables.product.prodname_dotcom_the_website %}
+
+{% endif %}
+
+{% ifversion ghec %}
+
+Ограничения скорости запросов от пользователя к серверу, выполняемые {% data variables.product.prodname_github_apps %}, зависят от того, где установлено приложение. Если приложение установлено в организациях или репозиториях, принадлежащих организации на {% данных variables.location.product_location %}, то скорость выше, чем для установок за пределами предприятия.
+
+{% endif %}
+
+{% data reusables.apps.user-to-server-rate-limits %}
+
+{% ifversion fpt or ghec %}
+
+### Ограничения скорости запросов от пользователя к серверу для {% data variables.product.prodname_ghe_cloud %}
+
+{% data reusables.apps.user-to-server-rate-limits-ghec %}
+
+{% endif %}
+
+## Дополнительные материалы
+
+- [Ограничение скорости](/rest/overview/resources-in-the-rest-api#rate-limiting) в документации по REST API
+- [Ограничения ресурсов](/graphql/overview/resource-limitations) в документации по API GraphQL

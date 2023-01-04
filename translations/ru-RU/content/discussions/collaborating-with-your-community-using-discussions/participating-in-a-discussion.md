@@ -1,31 +1,40 @@
 ---
-title: Participating in a discussion
-intro: 'You can converse with the community and maintainers in a forum within the repository for a project on {% data variables.product.product_name %}.'
-permissions: People with read permissions to a repository can participate in discussions in the repository.
+title: Участие в обсуждении
+intro: 'Вы можете взаимодействовать с сообществом и ответственными специалистами на форуме в репозитории проекта в {% data variables.product.product_name %}.'
+permissions: 'People with read access to a repository can participate in discussions and polls in the repository. People with read access to the source repository for organization discussions can participate in discussions and polls in that organization. {% data reusables.enterprise-accounts.emu-permission-interact %}'
 versions:
-  free-pro-team: '*'
+  feature: discussions
+shortTitle: Participate in discussion
+ms.openlocfilehash: 07db8d3583c218e592ca1b68171292e52fcfc12f
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147410238'
 ---
+## Сведения об участии в обсуждении
 
-{% data reusables.discussions.beta %}
+{% data reusables.discussions.about-discussions %} Дополнительные сведения см. в разделе [Сведения об обсуждениях](/discussions/collaborating-with-your-community-using-discussions/about-discussions).
 
-### About participation in a discussion
+Помимо начала или просмотра обсуждений и опросов, можно оставлять комментарии в ответ на исходный комментарий автора обсуждения. Кроме того, вы также можете создать цепочку комментариев, ответив на конкретный комментарий, который другой член сообщества оставил в ходе обсуждения, и отреагировать на комментарии с помощью эмодзи.
 
-{% data reusables.discussions.about-discussions %} For more information, see "[About discussions](/discussions/collaborating-with-your-community-using-discussions/about-discussions)."
+{% ifversion fpt or ghec %}Вы можете заблокировать пользователей и сообщить о нарушении правил, чтобы гарантировать, что среда обсуждений в {% data variables.product.product_name %} безопасна и приятна для вас. Дополнительные сведения см. в разделе [Обеспечение безопасности в {% data variables.product.prodname_dotcom %}](/communities/maintaining-your-safety-on-github).{% endif %}
 
-In addition to starting or viewing a discussion, you can comment in response to the original comment from the author of the discussion. You can also create a comment thread by replying to an individual comment that another community member made within the discussion, and react to comments with emoji.
+## Предварительные требования
 
-You can block users and report disruptive content to maintain a safe and pleasant environment for yourself on {% data variables.product.product_name %}. For more information, see "[Maintaining your safety on {% data variables.product.prodname_dotcom %}](/communities/maintaining-your-safety-on-github)."
+Для участия в обсуждении в репозитории или организации необходимо включить {% data variables.product.prodname_discussions %} в репозитории или организации. Дополнительные сведения см. в разделах [Включение или отключение {% data variables.product.prodname_discussions %} для репозитория](/github/administering-a-repository/enabling-or-disabling-github-discussions-for-a-repository) и [Включение или отключение GitHub Discussions для организации](/organizations/managing-organization-settings/enabling-or-disabling-github-discussions-for-an-organization).
 
-### Требования
-
-Discussions must be enabled for the repository for you to participate in a discussion in the repository. For more information, see "[Enabling or disabling discussions for a repository](/github/administering-a-repository/enabling-or-disabling-github-discussions-for-a-repository)."
-
-### Creating a discussion
+## Создание обсуждения
 
 {% data reusables.discussions.starting-a-discussion %}
 
-### Marking a comment as an answer
+## Создание опроса
 
-Discussion authors and users with the triage role or greater for a repository can mark a comment as the answer to a discussion in the repository.
+{% data reusables.discussions.starting-a-poll %}
+
+## Помечание комментария как ответа
+
+Авторы обсуждений и пользователи с ролью "Рассмотрение" или ролями с более высокими разрешениями для репозитория могут пометить комментарий как ответ на обсуждение в репозитории.
+Точно так же авторы обсуждений и пользователи с ролью рассмотрения или более высокой ролью для исходного репозитория для обсуждений в организации могут пометить комментарий как ответ на обсуждение в организации.
 
 {% data reusables.discussions.marking-a-comment-as-an-answer %}

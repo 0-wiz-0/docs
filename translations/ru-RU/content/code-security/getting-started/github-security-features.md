@@ -1,85 +1,119 @@
 ---
-title: GitHub security features
-intro: 'An overview of {% data variables.product.prodname_dotcom %} security features.'
+title: Функции безопасности GitHub
+intro: 'Обзор функций безопасности {% data variables.product.prodname_dotcom %}.'
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.0'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 type: overview
 topics:
   - Repositories
   - Dependencies
   - Vulnerabilities
   - Advanced Security
+ms.openlocfilehash: ccd17816c0e5f62666520a677862c2a9f108c742
+ms.sourcegitcommit: e8c012864f13f9146e53fcb0699e2928c949ffa8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/09/2022
+ms.locfileid: '148158736'
 ---
+## Сведения о функциях безопасности {% data variables.product.prodname_dotcom %}
 
-### About {% data variables.product.prodname_dotcom %}'s security features
+В {% data variables.product.prodname_dotcom %} есть функции безопасности, которые помогают защитить код и секреты в репозиториях и во всех организациях. {% data reusables.advanced-security.security-feature-availability %}
 
-{% data variables.product.prodname_dotcom %} has security features that help keep code and secrets secure in repositories and across organizations. Some features are available for all repositories and others are only available {% if currentVersion == "free-pro-team@latest" %}for public repositories and for repositories {% endif %}with a {% data variables.product.prodname_GH_advanced_security %} license.
+В {% data variables.product.prodname_advisory_database %} содержится проверенный список уязвимостей системы безопасности, в котором можно искать и отфильтровывать нужные элементы. {% data reusables.security-advisory.link-browsing-advisory-db %}
 
-The {% data variables.product.prodname_advisory_database %} contains a curated list of security vulnerabilities that you can view, search, and filter. {% data reusables.security-advisory.link-browsing-advisory-db %}
+## Доступно для всех репозиториев
+### Политика безопасности
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %}
-### Available for all repositories
+Предоставьте пользователям простую возможность конфиденциально сообщать об уязвимостях системы безопасности, обнаруженных в репозитории. Дополнительные сведения см. в статье "[Добавление политики безопасности в репозиторий](/code-security/getting-started/adding-a-security-policy-to-your-repository)".
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" or currentVersion == 'github-ae@next' %}
-#### Security policy
+{% ifversion fpt or ghec %}
+### Рекомендации по безопасности
 
-Make it easy for your users to confidentially report security vulnerabilities they've found in your repository. For more information, see "[Adding a security policy to your repository](/code-security/getting-started/adding-a-security-policy-to-your-repository)."
+Обсуждайте в частном порядке и устраняйте уязвимости системы безопасности в коде репозитория. Вы также можете опубликовать рекомендацию по безопасности, чтобы предупредить сообщество об уязвимости, и призвать участников сообщества обновить свой код. Дополнительные сведения см. в разделе [Рекомендации по безопасности репозитория](/github/managing-security-vulnerabilities/about-github-security-advisories).
+
+{% endif %} {% ifversion fpt or ghec or ghes %}
+
+### {% data variables.product.prodname_dependabot_alerts %} обновления системы безопасности
+
+Просматривайте оповещения о зависимостях, в которых имеются уязвимости системы безопасности, и решайте, нужно ли автоматически создавать запросы на включение внесенных изменений для обновления этих зависимостей. Дополнительные сведения см. в разделах [Сведения о {% data variables.product.prodname_dependabot_alerts %}](/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies) и [Сведения о {% data variables.product.prodname_dependabot_security_updates %}](/github/managing-security-vulnerabilities/about-dependabot-security-updates).
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-#### Security advisories
+{% ifversion ghae %}
+### {% data variables.product.prodname_dependabot_alerts %}
 
-Privately discuss and fix security vulnerabilities in your repository's code. You can then publish a security advisory to alert your community to the vulnerability and encourage community members to upgrade. For more information, see "[About {% data variables.product.prodname_security_advisories %}](/github/managing-security-vulnerabilities/about-github-security-advisories)."
+{% data reusables.dependabot.dependabot-alerts-beta %}
 
-#### {% data variables.product.prodname_dependabot_alerts %} and security updates
-
-View alerts about dependencies that are known to contain security vulnerabilities, and choose whether to have pull requests generated automatically to update these dependencies. For more information, see "[About alerts for vulnerable dependencies](/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies)" and "[About {% data variables.product.prodname_dependabot_security_updates %}](/github/managing-security-vulnerabilities/about-dependabot-security-updates)."
+Просматривайте оповещения о зависимостях, в которых имеются уязвимости системы безопасности, и управляйте этими оповещениями. Дополнительные сведения см. в статье "[Сведения о {% data variables.product.prodname_dependabot_alerts %}](/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies)".
 {% endif %}
 
-{% if currentVersion ver_gt "enterprise-server@2.22" %}
-#### {% data variables.product.prodname_dependabot_alerts %}
+{% ifversion fpt or ghec or ghes %}
+### Обновления версий {% data variables.product.prodname_dependabot %}
 
-View alerts about dependencies that are known to contain security vulnerabilities, and manage these alerts. For more information, see "[About alerts for vulnerable dependencies](/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies)."
+Используйте {% data variables.product.prodname_dependabot %} для автоматического создания запросов на включение внесенных изменений, чтобы поддерживать зависимости в актуальном состоянии. Это помогает снизить риски для более старых версий зависимостей. Использование более новых версий упрощает применение исправлений при обнаружении уязвимостей безопасности, а также упрощает создание запросов на включение внесенных изменений для обновления уязвимых зависимостей для {% data variables.product.prodname_dependabot_security_updates %}. Дополнительные сведения см. в разделе [Сведения об {% data variables.product.prodname_dependabot_version_updates %}](/github/administering-a-repository/about-dependabot-version-updates).
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-#### {% data variables.product.prodname_dependabot %} version updates
+### Граф зависимостей
+Схема зависимостей позволяет изучать экосистемы и пакеты, от которых зависит ваш репозиторий, а также репозитории и пакеты, которые зависят от вашего репозитория.
 
-Use {% data variables.product.prodname_dependabot %} to automatically raise pull requests to keep your dependencies up-to-date. This helps reduce your exposure to older versions of dependencies. Using newer versions makes it easier to apply patches if security vulnerabilities are discovered, and also makes it easier for {% data variables.product.prodname_dependabot_security_updates %} to successfully raise pull requests to upgrade vulnerable dependencies. For more information, see "[About {% data variables.product.prodname_dependabot_version_updates %}](/github/administering-a-repository/about-dependabot-version-updates)."
+Схему зависимостей можно найти на вкладке **Аналитика** репозитория. Дополнительные сведения см. в разделе [Сведения о графе зависимостей](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph).
+
+{% ifversion security-overview-displayed-alerts %}
+### Общие сведения о безопасности
+
+Обзор безопасности позволяет просматривать конфигурации и оповещения системы безопасности, что упрощает определение репозиториев и организаций, которые подвергаются наибольшему риску. Дополнительные сведения см. в разделе [Общие сведения о безопасности](/code-security/security-overview/about-the-security-overview).
+
+{% else %}
+### Общие сведения о безопасности для репозиториев
+В обзоре безопасности показано, какие функции безопасности включены для репозитория, и предлагается возможность настройки любых доступных функций безопасности (которые еще не включены).
 {% endif %}
 
-#### Dependency graph
-The dependency graph allows you to explore the ecosystems and packages that your repository depends on and the repositories and packages that depend on your repository.
+## В составе {% data variables.product.prodname_GH_advanced_security %}
 
-You can find the dependency graph on the **Insights** tab for your repository. For more information, see "[About the dependency graph](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph)."
+{% ifversion fpt %} Следующие функции {% data variables.product.prodname_GH_advanced_security %} доступны и бесплатны для общедоступных репозиториев на {% data variables.product.prodname_dotcom_the_website %}. Организациям, использующим {% data variables.product.prodname_ghe_cloud %} с лицензией на {% data variables.product.prodname_GH_advanced_security %}, доступен полный набор функций в любом их репозитории. Список функций, доступных в {% data variables.product.prodname_ghe_cloud %}, см. в [документации по {% data variables.product.prodname_ghe_cloud %}](/enterprise-cloud@latest/code-security/getting-started/github-security-features#available-with-github-advanced-security).
+
+{% elsif ghec %} Многие функции {% data variables.product.prodname_GH_advanced_security %} доступны и бесплатны для общедоступных репозиториев на {% data variables.product.prodname_dotcom_the_website %}. Организации в составе предприятия с лицензией {% data variables.product.prodname_GH_advanced_security %} могут использовать указанные ниже функции во всех своих репозиториях. {% data reusables.advanced-security.more-info-ghas %}
+
+{% elsif ghes %} Функции {% data variables.product.prodname_GH_advanced_security %} доступны для предприятий с лицензией для {% data variables.product.prodname_GH_advanced_security %}. Эти функции можно использовать только в репозиториях, которые принадлежат организации. {% data reusables.advanced-security.more-info-ghas %}
+
+{% elsif ghae %} Функции {% data variables.product.prodname_GH_advanced_security %} доступны для репозиториев, принадлежащих организации. {% data reusables.advanced-security.more-info-ghas %} {% endif %}
+
+### {% data variables.product.prodname_code_scanning_capc %}
+
+Автоматически обнаруживайте уязвимости безопасности и ошибки в новом или измененном коде. Возможные проблемы выделяются и для них приводятся подробные сведения, что позволяет исправлять код до его слияния с ветвью по умолчанию. Дополнительные сведения см. в статье "[Сведения о проверке кода](/github/finding-security-vulnerabilities-and-errors-in-your-code/about-code-scanning)".
+
+{% ifversion fpt or ghec %}
+### {% data variables.product.prodname_secret_scanning_partner_caps %}
+
+Автоматически обнаруживайте утечку секретов во всех общедоступных репозиториях. {% data variables.product.company_short %} сообщает соответствующему поставщику услуг, что секрет может быть скомпрометирован. Сведения о поддерживаемых секретах и поставщиках услуг см. в разделе [Шаблоны функции "{% data variables.product.prodname_secret_scanning_caps %}"](/code-security/secret-scanning/secret-scanning-patterns).
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}
+{% ifversion ghec or ghes or ghae %}
+### {% data variables.product.prodname_secret_scanning_GHAS_caps %}
 
-### Available {% if currentVersion == "free-pro-team@latest" %}for public repositories and for repositories {% endif %}with {% data variables.product.prodname_advanced_security %}
-
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %}
-These features are available {% if currentVersion == "free-pro-team@latest" %}for all public repositories, and for private repositories owned by organizations with {% else %}if you have {% endif %}an {% data variables.product.prodname_advanced_security %} license. {% data reusables.advanced-security.more-info-ghas %}
+{% ifversion ghec %} Доступно только с лицензией для {% data variables.product.prodname_GH_advanced_security %}.
 {% endif %}
 
-#### {% data variables.product.prodname_code_scanning_capc %} alerts
-
-Automatically detect security vulnerabilities and coding errors in new or modified code. Potential problems are highlighted, with detailed information, allowing you to fix the code before it's merged into your default branch. For more information, see "[About code scanning](/github/finding-security-vulnerabilities-and-errors-in-your-code/about-code-scanning)."
-
-#### {% data variables.product.prodname_secret_scanning_caps %} alerts
-
-{% if currentVersion == "free-pro-team@latest" %}For private repositories, view {% else %}View {% endif %}any secrets that {% data variables.product.prodname_dotcom %} has found in your code. You should treat tokens or credentials that have been checked into the repository as compromised. For more information, see "[About secret scanning](/github/administering-a-repository/about-secret-scanning)."
-
+Автоматически обнаруживайте маркеры или учетные данные, которые были возвращены в репозиторий. Вы можете просматривать оповещения для всех секретов, которые {% data variables.product.company_short %} находит в коде. Таким образом вы будете знать, какие маркеры или учетные данные следует считать скомпрометированными. Дополнительные сведения см. в статье [Сведения о сканировании секретов](/code-security/secret-scanning/about-secret-scanning#about-secret-scanning-for-advanced-security).
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" %}
-#### Dependency review
+### Проверка зависимостей
 
-Show the full impact of changes to dependencies and see details of any vulnerable versions before you merge a pull request. For more information, see "[About dependency review](/code-security/supply-chain-security/about-dependency-review)."
+Отображение полного влияния изменений на зависимости и просмотр сведений об уязвимых версиях до слияния запроса на включение внесенных изменений. Дополнительные сведения см. в статье "[Сведения о проверке зависимостей](/code-security/supply-chain-security/about-dependency-review)".
+
+{% ifversion security-overview-displayed-alerts %}<!--Section appears in non-GHAS features above-->
+
+{% elsif fpt %}<!--Feature requires enterprise product-->
+
+{% else %}
+### Общие сведения о безопасности для организаций{% ifversion ghes > 3.4 or ghae > 3.4 %}, предприятий,{% endif %} и команд
+
+Просмотр конфигурации и оповещений системы безопасности для организации и выявление репозиториев с наибольшим риском. Дополнительные сведения см. в разделе [Общие сведения о безопасности](/code-security/security-overview/about-the-security-overview).
 {% endif %}
 
-### Дополнительная литература
-- "[{% data variables.product.prodname_dotcom %}'s products](/github/getting-started-with-github/githubs-products)"
-- "[{% data variables.product.prodname_dotcom %} language support](/github/getting-started-with-github/github-language-support)"
+## Дополнительные материалы
+- [Продукты {% data variables.product.prodname_dotcom %}](/github/getting-started-with-github/githubs-products)
+- "[Поддержка языка в {% data variables.product.prodname_dotcom %}](/github/getting-started-with-github/github-language-support)"

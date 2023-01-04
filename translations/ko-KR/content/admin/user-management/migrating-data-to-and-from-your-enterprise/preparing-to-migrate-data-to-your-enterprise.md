@@ -1,148 +1,154 @@
 ---
-title: Preparing to migrate data to your enterprise
-intro: 'After generating a migration archive, you can import the data to your target {% data variables.product.prodname_ghe_server %} instance. You''ll be able to review changes for potential conflicts before permanently applying the changes to your target instance.'
+title: 엔터프라이즈로 데이터 마이그레이션 준비
+intro: '마이그레이션 보관을 생성한 후 대상 {% data variables.product.prodname_ghe_server %} 인스턴스로 데이터를 가져올 수 있습니다. 대상 인스턴스에 변경 내용을 영구적으로 적용하기 전에 잠재적 충돌에 대한 변경 내용을 검토할 수 있습니다.'
 redirect_from:
   - /enterprise/admin/migrations/preparing-the-migrated-data-for-import-to-github-enterprise-server
   - /enterprise/admin/migrations/generating-a-list-of-migration-conflicts
   - /enterprise/admin/migrations/reviewing-migration-conflicts
   - /enterprise/admin/migrations/resolving-migration-conflicts-or-setting-up-custom-mappings
-  - /enterprise/admin/guides/migrations/preparing-the-migrated-data-for-import-to-github-enterprise/
+  - /enterprise/admin/guides/migrations/preparing-the-migrated-data-for-import-to-github-enterprise
   - /enterprise/admin/user-management/preparing-to-migrate-data-to-your-enterprise
   - /admin/user-management/preparing-to-migrate-data-to-your-enterprise
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Enterprise
   - Migration
+shortTitle: Prepare to migrate data
+ms.openlocfilehash: 0f46ff54e6563945ab63a1845f2609ee8fb90a0e
+ms.sourcegitcommit: 5f40f9341dd1e953f4be8d1642f219e628e00cc8
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 10/04/2022
+ms.locfileid: '148009121'
 ---
+## {% data variables.product.prodname_ghe_server %}(으)로 가져올 마이그레이션 데이터 준비
 
-### Preparing the migrated data for import to {% data variables.product.prodname_ghe_server %}
-
-1. Using the [`scp`](https://linuxacademy.com/blog/linux/ssh-and-scp-howto-tips-tricks#scp) command, copy the migration archive generated from your source instance or organization to your {% data variables.product.prodname_ghe_server %} target:
+1. [`scp`](https://acloudguru.com/blog/engineering/ssh-and-scp-howto-tips-tricks#scp) 명령을 사용하여 원본 인스턴스 또는 조직에서 생성된 마이그레이션 보관 파일을 {% data variables.product.prodname_ghe_server %} 대상으로 복사합니다.
 
     ```shell
-    $ scp -P 122 <em>/path/to/archive/MIGRATION_GUID.tar.gz</em> admin@<em>hostname</em>:/home/admin/
+    $ scp -P 122 PATH-TO-MIGRATION-GUID.tar.gz admin@HOSTNAME:/home/admin/
     ```
 
 {% data reusables.enterprise_installation.ssh-into-target-instance %}
 
-3. Use the `ghe-migrator prepare` command to prepare the archive for import on the target instance and generate a new Migration GUID for you to use in subsequent steps:
+3. `ghe-migrator prepare` 명령을 사용하여 대상 인스턴스에서 가져올 보관 파일을 준비하고 후속 단계에서 사용할 새 마이그레이션 GUID를 생성합니다.
 
     ```shell
-    ghe-migrator prepare /home/admin/<em>MIGRATION_GUID</em>.tar.gz
+    ghe-migrator prepare /home/admin/MIGRATION-GUID.tar.gz
     ```
 
-    * To start a new import attempt, run `ghe-migrator prepare` again and get a new Migration GUID.
+    * 새로운 가져오기를 시작하려면 `ghe-migrator prepare`를 다시 실행하고 새 마이그레이션 GUID를 가져옵니다.
     * {% data reusables.enterprise_migrations.specify-staging-path %}
 
-### Generating a list of migration conflicts
+## 마이그레이션 충돌 목록 생성
 
-1. Using the `ghe-migrator conflicts` command with the Migration GUID, generate a *conflicts.csv* file:
+1. 마이그레이션 GUID와 함께 `ghe-migrator conflicts` 명령을 사용하여 *conflicts.csv* 파일을 생성합니다.
     ```shell
-    $ ghe-migrator conflicts -g <em>MIGRATION_GUID</em> > conflicts.csv
+    $ ghe-migrator conflicts -g MIGRATION-GUID > conflicts.csv
     ```
-    - If no conflicts are reported, you can safely import the data by following the steps in "[Migrating data to your enterprise](/enterprise/admin/guides/migrations/applying-the-imported-data-on-github-enterprise-server/)".
-2. If there are conflicts, using the [`scp`](https://linuxacademy.com/blog/linux/ssh-and-scp-howto-tips-tricks#scp) command, copy *conflicts.csv* to your local computer:
+    - 충돌이 보고되지 않으면 “[엔터프라이즈로 데이터 마이그레이션](/enterprise/admin/guides/migrations/applying-the-imported-data-on-github-enterprise-server/)”의 다음 단계에 따라 데이터를 안전하게 가져올 수 있습니다.
+2. 충돌이 있는 경우 [`scp`](https://acloudguru.com/blog/engineering/ssh-and-scp-howto-tips-tricks#scp) 명령을 사용하여 *conflicts.csv* 를 로컬 컴퓨터에 복사합니다.
   ```shell
-  $ scp -P 122 admin@<em>hostname</em>:conflicts.csv ~/Desktop
+  $ scp -P 122 admin@HOSTNAME:conflicts.csv ~/Desktop
   ```
-3. Continue to "[Resolving migration conflicts or setting up custom mappings](#resolving-migration-conflicts-or-setting-up-custom-mappings)".
+3. “[마이그레이션 충돌 해결 또는 사용자 지정 매핑 설정](#resolving-migration-conflicts-or-setting-up-custom-mappings)”을 계속 진행합니다.
 
-### Reviewing migration conflicts
+## 마이그레이션 충돌 검토
 
-1. Using a text editor or [CSV-compatible spreadsheet software](https://en.wikipedia.org/wiki/Comma-separated_values#Application_support), open *conflicts.csv*.
-2. With guidance from the examples and reference tables below, review the *conflicts.csv* file to ensure that the proper actions will be taken upon import.
+1. 텍스트 편집기 또는 [CSV 호환 스프레드시트 소프트웨어](https://en.wikipedia.org/wiki/Comma-separated_values#Application_support)를 사용하여 *conflicts.csv* 를 엽니다.
+2. 아래 예제 및 참조 테이블의 지침에 따라 *conflicts.csv* 파일을 검토하여 가져오기 시 적절한 작업이 수행되는지 확인합니다.
 
-The *conflicts.csv* file contains a *migration map* of conflicts and recommended actions. A migration map lists out both what data is being migrated from the source, and how the data will be applied to the target.
+*conflicts.csv* 파일에는 충돌 및 권장 작업의 *마이그레이션 맵* 이 포함되어 있습니다. 마이그레이션 맵에는 원본에서 마이그레이션되는 데이터와 대상에 데이터가 적용되는 방법이 모두 나열되어 있습니다.
 
-| `model_name` | `source_url`                                           | `target_url`                                           | `recommended_action` |
-| ------------ | ------------------------------------------------------ | ------------------------------------------------------ | -------------------- |
-| `사용자`        | `https://example-gh.source/octocat`                    | `https://example-gh.target/octocat`                    | `map`                |
-| `조직`         | `https://example-gh.source/octo-org`                   | `https://example-gh.target/octo-org`                   | `map`                |
-| `리포지토리`      | `https://example-gh.source/octo-org/widgets`           | `https://example-gh.target/octo-org/widgets`           | `rename`             |
-| `팀`          | `https://example-gh.source/orgs/octo-org/teams/admins` | `https://example-gh.target/orgs/octo-org/teams/admins` | `병합`                 |
+| `model_name`   | `source_url`   | `target_url` | `recommended_action` |
+|--------------|--------------|------------|--------------------|
+| `user`         | `https://example-gh.source/octocat` | `https://example-gh.target/octocat` | `map` |
+| `organization` | `https://example-gh.source/octo-org` | `https://example-gh.target/octo-org` | `map` |
+| `repository`   | `https://example-gh.source/octo-org/widgets` | `https://example-gh.target/octo-org/widgets` | `rename` |
+| `team`         | `https://example-gh.source/orgs/octo-org/teams/admins` | `https://example-gh.target/orgs/octo-org/teams/admins` | `merge` |
 
-Each row in *conflicts.csv* provides the following information:
+*conflicts.csv* 의 각 행은 다음 정보를 제공합니다.
 
-| 이름                   | 설명                                                                     |
-| -------------------- | ---------------------------------------------------------------------- |
-| `model_name`         | The type of data being changed.                                        |
-| `source_url`         | The source URL of the data.                                            |
-| `target_url`         | The expected target URL of the data.                                   |
-| `recommended_action` | The preferred action `ghe-migrator` will take when importing the data. |
+|    Name      | 설명   |
+|--------------|---------------|
+| `model_name` | 데이터 유형이 변경되는 중입니다. |
+| `source_url` | 데이터의 원본 URL입니다. |
+| `target_url` | 데이터에 대해 예상되는 대상 URL입니다.  |
+| `recommended_action` | 데이터를 가져올 때 기본 설정 작업 `ghe-migrator`가 수행됩니다.  |
 
-#### Possible mappings for each record type
+### 각 레코드 유형에 대해 가능한 매핑
 
-There are several different mapping actions that `ghe-migrator` can take when transferring data:
+데이터를 전송할 때 `ghe-migrator`에서 수행할 수 있는 여러 가지 매핑 작업이 있습니다.
 
-| `동작`            | 설명                                                                              | Applicable models                  |
-| --------------- | ------------------------------------------------------------------------------- | ---------------------------------- |
-| `가져오기`          | (default) Data from the source is imported to the target.                       | All record types                   |
-| `map`           | Data from the source is replaced by existing data on the target.                | Users, organizations, repositories |
-| `rename`        | Data from the source is renamed, then copied over to the target.                | Users, organizations, repositories |
-| `map_or_rename` | If the target exists, map to that target. Otherwise, rename the imported model. | Users                              |
-| `병합`            | Data from the source is combined with existing data on the target.              | Teams                              |
+| `action`      | 설명 | 적용 가능한 모델 |
+|------------------------|-------------|-------------------|
+| `import`      | (기본값) 원본의 데이터를 대상으로 가져옵니다. | 모든 레코드 형식
+| `map`         | 원본의 데이터는 대상의 기존 데이터로 대체됩니다. | 사용자, 조직, 리포지토리
+| `rename`      | 원본의 데이터는 이름이 변경된 다음 대상에 복사됩니다. | 사용자, 조직, 리포지토리
+| `map_or_rename` | 대상이 있는 경우 해당 대상에 매핑합니다. 그렇지 않으면 가져온 모델의 이름을 바꿉니다. | 사용자
+| `merge`       | 원본의 데이터는 대상의 기존 데이터와 결합됩니다. | Teams
 
-**We strongly suggest you review the *conflicts.csv* file and use [`ghe-migrator audit`](/enterprise/admin/guides/migrations/reviewing-migration-data) to ensure that the proper actions are being taken.** If everything looks good, you can continue to "[Migrating data to your enterprise](/enterprise/admin/guides/migrations/applying-the-imported-data-on-github-enterprise-server)".
+***conflicts.csv* 파일을 검토하고 적절한 작업이 수행되고 있는지 확인하는 데 [`ghe-migrator audit`](/enterprise/admin/guides/migrations/reviewing-migration-data)를 사용하는 것이 좋습니다.** 모든 항목이 제대로 표시되면 “[엔터프라이즈로 데이터 마이그레이션](/enterprise/admin/guides/migrations/applying-the-imported-data-on-github-enterprise-server)”을 계속할 수 있습니다.
 
 
-### Resolving migration conflicts or setting up custom mappings
+## 마이그레이션 충돌 해결 또는 사용자 지정 매핑 설정
 
-If you believe that `ghe-migrator` will perform an incorrect change, you can make corrections by changing the data in *conflicts.csv*. You can make changes to any of the rows in *conflicts.csv*.
+`ghe-migrator`에서 수행하는 변경 사항이 잘못되었다고 생각하면 *conflicts.csv* 에서 데이터를 변경하여 수정할 수 있습니다. *conflicts.csv* 에서 모든 행을 변경할 수 있습니다.
 
-For example, let's say you notice that the `octocat` user from the source is being mapped to `octocat` on the target:
+예를 들어 원본의 `octocat` 사용자가 대상의 `octocat`으로 매핑되고 있는 것을 알게 되었다고 가정해 보겠습니다.
 
-| `model_name` | `source_url`                        | `target_url`                        | `recommended_action` |
-| ------------ | ----------------------------------- | ----------------------------------- | -------------------- |
-| `사용자`        | `https://example-gh.source/octocat` | `https://example-gh.target/octocat` | `map`                |
+| `model_name`   | `source_url`   | `target_url` | `recommended_action` |
+|--------------|--------------|------------|--------------------|
+| `user`         | `https://example-gh.source/octocat` | `https://example-gh.target/octocat` | `map`
 
-You can choose to map the user to a different user on the target. Suppose you know that `octocat` should actually be `monalisa` on the target. You can change the `target_url` column in *conflicts.csv* to refer to `monalisa`:
+사용자를 대상의 다른 사용자에게 매핑하도록 선택할 수 있습니다. `octocat`이 실제 대상에서 `monalisa`여야 함을 알고 있다고 가정해 보겠습니다. `monalisa`를 참조하도록 *conflicts.csv* 에서 `target_url` 열을 변경할 수 있습니다.
 
-| `model_name` | `source_url`                        | `target_url`                         | `recommended_action` |
-| ------------ | ----------------------------------- | ------------------------------------ | -------------------- |
-| `사용자`        | `https://example-gh.source/octocat` | `https://example-gh.target/monalisa` | `map`                |
+| `model_name`   | `source_url`   | `target_url` | `recommended_action` |
+|--------------|--------------|------------|--------------------|
+| `user`         | `https://example-gh.source/octocat` | `https://example-gh.target/monalisa` | `map`
 
-As another example, if you want to rename the `octo-org/widgets` repository to `octo-org/amazing-widgets` on the target instance, change the `target_url` to `octo-org/amazing-widgets` and the `recommend_action` to `rename`:
+또 다른 예로, 대상 인스턴스에서 `octo-org/widgets` 리포지토리의 이름을 `octo-org/amazing-widgets`로 바꾸려면 `target_url`을 `octo-org/amazing-widgets`로, `recommend_action`을 `rename`으로 변경합니다.
 
-| `model_name` | `source_url`                                 | `target_url`                                         | `recommended_action` |
-| ------------ | -------------------------------------------- | ---------------------------------------------------- | -------------------- |
-| `리포지토리`      | `https://example-gh.source/octo-org/widgets` | `https://example-gh.target/octo-org/amazing-widgets` | `rename`             |
+| `model_name`   | `source_url`   | `target_url` | `recommended_action` |
+|--------------|--------------|------------|--------------------|
+| `repository`   | `https://example-gh.source/octo-org/widgets` | `https://example-gh.target/octo-org/amazing-widgets` | `rename`   |
 
-#### Adding custom mappings
+### 사용자 지정 매핑 추가
 
-A common scenario during a migration is for migrated users to have different usernames on the target than they have on the source.
+마이그레이션의 일반적인 시나리오에서 마이그레이션된 사용자는 원본에 있는 사용자 이름과 대상에 있는 사용자 이름이 달라야 합니다.
 
-Given a list of usernames from the source and a list of usernames on the target, you can build a CSV file with custom mappings and then apply it to ensure each user's username and content is correctly attributed to them at the end of a migration.
+원본의 사용자 이름 목록과 대상의 사용자 이름 목록이 지정된 경우 사용자 지정 매핑을 사용하여 CSV 파일을 빌드한 다음 적용하여 마이그레이션이 끝날 때 각 사용자의 사용자 이름과 콘텐츠가 올바르게 특성화되도록 할 수 있습니다.
 
-You can quickly generate a CSV of users being migrated in the CSV format needed to apply custom mappings by using the [`ghe-migrator audit`](/enterprise/admin/guides/migrations/reviewing-migration-data) command:
+[`ghe-migrator audit`](/enterprise/admin/guides/migrations/reviewing-migration-data) 명령을 사용하여 사용자 지정 매핑을 적용하는 데 필요한 CSV 형식으로 마이그레이션되는 사용자의 CSV를 신속하게 생성할 수 있습니다.
 
 ```shell
-$ ghe-migrator audit -m user -g <em>MIGRATION_GUID</em> > users.csv
+$ ghe-migrator audit -m user -g MIGRATION-GUID > users.csv
 ```
 
-Now, you can edit that CSV and enter the new URL for each user you would like to map or rename, and then update the fourth column to have `map` or `rename` as appropriate.
+이제 해당 CSV를 편집하고 매핑하거나 이름을 바꾸려는 사용자별로 새 URL을 입력한 다음, 필요한 경우 네 번째 열에 `map` 또는 `rename`을 포함하도록 업데이트할 수 있습니다.
 
-For example, to rename the user `octocat` to `monalisa` on the target `https://example-gh.target` you would create a row with the following content:
+예를 들어 대상 `https://example-gh.target`에서 `octocat` 사용자의 이름을 `monalisa`로 변경하려면 열을 생성해 다음 콘텐츠를 포함해야 합니다.
 
-| `model_name` | `source_url`                        | `target_url`                         | `state`  |
-| ------------ | ----------------------------------- | ------------------------------------ | -------- |
-| `사용자`        | `https://example-gh.source/octocat` | `https://example-gh.target/monalisa` | `rename` |
+| `model_name`   | `source_url`   | `target_url` | `state` |
+|--------------|--------------|------------|--------------------|
+| `user`         | `https://example-gh.source/octocat` | `https://example-gh.target/monalisa` | `rename`
 
-The same process can be used to create mappings for each record that supports custom mappings. For more information, see [our table on the possible mappings for records](/enterprise/admin/guides/migrations/reviewing-migration-conflicts#possible-mappings-for-each-record-type).
+동일한 프로세스를 사용하여 사용자 지정 매핑을 지원하는 각 레코드에 대해 매핑을 만들 수 있습니다. 자세한 내용은 [레코드에 대한 가능한 매핑 표](/enterprise/admin/guides/migrations/reviewing-migration-conflicts#possible-mappings-for-each-record-type)를 참조하세요.
 
-#### Applying modified migration data
+### 수정된 마이그레이션 데이터 적용
 
-1. After making changes, use the [`scp`](https://linuxacademy.com/blog/linux/ssh-and-scp-howto-tips-tricks#scp) command to apply your modified *conflicts.csv* (or any other mapping *.csv* file in the correct format) to the target instance:
-
-    ```shell
-    $ scp -P 122 ~/Desktop/conflicts.csv admin@<em>hostname</em>:/home/admin/
-    ```
-
-2. Re-map the migration data using the `ghe-migrator map` command, passing in the path to your modified *.csv* file and the Migration GUID:
+1. 변경한 후 [`scp`](https://acloudguru.com/blog/engineering/ssh-and-scp-howto-tips-tricks#scp) 명령을 사용하여 수정된 *conflicts.csv*(또는 올바른 형식의 다른 매핑 *.csv* 파일)를 대상 인스턴스에 적용합니다.
 
     ```shell
-    $ ghe-migrator map -i conflicts.csv  -g <em>MIGRATION_GUID</em>
+    $ scp -P 122 ~/Desktop/conflicts.csv admin@HOSTNAME:/home/admin/
     ```
 
-3. If the `ghe-migrator map -i conflicts.csv  -g MIGRATION_GUID` command reports that conflicts still exist, run through the migration conflict resolution process again.
+2. `ghe-migrator map` 명령을 사용하여 마이그레이션 데이터를 다시 매핑하고 수정된 *.csv* 파일 및 마이그레이션 GUID에 경로를 전달합니다.
+
+    ```shell
+    $ ghe-migrator map -i conflicts.csv  -g MIGRATION-GUID
+    ```
+
+3. `ghe-migrator map -i conflicts.csv  -g MIGRATION-GUID` 명령을 사용하여 충돌이 여전히 존재한다고 보고받은 경우 마이그레이션 충돌 해결 프로세스를 다시 실행합니다.

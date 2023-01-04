@@ -1,44 +1,49 @@
 ---
-title: Setting up GitHub Desktop
+title: GitHub Desktop 설정
 shortTitle: Setup
-intro: 'You can set up {% data variables.product.prodname_desktop %} to suit your needs and contribute to projects.'
+intro: '요구 사항에 맞게 {% data variables.product.prodname_desktop %}을 설정하고 프로젝트에 기여할 수 있습니다.'
 redirect_from:
   - /desktop/getting-started-with-github-desktop/setting-up-github-desktop
   - /desktop/installing-and-configuring-github-desktop/setting-up-github-desktop
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 20d183b4f3809251d4672421ec48f220fb562c9f
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145117335'
 ---
+## 1부: {% data variables.product.prodname_desktop %} 설치
 
-### Part 1: Installing {% data variables.product.prodname_desktop %}
+지원되는 모든 운영 체제에 {% data variables.product.prodname_desktop %}을 설치할 수 있습니다. 자세한 내용은 “[지원되는 운영 체제](/desktop/getting-started-with-github-desktop/supported-operating-systems)”를 참조하세요.
 
-You can install {% data variables.product.prodname_desktop %} on any supported operating system. For more information, see "[Supported Operating Systems](/desktop/getting-started-with-github-desktop/supported-operating-systems)."
+{% data variables.product.prodname_desktop %}을 설치하려면 [https://desktop.github.com/](https://desktop.github.com/)으로 이동하여 운영 체제에 적합한 버전의 {% data variables.product.prodname_desktop %}을 다운로드합니다. 프롬프트에 따라 설치를 완료합니다. 자세한 내용은 “[{% data variables.product.prodname_desktop %} 설치](/desktop/getting-started-with-github-desktop/installing-github-desktop)”를 참조하세요.
 
-To install {% data variables.product.prodname_desktop %}, navigate to [https://desktop.github.com/](https://desktop.github.com/) and download the appropriate version of {% data variables.product.prodname_desktop %} for your operating system. Follow the prompts to complete the installation. For more information, see "[Installing {% data variables.product.prodname_desktop %}](/desktop/getting-started-with-github-desktop/installing-github-desktop)."
+## 2부: 계정 구성
 
-### Part 2: Configuring your account
+{% data variables.product.prodname_dotcom %} 또는 {% data variables.product.prodname_enterprise %}에 계정이 있는 경우 {% data variables.product.prodname_desktop %}을 사용하여 로컬 리포지토리와 원격 리포지토리 간에 데이터를 교환할 수 있습니다.
 
-If you have an account on {% data variables.product.prodname_dotcom %} or {% data variables.product.prodname_enterprise %}, you can use {% data variables.product.prodname_desktop %} to exchange data between your local and remote repositories.
+### 계정 만들기
+{% data variables.product.prodname_dotcom %}에 계정이 아직 없는 경우 “[새 {% data variables.product.prodname_dotcom %} 계정에 가입](/articles/signing-up-for-a-new-github-account/)”을 참조하세요.
 
-#### Creating an account
-If you do not already have an account on {% data variables.product.prodname_dotcom %}, see "[Signing up for a new {% data variables.product.prodname_dotcom %} account](/articles/signing-up-for-a-new-github-account/)."
+{% data variables.product.prodname_enterprise %}를 사용하는 조직에 소속되어 있으며 계정이 없는 경우 {% data variables.product.prodname_enterprise %} 사이트 관리자에게 문의하세요.
 
-If you are part of an organization that uses {% data variables.product.prodname_enterprise %} and you do not have an account, contact your {% data variables.product.prodname_enterprise %} site administrator.
+### {% data variables.product.prodname_dotcom %}에 인증
+{% data variables.product.prodname_dotcom %}를 사용하여 {% data variables.product.prodname_desktop %}에 연결하려면 계정을 인증해야 합니다. 자세한 내용은 “[{% data variables.product.prodname_desktop %}에 인증](/desktop/getting-started-with-github-desktop/authenticating-to-github)”을 참조하세요.
 
-#### Authenticating to {% data variables.product.prodname_dotcom %}
-To connect to {% data variables.product.prodname_desktop %} with {% data variables.product.prodname_dotcom %}, you'll need to authenticate your account. For more information, see "[Authenticating to {% data variables.product.prodname_desktop %}](/desktop/getting-started-with-github-desktop/authenticating-to-github)."
+계정을 인증한 후에는 {% data variables.product.prodname_desktop %}을 사용하여 프로젝트를 관리하고 참여할 수 있습니다.
 
-After authenticating your account, you are ready to manage and contribute to projects with {% data variables.product.prodname_desktop %}.
+## 3부: Git 구성
+{% data variables.product.prodname_desktop %}을 사용하려면 Git이 설치되어 있어야 합니다. 아직 Git을 설치하지 않은 경우 [https://git-scm.com/downloads](https://git-scm.com/downloads)에서 최신 버전의 Git을 다운로드하여 설치할 수 있습니다.
 
-### Part 3: Configuring Git
-You must have Git installed before using {% data variables.product.prodname_desktop %}. If you do not already have Git installed, you can download and install the latest version of Git from [https://git-scm.com/downloads](https://git-scm.com/downloads).
+Git을 설치한 후에는 {% data variables.product.prodname_desktop %}에 대해 Git을 구성해야 합니다. 자세한 내용은 “[{% data variables.product.prodname_desktop %}에 Git 구성](/desktop/getting-started-with-github-desktop/configuring-git-for-github-desktop)”을 참조하세요.
 
-After you have Git installed, you'll need to configure Git for {% data variables.product.prodname_desktop %}. For more information, see "[Configuring Git for {% data variables.product.prodname_desktop %}](/desktop/getting-started-with-github-desktop/configuring-git-for-github-desktop)."
+## 4부: {% data variables.product.prodname_desktop %} 사용자 지정
+기본값 및 설정을 조정하여 {% data variables.product.prodname_desktop %}을 필요에 맞게 조정할 수 있습니다.
 
-### Part 4: Customizing {% data variables.product.prodname_desktop %}
-You can adjust defaults and settings to tailor {% data variables.product.prodname_desktop %} to your needs.
+### 기본 텍스트 편집기 선택
+{% data variables.product.prodname_desktop %}에서 텍스트 편집기를 열어 파일 및 리포지토리를 조작할 수 있습니다. {% data variables.product.prodname_desktop %}은 Windows 및 macOS를 위한 다양한 텍스트 편집기 및 IDE(통합 개발 환경)를 지원합니다. {% data variables.product.prodname_desktop %} 설정에서 기본 편집기를 선택할 수 있습니다. 자세한 내용은 “[기본 편집기 구성](/desktop/getting-started-with-github-desktop/configuring-a-default-editor)”을 참조하세요.
 
-#### Choosing a default text editor
-You can open a text editor from {% data variables.product.prodname_desktop %} to manipulate files and repositories. {% data variables.product.prodname_desktop %} supports a variety of text editors and integrated development environments (IDEs) for Windows and macOS. You can choose a default editor in the {% data variables.product.prodname_desktop %} settings. For more information, see "[Configuring a default editor](/desktop/getting-started-with-github-desktop/configuring-a-default-editor)."
-
-#### Choosing a theme
-{% data variables.product.prodname_desktop %} has multiple themes available to customize the look and feel of the app. You can choose a theme in the {% data variables.product.prodname_desktop %} settings. For more information, see "[Setting a theme for {% data variables.product.prodname_desktop %}](/desktop/getting-started-with-github-desktop/setting-a-theme-for-github-desktop)."
+### 테마 선택
+{% data variables.product.prodname_desktop %}에는 앱의 디자인과 분위기를 사용자 지정할 수 있는 다양한 테마가 있습니다. {% data variables.product.prodname_desktop %} 설정에서 테마를 선택할 수 있습니다. 자세한 내용은 “[{% data variables.product.prodname_desktop %} 테마 설정](/desktop/getting-started-with-github-desktop/setting-a-theme-for-github-desktop)”을 참조하세요.

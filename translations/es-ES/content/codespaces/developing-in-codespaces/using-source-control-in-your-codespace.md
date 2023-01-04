@@ -2,80 +2,126 @@
 title: Utilizar el control de código fuente en tu codespace
 intro: 'Después de hacer cambios en un archivo de tu codespace, puedes confirmar los cambios rápidamente y subir tu actualización al repositorio remoto.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Codespaces
   - Fundamentals
   - Developer
+shortTitle: Source control
+ms.openlocfilehash: 513bf0729e1f04bf93f45999b2fa9e45231add5c
+ms.sourcegitcommit: e8c012864f13f9146e53fcb0699e2928c949ffa8
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 11/09/2022
+ms.locfileid: '148160003'
 ---
+{% jetbrains %}
 
-{% data reusables.codespaces.release-stage %}
+{% data reusables.codespaces.codespaces-jetbrains-beta-note %}
 
-### Acerca del control de código fuente en {% data variables.product.prodname_codespaces %}
+{% endjetbrains %}
+
+## Sobre el control de código fuente en {% data variables.product.prodname_github_codespaces %}
 
 Puedes llevar a cabo todas las acciones de Git que necesites directamente dentro de tu codespace. Por ejemplo, puedes recuperar cambios del repositorio remoto, cambiar de rama, crear una rama nueva, confirmar y subir cambios y crear solicitudes de cambios. Puedes utilizar la terminal integrada dentro de tu codespace para ingresar comandos de Git o puedes hacer clic en los iconos u opciones de menú para completar las tareas más comunes de Git. Esta guía te explica cómo utilizar la interface de usuario gráfica para el control de código fuente.
 
-El control de fuentes en {% data variables.product.prodname_github_codespaces %} utiliza el mismo flujo de trabajo que {% data variables.product.prodname_vscode %}. Para obtener más información, consulta la sección de la documentación de {% data variables.product.prodname_vscode %} "[Utilizar el control de versiones en VS Code](https://code.visualstudio.com/docs/editor/versioncontrol#_git-support)".
+{% vscode %}
+
+Para obtener más información sobre la compatibilidad con Git en {% data variables.product.prodname_vscode %}, consulta "[Uso del control de versiones en VS Code](https://code.visualstudio.com/docs/editor/versioncontrol#_git-support)" en la documentación de {% data variables.product.prodname_vscode %}.
+
+{% endvscode %}
+
+{% webui %}
+
+El control de código fuente del cliente web de {% data variables.product.prodname_vscode %} usa el mismo flujo de trabajo que la aplicación de escritorio de {% data variables.product.prodname_vscode %}. Para obtener más información, consulta "[Uso del control de versiones en VS Code](https://code.visualstudio.com/docs/editor/versioncontrol#_git-support)" en la documentación de {% data variables.product.prodname_vscode %}.
+
+{% endwebui %}
 
 Un flujo de trabajo típico para actualizar un archivo utilizando {% data variables.product.prodname_github_codespaces %} sería:
 
-* Desde la rama predeterminada de tu repositorio en {% data variables.product.prodname_dotcom %}, crea un codespace. Consulta la sección "[Crear un codespace](/codespaces/developing-in-codespaces/creating-a-codespace)".
+* Desde la rama predeterminada de tu repositorio en {% data variables.product.prodname_dotcom %}, crea un codespace. Consulta "[Creación de un codespace para un repositorio](/codespaces/developing-in-codespaces/creating-a-codespace-for-a-repository)".
 * En tu codespace, crea una rama nueva para trabajar en ella.
 * Haz tus cambios y guárdalos.
-* Confirma el cambio.
+* Confirme el cambio.
 * Levanta una solicitud de cambios.
 
-### Crear o cambiar de rama
+{% webui %}
 
-1. Si la rama actual no se muestra en la barra de estado, en la parte inferior de tu codespace, haz clic derecho en la barra de estado y selecciona **Control de código fuente**.
-1. Haz clic en el nombre de rama en la barra de estado. ![La rama en la barra de estado](/assets/images/help/codespaces/branch-in-status-bar.png)
-1. En el menú desplegable, haz clic en la rama a la que quieras cambiar o ingresa el nombre de una rama nueva y haz clic en **Crear rama nueva**. ![Elige del menú de la rama](/assets/images/help/codespaces/create-new-branch.png)
+{% data reusables.codespaces.source-control %} 
 
-{% tip %}
+{% endwebui %}
 
-**Tip**: Si alguien cambió un archivo en el repositorio remoto, en la rama a la cual te cambiaste, no verás estos cambios hasta que los extraigas hacia tu codespace.
+{% vscode %}
 
-{% endtip %}
+{% data reusables.codespaces.source-control %} 
 
-### Extraer cambios del repositorio remoto
+{% endvscode %}
 
-Puedes extraer cambios del repositorio remoto hacia tu codespace en cualquier momento.
+{% jetbrains %}
 
-{% data reusables.codespaces.source-control-display-dark %}
-1. En la parte superior de la barra lateral, haz clic en los puntos suspensivos (**...**). ![Botón de puntos suspensivos para las acciones de "más" y "ver"](/assets/images/help/codespaces/source-control-ellipsis-button.png)
-1. En el menú desplegable, haz clic en **Extraer**.
+## Crear o cambiar de rama
 
-Si algún contenedor dev cambió desde que creaste el codespace, puedes aplicar los cambios si recompilas el contenedor para el codespace. Para obtener más información, consulta la sección "[Configurar Codespaces para tu proyecto](/codespaces/setting-up-your-codespace/configuring-codespaces-for-your-project#applying-changes-to-your-configuration)".
+1. Haz clic en el nombre de la rama en el lado derecho de la barra de estado.
 
-### Configurar tu codespace para que recupere los cambios nuevos automáticamente
+   ![Captura de pantalla del nombre de la rama en la barra de estado](/assets/images/help/codespaces/jetbrains-branch-button.png)
 
-Puedes configurar tu codespace para que recupere automáticamente los detalles de cualquier confirmación nueva que se haya hecho al repositorio remoto. Esto te permite ver si tu copia local del repositorio está desactualizada, en cuyo caso, podrías elegir extraer los cambios nuevos.
+1. En el menú emergente, realiza una de las acciones siguientes:
+   * Para crear una nueva rama basada en la rama actual, haz clic en el nombre de la rama actual y, a continuación, elige **Nueva rama**. 
 
-Si la operación de búsqueda detecta cambios nuevos en el repositorio remoto, verás la cantidad de confirmaciones nuevas en la barra de estado. Luego podrás extraer los cambios en tu copia local.
+     ![Captura de pantalla de la opción de nueva rama](/assets/images/help/codespaces/jetbrains-new-branch-option.png)
 
-1. Haz clic en el botón de **Administrar** en la parte inferior de la barra de actividad. ![Botón de administrar](/assets/images/help/codespaces/manage-button.png)
-1. En el menú, haz clic en **Ajustes**.
-1. En la página de ajustes, busca: `autofetch`. ![Buscar la recuperación automática](/assets/images/help/codespaces/autofetch-search.png)
-1. Para recuperar los detalles de las actualizaciones para todos los remotos registrados para el repositorio actual, configura **Git: Autofetch** en `all`. ![Habilitar la recuperación automática en Git](/assets/images/help/codespaces/autofetch-all.png)
-1. Si quieres cambiar la cantidad de segundos entre cada recuperación automática, edita el valor de **Git: Autofetch Period**.
+     Escribe un nombre para la nueva rama y haz clic en **Crear**.
 
-### Configramr tus cambios
+     ![Captura de pantalla del cuadro de diálogo Crear rama](/assets/images/help/codespaces/jetbrains-create-branch-dialog.png)
 
-{% data reusables.codespaces.source-control-display-dark %}
-1. Para probar tus cambios, haz clic en **+** junto al archivo que cambiaste o junto a **Cambios** si cambiaste archivos múltiples y quieres probarlos todos. ![Barra lateral de control de código fuente con el botón de preparación resaltado](/assets/images/help/codespaces/codespaces-commit-stage.png)
-1. Teclea un mensaje de confirmación que describa el cambio que hiciste. ![Barra de control de código fuente con un mensaje de confirmación](/assets/images/help/codespaces/codespaces-commit-commit-message.png)
-1. Para confirmar tus cambios planeados, haz clic en la marca de verificación en la parte superior de la barra lateral del control de código fuente. ![Haz clic en el icono de verificación](/assets/images/help/codespaces/codespaces-commit-checkmark-icon.png)
+   * Para desactivar una rama existente, empieza escribiendo el nombre de la rama que quieres extraer del repositorio. Haz clic en la rama de la lista y, a continuación, haz clic en **Extraer del repositorio**.
 
-### Levantar una solicitud de cambios
+     ![Captura de pantalla de la opción extraer del repositorio](/assets/images/help/codespaces/jetbrains-checkout-submenu.png)
 
-1. Después de haber confirmado los cambios en tu copia local del repositorio, haz clic en el icono de **Crear solicitud de cambios**. ![Barra lateral de control de código fuente con el botón de preparación resaltado](/assets/images/help/codespaces/codespaces-commit-pr-button.png)
-1. Verifica que el repositorio y la rama local desde la que estás haciendo la fusión y la rama y repositorio remotos hacia los que estés haciendo la fusión sean correctos. Después, asigna un nombre y descripción a la solicitud de cambios. ![Barra lateral de control de código fuente con el botón de preparación resaltado](/assets/images/help/codespaces/codespaces-commit-pr.png)
-1. Da clic en **Crear**.
+     {% tip %}
 
-### Subir cambios a tu repositorio remoto
+     **Sugerencia**: Si alguien ha modificado recientemente un archivo en el repositorio remoto, en la rama a la que hayas cambiado quizá no veas estos cambios hasta que los extraigas en el codespace. 
 
-Puedes subir los cambios que has hecho. Esto aplica a aquellos de la rama ascendente en el repositorio remoto. Puede que necesites hacer eso si aún no estás listo para crear una solicitud de cambios o si prefieres crearla en {% data variables.product.prodname_dotcom %}.
+     {% endtip %}
 
-1. En la parte superior de la barra lateral, haz clic en los puntos suspensivos (**...**). ![Botón de puntos suspensivos para las acciones de "más" y "ver"](/assets/images/help/codespaces/source-control-ellipsis-button-nochanges.png)
-1. En el menú desplegable, haz clic en **Subir**.
+
+## Configramr tus cambios 
+
+1. En el lado derecho de la barra de navegación, haz clic en la marca de verificación.
+
+   ![Captura de pantalla de la marca de verificación de confirmación](/assets/images/help/codespaces/jetbrains-commit-button.png)
+
+1. En el cuadro de diálogo Confirmar cambios, escribe un mensaje de confirmación.
+1. Haga clic en **Confirmar**.
+
+   Como alternativa, haz clic en la flecha abajo situada junto a **Confirmar** y haz clic en **Confirmar e Insertar**.
+
+   ![Captura de pantalla del botón de Confirmar e Insertar](/assets/images/help/codespaces/jetbrains-commit-and-push.png)
+
+## Extraer cambios del repositorio remoto
+
+Puedes extraer cambios de la misma rama en el repositorio remoto y aplicar esos cambios a la copia del repositorio en el que estás trabajando en el codespace.
+
+1. En el lado derecho de la barra de navegación, haz clic en la flecha que apunta hacia abajo.
+
+   ![Captura de pantalla del botón de flecha hacia abajo de actualización de proyecto](/assets/images/help/codespaces/jetbrains-update-project-button.png)
+
+1. En el cuadro de diálogo Actualizar proyecto, elige si quieres combinar o fusionar mediante cambio de base los cambios entrantes.
+
+   ![Captura de pantalla del cuadro de diálogo Actualizar proyecto](/assets/images/help/codespaces/jetbrains-update-options.png)
+
+1. Haga clic en **OK**.
+
+## Subir cambios a tu repositorio remoto
+
+Puedes insertar cambios que hayas guardado y confirmado. Esto aplica a aquellos de la rama ascendente en el repositorio remoto. Puede que necesites hacer eso si aún no estás listo para crear una solicitud de cambios o si prefieres crearla en {% data variables.product.prodname_dotcom %}.
+
+1. En el lado derecho de la barra de navegación, haz clic en la flecha hacia arriba.
+
+   ![Captura de pantalla de la flecha hacia arriba de Insertar confirmaciones](/assets/images/help/codespaces/jetbrains-push-button.png)
+
+1. En el cuadro de diálogo Insertar confirmaciones, haz clic en **Insertar**.
+
+{% endjetbrains %}

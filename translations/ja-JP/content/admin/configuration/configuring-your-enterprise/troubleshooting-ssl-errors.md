@@ -2,24 +2,30 @@
 title: SSLのエラーのトラブルシューティング
 intro: アプライアンスでSSLの問題が生じたなら、解決のためのアクションを取ってください。
 redirect_from:
-  - /enterprise/admin/articles/troubleshooting-ssl-errors/
-  - /enterprise/admin/categories/dns-ssl-and-subdomain-configuration/
-  - /enterprise/admin/installation/troubleshooting-ssl-errors
-  - /enterprise/admin/configuration/troubleshooting-ssl-errors
-  - /admin/configuration/troubleshooting-ssl-errors
+- /enterprise/admin/articles/troubleshooting-ssl-errors
+- /enterprise/admin/categories/dns-ssl-and-subdomain-configuration
+- /enterprise/admin/installation/troubleshooting-ssl-errors
+- /enterprise/admin/configuration/troubleshooting-ssl-errors
+- /admin/configuration/troubleshooting-ssl-errors
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
-  - Enterprise
-  - Errors
-  - Infrastructure
-  - Networking
-  - Security
-  - Troubleshooting
+- Enterprise
+- Errors
+- Infrastructure
+- Networking
+- Security
+- Troubleshooting
+shortTitle: Troubleshoot SSL errors
+ms.openlocfilehash: cfe73a647b539fa8c9c2aef54f8bc51f2b1becae
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145120677"
 ---
-
-### 鍵ファイルからのパスフレーズの除去
+## <a name="removing-the-passphrase-from-your-key-file"></a>鍵ファイルからのパスフレーズの除去
 
 OpenSSLがインストールされたLinuxマシンを使うなら、パスフレーズを除去できます。
 
@@ -34,23 +40,23 @@ OpenSSLがインストールされたLinuxマシンを使うなら、パスフ�
 
 このコマンドを実行すると、鍵のパスフレーズを入力するようプロンプトが表示されます。
 
-OpenSSL に関する詳しい情報については、[OpenSSL のドキュメンテーション](https://www.openssl.org/docs/)を参照してください。
+OpenSSL の詳細については、[OpenSSL のドキュメント](https://www.openssl.org/docs/)を参照してください。
 
-### SSL証明書あるいは鍵のPEMフォーマットへの変換
+## <a name="converting-your-ssl-certificate-or-key-into-pem-format"></a>SSL証明書あるいは鍵のPEMフォーマットへの変換
 
-OpenSSL をインストールしている場合、`openssl` コマンドを使って鍵を PEM フォーマットに変換できます。 たとえば鍵を DER フォーマットから PEM フォーマットに変換できます。
+OpenSSL をインストールしている場合、`openssl` コマンドを使ってキーを PEM 形式に変換できます。 たとえば鍵を DER フォーマットから PEM フォーマットに変換できます。
 
 ```shell
 $ openssl rsa -in yourdomain.der -inform DER -out yourdomain.key -outform PEM
 ```
 
-あるいは SSL Converter ツールを使って証明書を PEM フォーマットに変換することもできます。 詳しい情報については [SSL Converter ツールのドキュメンテーション](https://www.sslshopper.com/ssl-converter.html)を参照してください。
+あるいは SSL Converter ツールを使って証明書を PEM フォーマットに変換することもできます。 詳細については、[SSL Converter ツールのドキュメント](https://www.sslshopper.com/ssl-converter.html)を参照してください。
 
-### 鍵のアップロード後の反応のない環境
+## <a name="unresponsive-installation-after-uploading-a-key"></a>鍵のアップロード後の反応のない環境
 
-SSL 鍵のアップロード後に {% data variables.product.product_location %} の反応がない場合、SSL 証明書のコピーを含む詳細事項と合わせて [{% data variables.product.prodname_enterprise %} Support に連絡](https://enterprise.github.com/support)してください。
+SSL キーのアップロード後に {% data variables.product.product_location %} が応答しない場合は、[{% data variables.product.prodname_enterprise %} サポートに連絡して](https://enterprise.github.com/support)、SSL 証明書のコピーを含む部隊的な詳細を伝えてください。
 
-### 証明書の検証エラー
+## <a name="certificate-validity-errors"></a>証明書の検証エラー
 
 Web ブラウザやコマンドラインの Git などのクライアントは、SSL 証明書の正当性が検証できなければエラーメッセージを表示します。 これはしばしば自己署名証明書の場合や、クライアントが認識しない中間ルート証明書から発行された "チェーンドルート" 証明書の場合に生じます。
 
@@ -60,9 +66,9 @@ Web ブラウザやコマンドラインの Git などのクライアントは�
 $ cat yourdomain.com.crt bundle-certificates.crt > yourdomain.combined.crt
 ```
 
-証明書バンドル (たとえば `bundle-certificates.crt`) は、証明書認証局もしくは SSL のベンダーからダウンロードできるはずです。
+証明機関または SSL ベンダーから証明書バンドル (`bundle-certificates.crt` など) をダウンロードできるはずです。
 
-### 自己署名もしくは信頼されない証明書認証者（CA）ルート証明書のインストール
+## <a name="installing-self-signed-or-untrusted-certificate-authority-ca-root-certificates"></a>自己署名もしくは信頼されない証明書認証者（CA）ルート証明書のインストール
 
 {% data variables.product.prodname_ghe_server %} アプライアンスが、自己署名もしくは信頼されない証明書を使うネットワーク上の他のマシンとやりとりするのであれば、それらのシステムに HTTPS でアクセスできるようにするために、署名をした CA のルート証明書をシステム全体の証明書ストアにインポートしなければなりません。
 
@@ -79,3 +85,7 @@ $ cat yourdomain.com.crt bundle-certificates.crt > yourdomain.combined.crt
   ```shell
   $ ghe-ssl-ca-certificate-install -c rootCA.crt
   ```
+
+## <a name="updating-an-ssl-certificate"></a>SSL 証明書の更新
+
+`ghe-ssl-certificate-setup` コマンド ライン ユーティリティを使用して、{% data variables.product.product_location %} の新しい自己署名証明書を生成したり、既存の SSL 証明書を更新したりできます。 詳細については、「[コマンド ライン ユーティリティ](/admin/configuration/configuring-your-enterprise/command-line-utilities#ghe-ssl-ca-certificate-setup)」を参照してください。

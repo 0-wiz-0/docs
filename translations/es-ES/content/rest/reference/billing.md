@@ -1,15 +1,20 @@
 ---
 title: Facturación
+intro: With the Billing API, you can monitor the charges and usage {% data variables.product.prodname_actions %} and {% data variables.product.prodname_registry %} for a user or organization.
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
+  ghes: '>=3.4'
 topics:
-  - API
+- API
+miniTocMaxHeadingLevel: 3
+ms.openlocfilehash: d6fa1c287f4d087554cd8e20fba25c7d9454f1cc
+ms.sourcegitcommit: ea9a577cff7ec16ded25ed57417c83ec04816428
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 04/07/2022
+ms.locfileid: "141526319"
 ---
-
-Puedes monitorear tus cargos y uso de {% data variables.product.prodname_actions %} y de {% data variables.product.prodname_registry %} para un usuario y organización a través de la API de Facturación.
-
-Puedes obtener información de facturación para una empresa. Para obtener más información, consulta la API de REST para la "[ Administración de {% data variables.product.prodname_dotcom %} Enterprise](/rest/reference/enterprise-admin#billing)".
-
-{% for operation in currentRestOperations %}
-  {% unless operation.subcategory %}{% include rest_operation %}{% endunless %}
-{% endfor %}
+<!--
+  Operations are automatically generated. Markdown for this page is located in data/reusables/rest-reference/billing
+-->

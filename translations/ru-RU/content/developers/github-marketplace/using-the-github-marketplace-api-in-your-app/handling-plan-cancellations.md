@@ -1,34 +1,41 @@
 ---
-title: Handling plan cancellations
-intro: 'Cancelling a {% data variables.product.prodname_marketplace %} app triggers the [`marketplace_purchase` event](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events) webhook with the `cancelled` action, which kicks off the cancellation flow.'
+title: Обработка отмены плана
+intro: 'Отмена приложения {% data variables.product.prodname_marketplace %} запускает веб-перехватчик [события `marketplace_purchase`](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events) с действием `cancelled`, которое запускает поток отмены уровня.'
 redirect_from:
-  - /apps/marketplace/administering-listing-plans-and-user-accounts/cancelling-plans/
-  - /apps/marketplace/integrating-with-the-github-marketplace-api/cancelling-plans/
+  - /apps/marketplace/administering-listing-plans-and-user-accounts/cancelling-plans
+  - /apps/marketplace/integrating-with-the-github-marketplace-api/cancelling-plans
   - /marketplace/integrating-with-the-github-marketplace-api/cancelling-plans
   - /developers/github-marketplace/handling-plan-cancellations
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+shortTitle: Plan cancellations
+ms.openlocfilehash: 253506f1ac32f55649dd533559a7a16508cca98f
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145089613'
 ---
+Дополнительные сведения об отмене в связи с выставлением счетов см. в разделе [Выставление счетов клиентов в {% data variables.product.prodname_marketplace %}](/apps//marketplace/administering-listing-plans-and-user-accounts/billing-customers-in-github-marketplace).
 
-For more information about cancelling as it relates to billing, see "[Billing customers in {% data variables.product.prodname_marketplace %}](/apps//marketplace/administering-listing-plans-and-user-accounts/billing-customers-in-github-marketplace)."
+## Шаг 1. Событие отмены
 
-### Step 1. Cancellation event
+Если клиент решил отменить заказ в {% data variables.product.prodname_marketplace %}, GitHub отправляет веб-перехватчик [`marketplace_purchase`](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) с действием `cancelled` в приложение, когда отмена вступает в силу. Если клиент отменяет бесплатную пробную версию, приложение получит событие немедленно. Когда клиент отменяет платный план, отмена будет выполнена в конце периода выставления счетов.
 
-If a customer chooses to cancel a {% data variables.product.prodname_marketplace %} order, GitHub sends a [`marketplace_purchase`](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) webhook with the action `cancelled` to your app when the cancellation takes effect. If the customer cancels during a free trial, your app will receive the event immediately. When a customer cancels a paid plan, the cancellation will occur at the end of the customer's billing cycle.
+## Шаг 2. Отключение учетных записей клиентов
 
-### Step 2. Deactivating customer accounts
+Когда клиент отменяет бесплатный или платный план, ваше приложение должно выполнить следующие действия, чтобы завершить отмену:
 
-When a customer cancels a free or paid plan, your app must perform these steps to complete cancellation:
-
-1. Deactivate the account of the customer who cancelled their plan.
-1. Revoke the OAuth token your app received for the customer.
-1. If your app is an OAuth App, remove all webhooks your app created for repositories.
-1. Remove all customer data within 30 days of receiving the `cancelled` event.
+1. отключить учетную запись клиента, отменившего план;
+1. отозвать токен OAuth, полученный приложением для клиента;
+1. для приложения OAuth удалить все веб-перехватчики, созданные приложением для репозиториев;
+1. удалить все данные клиента в течение 30 дней после получения события `cancelled`.
 
 {% note %}
 
-**Note:** We recommend using the [`marketplace_purchase`](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) webhook's `effective_date` to determine when a plan change will occur and periodically synchronizing the [List accounts for a plan](/rest/reference/apps#list-accounts-for-a-plan). For more information on webhooks, see "[{% data variables.product.prodname_marketplace %} webhook events](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/)."
+**Примечание**. Мы рекомендуем использовать ключ `effective_date` веб-перехватчика [`marketplace_purchase`](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/), чтобы определить, когда произойдет изменение плана, и периодически синхронизировать [Список учетных записей для плана](/rest/reference/apps#list-accounts-for-a-plan). Дополнительные сведения о веб-перехватчиках см. в разделе [События веб-перехватчиков {% data variables.product.prodname_marketplace %}](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/).
 
 {% endnote %}

@@ -2,64 +2,72 @@
 title: サイトアドミンのダッシュボード
 intro: '{% data reusables.enterprise_site_admin_settings.about-the-site-admin-dashboard %}'
 redirect_from:
-  - /enterprise/admin/articles/site-admin-dashboard/
+  - /enterprise/admin/articles/site-admin-dashboard
   - /enterprise/admin/installation/site-admin-dashboard
   - /enterprise/admin/configuration/site-admin-dashboard
   - /admin/configuration/site-admin-dashboard
 versions:
-  enterprise-server: '*'
+  ghes: '*'
+  ghae: '*'
 type: reference
 topics:
   - Enterprise
   - Fundamentals
+ms.openlocfilehash: 5e845824a5216e43f1e4e8f7b73f08963ce1d71b
+ms.sourcegitcommit: 478f2931167988096ae6478a257f492ecaa11794
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147763709'
 ---
+ダッシュボードにアクセスするには、任意のページの右上隅にある {% octicon "rocket" aria-label="The rocket ship" %} をクリックします。
+![サイト管理者設定にアクセスするための宇宙船のアイコン](/assets/images/enterprise/site-admin-settings/access-new-settings.png)
 
-ダッシュボードへアクセスするには、ページ右上の隅にある {% octicon "rocket" aria-label="The rocket ship" %}をクリックしてください。 ![サイトアドミン設定にアクセスするための宇宙船のアイコン](/assets/images/enterprise/site-admin-settings/access-new-settings.png)
+{% ifversion ghes or ghae %}
 
-{% if currentVersion ver_gt "enterprise-server@2.21" %}
+## 検索
 
-### 検索
-
-ここで、ドメインや認証、SSL などの仮想アプライアンスの設定を管理するための {{ site.data.variables.enterprise.management_console }}を起動することができます。
+ユーザーとリポジトリの検索、および[監査ログ](#audit-log)のクエリを実行するには、サイト管理者ダッシュボードのこのセクションを参照してください。
 
 {% else %}
 
-### ライセンスの情報と検索
+## ライセンス情報と検索
 
-現在の {% data variables.product.prodname_enterprise %} のライセンスを確認する、ユーザとリポジトリを検索する、そして [Audit log](#audit-log) を照会するには、サイトアドミンのダッシュボードのこのセクションを参照してください。
+現在の {% data variables.product.prodname_enterprise %} のライセンスの確認、ユーザーとリポジトリの検索、および[監査ログ](#audit-log)のクエリを実行するには、サイト管理者ダッシュボードのこのセクションを参照してください。
 
-{% endif %}
-
-### {% data variables.enterprise.management_console %}
+{% endif %} {% ifversion ghes %}
+## {% data variables.enterprise.management_console %}
 
 ここで、ドメインや認証、SSL などの仮想アプライアンスの設定を管理するための {% data variables.enterprise.management_console %}を起動することができます。
+{% endif %}
+## 探索
 
-### Explorer
+GitHub の[トレンド ページ][]のデータは、リポジトリと開発者の両方において、日単位、週単位、月単位の期間で計算されます。 **[探索]** セクションで、このデータが最後にいつキャッシュされたのかの確認や、新しいトレンドの計算ジョブをキューに入れることができます。
 
-GitHub の[ 流行ページ][] のためのデータは、リポジトリとデベロッパーの両方において、日ごと、週ごと、月ごとの期間で計算されます。 **Explore** のセクションで、このデータが最後にいつキャッシュされたのかの確認や、新規流行計算ジョブをキューに挿入することができます。
+  [トレンド ページ]: https://github.com/blog/1585-explore-what-is-trending-on-github
 
-### Audit log
+## 監査ログ
 
-{% data variables.product.prodname_enterprise %}は、クエリで確認できる、監査されたアクションのログを保持しています。
+{% data variables.product.product_name %} では、クエリで確認できる、監査されたアクションの実行ログが保持されます。
 
-デフォルトでは、Audit log は、監査されたアクション全てを新しい順で表示します。 「[Audit log を検索する](/enterprise/{{ currentVersion }}/admin/guides/installation/searching-the-audit-log)」で説明されているように、[**Query**] テキストボックスにキーと値のペアを入力して [**Search**] をクリックすることで、このリストをフィルタリングできます。
+デフォルトでは、Audit log は、監査されたアクション全てを新しい順で表示します。 このリストをフィルター処理するには、「**エンタープライズの監査ログの検索**」で説明されているように、 **[クエリ]** テキスト ボックスにキーと値のペアを入力し、[[検索]](/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/searching-the-audit-log-for-your-enterprise) をクリックします。
 
-一般的な監査ログの詳細については、「[監査ログ](/enterprise/{{ currentVersion }}/admin/guides/installation/audit-logging)」を参照してください。 監査済みのアクションの全リストについては、「[監査済みのアクション](/enterprise/{{ currentVersion }}/admin/guides/installation/audited-actions)」を参照してください。
+一般的な監査ログの詳細については、「[エンタープライズの監査ログについて](/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/about-the-audit-log-for-your-enterprise)」を参照してください。 監査されたアクションの完全なリストについては、「[エンタープライズの監査ログ イベント](/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/audit-log-events-for-your-enterprise)」を参照してください。
 
-### 報告
+## Reports
 
-{% data variables.product.product_location %}にある、ユーザやOrganization、リポジトリについての情報が必要な場合、一般的には、[GitHub API](/rest) を使って、JSON のデータをフェッチします。 残念ながら、API は、必要なデータを提供しない可能性があり、使用するのには専門知識が必要です。 サイトアドミンのダッシュボードには代替手段として [**Reports**] セクションがあり、ユーザー、Organization、およびリポジトリに必要と思われるほぼすべての情報を掲載した CSV レポートを簡単にダウンロードできます。
+{% data variables.product.product_location %} にある、ユーザー、組織、リポジトリの情報が必要な場合、一般的には、[GitHub API](/rest) を使って、JSON データをフェッチします。 残念ながら、API は、必要なデータを提供しない可能性があり、使用するのには専門知識が必要です。 サイト管理者ダッシュボードには代替手段として **[レポート]** セクションが設けられ、ユーザー、組織、リポジトリに必要と思われるほぼすべての情報を含んだ CSV レポートを簡単にダウンロードできます。
 
 具体的には、次の情報を含む CSV 報告をダウンロードできます。
 
 - 全ユーザ
-- 過去一ケ月の間、アクティブだった全ユーザ
-- 過去一ケ月、アクティブでなかった全ユーザ
+- すべてのアクティブなユーザー
+- すべての[休眠ユーザー](/admin/user-management/managing-dormant-users)
 - 停止されている全ユーザ
 - 全ての Organization
 - 全ての リポジトリ
 
-サイトアドミンのアカウントを用いて標準の HTTP 認証を使用すれば、これらのレポートにプログラムでアクセスすることもできます。 `site_admin` スコープで個人アクセストークンを使用する必要があります。 詳しい情報については、「[個人アクセストークンを作成する](/github/authenticating-to-github/creating-a-personal-access-token)」を参照してください。
+サイトアドミンのアカウントを用いて標準の HTTP 認証を使用すれば、これらのレポートにプログラムでアクセスすることもできます。 `site_admin` スコープで個人用アクセス トークンを使用する必要があります。 詳細については、[個人アクセス トークンの作成](/github/authenticating-to-github/creating-a-personal-access-token)に関する記事を参照してください。
 
 たとえば、cURL を使用して "all users" レポートをダウンロードする方法は次のとおりです:
 
@@ -67,143 +75,175 @@ GitHub の[ 流行ページ][] のためのデータは、リポジトリとデ�
 curl -L -u <em>username</em>:<em>token</em> http(s)://<em>hostname</em>/stafftools/reports/all_users.csv
 ```
 
-他の報告にプログラムでアクセスするには、 `all_users` を `active_users`や、 `dormant_users`、`suspended_users`、`all_organizations`、`all_repositories` に置き換えてください。
+プログラムで他のレポートにアクセスするには、`all_users` を `active_users`、`dormant_users`、`suspended_users`、`all_organizations`、または `all_repositories` に置き換えます。
 
 {% note %}
 
-**注：** キャッシュされた報告がない場合、最初の `curl` リクエストは、 202の HTTP レスポンスを返して、報告は背景で生成されます。 もう一度リクエストを送れば、その報告をダウンロードすることができます。 パスワードの代わりに、`site_admin` スコープでのパスワードまたはOAuthトークンを使うことができます。
+**注:** キャッシュされたレポートがない場合、最初の `curl` 要求では 202 HTTP 応答が返され、レポートはバックグラウンドで生成されます。 もう一度リクエストを送れば、その報告をダウンロードすることができます。 パスワードを使用するか、パスワードの代わりに、`site_admin` スコープと併せて OAuth トークンを使用することができます。
 
 {% endnote %}
 
-#### ユーザ報告
+### ユーザ報告
 
-|                キー | 説明                                     |
-| -----------------:| -------------------------------------- |
-|      `created_at` | ユーザアカウントの作成時間（ISO 8601 のタイムスタンプ）       |
-|              `id` | ユーザまたはOrganization のアカウント ID           |
-|           `login` | アカウントのログイン名                            |
-|           `email` | アカウントのプライマリメールアドレス                     |
-|             `ロール` | アカウントがアドミンか一般ユーザか                      |
-|      `suspended?` | アカウントが停止されているか                         |
-|  `last_logged_ip` | 最後にアカウントにログインしたときの IP アドレス             |
-|           `repos` | アカウントが所有しているリポジトリの数                    |
-|        `ssh_keys` | アカウントに登録されているSSHキーの数                   |
-| `org_memberships` | アカウントが所属している Organization の数           |
-|        `dormant?` | アカウントが休眠であるかどうか                        |
-|     `last_active` | アカウントが最後にアクティブだったとき（ISO 8601 のタイムスタンプ） |
-|       `raw_login` | （JSON フォーマットでの）未処理のログイン情報              |
-|    `2fa_enabled?` | ユーザが二段階認証を有効にしているかどうか                  |
+Key               | 説明
+-----------------:| ------------------------------------------------------------
+`created_at`      | ユーザアカウントの作成時間（ISO 8601 のタイムスタンプ）
+`id`              | ユーザまたはOrganization のアカウント ID
+`login`           | アカウントのログイン名
+`email`           | アカウントのプライマリメールアドレス
+`role`            | アカウントがアドミンか一般ユーザか
+`suspended?`      | アカウントが停止されているか
+`last_logged_ip`  | 最後にアカウントにログインしたときの IP アドレス
+`repos`           | アカウントが所有しているリポジトリの数
+`ssh_keys`        | アカウントに登録されているSSHキーの数
+`org_memberships` | アカウントが所属している Organization の数
+`dormant?`        | アカウントが休眠であるかどうか
+`last_active`     | アカウントが最後にアクティブだったとき（ISO 8601 のタイムスタンプ）
+`raw_login`       | （JSON フォーマットでの）未処理のログイン情報
+`2fa_enabled?`    | ユーザが二段階認証を有効にしているかどうか
 
-#### Organization の報告
+### Organization の報告
 
-|              キー | 説明                              |
-| ---------------:| ------------------------------- |
-|            `id` | Organization の ID               |
-|    `created_at` | Organization の作成時間              |
-|         `login` | Organization のログイン名             |
-|         `email` | Organization のプライマリメールアドレス      |
-|        `owners` | Organizationのオーナーの数             |
-|       `members` | Organization のメンバーの数            |
-|         `teams` | Organization のチームの数             |
-|         `repos` | Organization のリポジトリの数           |
-| `2fa_required?` | Organization が二段階認証を有効にしているかどうか |
+Key            | 説明
+--------------:| ------------------------------------
+`id`           | 組織 ID
+`created_at`   | Organization の作成時間
+`login`        | Organization のログイン名
+`email`        | Organization のプライマリメールアドレス
+`owners`       | Organizationのオーナーの数
+`members`      | Organization のメンバーの数
+`teams`        | Organization のチームの数
+`repos`        | Organization のリポジトリの数
+`2fa_required?`| Organization が二段階認証を有効にしているかどうか
 
-#### リポジトリ の報告
+### リポジトリ の報告
 
-|              キー | 説明                            |
-| ---------------:| ----------------------------- |
-|    `created_at` | リポジトリの作成時間                    |
-|      `owner_id` | リポジトリのコードオーナーの ID             |
-|    `owner_type` | リポジトリの所有者がユーザか Organization か |
-|    `owner_name` | リポジトリの所有者の名前                  |
-|            `id` | リポジトリの ID                     |
-|          `name` | リポジトリの名前                      |
-|    `visibility` | リポジトリが公開かプライベートか              |
-| `readable_size` | 人間が読める形式のリポジトリのサイズ            |
-|      `raw_size` | 数字でのリポジトリのサイズ                 |
-| `collaborators` | リポジトリのコラボレータの数                |
-|         `fork?` | リポジトリがフォークであるかどうか             |
-|      `deleted?` | リポジトリが削除されているかどうか             |
+Key             | 説明
+---------------:| ------------------------------------------------------------
+`created_at`    | リポジトリの作成時間
+`owner_id`      | リポジトリのコードオーナーの ID
+`owner_type`    | リポジトリの所有者がユーザか Organization か
+`owner_name`    | リポジトリの所有者の名前
+`id`            | リポジトリの ID
+`name`          | リポジトリ名です
+`visibility`    | リポジトリが公開かプライベートか
+`readable_size` | 人間が読める形式のリポジトリのサイズ
+`raw_size`      | 数字でのリポジトリのサイズ
+`collaborators` | リポジトリのコラボレータの数
+`fork?`         | リポジトリがフォークであるかどうか
+`deleted?`      | リポジトリが削除されているかどうか
 
-### インデックス化
+{% ifversion ghes %}
+## インデックス作成
 
-GitHub の[コード検索][]フィーチャは、[Elasticsearch][] に駆動されています。 サイトアドミンのダッシュボードのこのセクションには、ElasticSearch クラスターの現在のステータスが表示され、検索とインデックス作成の動作を制御するためのいくつかのツールが用意されています。 このツールは、次の3つのカテゴリーに分類されています。
+GitHub の検索機能には、Elasticsearch が搭載されています。 サイトアドミンのダッシュボードのこのセクションには、Elasticsearch クラスターの現在の状態が表示され、検索とインデックス作成の動作を制御するためにツールがいくつか用意されています。
 
-#### コード検索
+コード検索の詳細については、「[{% data variables.product.prodname_dotcom %} での情報の検索](/search-github)」を参照してください。 Elasticsearch の詳細については、[Elasticsearch の Web サイト](https://elastic.co)をご覧ください。
+
+{% note %}
+
+**注**: 通常の使用では、サイト管理者は新しいインデックスを作成したり、修復ジョブをスケジュールしたりする必要はありません。 トラブルシューティングやその他のサポート目的で、{% data variables.contact.github_support %} から修復ジョブの実行を指示される場合があります。
+
+{% endnote %}
+
+### インデックスの管理
+
+{% data variables.product.product_name %} では、検索インデックスの状態をインスタンス上のデータと自動的かつ定期的に照合して調整します。
+
+- データベース内の問題、プル要求、リポジトリ、およびユーザー
+- ディスク上の Git リポジトリ (ソース コード)
+
+ご利用のインスタンスでは修復ジョブを使用してデータを調整し、次のイベントが発生した場合にバックグラウンドで修復ジョブをスケジュールします。
+
+- 新規検索インデックスが作成される。
+- 欠損データを埋め戻ししなければいけない場合。
+- 古い検索データを更新しなければいけない場合。
+
+新しいインデックスを作成することも、リスト内の既存のインデックスをクリックしてインデックスを管理することもできます。 インデックスに対して次の操作を実行できます。
+
+- インデックスを検索可能にする。
+- インデックスを書き込み可能にする。
+- インデックスを更新する。
+- インデックスを削除する
+- インデックスの修復状態をリセットする。
+- 新規インデックス修理ジョブを開始する。
+- インデックスの修理ジョブを有効または無効にする。
+
+プログレス バーには、背景 worker にまたがる修理ジョブの現在の状態が表示されます。 このバーは、データベースの中の最高レコード ID と修理オフセットでのパーセント差を示します。 修復ジョブが完了したら、プログレス バーに表示される値は無視できます。 プログレス バーには、修復オフセットとデータベース内の最大レコード ID の差が示されます。その値は、たとえリポジトリが実際にインデックス付けされていても、{% data variables.product.product_location %} にリポジトリが追加されるにつれて減少します。
+
+I/O パフォーマンスに与える影響を最小限にするため、および、オペレーションがタイムアウトする可能性を低く抑えるために、混雑していない時間帯に修理ジョブを実行してください。 ジョブによって検索インデックスをデータベースおよび Git リポジトリ データと照合して調整する場合、使用される CPU は 1 つです。 `top` のようなユーティリティを使用して、システムの負荷平均と CPU 使用率を監視します。 リソース消費の大幅な増加が示されていない場合は、ピーク時間帯にインデックス修復ジョブを実行しても問題ありません。
+
+修理ジョブでは、並列化のために "修理オフセット" が使用されます。 これは照合されているレコードのデータベーステーブルへのオフセットです。 このオフセットによって、複数の背景ジョブの作業を同期化できます。
+
+### Code Search
 
 これによって、ソースコードに対する検索とインデックスの作業を有効または無効にすることができます。
 
-#### コード検索インデックスの修復
+{% endif %}
+## 予約済みログイン
 
-これはコード検索インデックスがどのように修復されるかを制御します。 次のことができます:
+特定の単語は、{% data variables.product.product_location %} の内部使用のために予約されています。つまり、これらの単語をユーザー名として使用することはできません。
 
-- インデックスの修理ジョブを有効または無効にする
-- 新規インデックス修理ジョブを開始する
-- インデックス修理状態を全てリセットする
+たとえば、次の単語は予約されています。
 
-{% data variables.product.prodname_enterprise %}は、修理ジョブを使って、検索インデックスの状態をデータベースで保存されているデータ（Issueやプルリクエスト、リポジトリ、ユーザ）と Git リポジトリに保存されているデータ（ソースコード）を照合することができます。 これは次の場合に使用されます。
+- `admin`
+- `enterprise`
+- `login`
+- `staff`
+- `support`
 
-- 新規検索インデックスが作成される
-- 欠損データを埋め戻ししなければいけない場合
-- 古い検索データを更新しなければいけない場合
+完全なリストまたは予約語について確認するには、サイト管理者ダッシュボードの [予約済みログイン] に移動します。
 
-すなわち、修理ジョブは、必要に応じて開始され、背景で作動しています。サイトアドミンが修理ジョブの開始時間を決めるわけではありません。
+{% ifversion ghas-committers-calculator %}
+## {% data variables.product.prodname_advanced_security %} コミッター
 
-さらに、修理ジョブは、並列化のために"修理オフセット"を使っています。 これは照合されているレコードのデータベーステーブルへのオフセットです。 このオフセットによって、複数の背景ジョブの作業を同期化できます。
+{% data variables.product.prodname_GH_advanced_security %} のシートを現在使用しているアクティブなコミッターの数を確認できます。また、他の組織やリポジトリに対して {% data variables.product.prodname_GH_advanced_security %} を有効にした場合に使用される追加のシート数を計算できます。
 
-プログレスバーは、全ての背景ワーカープロセスによる、現在の修理ステータスを表示します。 それは、データベースの中の最高レコード ID と修理オフセットでのパーセント差です。 修復ジョブが完了した後にプログレスバーに表示される値については心配しないでください。それは修復オフセットとデータベース内の最大レコード ID の差を示すものであるため、たとえリポジトリが実際にインデックス付けされていても、{% data variables.product.product_location %} にリポジトリが追加されるにつれて値は減少します。
+[現在のアクティブなコミッター数] では、{% data variables.product.prodname_GH_advanced_security %} が有効になっているリポジトリのアクティブなコミッターの数を確認できます。 これは、現在使用されているライセンス シートの数です。
 
-いつでも新規コード検索インデックスの修理ジョブを開始できます。 1つの CPU を使って、検索インデックスをデータベース及びGitのリポジトリデータと照合します。 I/O パフォーマンスに与える影響を最小限にするため、および、オペレーションがタイムアウトする可能性を減少するために混雑していない時間帯に修理ジョブを実行してみてください。 `top` のようなユーティリティで、システム負荷と CPU 使用率の平均を監視しましょう。大差がない場合は、混雑している時間帯にもインデックスの修理ジョブを実行しても安全なはずです。
+[インスタンス全体の最大コミッター数] では、エンタープライズ内のすべてのリポジトリのアクティブなコミッターの数を確認できます。 これは、エンタープライズ内のすべてのリポジトリに対して {% data variables.product.prodname_GH_advanced_security %} を有効にした場合に使用されるシートの数です。
 
-#### Issue インデックスの修復
+[追加の高度なコミッターの計算] では、特定の組織とリポジトリに対して {% data variables.product.prodname_GH_advanced_security %} を有効にした場合に使用される追加のシートの数を計算できます。 [組織とリポジトリ] で、1 行に 1 つの組織またはリポジトリを含む組織とリポジトリのリストを入力または貼り付けます。 
 
-これは [Issues][] インデックスがどのように修復されるかを制御します。 次のことができます:
+```
+example-org
+octo-org/octo-repo
+```
 
-- インデックスの修理ジョブを有効または無効にする
-- 新規インデックス修理ジョブを開始する
-- インデックス修理状態を全てリセットする
+その結果、それらの組織とリポジトリに対して {% data variables.product.prodname_GH_advanced_security %} を有効にした場合に使用される追加のシートの数が得られます。
 
-{% if currentVersion ver_gt "enterprise-server@2.21" %}
-
-### 全ユーザ
-
-ここでは、{{ site.data.variables.product.product_location_enterprise }} で一時停止されているすべてのユーザーを確認することができ、そして [SSH キー監査を開始する](/enterprise/{{ page.version }}/admin/guides/user-management/auditing-ssh-keys)ことができます。
-
+{% data variables.product.prodname_advanced_security %} の課金について詳しくは、「[{% data variables.product.prodname_advanced_security %} の課金について](/billing/managing-billing-for-github-advanced-security/about-billing-for-github-advanced-security)」を参照してください。
 {% endif %}
 
-### リポジトリ
+## 全ユーザ
+
+組織、ユーザー、ポリシー、設定を管理するには、サイト管理者ダッシュボードのこのセクションを参照してください。
+
+## リポジトリ
 
 これは {% data variables.product.product_location %} 上のリポジトリのリストです。 リポジトリ名をクリックしてリポジトリを管理するための機能にアクセスできます。
 
-- [リポジトリへのフォースプッシュをブロックする](/enterprise/{{ currentVersion }}/admin/guides/developer-workflow/blocking-force-pushes-to-a-repository/)
-- [{% data variables.large_files.product_name_long %} を設定する](/enterprise/{{ currentVersion }}/admin/guides/installation/configuring-git-large-file-storage/#configuring-git-large-file-storage-for-an-individual-repository)
-- [リポジトリのアーカイブへの保管と削除](/enterprise/{{ currentVersion }}/admin/guides/user-management/archiving-and-unarchiving-repositories/)
+- [リポジトリへのプッシュの強制をブロックする](/enterprise/admin/guides/developer-workflow/blocking-force-pushes-to-a-repository/)
+- [{% data variables.large_files.product_name_long %} を構成する](/enterprise/admin/guides/installation/configuring-git-large-file-storage/#configuring-git-large-file-storage-for-an-individual-repository)
+- [リポジトリのアーカイブへの保管と削除](/enterprise/admin/guides/user-management/archiving-and-unarchiving-repositories/)
 
-### 全ユーザ
+## すべてのユーザー
 
-ここでは、{% data variables.product.product_location %} 上のすべてのユーザーを確認することができ、そして [SSH キー監査を開始する](/enterprise/{{ currentVersion }}/admin/guides/user-management/auditing-ssh-keys)ことができます。
+ここでは、{% data variables.product.product_location %} 上のすべてのユーザーの確認と、[SSH キー監査を開始](/enterprise/admin/guides/user-management/auditing-ssh-keys)することができます。
 
-### サイトアドミン
+## サイトアドミン
 
-ここでは、{% data variables.product.product_location %} 上のすべての管理者を確認することができ、そして [SSH キー監査を開始する](/enterprise/{{ currentVersion }}/admin/guides/user-management/auditing-ssh-keys)ことができます。
+ここでは、{% data variables.product.product_location %} 上のすべての管理者の確認と、[SSH キー監査を開始](/enterprise/admin/guides/user-management/auditing-ssh-keys)することができます。
 
-### 休眠ユーザ
+## 休眠ユーザ
+{% ifversion ghes %}ここでは、{% data variables.product.product_location %} 上のすべての非アクティブなユーザーを確認でき、[一時停止させる](/enterprise/admin/guides/user-management/suspending-and-unsuspending-users)ことができます。 ユーザー アカウントは、次の場合において、非アクティブ ("休眠") と見なされます。{% endif %} {% ifversion ghae %} ここでは、{% data variables.product.product_location %} 上のすべての非アクティブなユーザーを確認でき、一時停止させることができます。 ユーザー アカウントは、次の場合において、非アクティブ ("休眠") と見なされます。{% endif %}
 
-ここでは、{% data variables.product.product_location %} 上のすべての非アクティブなユーザーを確認して、[一時停止](/enterprise/{{ currentVersion }}/admin/guides/user-management/suspending-and-unsuspending-users)することができます。 ユーザアカウントは、次の場合において、非アクティブ（休眠）とみなされます。
-
-- {% data variables.product.product_location %} 用に設定されている休眠しきい値よりも長く存在している。
+- {% data variables.product.product_location %} で設定されている休眠しきい値よりも長く存在している。
 - その期間内にどのアクティビティも生成していない。
 - サイト管理人ではない
 
-{% data reusables.enterprise_site_admin_settings.dormancy-threshold %} 詳細は「[休眠ユーザを管理する](/enterprise/{{ currentVersion }}/admin/guides/user-management/managing-dormant-users/#configuring-the-dormancy-threshold)」を参照してください。
+{% data reusables.enterprise_site_admin_settings.dormancy-threshold %} 詳細については、「[休眠ユーザーの管理](/enterprise/admin/guides/user-management/managing-dormant-users/#configuring-the-dormancy-threshold)」を参照してください。
 
-### 停止されたユーザ
+## 停止されたユーザ
 
-ここでは、{% data variables.product.product_location %} で一時停止されているすべてのユーザーを確認することができ、そして [SSH キー監査を開始する](/enterprise/{{ currentVersion }}/admin/guides/user-management/auditing-ssh-keys)ことができます。
-
-  [ 流行ページ]: https://github.com/blog/1585-explore-what-is-trending-on-github
-
-  [コード検索]: https://github.com/blog/1381-a-whole-new-code-search
-  [Elasticsearch]: http://www.elasticsearch.org/
-
-  [Issues]: https://github.com/blog/831-issues-2-0-the-next-generation
+ここでは、{% data variables.product.product_location %} 上の一時停止されたすべてのユーザーの確認と、[SSH キー監査を開始](/enterprise/admin/guides/user-management/auditing-ssh-keys)することができます。

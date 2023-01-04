@@ -1,42 +1,48 @@
 ---
 title: 外部のコラボレータを Organization のリポジトリに追加する
-intro: '*外部のコラボレータ*は、Organization の明示的なメンバーではありませんが、Organization の 1 つ以上のリポジトリに読み取り、書き込み、あるいは管理権限を持っている人です。'
+intro: Organizationのメンバーではないユーザに、Organizationが所有するリポジトリへのアクセスを許可できます。
 redirect_from:
-  - /articles/adding-outside-collaborators-to-repositories-in-your-organization
-  - /github/setting-up-and-managing-organizations-and-teams/adding-outside-collaborators-to-repositories-in-your-organization
+- /articles/adding-outside-collaborators-to-repositories-in-your-organization
+- /github/setting-up-and-managing-organizations-and-teams/adding-outside-collaborators-to-repositories-in-your-organization
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - Organizations
-  - Teams
+- Organizations
+- Teams
+shortTitle: Add outside collaborator
+permissions: People with admin access to a repository can add an outside collaborator to the repository.
+ms.openlocfilehash: caac79aba845f433effd3a3461e739d07cee135b
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/05/2022
+ms.locfileid: "145130736"
 ---
+## 外部のコラボレータについて
 
-{% data reusables.organizations.owners-and-admins-can %} 外部コラボレーターをリポジトリに追加できます。ただし、Organization のオーナーがコラボレーターの招待を禁じていない場合に限ります。 詳しい情報については、「[外部のコラボレーターを追加するための権限を設定する](/articles/setting-permissions-for-adding-outside-collaborators)」を参照してください。
+外部のコラボレータは、Organizationのメンバーではないものの、Organizationの1つ以上のリポジトリにアクセスできるユーザです。 付与するアクセスレベルは、外部のコラボレータごとに選択できます。 {% data reusables.organizations.outside_collaborator_forks %}
 
 {% data reusables.organizations.outside-collaborators-use-seats %}
 
-{% if currentVersion != "github-ae@latest" %}
-Organization が[メンバーおよび外部コラボレーターに 2 要素認証を使うことを求める](/articles/requiring-two-factor-authentication-in-your-organization)なら、メンバーおよび外部コラボレーターはあなたからの Organization のリポジトリでのコラボレーションの招待を受諾する前に、2 要素認証を有効化しなければなりません。
+{% ifversion fpt %} {% data variables.product.prodname_ghe_cloud %} を使う Organization は、コラボレーターの招待機能を制限できます。 詳細については、{% data variables.product.prodname_ghe_cloud %} ドキュメントの「[外部コラボレーターを追加するためのアクセス許可の設定](/enterprise-cloud@latest/organizations/managing-organization-settings/setting-permissions-for-adding-outside-collaborators)」を参照してください。
+{% else %} Organozation の所有者は、コラボレーターを招待する機能を制限できます。 詳細については、「[外部のコラボレーターを追加するための権限を設定する](/organizations/managing-organization-settings/setting-permissions-for-adding-outside-collaborators)」を参照してください。
 {% endif %}
 
-{% data reusables.organizations.outside_collaborator_forks %}
-
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% if currentVersion == "free-pro-team@latest" %}
-{% data reusables.repositories.navigate-to-manage-access %}
-{% data reusables.organizations.invite-teams-or-people %}
-5. 検索フィールドで、招待する人の名前を入力し、一致するリストの名前をクリックします。 ![リポジトリに招待する人の名前を入力するための検索フィールド](/assets/images/help/repository/manage-access-invite-search-field.png)
-6. [Choose a role] で、人に付与する権限を選択し、[**Add NAME to REPOSITORY**] をクリックします。 ![人の権限を選択する](/assets/images/help/repository/manage-access-invite-choose-role-add.png)
-{% else %}
-5. 左のサイドバーで、[**Collaborators & teams**] をクリックします。 ![コラボレーターと Team がハイライトされたリポジトリ設定サイドバー](/assets/images/help/repository/org-repo-settings-collaborators-and-teams.png)
-6. "Collaborators" の下で、リポジトリへのアクセスを許可したい人の名前を入力し、[**Add collaborator**] をクリックします。 ![Octocat のユーザ名が検索フィールドに入力されているコラボレーターセクション](/assets/images/help/repository/org-repo-collaborators-find-name.png)
-7. 新しいコラボレータの名前の隣で、*Write (書き込み)*、*Read (読み取り)*、*Admin (管理)* の中から適切な権限レベルを選択してください。 ![リポジトリの権限の選択](/assets/images/help/repository/org-repo-collaborators-choose-permissions.png)
+{% ifversion ghes %} リポジトリに外部コラボレーターとして誰かを追加するには、そのユーザーが {% data variables.product.product_location %} に個人アカウントを持っている必要があります。 EnterpriseがSAMLやLDAPのような外部の認証システムを使っているなら、アカウントを作成するためには追加したい人はそのシステムを通じてサインインしなければなりません。 そのユーザーがその認証システムにアクセスできないものの、Enterprise ではビルトイン認証が有効にされている場合、サイト管理者がそのユーザーにアカウントを作成することができます。 詳しくは、「[ビルトイン認証を構成する](/admin/identity-and-access-management/using-built-in-authentication/configuring-built-in-authentication)」を参照してください。
 {% endif %}
 
-### 参考リンク
+{% ifversion not ghae %} Organization で 2 要素認証が必要な場合、すべての外部コラボレーターは、リポジトリで共同作業を行うための招待を受け入れる前に、2 要素認証を有効にする必要があります。 詳細については、「[Organization で 2 要素認証を要求する](/organizations/keeping-your-organization-secure/managing-two-factor-authentication-for-your-organization/requiring-two-factor-authentication-in-your-organization)」を参照してください。
+{% endif %}
 
-- [Organizatin のメンバーを外部のコラボレータに変換する](/articles/converting-an-organization-member-to-an-outside-collaborator)
-- [外部のコラボレータを Organization のリポジトリから削除する](/articles/removing-an-outside-collaborator-from-an-organization-repository)
+## リポジトリへの外部のコラボレータの追加
+
+{% ifversion fpt or ghec or ghes > 3.3 or ghae-issue-5974 %} 外部コラボレーターにリポジトリ設定のリポジトリへのアクセス権を付与できます。 詳細については、「[リポジトリへのアクセス権を持つ Team と人を管理する](/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/managing-teams-and-people-with-access-to-your-repository#inviting-a-team-or-person)」を参照してください。 {% else %} {% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-settings %}
+5. 左側のサイドバーで、 **[コラボレーターと Team]** をクリックします。
+  ![コラボレーターと Team が強調表示されたリポジトリ設定のサイドバー](/assets/images/help/repository/org-repo-settings-collaborators-and-teams.png)
+6. [コラボレーター] の下で、リポジトリへのアクセスを許可したい人の名前を入力し、 **[コラボレーターの追加]** をクリックします。
+![Octocat のユーザー名が検索フィールドに入力されている [コラボレーター] セクション](/assets/images/help/repository/org-repo-collaborators-find-name.png)
+7. 新しいコラボレータの名前の隣で、ドロップダウンメニューを使って適切なアクセスレベルを選択してください。
+![リポジトリのアクセス許可ピッカー](/assets/images/help/repository/org-repo-collaborators-choose-permissions.png) {% endif %}

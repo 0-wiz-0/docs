@@ -1,43 +1,32 @@
 ---
-title: Replacing a cluster node
-intro: 'To replace a {% data variables.product.prodname_ghe_server %} node, you must mark the affected nodes offline in the cluster configuration file (`cluster.conf`) and add the replacement nodes. This might be necessary if a node were to fail, or to add a node with more resources to increase performance.'
+title: Замена узла кластера
+intro: 'Чтобы заменить узел {% data variables.product.prodname_ghe_server %}, необходимо пометить затронутые узлы, переведенные в автономный режим, в файле конфигурации кластера (`cluster.conf`) и добавить узлы для замены. Это может потребоваться, если узел должен был завершиться ошибкой, или добавить узел с дополнительными ресурсами, чтобы повысить производительность.'
 redirect_from:
   - /enterprise/admin/clustering/replacing-a-cluster-node
   - /enterprise/admin/enterprise-management/replacing-a-cluster-node
   - /admin/enterprise-management/replacing-a-cluster-node
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Clustering
   - Enterprise
   - Infrastructure
+ms.openlocfilehash: 4b4a34424803179d27aa245ad6ccb416ff926c59
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145116779'
 ---
-
 {% warning %}
 
-**Warning:** The replacement node must use a hostname that has not been used previously in the cluster to avoid conflicts.
+**Предупреждение.** Чтобы избежать конфликтов, узел замены должен использовать имя узла, которое ранее не использовалось в кластере.
 
 {% endwarning %}
 
-### Replacing a functional node
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-provision %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-admin-configure-ip %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-modify-cluster-conf %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-initialize-new-node %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-config-node %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-need-three-nodes %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-mark-offline %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-validate-config %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-replacement-name %}
+## Замена функционального узла
+{% data reusables.enterprise_clustering.replacing-a-cluster-node-provision %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-admin-configure-ip %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-modify-cluster-conf %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-initialize-new-node %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-config-node %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-need-three-nodes %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-mark-offline %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-validate-config %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-replacement-name %}
 
-### Replacing a node in an emergency
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-provision %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-admin-configure-ip %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-mark-offline %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-validate-config %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-modify-cluster-conf %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-replacement-name %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-initialize-new-node %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-config-node %}
-{% data reusables.enterprise_clustering.replacing-a-cluster-node-need-three-nodes %}
+## Замена узла в экстренной ситуации
+{% data reusables.enterprise_clustering.replacing-a-cluster-node-provision %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-admin-configure-ip %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-mark-offline %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-validate-config %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-modify-cluster-conf %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-replacement-name %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-initialize-new-node %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-config-node %} {% data reusables.enterprise_clustering.replacing-a-cluster-node-need-three-nodes %}

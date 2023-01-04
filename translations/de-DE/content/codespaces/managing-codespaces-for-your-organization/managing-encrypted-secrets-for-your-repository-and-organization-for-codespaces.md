@@ -1,71 +1,77 @@
 ---
-title: Managing encrypted secrets for your repository and organization for Codespaces
-shortTitle: Managing secrets for your repository and organization
-intro: 'Encrypted secrets allow you to store sensitive information in your organization, repository, or {% data variables.product.prodname_codespaces %}.'
-permissions: 'To manage secrets for {% data variables.product.prodname_codespaces %} for an organization, you must be an organization owner.'
+title: Verwalten verschlüsselter Geheimnisse für dein Repository und deine Organisation für Codespaces
+shortTitle: Encrypted secrets
+intro: Dank verschlüsselter Geheimnisse kannst du vertrauliche Informationen in deiner Organisation, deinem Repository oder in {% data variables.product.prodname_codespaces %} speichern.
+product: '{% data reusables.gated-features.codespaces %}'
+permissions: To manage secrets for {% data variables.product.prodname_codespaces %} for an organization, you must be an organization owner.
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
-  - Codespaces
+- Codespaces
+- Secret store
+- Security
+ms.openlocfilehash: 062b73c8559b700bdbd37a6b31da44403c2092f5
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145106543"
 ---
+## <a name="about-secrets"></a>Informationen zu Geheimnissen
 
-{% data reusables.codespaces.release-stage %}
+Geheimnisse sind verschlüsselte Umgebungsvariablen, die du in einer Organisation oder einem Repository erstellst. Die von Ihnen erstellten Geheimnisse in {% data variables.product.prodname_codespaces %} verwendet werden. GitHub verwendet eine [Libsodium Sealed Box](https://libsodium.gitbook.io/doc/public-key_cryptography/sealed_boxes), um Geheimnisse zu verschlüsseln, bevor sie GitHub erreichen, und entschlüsselt diese nur, wenn du sie in einem Codespace verwendest.
 
-### About secrets
-
-Secrets are encrypted environment variables that you create in an organization or  repository. The secrets that you create are available to use in {% data variables.product.prodname_codespaces %}. GitHub uses a [libsodium sealed box](https://libsodium.gitbook.io/doc/public-key_cryptography/sealed_boxes) to encrypt secrets before they reach GitHub and only decrypts them when you use them in a codespace.
-
-Organization-level secrets let you share secrets between multiple repositories, which reduces the need to create duplicate secrets. You can use access policies to control which repositories can use organization secrets.
+Geheimnisse auf Organisationsebene ermöglichen es Ihnen, Geheimnisse zwischen mehreren Repositorys zu teilen, was die Notwendigkeit zur Erstellung von doppelten Geheimnissen verringert. Du kannst Zugriffsrichtlinien verwenden, um zu steuern, welche Repositorys Organisationsgeheimnisse verwenden können. 
 
 {% data reusables.codespaces.secrets-on-start %}
 
-#### Naming secrets
+### <a name="naming-secrets"></a>Benennen von Geheimnissen
 
-{% data reusables.codespaces.secrets-naming %} For example, a secret created at the repository level must have a unique name in that repository, and a secret created at the organization level must have a unique name at that level.
+{% data reusables.codespaces.secrets-naming %} So muss beispielsweise ein auf Repositoryebene erstelltes Geheimnis einen eindeutigen Namen in diesem Repository haben, und ein auf Organisationsebene erstelltes Geheimnis muss einen eindeutigen Namen auf dieser Ebene aufweisen.
 
   {% data reusables.codespaces.secret-precedence %}
 
-#### Einschränkungen für Geheimnisse
+### <a name="limits-for-secrets"></a>Einschränkungen für Geheimnisse
 
-You can store up to 100 secrets per organization and 100 secrets per repository.
+Du kannst bis zu 100 Geheimnisse pro Organisation und 100 Geheimnisse pro Repository speichern.
 
 Geheimnisse sind auf 64 KB beschränkt.
 
-### Adding secrets for a repository
+## <a name="adding-secrets-for-a-repository"></a>Hinzufügen von Geheimnissen für ein Repository
 
-To create secrets for an organization repository, you must have administrator access.
+Um Geheimnisse für ein Organisationsrepository zu erstellen, musst du über Administratorzugriff verfügen.
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.github-actions.sidebar-secret %}
-1. Scroll down the page and under **Secrets**, select **Codespaces**. ![Codespaces option in side bar](/assets/images/help/codespaces/codespaces-option-secrets.png)
-1. At the top of the page, click **New repository secret**.
-1. Geben Sie einen Namen für Ihr Geheimnis in das Eingabefeld **Name** ein.
-1. Geben Sie den Wert für Ihr Geheimnis ein.
-1. Klicken Sie auf **Add secret** (Geheimnis hinzufügen).
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-settings %}
+1. Klicke im Abschnitt „Sicherheit“ der Seitenleiste auf **{% octicon "key-asterisk" aria-label="The key-asterisk icon" %} Geheimnisse**, und wähle dann **{% data variables.product.prodname_codespaces %}** aus.
+2. Klicke oben auf der Seite auf **Neues Repositorygeheimnis**.
+3. Gib einen Namen für dein Geheimnis in das Eingabefeld **Name** ein.
+4. Gib den Wert für das Geheimnis ein.
+5. Klicke auf **Geheimnis hinzufügen**.
 
-### Adding secrets for an organization
+## <a name="adding-secrets-for-an-organization"></a>Hinzufügen von Geheimnissen für eine Organisation
 
-Beim Erstellen eines geheimen Schlüssels in einer Organisation können Sie eine Richtlinie verwenden, um einzuschränken, welche Repositorys auf diesen geheimen Schlüssel zugreifen können. Sie können z. B. Zugriff auf alle Repositorys gewähren oder den Zugriff auf nur private Repositorys oder eine angegebene Liste von Repositorys beschränken.
+Beim Erstellen eines Geheimnisses in einer Organisation kannst du mit einer Richtlinie einschränken, welche Repositorys darauf zugreifen können. Du kannst beispielsweise allen Repositorys Zugriff gewähren oder nur private Repositorys oder eine angegebene Liste von Repositorys zulassen.
 
-{% data reusables.github-actions.permissions-statement-secrets-organization %}
+{% data reusables.actions.permissions-statement-secrets-organization %}
 
-{% data reusables.organizations.navigate-to-org %}
-{% data reusables.organizations.org_settings %}
-{% data reusables.github-actions.sidebar-secret %}
-1. Scroll down the page and under **Secrets**, select **Codespaces**. ![Codespaces option in side bar](/assets/images/help/codespaces/codespaces-option-secrets-org.png)
-1. At the top of the page, click **New organization secret**.
-1. Geben Sie einen Namen für Ihr Geheimnis in das Eingabefeld **Name** ein.
-1. Geben Sie den **Value** für Ihr Geheimnis ein.
-1. Wählen Sie im **Repository-Zugriff** Dropdownliste eine Zugriffsrichtlinie aus. ![Repository Access list with private repositories selected](/assets/images/help/codespaces/secret-repository-access.png)
-1. Klicken Sie auf **Add secret** (Geheimnis hinzufügen).
+{% data reusables.organizations.navigate-to-org %} {% data reusables.organizations.org_settings %}
+1. Klicke im Abschnitt „Sicherheit“ der Seitenleiste auf **{% octicon "key-asterisk" aria-label="The key-asterisk icon" %} Geheimnisse**, und wähle dann **{% data variables.product.prodname_codespaces %}** aus.
+2. Klicke oben auf der Seite auf **Neues Organisationsgeheimnis**.
+3. Gib einen Namen für dein Geheimnis in das Eingabefeld **Name** ein.
+4. Gib den **Wert** für das Geheimnis ein.
+5. Wähle in der Dropdownliste **Repositoryzugriff** eine Zugriffsrichtlinie aus.
+    ![Repositoryzugriffsliste mit ausgewählten privaten Repositorys](/assets/images/help/codespaces/secret-repository-access.png)
+6. Klicke auf **Geheimnis hinzufügen**.
 
-### Überprüfen des Zugriffs auf Geheimnisse auf Organisationsebene
+## <a name="reviewing-access-to-organization-level-secrets"></a>Überprüfen des Zugriffs auf Organisationsgeheimnisse
 
-You can check which access policies are applied to a secret in your organization.
+Du kannst überprüfen, welche Zugriffsrichtlinien auf ein Geheimnis in deiner Organisation angewendet werden.
 
-{% data reusables.organizations.navigate-to-org %}
-{% data reusables.organizations.org_settings %}
-{% data reusables.github-actions.sidebar-secret %}
-1. Die Liste der Geheimnisse enthält alle konfigurierten Berechtigungen und Richtlinien. Ein Beispiel: ![Geheimliste](/assets/images/help/settings/actions-org-secrets-list.png)
-1. Weitere Informationen zu den konfigurierten Berechtigungen für jeden geheimen Schlüssel finden Sie unter **Aktualisieren**.
+{% data reusables.organizations.navigate-to-org %} {% data reusables.organizations.org_settings %} {% data reusables.actions.sidebar-secret %}
+1. Die Liste der Geheimnisse enthält alle konfigurierten Berechtigungen und Richtlinien. Beispiel: ![Liste der Geheimnisse](/assets/images/help/settings/actions-org-secrets-list.png)
+1. Klicke auf **Aktualisieren**, um weitere Details zu den konfigurierten Berechtigungen des jeweiligen Geheimnisses anzuzeigen.
+
+## <a name="further-reading"></a>Weitere Informationsquellen
+
+- [Verwalten verschlüsselter Geheimnisse für Codespaces](/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces)

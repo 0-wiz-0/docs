@@ -1,734 +1,737 @@
 ---
-title: Issue event types
-intro: 'For the Issues Events API and Timeline API, learn about each event type, the triggering action on {% data variables.product.prodname_dotcom %}, and each event''s unique properties.'
+title: Типы события проблемы
+intro: 'Сведения о типах событий, действиях активации в {% data variables.product.prodname_dotcom %} и уникальных свойствах каждого события в API событий и временной шкалы.'
 redirect_from:
   - /v3/issues/issue-event-types
   - /developers/webhooks-and-events/issue-event-types
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Events
+ms.openlocfilehash: 0120c358012c385555991820516b44199d0f34f8
+ms.sourcegitcommit: 42536e8cb82d50b98cdaee038f09c6aeb0d037c6
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/07/2022
+ms.locfileid: '148012062'
 ---
+События проблемы активируются действиями в проблемах и запросах на вытягивание и доступны в [API событий проблем](/rest/reference/issues#events) и в [API событий временной шкалы](/rest/reference/issues#timeline). Каждый тип события указывает, доступно ли событие в API событий проблемы или API событий временной шкалы.
 
-Issue events are triggered by activity in issues and pull requests and are available in the [Issue Events API](/rest/reference/issues#events) and the [Timeline Events API](/rest/reference/issues#timeline). Each event type specifies whether the event is available in the Issue Events or Timeline Events APIs.
+REST API GitHub рассматривает каждый запрос на вытягивание как проблему, но не каждая проблема является запросом на вытягивание. По этой причине конечные точки событий проблемы и событий временной шкалы могут возвращать в ответе как проблемы, так и запросы на вытягивание. Запросы на вытягивание содержат свойство `pull_request` в объекте `issue`. Так как запросы на вытягивание являются проблемами, номера проблем и запросов на вытягивание не перекрываются в репозитории. Например, при открытии первой проблемы в репозитории ее номером будет 1. Если затем открыть запрос на вытягивание, его номером будет 2. Каждый тип события указывает, где происходит событие: в запросе на вытягивание, проблемах или и там, и там.
 
-GitHub's REST API considers every pull request to be an issue, but not every issue is a pull request. For this reason, the Issue Events and Timeline Events endpoints may return both issues and pull requests in the response. Pull requests have a `pull_request` property in the `issue` object. Because pull requests are issues, issue and pull request numbers do not overlap in a repository. For example, if you open your first issue in a repository, the number will be 1. If you then open a pull request, the number will be 2. Each event type specifies if the event occurs in pull request, issues, or both.
+## Общие свойства объекта события проблемы
 
-### Issue event object common properties
-
-Issue events all have the same object structure, except events that are only available in the Timeline Events API. Some events also include additional properties that provide more context about the event resources. Refer to the specific event to for details about any properties that differ from this object format.
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### added_to_project
-
-The issue or pull request was added to a project board. {% data reusables.projects.disabled-projects %}
-
-#### Availability
-
-| Issue type                | Issue events API | Timeline events API |
-|:------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull request</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.pre-release-program.starfox-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.project-card-properties %}
-
-### assigned
-
-The issue or pull request was assigned to a user.
-
-#### Availability
-
-| Issue type                | Issue events API | Timeline events API |
-|:------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.assignee-properties %}
-
-### automatic_base_change_failed
-
-GitHub unsuccessfully attempted to automatically change the base branch of the pull request.
-
-#### Availability
-
-| Issue type                | Issue events API | Timeline events API |
-|:------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |                     |
-
-#### Event object properties
+События проблемы имеют одинаковую структуру объектов, за исключением событий, доступных только в API событий временной шкалы. Некоторые события также включают дополнительные свойства, которые предоставляют больше контекста о ресурсах событий. Дополнительные сведения о свойствах, отличающихся от этого формата объекта, см. в конкретном событии.
 
 {% data reusables.issue-events.issue-event-common-properties %}
 
-### automatic_base_change_succeeded
+## added_to_project
 
-GitHub successfully attempted to automatically change the base branch of the pull request.
+На доску проекта добавлена проблема или запрос на вытягивание. {% data reusables.projects.disabled-projects %}
 
-#### Availability
+### Доступность
 
-| Issue type                | Issue events API | Timeline events API |
-|:------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |                     |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запрос на вытягивание</li></ul> | **X** | **X** |
 
-#### Event object properties
+### Свойства объекта события
+
+{% data reusables.pre-release-program.starfox-preview %} {% data reusables.pre-release-program.api-preview-warning %}
+
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.project-card-properties %}
+
+## назначено
+
+Пользователю назначена проблема или запрос на вытягивание.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X**  |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.assignee-properties %}
+
+## automatic_base_change_failed
+
+Служба GitHub выполнила неудачную попытку автоматически изменить базовую ветвь запроса на вытягивание.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** |  |
+
+### Свойства объекта события
 
 {% data reusables.issue-events.issue-event-common-properties %}
 
-### base_ref_changed
+## automatic_base_change_succeeded
 
-The base reference branch of the pull request changed.
+Служба GitHub выполнила удачную попытку автоматически изменить базовую ветвь запроса на вытягивание.
 
-#### Availability
+### Доступность
 
-| Issue type                | Issue events API | Timeline events API |
-|:------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |                     |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | |
 
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### closed
-
-The issue or pull request was closed. When the `commit_id` is present, it identifies the commit that closed the issue using "closes / fixes" syntax. For more information about the syntax, see "[Linking a pull request to an issue](/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)".
-
-#### Availability
-
-| Issue type                | Issue events API | Timeline events API |
-|:------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
+### Свойства объекта события
 
 {% data reusables.issue-events.issue-event-common-properties %}
 
-### commented
+## base_ref_changed
 
-A comment was added to the issue or pull request.
+Базовая ветвь ссылки запроса на вытягивание изменена.
 
-#### Availability
+### Доступность
 
-| Issue type                | Issue events API | Timeline events API |
-|:------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |                  |        **X**        |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | |
 
-#### Event object properties
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## closed
+
+Проблема или запрос на вытягивание закрыта. При наличии `commit_id` он определяет фиксацию, которая закрыла проблему с помощью синтаксиса "closes / fixes". Дополнительные сведения о синтаксисе см. в разделе [Связывание запроса на вытягивание с проблемой](/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword).
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## добавлен комментарий
+
+К проблеме или запросу на вытягивание добавлен комментарий.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> |  | **X** |
+
+### Свойства объекта события
 
 {% data reusables.issue-events.timeline_events_object_properties %}
 
-| Name                 | Тип       | Description                                                                                                                                     |
-| -------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `url`                | `строка`  | The REST API URL to retrieve the issue comment.                                                                                                 |
-| `html_url`           | `строка`  | The HTML URL of the issue comment.                                                                                                              |
-| `issue_url`          | `строка`  | The HTML URL of the issue.                                                                                                                      |
-| `id`                 | `integer` | The unique identifier of the event.                                                                                                             |
-| `node_id`            | `строка`  | The [Global Node ID](/graphql/guides/using-global-node-ids) of the event.                                                                       |
-| `пользователь`       | `объект`  | The person who commented on the issue.                                                                                                          |
-| `created_at`         | `строка`  | The timestamp indicating when the comment was added.                                                                                            |
-| `updated_at`         | `строка`  | The timestamp indicating when the comment was updated or created, if the comment is never updated.                                              |
-| `author_association` | `строка`  | The permissions the user has in the issue's repository. For example, the value would be `"OWNER"` if the owner of repository created a comment. |
-| `тело`               | `строка`  | The comment body text.                                                                                                                          |
-| `событие`            | `строка`  | The event value is `"commented"`.                                                                                                               |
-| `actor`              | `объект`  | The person who generated the event.                                                                                                             |
+Имя | Тип | Описание
+-----|------|--------------
+`url` | `string` | URL-адрес REST API для получения комментария к проблеме.
+`html_url` | `string` | URL-адрес HTML комментария к проблеме.
+`issue_url` | `string` | URL-адрес HTML проблемы.
+`id` | `integer` | Уникальный идентификатор события.
+`node_id` | `string` | [Идентификатор глобального узла](/graphql/guides/using-global-node-ids) события.
+`user` | `object` | Пользователь, который прокомментировал проблему.
+`created_at` | `string` | Метка времени, указывающая время добавления комментария.
+`updated_at` | `string` | Метка времени, указывающая время обновления комментария или время создания, если комментарий никогда не обновлялся.
+`author_association` | `string` | Разрешения, которыми располагает пользователь в репозитории проблемы. Например, если владелец репозитория создал комментарий, значение будет `"OWNER"`.
+`body` | `string` | Основной текст комментария.
+`event` | `string` | Значение события — `"commented"`.
+`actor` | `object` | Пользователь, создавший событие.
 
-### committed
+## зафиксировано
 
-A commit was added to the pull request's `HEAD` branch.
+В ветвь `HEAD` запроса на вытягивание добавлена фиксация.
 
-#### Availability
+### Доступность
 
-| Issue type                | Issue events API | Timeline events API |
-|:------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |                  |        **X**        |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> |  | **X** |
 
-#### Event object properties
-
-{% data reusables.issue-events.timeline_events_object_properties %}
-
-| Name          | Тип                | Description                                                                                                                                    |
-| ------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sha`         | `строка`           | The SHA of the commit in the pull request.                                                                                                     |
-| `node_id`     | `строка`           | The [Global Node ID](/graphql/guides/using-global-node-ids) of the event.                                                                      |
-| `url`         | `строка`           | The REST API URL to retrieve the commit.                                                                                                       |
-| `html_url`    | `строка`           | The HTML URL of the commit.                                                                                                                    |
-| `автор`       | `объект`           | The person who authored the commit.                                                                                                            |
-| `участник`    | `объект`           | The person who committed the commit on behalf of the author.                                                                                   |
-| `дерево`      | `объект`           | The Git tree of the commit.                                                                                                                    |
-| `message`     | `строка`           | The commit message.                                                                                                                            |
-| `parents`     | `array of objects` | A list of parent commits.                                                                                                                      |
-| `верификация` | `объект`           | The result of verifying the commit's signature. For more information, see "[Signature verification object](/rest/reference/git#get-a-commit)." |
-| `событие`     | `строка`           | The event value is `"committed"`.                                                                                                              |
-
-### connected
-
-The issue or pull request was linked to another issue or pull request. For more information, see "[Linking a pull request to an issue](/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue)".
-
-#### Availability
-
-| Issue type                | Issue events API | Timeline events API |
-|:------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### convert_to_draft
-
-The pull request was converted to draft mode.
-
-#### Availability
-
-| Issue type                | Issue events API | Timeline events API |
-|:------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### converted_note_to_issue
-
-The issue was created by converting a note in a project board to an issue. {% data reusables.projects.disabled-projects %}
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.pre-release-program.starfox-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.project-card-properties %}
-
-### cross-referenced
-
-The issue or pull request was referenced from another issue or pull request.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |                  |        **X**        |
-
-#### Event object properties
+### Свойства объекта события
 
 {% data reusables.issue-events.timeline_events_object_properties %}
 
-| Name            | Тип      | Description                                                                                                                                                                                                                                                                                                                   |
-| --------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `actor`         | `объект` | The person who generated the event.                                                                                                                                                                                                                                                                                           |
-| `created_at`    | `строка` | The timestamp indicating when the cross-reference was added.                                                                                                                                                                                                                                                                  |
-| `updated_at`    | `строка` | The timestamp indicating when the cross-reference was updated or created, if the cross-reference is never updated.                                                                                                                                                                                                            |
-| `source`        | `объект` | The issue or pull request that added a cross-reference.                                                                                                                                                                                                                                                                       |
-| `source[type]`  | `строка` | This value will always be `"issue"` because pull requests are of type issue. Only cross-reference events triggered by issues or pull requests are returned in the Timeline Events API. To determine if the issue that triggered the event is a pull request, you can check if the `source[issue][pull_request` object exists. |
-| `source[issue]` | `объект` | The `issue` object that added the cross-reference.                                                                                                                                                                                                                                                                            |
-| `событие`       | `строка` | The event value is `"cross-referenced"`.                                                                                                                                                                                                                                                                                      |
+Имя | Тип | Описание
+-----|------|--------------
+`sha` | `string` | SHA фиксации в запросе на вытягивание.
+`node_id` | `string` | [Идентификатор глобального узла](/graphql/guides/using-global-node-ids) события.
+`url` | `string` | URL-адрес REST API для получения фиксации.
+`html_url` | `string` | URL-адрес HTML фиксации.
+`author` | `object` | Пользователь, являющийся автором фиксации.
+`committer` | `object` | Пользователь, выполнивший фиксацию от имени автора.
+`tree` | `object` | Дерево Git фиксации.
+`message` | `string` | Сообщение фиксации.
+`parents` | `array of objects` | Список родительских фиксаций.
+`verification` | `object` | Результат проверки сигнатуры фиксации. Дополнительные сведения см. в разделе [Объект проверки сигнатуры](/rest/reference/git#get-a-commit).
+`event` | `string` | Значение события — `"committed"`.
 
-### demilestoned
+## connected
 
-The issue or pull request was removed from a milestone.
+Проблема или запрос на вытягивание связаны с другой проблемой или запросом на вытягивание. Дополнительные сведения см. в разделе [Связывание запроса на вытягивание с проблемой](/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue).
 
-#### Availability
+### Доступность
 
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
 
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-`milestone` | `object` | The milestone object. `milestone[title]` | `string` | The title of the milestone.
-
-### deployed
-
-The pull request was deployed.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
+### Свойства объекта события
 
 {% data reusables.issue-events.issue-event-common-properties %}
 
-### deployment_environment_changed
+## convert_to_draft
 
-The pull request deployment environment was changed.
+Запрос на вытягивание преобразован в режим черновика.
 
-#### Availability
+### Доступность
 
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |                     |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | **X** |
 
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### disconnected
-
-The issue or pull request was unlinked from another issue or pull request. For more information, see "[Linking a pull request to an issue](/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue)".
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
+### Свойства объекта события
 
 {% data reusables.issue-events.issue-event-common-properties %}
 
-### head_ref_deleted
+## converted_note_to_issue
 
-The pull request's `HEAD` branch was deleted.
+Проблема создана путем преобразования заметки на доске проекта в проблему. {% data reusables.projects.disabled-projects %}
 
-#### Availability
+### Доступность
 
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |        **X**        |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li></ul> | **X** | **X** |
 
-#### Event object properties
+### Свойства объекта события
 
-{% data reusables.issue-events.issue-event-common-properties %}
+{% data reusables.pre-release-program.starfox-preview %} {% data reusables.pre-release-program.api-preview-warning %}
 
-### head_ref_restored
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.project-card-properties %}
 
-The pull request's `HEAD` branch was restored to the last known commit.
+## converted_to_discussion
 
-#### Availability
+Проблема была закрыта и преобразована в обсуждение.
 
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |        **X**        |
+### Доступность
 
-#### Event object properties
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|-----|-----|-----|
+| <ul><li>Проблемы</li></ul> | **X** | |
 
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### labeled
-
-A label was added to the issue or pull request.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.label-properties %}
-
-### locked
-
-The issue or pull request was locked.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_lt "enterprise-server@2.22" %}
-{% data reusables.pre-release-program.sailor-v-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
-{% endif %}
-
-{% data reusables.issue-events.issue-event-common-properties %}
-`lock_reason` | `string` | The reason an issue or pull request conversation was locked, if one was provided.
-
-### mentioned
-
-The `actor` was `@mentioned` in an issue or pull request body.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
+### Свойства объекта event
 
 {% data reusables.issue-events.issue-event-common-properties %}
 
-### marked_as_duplicate
+## перекрестная ссылка
 
-A user with write permissions marked an issue as a duplicate of another issue, or a pull request as a duplicate of another pull request.
+На проблему или запрос на вытягивание ссылается другая проблема или запрос на вытягивание.
 
-#### Availability
+### Доступность
 
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> |  | **X** |
 
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### merged
-
-The pull request was merged. The `commit_id` attribute is the SHA1 of the `HEAD` commit that was merged. The `commit_repository` is always the same as the main repository.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |                     |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### milestoned
-
-The issue or pull request was added to a milestone.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-`milestone` | `object` | The milestone object. `milestone[title]` | `string` | The title of the milestone.
-
-### moved_columns_in_project
-
-The issue or pull request was moved between columns in a project board. {% data reusables.projects.disabled-projects %}
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.pre-release-program.starfox-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.project-card-properties %}
-`previous_column_name` | `string` | The name of the column the issue was moved from.
-
-### pinned
-
-The issue was pinned.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### ready_for_review
-
-A pull request was created that is not in draft mode.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### referenced
-
-The issue was referenced from a commit message. The `commit_id` attribute is the commit SHA1 of where that happened and the commit_repository is where that commit was pushed.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### removed_from_project
-
-The issue or pull request was removed from a project board. {% data reusables.projects.disabled-projects %}
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.pre-release-program.starfox-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.project-card-properties %}
-
-### renamed
-
-The issue or pull request title was changed.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-`rename` | `object` | The name details. `rename[from]` | `string` | The previous name. `rename[to]` | `string` | The new name.
-
-### reopened
-
-The issue or pull request was reopened.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### review_dismissed
-
-The pull request review was dismissed.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.review-dismissed-properties %}
-
-### review_requested
-
-A pull request review was requested.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.review-request-properties %}
-
-### review_request_removed
-
-A pull request review request was removed.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.review-request-properties %}
-
-### reviewed
-
-The pull request was reviewed.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Pull requests</li></ul> |                  |        **X**        |
-
-#### Event object properties
+### Свойства объекта события
 
 {% data reusables.issue-events.timeline_events_object_properties %}
 
-| Name                 | Тип       | Description                                                                                                                                     |
-| -------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                 | `integer` | The unique identifier of the event.                                                                                                             |
-| `node_id`            | `строка`  | The [Global Node ID](/graphql/guides/using-global-node-ids) of the event.                                                                       |
-| `пользователь`       | `объект`  | The person who commented on the issue.                                                                                                          |
-| `тело`               | `строка`  | The review summary text.                                                                                                                        |
-| `commit_id`          | `строка`  | The SHA of the latest commit in the pull request at the time of the review.                                                                     |
-| `submitted_at`       | `строка`  | The timestamp indicating when the review was submitted.                                                                                         |
-| `state`              | `строка`  | The state of the submitted review. Can be one of: `commented`, `changes_requested`, or `approved`.                                              |
-| `html_url`           | `строка`  | The HTML URL of the review.                                                                                                                     |
-| `pull_request_url`   | `строка`  | The REST API URL to retrieve the pull request.                                                                                                  |
-| `author_association` | `строка`  | The permissions the user has in the issue's repository. For example, the value would be `"OWNER"` if the owner of repository created a comment. |
-| `_links`             | `объект`  | The `html_url` and `pull_request_url`.                                                                                                          |
-| `событие`            | `строка`  | The event value is `"reviewed"`.                                                                                                                |
+Имя | Тип | Описание
+-----|------|--------------
+`actor` | `object` | Пользователь, создавший событие.
+`created_at` | `string` | Метка времени, указывающая время добавления перекрестной ссылки.
+`updated_at` | `string` | Метка времени, указывающая время обновления перекрестной ссылки или время создания, если она никогда не обновлялась.
+`source` | `object` | Проблема или запрос на вытягивание, добавивший перекрестную ссылку.
+`source[type]` | `string` | Это значение всегда будет `"issue"`, потому что запросы на вытягивание имеют тип проблемы. В API событий временной шкалы возвращаются только события перекрестной ссылки, активируемые проблемами или запросами на вытягивание. Чтобы определить, является ли проблема, активировавшая событие, запросом на вытягивание, можно проверить, существует ли объект `source[issue][pull_request]`.
+`source[issue]` | `object` | Объект `issue`, добавивший перекрестную ссылку.
+`event` | `string` | Значение события — `"cross-referenced"`.
 
-### subscribed
+## demilestoned
 
-Someone subscribed to receive notifications for an issue or pull request.
+Проблема или запрос на вытягивание удалены из вехи.
 
-#### Availability
+### Доступность
 
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
 
-#### Event object properties
+### Свойства объекта события
 
-{% data reusables.issue-events.issue-event-common-properties %}
+{% data reusables.issue-events.issue-event-common-properties %} `milestone` | `object` | Объект вехи.
+`milestone[title]` | `string` | Название вехи.
 
-### transferred
+## deployed
 
-The issue was transferred to another repository.
+Запрос на вытягивание развернут.
 
-#### Availability
+### Доступность
 
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li></ul> |      **X**       |        **X**        |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | **X** |
 
-#### Event object properties
+### Свойства объекта события
 
 {% data reusables.issue-events.issue-event-common-properties %}
 
-### unassigned
+## deployment_environment_changed
 
-A user was unassigned from the issue.
+Среда развертывания запроса на вытягивание изменена.
 
-#### Availability
+### Доступность
 
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** |  |
 
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.assignee-properties %}
-
-### unlabeled
-
-A label was removed from the issue.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-{% data reusables.issue-events.label-properties %}
-
-### unlocked
-
-The issue was unlocked.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
-
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_lt "enterprise-server@2.22" %}
-{% data reusables.pre-release-program.sailor-v-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
-{% endif %}
-
-{% data reusables.issue-events.issue-event-common-properties %}
-`lock_reason` | `string` | The reason an issue or pull request conversation was locked, if one was provided.
-
-### unmarked_as_duplicate
-
-An issue that a user had previously marked as a duplicate of another issue is no longer considered a duplicate, or a pull request that a user had previously marked as a duplicate of another pull request is no longer considered a duplicate.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
-
-#### Event object properties
+### Свойства объекта события
 
 {% data reusables.issue-events.issue-event-common-properties %}
 
-### unpinned
+## отключен
 
-The issue was unpinned.
+Связь между проблемой или запросом на вытягивание и другой проблемой или запросом на вытягивание разорвана. Дополнительные сведения см. в разделе [Связывание запроса на вытягивание с проблемой](/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue).
 
-#### Availability
+### Доступность
 
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li></ul> |      **X**       |        **X**        |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
 
-#### Event object properties
-
-{% data reusables.issue-events.issue-event-common-properties %}
-
-### unsubscribed
-
-Someone unsubscribed from receiving notifications for an issue or pull request.
-
-#### Availability
-
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |                  |        **X**        |
-
-#### Event object properties
+### Свойства объекта события
 
 {% data reusables.issue-events.issue-event-common-properties %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-### user_blocked
+## head_ref_deleted
 
-An organization owner blocked a user from the organization. This was done [through one of the blocked user's comments on the issue](/communities/maintaining-your-safety-on-github/blocking-a-user-from-your-organization#blocking-a-user-in-a-comment).
+Ветвь `HEAD` запроса на вытягивание удалена.
 
-#### Availability
+### Доступность
 
-| Issue type                 | Issue events API | Timeline events API |
-|:-------------------------- |:----------------:|:-------------------:|
-| <ul><li>Вопросы</li><li>Pull requests</li></ul> |      **X**       |        **X**        |
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | **X** |
 
-#### Event object properties
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## head_ref_restored
+
+Ветвь `HEAD` запроса на вытягивание восстановлена до последней известной фиксации.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+## head_ref_force_pushed
+
+Ветвь HEAD запроса на вытягивание принудительно отправлена.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## добавлены метки
+
+К проблеме или запросу на вытягивание добавлена метка.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.label-properties %}
+
+## locked
+
+Проблема или запрос на вытягивание закрыты.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} `lock_reason` | `string` | Причина блокировки беседы о проблеме или запросе на вытягивание, если она была предоставлена.
+
+## mentioned
+
+Пользователь `actor` был `@mentioned` в тексте проблемы или запроса на вытягивание.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## marked_as_duplicate
+
+Пользователь с разрешениями на запись пометил проблему как дубликат другой проблемы или запрос на вытягивание как дубликат другого запроса на вытягивание.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## объединенные
+
+Запрос на вытягивание объединен. Атрибут `commit_id` — это SHA1 фиксации `HEAD`, которая была объединена. `commit_repository` всегда совпадает с основным репозиторием.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## milestoned
+
+Проблема или запрос на вытягивание добавлены в веху.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} `milestone` | `object` | Объект вехи.
+`milestone[title]` | `string` | Название вехи.
+
+## moved_columns_in_project
+
+Проблема или запрос на вытягивание перемещены между столбцами на доске проекта. {% data reusables.projects.disabled-projects %}
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.pre-release-program.starfox-preview %} {% data reusables.pre-release-program.api-preview-warning %}
+
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.project-card-properties %} `previous_column_name` | `string` | Имя столбца, из которого перемещена проблема.
+
+## pinned
+
+Проблема закреплена.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## ready_for_review
+
+Черновик запроса на вытягивание помечен как готовый к проверке.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## referenced
+
+На проблему ссылается сообщение о фиксации. Атрибут `commit_id` — это SHA1 фиксации, в которой произошло это событие, а commit_repository — место отправки этой фиксации.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## removed_from_project
+
+Проблема или запрос на вытягивание удалены из доски проекта. {% data reusables.projects.disabled-projects %}
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.pre-release-program.starfox-preview %} {% data reusables.pre-release-program.api-preview-warning %}
+
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.project-card-properties %}
+
+## renamed
+
+Заголовок проблемы или запроса на вытягивание изменен.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} `rename` | `object` | Сведения об имени.
+`rename[from]` | `string` | Предыдущее имя.
+`rename[to]` | `string` | Новое имя.
+
+## повторно открывается;
+
+Проблема или запрос на вытягивание повторно закрыты.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## review_dismissed
+
+Проверка запроса на вытягивание закрыта.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.review-dismissed-properties %}
+
+## review_requested
+
+Запрошена проверка запроса на вытягивание.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.review-request-properties %}
+
+## review_request_removed
+
+Запрос на проверку запроса на вытягивание удален.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.review-request-properties %}
+
+## reviewed
+
+Запрос на вытягивание проверен.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Запросы на вытягивание</li></ul> |  | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.timeline_events_object_properties %}
+
+Имя | Тип | Описание
+-----|------|--------------
+`id` | `integer` | Уникальный идентификатор события.
+`node_id` | `string` | [Идентификатор глобального узла](/graphql/guides/using-global-node-ids) события.
+`user` | `object` | Пользователь, который прокомментировал проблему.
+`body` | `string` | Текст сводки проверки.
+`commit_id` | `string` | SHA последней фиксации в запросе на вытягивание во время проверки.
+`submitted_at` | `string` | Метка времени, указывающая время отправки проверки.
+`state` | `string` | Состояние отправленной проверки. Это может быть `commented`, `changes_requested` или `approved`.
+`html_url` | `string` | URL-адрес HTML проверки.
+`pull_request_url` | `string` | URL-адрес REST API для получения запроса на вытягивание.
+`author_association` | `string` | Разрешения, которыми располагает пользователь в репозитории проблемы. Например, если владелец репозитория создал комментарий, значение будет `"OWNER"`.
+`_links` | `object` | `html_url` и `pull_request_url`.
+`event` | `string` | Значение события — `"reviewed"`.
+
+## subscribed
+
+Кто-то подписался на получение уведомлений о проблеме или запросе на вытягивание.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## transferred
+
+Проблема перенесена в другой репозиторий.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## unassigned
+
+Для пользователя отменено назначение проблемы.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.assignee-properties %}
+
+## unlabeled
+
+Метка удалена из проблемы.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} {% data reusables.issue-events.label-properties %}
+
+## unlocked
+
+Проблема разблокирована.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %} `lock_reason` | `string` | Причина блокировки беседы о проблеме или запросе на вытягивание, если она была предоставлена.
+
+## unmarked_as_duplicate
+
+Проблема или запрос на вытягивание, который пользователь ранее пометил как дубликат другой проблемы или другого запроса на вытягивание соответственно, больше не считается дубликатом.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## unpinned
+
+Проблема откреплена.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li></ul> | **X** | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+## unsubscribed
+
+Кто-то отменил подписку на получение уведомлений о проблеме или запросе на вытягивание.
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> |  | **X** |
+
+### Свойства объекта события
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
+{% ifversion fpt or ghec %}
+## user_blocked
+
+Владелец организации заблокировал пользователю доступ к организации. Это было сделано [с помощью одного из заблокированных комментариев пользователя по этой проблеме](/communities/maintaining-your-safety-on-github/blocking-a-user-from-your-organization#blocking-a-user-in-a-comment).
+
+### Доступность
+
+|Тип проблемы | API событий проблемы | API событий временной шкалы|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Проблемы</li><li>Запросы на вытягивание</li></ul> | **X** | **X** |
+
+### Свойства объекта события
 
 {% data reusables.issue-events.issue-event-common-properties %}
 

@@ -1,61 +1,69 @@
 ---
-title: About billing for GitHub Marketplace
-intro: 'If you install a paid app in {% data variables.product.prodname_marketplace %}, your subscription shares your account''s existing billing date, payment method, and receipt.'
+title: GitHub Marketplace 요금 청구 정보
+intro: '{% data variables.product.prodname_marketplace %}에 유료 앱을 설치하는 경우 해당 구독은 계정의 기존 청구 날짜, 결제 방법 및 영수증을 공유합니다.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/about-billing-for-github-marketplace
   - /articles/about-billing-for-github-marketplace
-  - /github/setting-up-and-managing-billing-and-payments-on-github/about-billing-for-github-marketplace
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-marketplace-apps/about-billing-for-github-marketplace
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: overview
 topics:
   - Marketplace
+shortTitle: Billing for GitHub Marketplace
+ms.openlocfilehash: 815303fa5c0c1a006a0bd4bd017039cf1e035f15
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145088045'
 ---
-
-{% data variables.product.prodname_marketplace %} includes apps with free and paid pricing plans. After you purchase and install an app, you can upgrade, downgrade, or cancel at any time.
+{% data variables.product.prodname_marketplace %}에는 무료 및 유료 가격 책정 플랜을 사용하는 앱이 포함되어 있습니다. 앱을 구매하고 설치한 후 언제든지 업그레이드, 다운그레이드 또는 취소할 수 있습니다.
 
 {% data reusables.marketplace.marketplace-apps-only %}
 
 {% data reusables.marketplace.marketplace-org-perms %}
 
-### Payment methods and billing cycles for {% data variables.product.prodname_marketplace %} purchases
+## {% data variables.product.prodname_marketplace %} 구매에 대한 결제 방법 및 청구 기간
 
-You will have the same payment method for all paid plans and subscriptions across {% data variables.product.prodname_dotcom %}.
+{% data variables.product.prodname_dotcom %}의 모든 유료 플랜 및 구독에 대해 동일한 결제 방법이 사용됩니다.
 
-If your personal account or organization doesn't have a payment method on file, when you choose a paid plan for an app:
-- Your billing date is today.
-- You must add a payment method to your personal account or the organization in which you want to install the app.
-- Your payment method is charged the full amount of your subscription.
-- Your receipt is sent to the primary or billing email address on file for your personal account or organization.
+개인 계정 또는 조직에 대해 저장된 결제 방법이 없는 경우 앱의 유료 플랜을 선택할 때 다음과 같이 동작합니다.
+- 청구 날짜는 오늘입니다.
+- 앱을 설치할 개인 계정 또는 조직에 결제 방법을 추가해야 합니다.
+- 결제 방법에 구독의 전체 금액이 부과됩니다.
+- 개인 계정 또는 조직에 대해 저장된 기본 또는 청구 메일 주소로 영수증이 전송됩니다.
 
-If your personal account or organization has an existing payment method, when you choose a paid plan for an app:
-- The payment method on file is immediately charged a prorated amount based on the time remaining until your next billing date.
-- The monthly or yearly billing date for your app subscription is the same as the account or organization's regular billing date.
-- On your next billing date, your receipt lists charges for your paid {% data variables.product.prodname_dotcom %} plan and your app subscription.
+개인 계정 또는 조직에 기존 결제 방법이 없는 경우 앱의 유료 플랜을 선택할 때 다음과 같이 동작합니다.
+- 다음 청구 날짜까지 남은 시간을 기준으로 비례 배분된 금액이 저장된 결제 방법에 즉시 부과됩니다.
+- 앱 구독의 월간 또는 연간 청구 날짜는 계정 또는 조직의 정기 청구 날짜와 동일합니다.
+- 다음 청구 날짜에 유료 {% data variables.product.prodname_dotcom %} 플랜과 앱 구독의 요금이 영수증에 나열됩니다.
 
-When you choose a paid plan with a free trial:
-- You must have an existing payment method or add a new payment method for your personal account or the organization in which you want to install the app.
-- If you don't have any other paid plans or subscriptions, you are charged the full amount of your subscription at the end of the 14-day free trial.
-- If you have other paid plans or subscriptions, once your 14-day free trial ends, the payment method on file is immediately charged a prorated amount based on the time remaining until your next billing date.
-- If you have other paid plans or subscriptions, on your next billing date, your receipt lists charges for your paid {% data variables.product.prodname_dotcom %} plan and your app subscription.
+평가판에서 유료 플랜을 선택하는 경우 다음과 같이 동작합니다.
+- 기존 결제 방법이 있거나 앱을 설치할 개인 계정 또는 조직에 대한 새 결제 방법을 추가해야 합니다.
+- 다른 유료 플랜 또는 구독이 없는 경우 14일 평가판이 끝날 때 전체 구독 금액이 부과됩니다.
+- 다른 유료 플랜 또는 구독이 있는 경우 14일 평가판이 끝나면 다음 청구 날짜까지 남은 시간을 기준으로 비례 배분된 금액이 저장된 결제 방법에 즉시 부과됩니다.
+- 다른 유료 플랜 또는 구독이 있는 경우 다음 청구 날짜에 유료 {% data variables.product.prodname_dotcom %} 플랜과 앱 구독의 요금이 영수증에 나열됩니다.
 
-### Unit plan limits
+{% data reusables.user-settings.context_switcher %}
 
-If you choose a unit plan (for example, a plan that charges per user), and you exceed the units that you're paying for, the integrator may disable your access until you upgrade the app. For more information, see "[Upgrading the billing plan for a {% data variables.product.prodname_marketplace %} app](/articles/upgrading-the-billing-plan-for-a-github-marketplace-app)."
+## 단위 플랜 한도
 
-### Downgrading a {% data variables.product.prodname_marketplace %} app
+단위 플랜(예: 사용자당 요금이 부과되는 플랜)을 선택하고 지불하는 단위를 초과할 경우 앱을 업그레이드할 때까지 통합자가 액세스할 수 없도록 설정할 수 있습니다. 자세한 내용은 “[{% data variables.product.prodname_marketplace %} 앱의 요금 청구 플랜 업그레이드](/articles/upgrading-the-billing-plan-for-a-github-marketplace-app)”를 참조하세요.
 
-If you downgrade your app subscription to a less expensive plan or if you cancel a paid app subscription, your changes will take effect at the end your current billing cycle. Your subscription will be moved to your new plan on your next billing date.
+## {% data variables.product.prodname_marketplace %} 앱 다운그레이드
 
-If you cancel an app on a free plan, your subscription will immediately end and you'll lose access to the app.
+앱 구독을 저렴한 플랜으로 다운그레이드하거나 유료 앱 구독을 취소하는 경우 현재 청구 기간이 끝날 때 변경 내용이 적용됩니다. 다음 청구 날짜에 구독이 새 플랜으로 이동됩니다.
+
+무료 플랜을 사용 중인 앱을 취소하면 구독이 즉시 종료되고 앱에 액세스할 수 없게 됩니다.
 
 {% data reusables.marketplace.downgrade-marketplace-only %}
 
-If you cancel a free trial on a paid plan, your subscription is immediately canceled and you will lose access to the app. For more information, see "[Canceling a {% data variables.product.prodname_marketplace %} app](/articles/canceling-a-github-marketplace-app)."
+유료 플랜을 사용 중인 평가판을 취소하면 구독이 즉시 취소되고 앱에 액세스할 수 없게 됩니다. 자세한 내용은 “[{% data variables.product.prodname_marketplace %} 앱 취소](/articles/canceling-a-github-marketplace-app)”를 참조하세요.
 
-### 더 읽을거리
+## 추가 참고 자료
 
-- "[About {% data variables.product.prodname_marketplace %}](/articles/about-github-marketplace)"
-- "[Purchasing and installing apps in {% data variables.product.prodname_marketplace %}](/articles/purchasing-and-installing-apps-in-github-marketplace)"
-- "[{% data variables.product.prodname_marketplace %} support](/articles/github-marketplace-support)"
+- “[{% data variables.product.prodname_marketplace %} 정보](/articles/about-github-marketplace)”
+- “[{% data variables.product.prodname_marketplace %}에서 앱 구매 및 설치](/articles/purchasing-and-installing-apps-in-github-marketplace)”
+- “[{% data variables.product.prodname_marketplace %} 지원](/articles/github-marketplace-support)”

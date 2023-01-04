@@ -1,21 +1,30 @@
 ---
-title: Reviewing your security logs for Codespaces
-shortTitle: Reviewing your security logs
-intro: 'You can use the security log to review all actions related to {% data variables.product.prodname_codespaces %}.'
+title: Codespaces のセキュリティログをレビューする
+shortTitle: Security logs
+intro: セキュリティログを使用して、{% data variables.product.prodname_codespaces %} に関連するすべてのアクションをレビューできます。
+product: '{% data reusables.gated-features.codespaces %}'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
-  - Codespaces
-  - Developer
-  - Security
+- Codespaces
+- Developer
+- Security
+ms.openlocfilehash: 6e6b06192a370a50c686fda4c56f522d242a016e
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145119814"
 ---
+## <a name="about-security-logs-for--data-variablesproductprodname_codespaces-"></a>{% data variables.product.prodname_codespaces %} のセキュリティログについて
 
-{% data reusables.codespaces.release-stage %}
+個人アカウントが所有するリポジトリで {% data variables.product.prodname_codespaces %} に関連するアクションを実行したときは、セキュリティ ログでアクションをレビューできます。 ログへのアクセスの詳細については、「[セキュリティ ログをレビューする](/github/authenticating-to-github/reviewing-your-security-log#accessing-your-security-log)」を参照してください。
 
-### About security logs for {% data variables.product.prodname_codespaces %}
+![Codespaces 情報を含むセキュリティログ](/assets/images/help/settings/codespaces-audit-log.png)
 
-When you perform an action related to {% data variables.product.prodname_codespaces %} in repositories owned by your user account, you can review the actions in the security log. For information about accessing the log, see "[Reviewing your security log](/github/authenticating-to-github/reviewing-your-security-log#accessing-your-security-log)."
+セキュリティログには、発生したアクションの詳細と実行タイミングについての詳細が含まれます。 {% data variables.product.prodname_codespaces %} アクションの詳細については、「[{% data variables.product.prodname_codespaces %} カテゴリ アクション](/github/authenticating-to-github/reviewing-your-security-log#codespaces-category-actions)」を参照してください。
 
-![security log with Codespaces information](/assets/images/help/settings/codespaces-audit-log.png)
+## <a name="further-reading"></a>参考資料
 
-The security log includes details on what action occured and when you performed it. For information about {% data variables.product.prodname_codespaces %} actions, see "[{% data variables.product.prodname_codespaces %} category actions](/github/authenticating-to-github/reviewing-your-security-log#codespaces-category-actions)".
+- 「[Organization の {% data variables.product.prodname_codespaces %} の Audit log を確認する](/codespaces/managing-codespaces-for-your-organization/reviewing-your-organizations-audit-logs-for-codespaces)」

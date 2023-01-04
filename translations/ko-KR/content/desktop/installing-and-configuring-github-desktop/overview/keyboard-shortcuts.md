@@ -1,121 +1,126 @@
 ---
-title: Keyboard shortcuts
-intro: 'You can use keyboard shortcuts in {% data variables.product.prodname_desktop %}.'
+title: 바로 가기 키
+intro: '{% data variables.product.prodname_desktop %}에서 바로 가기 키를 사용할 수 있습니다.'
 redirect_from:
-  - /desktop/getting-started-with-github-desktop/keyboard-shortcuts-in-github-desktop/
+  - /desktop/getting-started-with-github-desktop/keyboard-shortcuts-in-github-desktop
   - /desktop/getting-started-with-github-desktop/keyboard-shortcuts
   - /desktop/installing-and-configuring-github-desktop/keyboard-shortcuts
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 3ef22fa8c750cda167d62a3fb7e6b4315fdcb89b
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145117308'
 ---
-
 {% mac %}
 
-GitHub Desktop keyboard shortcuts on macOS
+macOS에서 GitHub Desktop 바로 가기 키
 
-### Site wide shortcuts
+## 사이트 전체 바로 가기
 
-| Keyboard shortcut                    | 설명                                                                 |
-| ------------------------------------ | ------------------------------------------------------------------ |
-| <kbd>⌘</kbd><kbd>,</kbd>             | Go to Preferences                                                  |
-| <kbd>⌘</kbd><kbd>H</kbd>             | Hide the {% data variables.product.prodname_desktop %} application |
-| <kbd>⌥</kbd><kbd>⌘</kbd><kbd>H</kbd> | Hide all other applications                                        |
-| <kbd>⌘</kbd><kbd>Q</kbd>             | Quit {% data variables.product.prodname_desktop %}
-| <kbd>⌃</kbd><kbd>⌘</kbd><kbd>F</kbd> | Toggle full screen view                                            |
-| <kbd>⌘</kbd><kbd>0</kbd>             | Reset zoom to default text size                                    |
-| <kbd>⌘</kbd><kbd>=</kbd>             | Zoom in for larger text and graphics                               |
-| <kbd>⌘</kbd><kbd>-</kbd>             | Zoom out for smaller text and graphics                             |
-| <kbd>⌥</kbd><kbd>⌘</kbd><kbd>I</kbd> | Toggle Developer Tools                                             |
+| 키보드 바로 가기 키 | 설명
+|-----------|------------
+|<kbd>Command</kbd>+<kbd>,</kbd> | Preferences(기본 설정)로 이동
+|<kbd>Command</kbd>+<kbd>H</kbd> | {% data variables.product.prodname_desktop %} 애플리케이션 숨기기
+|<kbd>Option</kbd>+<kbd>Command</kbd>+<kbd>H</kbd> | 다른 모든 애플리케이션 숨기기
+|<kbd>Command</kbd>+<kbd>Q</kbd> | {% data variables.product.prodname_desktop %} 종료
+|<kbd>Control</kbd>+<kbd>Command</kbd>+<kbd>F</kbd> | 전체 화면 보기 설정/해제
+|<kbd>Command</kbd>+<kbd>0</kbd> | 확대/축소를 기본 텍스트 크기로 다시 설정
+|<kbd>Command</kbd>+<kbd>=</kbd> | 더 큰 텍스트 및 그래픽을 위해 확대
+|<kbd>Command</kbd>+<kbd>-</kbd> | 더 작은 텍스트 및 그래픽을 위해 축소
+|<kbd>Option</kbd>+<kbd>Command</kbd>+<kbd>I</kbd> | 개발자 도구 설정/해제
 
-### Repositories
+## 리포지토리
 
-| Keyboard shortcut                    | 설명                                                                             |
-| ------------------------------------ | ------------------------------------------------------------------------------ |
-| <kbd>⌘</kbd><kbd>N</kbd>             | Add a new repository                                                           |
-| <kbd>⌘</kbd><kbd>O</kbd>             | Add a local repository                                                         |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>O</kbd> | Clone a repository from {% data variables.product.prodname_dotcom %}
-| <kbd>⌘</kbd><kbd>T</kbd>             | Show a list of your repositories                                               |
-| <kbd>⌘</kbd><kbd>P</kbd>             | Push the latest commits to {% data variables.product.prodname_dotcom %}
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>P</kbd> | Pull down the latest changes from {% data variables.product.prodname_dotcom %}
-| <kbd>⌘</kbd><kbd>⌫</kbd>             | Remove an existing repository                                                  |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>G</kbd> | View the repository on {% data variables.product.prodname_dotcom %}
-| <kbd>⌃</kbd><kbd>&grave;</kbd>       | Open repository in your preferred terminal tool                                |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>F</kbd> | Show the repository in Finder                                                  |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>A</kbd> | Open the repository in your preferred editor tool                              |
-| <kbd>⌘</kbd><kbd>I</kbd>             | Create an issue on {% data variables.product.prodname_dotcom %}
+| 키보드 바로 가기 키 | 설명
+|-----------|------------
+|<kbd>Command</kbd>+<kbd>N</kbd> | 새 리포지토리 추가
+|<kbd>Command</kbd>+<kbd>O</kbd> | 로컬 리포지토리 추가
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>O</kbd> | {% data variables.product.prodname_dotcom %}에서 리포지토리 복제
+|<kbd>Command</kbd>+<kbd>T</kbd> | 리포지토리 목록 표시
+|<kbd>Command</kbd>+<kbd>P</kbd> | {% data variables.product.prodname_dotcom %}에 최신 커밋 푸시
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>P</kbd> | {% data variables.product.prodname_dotcom %}에서 최신 변경 내용 커밋 풀다운
+|<kbd>Command</kbd>+<kbd>Delete</kbd> | 기존 리포지토리 삭제
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>G</kbd> | {% data variables.product.prodname_dotcom %}에서 리포지토리 보기
+|<kbd>Control</kbd>+<kbd>&grave;</kbd> | 기본 터미널 도구에서 리포지토리 열기
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>F</kbd> | Finder에 리포지토리 표시
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>A</kbd> | 기본 편집기 도구에서 리포지토리 열기
+|<kbd>Command</kbd>+<kbd>I</kbd> | {% data variables.product.prodname_dotcom %}에 대한 이슈 만들기
 
-### Branches
+## 분기
 
-| Keyboard shortcut                    | 설명                                                                            |
-| ------------------------------------ | ----------------------------------------------------------------------------- |
-| <kbd>⌘</kbd><kbd>1</kbd>             | Show all your changes before committing                                       |
-| <kbd>⌘</kbd><kbd>2</kbd>             | Show your commit history                                                      |
-| <kbd>⌘</kbd><kbd>B</kbd>             | Show all your branches                                                        |
-| <kbd>⌘</kbd><kbd>G</kbd>             | Go to the commit summary field                                                |
-| <kbd>⌘</kbd><kbd>Enter</kbd>         | Commit changes when summary or description field is active                    |
-| <kbd>space</kbd>                     | Select or deselect all highlighted files                                      |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>N</kbd> | Create a new branch                                                           |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>R</kbd> | Rename the current branch                                                     |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>D</kbd> | Delete the current branch                                                     |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>U</kbd> | Update from default branch                                                    |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>B</kbd> | Compare to an existing branch                                                 |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>M</kbd> | Merge into current branch                                                     |
-| <kbd>⌃</kbd><kbd>H</kbd>             | Show or hide stashed changes                                                  |
-| <kbd>⇧</kbd><kbd>⌘</kbd><kbd>C</kbd> | Compare branches on {% data variables.product.prodname_dotcom %}
-| <kbd>⌘</kbd><kbd>R</kbd>             | Show the current pull request on {% data variables.product.prodname_dotcom %}
+| 키보드 바로 가기 키 | 설명
+|-----------|------------
+|<kbd>Command</kbd>+<kbd>1</kbd> | 커밋하기 전에 모든 변경 내용 표시
+|<kbd>Command</kbd>+<kbd>2</kbd> | 커밋 기록 표시
+|<kbd>Command</kbd>+<kbd>B</kbd> | 모든 분기 표시
+|<kbd>Command</kbd>+<kbd>G</kbd> | 커밋 요약 필드로 이동
+|<kbd>Command</kbd>+<kbd>Enter</kbd> | 요약 또는 설명 필드가 활성화된 경우 변경 내용 커밋
+|<kbd>스페이스바</kbd>| 강조 표시된 모든 파일 선택 또는 선택 취소
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>N</kbd> | 새 분기 만들기
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>R</kbd> | 현재 분기 이름 바꾸기
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>D</kbd> | 현재 분기 삭제
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>U</kbd> | 기본 분기에서 업데이트
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>B</kbd> | 기존 분기와 비교
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>M</kbd> | 현재 분기에 병합
+|<kbd>Control</kbd>+<kbd>H</kbd> | 스태시된 변경 내용 표시 또는 숨기기
+|<kbd>Shift</kbd>+<kbd>Command</kbd>+<kbd>C</kbd> | {% data variables.product.prodname_dotcom %}에 대한 분기 비교
+|<kbd>Command</kbd>+<kbd>R</kbd> | {% data variables.product.prodname_dotcom %}에 현재 끌어오기 요청 표시
 
 {% endmac %}
 
 {% windows %}
 
-GitHub Desktop keyboard shortcuts on Windows
+Windows에서 GitHub Desktop 바로 가기 키
 
-### Site wide shortcuts
+## 사이트 전체 바로 가기
 
-| Keyboard shortcut                           | 설명                                     |
-| ------------------------------------------- | -------------------------------------- |
-| <kbd>Ctrl</kbd><kbd>,</kbd>                 | Go to Options                          |
-| <kbd>F11</kbd>                              | Toggle full screen view                |
-| <kbd>Ctrl</kbd><kbd>0</kbd>                 | Reset zoom to default text size        |
-| <kbd>Ctrl</kbd><kbd>=</kbd>                 | Zoom in for larger text and graphics   |
-| <kbd>Ctrl</kbd><kbd>-</kbd>                 | Zoom out for smaller text and graphics |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>I</kbd> | Toggle Developer Tools                 |
+| 키보드 바로 가기 키 | 설명
+|-----------|------------
+|<kbd>Ctrl</kbd>+ <kbd>,</kbd> | Options(옵션)로 이동
+|<kbd>F11</kbd> | 전체 화면 보기 설정/해제
+|<kbd>Ctrl</kbd>+<kbd>0</kbd> | 확대/축소를 기본 텍스트 크기로 다시 설정
+|<kbd>Ctrl</kbd>+<kbd>=</kbd> | 더 큰 텍스트 및 그래픽을 위해 확대
+|<kbd>Ctrl</kbd>+<kbd>-</kbd> | 더 작은 텍스트 및 그래픽을 위해 축소
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd> | 개발자 도구 설정/해제
 
-### Repositories
+## 리포지토리
 
-| Keyboard Shortcut                           | 설명                                                                             |
-| ------------------------------------------- | ------------------------------------------------------------------------------ |
-| <kbd>Ctrl</kbd><kbd>N</kbd>                 | Add a new repository                                                           |
-| <kbd>Ctrl</kbd><kbd>O</kbd>                 | Add a local repository                                                         |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>O</kbd> | Clone a repository from {% data variables.product.prodname_dotcom %}
-| <kbd>Ctrl</kbd><kbd>T</kbd>                 | Show a list of your repositories                                               |
-| <kbd>Ctrl</kbd><kbd>P</kbd>                 | Push the latest commits to {% data variables.product.prodname_dotcom %}
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd> | Pull down the latest changes from {% data variables.product.prodname_dotcom %}
-| <kbd>Ctrl</kbd><kbd>Delete</kbd>            | Remove an existing repository                                                  |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>G</kbd> | View the repository on {% data variables.product.prodname_dotcom %}
-| <kbd>Ctrl</kbd><kbd>&grave;</kbd>           | Open repository in your preferred command line tool                            |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>F</kbd> | Show the repository in Explorer                                                |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>A</kbd> | Open the repository in your preferred editor tool                              |
-| <kbd>Ctrl</kbd><kbd>I</kbd>                 | Create an issue on {% data variables.product.prodname_dotcom %}
+| 바로 가기 키 | Description
+|-----------|------------
+|<kbd>Ctrl</kbd>+<kbd>N</kbd> | 새 리포지토리 추가
+|<kbd>Ctrl</kbd>+<kbd>O</kbd> | 로컬 리포지토리 추가
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>O</kbd> | {% data variables.product.prodname_dotcom %}에서 리포지토리 복제
+|<kbd>Ctrl</kbd>+<kbd>T</kbd> | 리포지토리 목록 표시
+|<kbd>Ctrl</kbd>+<kbd>P</kbd> | {% data variables.product.prodname_dotcom %}에 최신 커밋 푸시
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> | {% data variables.product.prodname_dotcom %}에서 최신 변경 내용 커밋 풀다운
+|<kbd>Ctrl</kbd>+<kbd>Delete</kbd> | 기존 리포지토리 삭제
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd> | {% data variables.product.prodname_dotcom %}에서 리포지토리 보기
+|<kbd>Ctrl</kbd>+<kbd>&grave;</kbd> | 기본 명령줄 도구에서 리포지토리 열기
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> | Explorer에 리포지토리 표시
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> | 기본 편집기 도구에서 리포지토리 열기
+|<kbd>Ctrl</kbd>+<kbd>I</kbd> | {% data variables.product.prodname_dotcom %}에 대한 이슈 만들기
 
-### Branches
+## 분기
 
-| Keyboard shortcut                           | 설명                                                                            |
-| ------------------------------------------- | ----------------------------------------------------------------------------- |
-| <kbd>Ctrl</kbd><kbd>1</kbd>                 | Show all your changes before committing                                       |
-| <kbd>Ctrl</kbd><kbd>2</kbd>                 | Show your commit history                                                      |
-| <kbd>Ctrl</kbd><kbd>B</kbd>                 | Show all your branches                                                        |
-| <kbd>Ctrl</kbd><kbd>G</kbd>                 | Go to the commit summary field                                                |
-| <kbd>Ctrl</kbd><kbd>Enter</kbd>             | Commit changes when summary or description field is active                    |
-| <kbd>space</kbd>                            | Select or deselect all highlighted files                                      |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>N</kbd> | Create a new branch                                                           |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>R</kbd> | Rename the current branch                                                     |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>D</kbd> | Delete the current branch                                                     |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>U</kbd> | Update from default branch                                                    |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>B</kbd> | Compare to an existing branch                                                 |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>M</kbd> | Merge into current branch                                                     |
-| <kbd>Ctrl</kbd><kbd>H</kbd>                 | Show or hide stashed changes                                                  |
-| <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>C</kbd> | Compare branches on {% data variables.product.prodname_dotcom %}
-| <kbd>Ctrl</kbd><kbd>R</kbd>                 | Show the current pull request on {% data variables.product.prodname_dotcom %}
+| 키보드 바로 가기 키 | 설명
+|-----------|------------
+|<kbd>Ctrl</kbd>+<kbd>1</kbd> | 커밋하기 전에 모든 변경 내용 표시
+|<kbd>Ctrl</kbd>+<kbd>2</kbd> | 커밋 기록 표시
+|<kbd>Ctrl</kbd>+<kbd>B</kbd> | 모든 분기 표시
+|<kbd>Ctrl</kbd>+<kbd>G</kbd> | 커밋 요약 필드로 이동
+|<kbd>Ctrl</kbd>+<kbd>Enter</kbd> | 요약 또는 설명 필드가 활성화된 경우 변경 내용 커밋
+|<kbd>스페이스바</kbd>| 강조 표시된 모든 파일 선택 또는 선택 취소
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd> | 새 분기 만들기
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> | 현재 분기 이름 바꾸기
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> | 현재 분기 삭제
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>U</kbd> | 기본 분기에서 업데이트
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd> | 기존 분기와 비교
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> | 현재 분기에 병합
+|<kbd>Ctrl</kbd>+<kbd>H</kbd> | 스태시된 변경 내용 표시 또는 숨기기
+|<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> | {% data variables.product.prodname_dotcom %}에 대한 분기 비교
+|<kbd>Ctrl</kbd>+<kbd>R</kbd> | {% data variables.product.prodname_dotcom %}에 현재 끌어오기 요청 표시
 
 {% endwindows %}

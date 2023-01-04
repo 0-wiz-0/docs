@@ -1,81 +1,91 @@
 ---
-title: Troubleshooting SSL errors
-intro: 'If you run into SSL issues with your appliance, you can take actions to resolve them.'
+title: Устранение ошибок SSL
+intro: При возникновении на устройстве проблем в работе SSL можно принять меры для их устранения.
 redirect_from:
-  - /enterprise/admin/articles/troubleshooting-ssl-errors/
-  - /enterprise/admin/categories/dns-ssl-and-subdomain-configuration/
-  - /enterprise/admin/installation/troubleshooting-ssl-errors
-  - /enterprise/admin/configuration/troubleshooting-ssl-errors
-  - /admin/configuration/troubleshooting-ssl-errors
+- /enterprise/admin/articles/troubleshooting-ssl-errors
+- /enterprise/admin/categories/dns-ssl-and-subdomain-configuration
+- /enterprise/admin/installation/troubleshooting-ssl-errors
+- /enterprise/admin/configuration/troubleshooting-ssl-errors
+- /admin/configuration/troubleshooting-ssl-errors
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
-  - Enterprise
-  - Errors
-  - Infrastructure
-  - Networking
-  - Security
-  - Troubleshooting
+- Enterprise
+- Errors
+- Infrastructure
+- Networking
+- Security
+- Troubleshooting
+shortTitle: Troubleshoot SSL errors
+ms.openlocfilehash: cfe73a647b539fa8c9c2aef54f8bc51f2b1becae
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145120675"
 ---
+## <a name="removing-the-passphrase-from-your-key-file"></a>Удаление парольной фразы из файла ключа
 
-### Removing the passphrase from your key file
+Если на компьютере Linux с установлен OpenSSL, можно удалить парольную фразу.
 
-If you have a Linux machine with OpenSSL installed, you can remove your passphrase.
-
-1. Rename your original key file.
+1. Переименуйте исходный файл ключа.
   ```shell
   $ mv yourdomain.key yourdomain.key.orig
   ```
-2. Generate a new key without a passphrase.
+2. Создайте новый ключ без парольной фразы.
   ```shell
   $ openssl rsa -in yourdomain.key.orig -out yourdomain.key
   ```
 
-You'll be prompted for the key's passphrase when you run this command.
+При выполнении этой команды вам будет предложено ввести парольную фразу ключа.
 
-For more information about OpenSSL, see [OpenSSL's documentation](https://www.openssl.org/docs/).
+Дополнительные сведения об OpenSSL см. в [документации по OpenSSL](https://www.openssl.org/docs/).
 
-### Converting your SSL certificate or key into PEM format
+## <a name="converting-your-ssl-certificate-or-key-into-pem-format"></a>Преобразование SSL-сертификата или ключа в формат PEM
 
-If you have OpenSSL installed, you can convert your key into PEM format by using the `openssl` command. For example, you can convert a key from DER format into PEM format.
+Если у вас установлен OpenSSL, вы можете преобразовать ключ в формат PEM с помощью команды `openssl`. Например, можно преобразовать ключ из формата DER в формат PEM.
 
 ```shell
 $ openssl rsa -in yourdomain.der -inform DER -out yourdomain.key -outform PEM
 ```
 
-Otherwise, you can use the SSL Converter tool to convert your certificate into the PEM format. For more information, see the [SSL Converter tool's documentation](https://www.sslshopper.com/ssl-converter.html).
+В противном случае для преобразования сертификата в формат PEM можно использовать средство SSL Converter. Дополнительные сведения см. в [документации по средству SSL Converter](https://www.sslshopper.com/ssl-converter.html).
 
-### Unresponsive installation after uploading a key
+## <a name="unresponsive-installation-after-uploading-a-key"></a>Неотвечающая установка после отправки ключа
 
-If {% data variables.product.product_location %} is unresponsive after uploading an SSL key, please [contact {% data variables.product.prodname_enterprise %} Support](https://enterprise.github.com/support) with specific details, including a copy of your SSL certificate.
+Если {% data variables.product.product_location %} не отвечает после отправки SSL-ключа, [обратитесь в службу поддержки {% data variables.product.prodname_enterprise %}](https://enterprise.github.com/support), указав конкретные данные и приложив копию SSL-сертификата.
 
-### Certificate validity errors
+## <a name="certificate-validity-errors"></a>Ошибки допустимости сертификата
 
-Clients such as web browsers and command-line Git will display an error message if they cannot verify the validity of an SSL certificate. This often occurs with self-signed certificates as well as "chained root" certificates issued from an intermediate root certificate that is not recognized by the client.
+Такие клиенты, как веб-браузеры и Git командной строки, будут отображать сообщение об ошибке, если они не могут проверить допустимость SSL-сертификата. Это часто происходит с самозаверяющими сертификатами, а также со связанными по цепочке корневыми сертификатами, выданными из промежуточного корневого сертификата, который не распознается клиентом.
 
-If you are using a certificate signed by a certificate authority (CA), the certificate file that you upload to {% data variables.product.prodname_ghe_server %} must include a certificate chain with that CA's root certificate. To create such a file, concatenate your entire certificate chain (or "certificate bundle") onto the end of your certificate, ensuring that the principal certificate with your hostname comes first. On most systems you can do this with a command similar to:
+Если вы используете сертификат, подписанный центром сертификации (ЦС), файл сертификата, отправляемый в {% data variables.product.prodname_ghe_server %}, должен включать цепочку сертификатов с корневым сертификатом этого ЦС. Чтобы создать такой файл, присоедините всю цепочку сертификатов (или "пакет сертификатов") к концу сертификата. При этом первым должен быть сертификат субъекта с именем узла. В большинстве систем это можно сделать с помощью следующей команды:
 
 ```shell
 $ cat yourdomain.com.crt bundle-certificates.crt > yourdomain.combined.crt
 ```
 
-You should be able to download a certificate bundle (for example, `bundle-certificates.crt`) from your certificate authority or SSL vendor.
+Вы должны иметь возможность скачать пакет сертификатов (например, `bundle-certificates.crt`) из центра сертификации или поставщика SSL.
 
-### Installing self-signed or untrusted certificate authority (CA) root certificates
+## <a name="installing-self-signed-or-untrusted-certificate-authority-ca-root-certificates"></a>Установка самозаверяющих или недоверенных корневых сертификатов центра сертификации (ЦС)
 
-If your {% data variables.product.prodname_ghe_server %} appliance interacts with other machines on your network that use a self-signed or untrusted certificate, you will need to import the signing CA's root certificate into the system-wide certificate store in order to access those systems over HTTPS.
+Если устройство {% data variables.product.prodname_ghe_server %} взаимодействует с другими компьютерами в сети, которые используют самозаверяющий или недоверенный сертификат, необходимо импортировать корневой сертификат ЦС для подписи в системное хранилище сертификатов, чтобы получить доступ к этим системам по протоколу HTTPS.
 
-1. Obtain the CA's root certificate from your local certificate authority and ensure it is in PEM format.
-2. Copy the file to your {% data variables.product.prodname_ghe_server %} appliance over SSH as the "admin" user on port 122.
+1. Получите корневой сертификат ЦС из локального центра сертификации и проверьте, что он имеет формат PEM.
+2. Скопируйте файл на устройство {% data variables.product.prodname_ghe_server %} по протоколу SSH в качестве пользователя admin на порту 122.
   ```shell
   $ scp -P 122 rootCA.crt admin@HOSTNAME:/home/admin
   ```
-3. Connect to the {% data variables.product.prodname_ghe_server %} administrative shell over SSH as the "admin" user on port 122.
+3. Подключитесь к административной оболочке {% data variables.product.prodname_ghe_server %} по протоколу SSH в качестве пользователя admin на порту 122.
   ```shell
   $ ssh -p 122 admin@HOSTNAME
   ```
-4. Import the certificate into the system-wide certificate store.
+4. Импортируйте сертификат в системное хранилище сертификатов.
   ```shell
   $ ghe-ssl-ca-certificate-install -c rootCA.crt
   ```
+
+## <a name="updating-an-ssl-certificate"></a>Обновление SSL-сертификата
+
+С помощью программы командной строки `ghe-ssl-certificate-setup` можно создать новый самозаверяющий сертификат или обновить существующий SSL-сертификат для {% data variables.product.product_location %}. Дополнительные сведения см. в статье "[Программы командной строки](/admin/configuration/configuring-your-enterprise/command-line-utilities#ghe-ssl-ca-certificate-setup)".

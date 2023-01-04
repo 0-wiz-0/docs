@@ -1,21 +1,21 @@
----
 date: '2020-06-23'
 sections:
   security_fixes:
-    - 'Packages have been updated to the latest security versions. {% comment %} https://github.com/github/enterprise2/pull/20746, https://github.com/github/enterprise2/pull/20727 {% endcomment %}'
+    - 'Пакеты обновлены до последних версий системы безопасности. {% comment %} https://github.com/github/enterprise2/pull/20746, https://github.com/github/enterprise2/pull/20727 {% endcomment %}'
   bugs:
-    - 'Excessively large log events could lead to log forwarding instability when UDP was used as the transport mechanism. {% comment %} https://github.com/github/enterprise2/pull/20457, https://github.com/github/enterprise2/pull/20445 {% endcomment %}'
-    - "Automatic unsuspension of a user through SSO did not complete if the SSH keys attribute had keys already associated with the user's account. {% comment %} https://github.com/github/github/pull/143474, https://github.com/github/github/pull/142927 {% endcomment %}"
-    - 'The repository permission hash from the REST API indicated no access for business members who have pull access to internal repositories. {% comment %} https://github.com/github/github/pull/144755, https://github.com/github/github/pull/144292 {% endcomment %}'
-    - 'Previewing a GitHub App description written in markdown was not properly rendered. {% comment %} https://github.com/github/github/pull/145038, https://github.com/github/github/pull/133360 {% endcomment %}'
-    - 'The audit log did not include branch protection changes events. {% comment %} https://github.com/github/github/pull/145995, https://github.com/github/github/pull/145014 {% endcomment %}'
-    - "Trying to assign code review to a member of an empty team would result in a '500 Internal Server Error'. {% comment %} https://github.com/github/github/pull/146328, https://github.com/github/github/pull/139330 {% endcomment %}"
-    - 'Code review assignment using the load balancing algorithm could repeatedly assign to the same team member. {% comment %} https://github.com/github/github/pull/146329, https://github.com/github/github/pull/136504 {% endcomment %}'
+    - 'События журнала очень большого размера могли вызвать нестабильную пересылку журналов, если в качестве транспортного протокола использовался UDP. {% comment %} https://github.com/github/enterprise2/pull/20457, https://github.com/github/enterprise2/pull/20445 {% endcomment %}'
+    - "Автоматическая отмена приостановки прав пользователя с помощью единого входа не завершается, если атрибут ключей SSH содержал ключи, которые уже связаны с учетной записью пользователя. {% comment %} https://github.com/github/github/pull/143474, https://github.com/github/github/pull/142927 {% endcomment %}"
+    - 'Хэш разрешений репозитория из REST API не указывает доступ для участников бизнес-подразделения, у которых есть права доступа к внутренним репозиториям для вытягивания. {% comment %} https://github.com/github/github/pull/144755, https://github.com/github/github/pull/144292 {% endcomment %}'
+    - 'Неправильно отображался предварительный просмотр описания приложения GitHub в формате Markdown. {% comment %} https://github.com/github/github/pull/145038, https://github.com/github/github/pull/133360 {% endcomment %}'
+    - 'В журнал аудита не включались события изменений защиты ветвей. {% comment %} https://github.com/github/github/pull/145995, https://github.com/github/github/pull/145014 {% endcomment %}'
+    - "При попытках назначить проверку кода участнику пустой команды возникала ошибка \"500 Внутренняя ошибка сервера\". {% comment %} https://github.com/github/github/pull/146328, https://github.com/github/github/pull/139330 {% endcomment %}"
+    - 'Назначение проверки кода с помощью алгоритма балансировки нагрузки производилось повторно одному участнику команды. {% comment %} https://github.com/github/github/pull/146329, https://github.com/github/github/pull/136504 {% endcomment %}'
   known_issues:
-    - 'On a freshly set up GitHub Enterprise Server without any users, an attacker could create the first admin user. {% comment %} https://github.com/github/enterprise2/issues/1889 {% endcomment %}'
-    - 'Custom firewall rules are not maintained during an upgrade. {% comment %} https://github.com/github/enterprise2/issues/2823 {% endcomment %}'
-    - 'Git LFS tracked files [uploaded through the web interface](https://github.com/blog/2105-upload-files-to-your-repositories) are incorrectly added directly to the repository. {% comment %} https://github.com/github/github/issues/54684 {% endcomment %}'
-    - 'Issues cannot be closed if they contain a permalink to a blob in the same repository where the file path is longer than 255 characters. {% comment %} https://github.com/github/github/issues/107731 {% endcomment %}'
-    - 'When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results. {% comment %} https://github.com/github/admin-experience/issues/571 {% endcomment %}'
-    - 'Security alerts are not reported when pushing to a repository on the command line. {% comment %} https://github.com/github/github/issues/143190 {% endcomment %}'
-    - 'Dependency graph is not detecting dependencies when deployed in a cluster configuration with multiple Redis nodes. (updated 2020-06-30) {% comment %} https://github.com/github/dependency-graph/issues/81 {% endcomment %}'
+    - 'После первой настройки версии GitHub Enterprise Server, в которой еще нет пользователей, злоумышленник мог создать первого пользователя с правами администратора. {% comment %} https://github.com/github/enterprise2/issues/1889 {% endcomment %}'
+    - 'Пользовательские правила брандмауэра не сохраняются в процессе обновления. {% comment %} https://github.com/github/enterprise2/issues/2823 {% endcomment %}'
+    - 'Отслеживаемые файлы Git LFS, [отправленные через веб-интерфейс](https://github.com/blog/2105-upload-files-to-your-repositories), ошибочно добавляются напрямую в репозиторий. {% comment %} https://github.com/github/github/issues/54684 {% endcomment %}'
+    - 'Невозможно закрыть проблемы, если они содержат постоянную ссылку на BLOB-объект в том же репозитории с путем, длина которого превышает 255 символов. {% comment %} https://github.com/github/github/issues/107731 {% endcomment %}'
+    - 'Когда в GitHub Connect включен параметр "Пользователи могут выполнять поиск на GitHub.com", результаты поиска на GitHub.com не включают проблемы в частных и внутренних репозиториях. {% comment %} https://github.com/github/admin-experience/issues/571 {% endcomment %}'
+    - 'Оповещения безопасности не включаются в отчет при отправке в репозиторий посредством командной строки. {% comment %} https://github.com/github/github/issues/143190 {% endcomment %}'
+    - 'Граф зависимостей не обнаруживает зависимости при развертывании в конфигурации кластера с несколькими узлами Redis (обновлено 30.06.2020). {% comment %} https://github.com/github/dependency-graph/issues/81 {% endcomment %}'
+    - 'Если узел реплики находится в автономном режиме в конфигурации высокой доступности, {% data variables.product.product_name %} по-прежнему может маршрутизировать запросы {% data variables.product.prodname_pages %} на узел в автономном режиме, снижая доступность {% data variables.product.prodname_pages %} для пользователей.'

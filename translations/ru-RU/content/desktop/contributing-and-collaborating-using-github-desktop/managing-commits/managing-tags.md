@@ -1,51 +1,53 @@
 ---
-title: Managing tags
-intro: 'You can use {% data variables.product.prodname_desktop %} to create, push, and view tags.'
+title: Управление метками
+intro: 'Вы можете использовать {% data variables.product.prodname_desktop %} для создания, передачи и просмотра тегов.'
 redirect_from:
   - /desktop/contributing-to-projects/managing-tags
   - /desktop/contributing-and-collaborating-using-github-desktop/managing-tags
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 980e47f6e3300995f6312499b23768d6f0401f36
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145092302'
 ---
+## Сведения о метках в {% data variables.product.prodname_desktop %}
 
-### About tags in {% data variables.product.prodname_desktop %}
-
-{% data variables.product.prodname_desktop %} allows you to create annotated tags. Tags are associated with commits, so you can use a tag to mark an individual point in your repository's history, including a version number for a release. For more information about release tags, see "[About releases](/github/administering-a-repository/about-releases)."
+{% data variables.product.prodname_desktop %} позволяет создавать аннотированные метки. Метки связаны с фиксациями, поэтому с их помощью можно помечать отдельные точки в журнале репозитория, включая номер версии для выпуска. Дополнительные сведения о метках выпуска см. в разделе [Сведения о выпусках](/github/administering-a-repository/about-releases).
 
 {% data reusables.desktop.tags-push-with-commits %}
 
-### Creating a tag
+## Создание метки
+
+{% data reusables.desktop.history-tab %} {% data reusables.desktop.create-tag %} {% data reusables.desktop.name-tag %} {% data reusables.desktop.confirm-tag %}
+
+## Просмотр тегов
 
 {% data reusables.desktop.history-tab %}
-{% data reusables.desktop.create-tag %}
-{% data reusables.desktop.name-tag %}
-{% data reusables.desktop.confirm-tag %}
-
-### Viewing tags
-
-{% data reusables.desktop.history-tab %}
-2. Click the commit.
+2. Щелкните фиксацию.
   {% note %}
 
-  **Note**: {% data variables.product.prodname_desktop %} displays an arrow {% octicon "arrow-up" aria-label="The up arrow icon" %} if the tag has not been pushed to the remote repository.
+  **Примечание**. В {% data variables.product.prodname_desktop %} отображается стрелка {% octicon "arrow-up" aria-label="The up arrow icon" %}, если метка не была отправлена в удаленный репозиторий.
 
   {% endnote %}
 
-  ![Viewing a tag in the history](/assets/images/help/desktop/viewing-tags-in-history.png)
+  ![Просмотр метки в журнале](/assets/images/help/desktop/viewing-tags-in-history.png)
 
-3. All tags associated with the commit are visible in that commit's metadata. ![Viewing a tag in the commit](/assets/images/help/desktop/viewing-tags-in-commit.png)
+3. Все метки, связанные с фиксацией, видны в метаданных этой фиксации.
+![Просмотр метки в фиксации](/assets/images/help/desktop/viewing-tags-in-commit.png)
 
-### Deleting tags
+## Удаление меток
 
 {% note %}
 
-**Note**: You can only delete tags associated with commits that have not yet been pushed.
+**Примечание**. Удалять можно только метки, связанные с фиксациями, которые еще не отправлены.
 
 {% endnote %}
 
-{% data reusables.desktop.history-tab %}
-{% data reusables.desktop.delete-tag %}
+{% data reusables.desktop.history-tab %} {% data reusables.desktop.delete-tag %}
 
-### Дополнительная литература
+## Дополнительные материалы
 
-- "[Git Basics - Tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)" in the Git documentation
+- [Основы GIT — метки](https://git-scm.com/book/en/v2/Git-Basics-Tagging) в документации по GIT

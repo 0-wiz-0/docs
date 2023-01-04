@@ -1,31 +1,31 @@
 ---
-title: Stashing changes
-intro: You can temporarily save your changes without committing them to a branch by stashing the changes.
+title: Сокрытие изменений
+intro: 'Вы можете временно сохранить изменения, не фиксируя их в ветви; для этого можно спрятать изменения.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
 redirect_from:
   - /desktop/contributing-and-collaborating-using-github-desktop/stashing-changes
+ms.openlocfilehash: ef061bec3c60041fc40ab3e8be45d1557ca90219
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145117512'
 ---
+## Сведения о скрытых изменениях
 
-### About stashed changes
+Чтобы применить изменения к репозиторию, необходимо сохранить файлы, а затем зафиксировать изменения в ветви. Если вы сохранили изменения, которые еще не готовы к фиксации, вы можете сохранить их позднее. При скрытии изменений они временно удаляются из файлов, и вы можете восстановить или отменить их позже. Вы можете скрыть только один набор изменений за раз с помощью {% data variables.product.prodname_desktop %}. При использовании {% data variables.product.prodname_desktop %} для скрытия изменений все несохраненные изменения будут скрыты. После скрытия изменений в ветви можно безопасно изменить ветви или внести другие изменения в текущую ветвь.
 
-To apply your changes to your repository, you must save the files and then commit the changes to a branch. If you have saved changes that you are not ready to commit yet, you can stash the changes for later. When you stash changes, the changes are temporarily removed from the files and you can choose to restore or discard the changes later. You can only stash one set of changes at a time with {% data variables.product.prodname_desktop %}. If you use {% data variables.product.prodname_desktop %} to stash changes, all unsaved changes will be stashed. After you stash changes on a branch, you can safely change branches or make other changes to your current branch.
+При использовании {% data variables.product.prodname_desktop %} для переключения ветвей при том, что вы сохранили, но не зафиксировали изменения, {% data variables.product.prodname_desktop %} предложит скрыть изменения или перенести их в другую ветвь. Дополнительные сведения см. в статье [Управление ветвями](/desktop/contributing-to-projects/managing-branches#switching-between-branches).
 
-If you use {% data variables.product.prodname_desktop %} to switch branches while you have saved, but not committed, changes, {% data variables.product.prodname_desktop %} will prompt you to stash the changes or bring them to the other branch. For more information, see "[Managing branches](/desktop/contributing-to-projects/managing-branches#switching-between-branches)."
+## Сокрытие изменений
 
-### Stashing changes
+{% data reusables.desktop.click-changed-files-header %} {% data reusables.desktop.click-stash-all-changes %}
 
-{% data reusables.desktop.click-changed-files-header %}
-{% data reusables.desktop.click-stash-all-changes %}
+## Восстановление скрытых изменений
 
-### Restoring stashed changes
+{% data reusables.desktop.navigate-to-stashed-changes %} {% data reusables.desktop.click-stashed-changes %} {% data reusables.desktop.click-restore %}
 
-{% data reusables.desktop.navigate-to-stashed-changes %}
-{% data reusables.desktop.click-stashed-changes %}
-{% data reusables.desktop.click-restore %}
+## Отмена скрытых изменений
 
-### Discarding stashed changes
-
-{% data reusables.desktop.navigate-to-stashed-changes %}
-{% data reusables.desktop.click-stashed-changes %}
-{% data reusables.desktop.click-discard %}
+{% data reusables.desktop.navigate-to-stashed-changes %} {% data reusables.desktop.click-stashed-changes %} {% data reusables.desktop.click-discard %}

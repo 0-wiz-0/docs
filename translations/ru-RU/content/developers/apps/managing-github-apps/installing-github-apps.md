@@ -1,66 +1,75 @@
 ---
-title: Installing GitHub Apps
-intro: 'When your app is public, anyone can use {% if currentVersion == "free-pro-team@latest" %} the {% data variables.product.prodname_marketplace %} or {% endif %}an installation URL to install the app on their repository. When your app is private, only you can install the app on repositories that you own.'
+title: Установка приложений GitHub
+intro: 'Если ваше приложение является общедоступным, любой пользователь может использовать {% ifversion fpt or ghec %} {% data variables.product.prodname_marketplace %} или {% endif %}URL-адрес установки для установки приложения в своем репозитории. Если ваше приложение является частным, его можно установить только в репозиториях, которыми вы владеете.'
 redirect_from:
   - /apps/installing-github-apps
   - /developers/apps/installing-github-apps
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
+ms.openlocfilehash: 4244e1e4aacbcc5f7e0f16092df9823ce5832f0a
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145089877'
 ---
-
 {% note %}
 
-**Note:** Your {% data variables.product.prodname_github_app %} will have access to any repositories the app creates, even if someone only installs your app on selected repositories.
+**Примечание.** Ваш {% data variables.product.prodname_github_app %} будет иметь доступ ко всем репозиториям, которые создает приложение, даже если кто-то установит ваше приложение только в выбранных репозиториях.
 
 {% endnote %}
 
-### Installing your private GitHub App on your repository
+## Установка частного приложения GitHub в репозитории
 
-Once you create a private GitHub App, you can install it on one of your org or user repositories. For more information, see "[Private installation flow](/apps/managing-github-apps/making-a-github-app-public-or-private/#private-installation-flow)."
+Создав частное приложение GitHub, вы можете установить его в один из своих организационных или пользовательских репозиториев. Дополнительные сведения см. в разделе [Поток частной установки](/apps/managing-github-apps/making-a-github-app-public-or-private/#private-installation-flow).
 
-1. From the [GitHub Apps settings page](https://github.com/settings/apps), select your app.
-2. In the left sidebar, click **Install App**.
-3. Click **Install** next to the organization or user account containing the correct repository.
-4. Install the app on all repositories or select repositories. ![App installation permissions](/assets/images/install_permissions.png)
-5. Once installed, you will see configuration options for the app on your selected account. You can make changes here, or repeat the previous steps to install the app on another account.
+1. На [странице параметров приложений GitHub](https://github.com/settings/apps) выберите свое приложение.
+2. На боковой панели слева щелкните **Установка приложения**.
+3. Щелкните **Установить** рядом с организацией или личной учетной записью, содержащей правильный репозиторий.
+4. Установите приложение во всех репозиториях или выберите репозитории.
+![Разрешения на установку приложений](/assets/images/install_permissions.png)
+5. После установки вы увидите параметры конфигурации для приложения в выбранной учетной записи. Здесь можно внести изменения или повторить предыдущие действия, чтобы установить приложение в другой учетной записи.
 
-{% if currentVersion == "free-pro-team@latest" %}
-### Offering your app in the GitHub Marketplace
+{% ifversion fpt or ghec %}
+## Предложение приложения в GitHub Marketplace
 
-You can offer a paid or free version of your app in [{% data variables.product.prodname_marketplace %}](https://github.com/marketplace), where people can search for and view details about your app. {% data variables.product.prodname_marketplace %} automatically installs a GitHub App when an order is complete.
+Вы можете предложить платную или бесплатную версию приложения в [{% data variables.product.prodname_marketplace %}](https://github.com/marketplace), где пользователи могут искать и просматривать сведения о приложении. {% data variables.product.prodname_marketplace %} автоматически устанавливает приложение GitHub по завершении заказа.
 
-See "[Getting started with GitHub Marketplace](/marketplace/getting-started/)" to learn more about listing your app on {% data variables.product.prodname_marketplace %}.
+См. раздел [Начало работы с GitHub Marketplace](/marketplace/getting-started/), чтобы узнать больше о размещении приложения на {% data variables.product.prodname_marketplace %}.
 
-To learn more about how users can install your app from {% data variables.product.prodname_marketplace %}, see "[Purchasing and installing apps in GitHub Marketplace](/articles/purchasing-and-installing-apps-in-github-marketplace)".
+Дополнительные сведения о том, как пользователи могут установить ваше приложение из {% data variables.product.prodname_marketplace %}, см. в разделе [Покупка и установка приложений в GitHub Marketplace](/articles/purchasing-and-installing-apps-in-github-marketplace).
 
 {% endif %}
 
-### Allowing people to install your public app on their repository
+## Разрешение пользователям устанавливать общедоступное приложение в своем репозитории
 
-You can enable others to install your public app by providing the installation URL in places like your app's homepage. You can then point to your app's homepage from the landing page on GitHub.
+Можно разрешить другим пользователям устанавливать ваше общедоступное приложение, указав URL-адрес установки в таких местах, как домашняя страница вашего приложения. Затем можно указать домашнюю страницу своего приложения с целевой страницы на GitHub.
 
- If you are migrating from an OAuth App to a GitHub App, you can use query parameters to preselect the repositories and account when installing the GitHub App. See "[Migrating OAuth Apps to GitHub Apps](/apps/migrating-oauth-apps-to-github-apps/)" to learn more.
+ При переходе с приложения OAuth на приложение GitHub можно использовать параметры запроса для предварительного выбора репозиториев и учетной записи при установке приложения GitHub. Дополнительные сведения см. в разделе [Миграция с приложений OAuth в приложения GitHub](/apps/migrating-oauth-apps-to-github-apps/).
 
-These steps assume you have [built a {% data variables.product.prodname_github_app %}](/apps/building-github-apps/):
+В этих инструкциях предполагается, что вы [создали {% data variables.product.prodname_github_app %}](/apps/building-github-apps/):
 
-1. From the [GitHub Apps settings page](https://github.com/settings/apps), select the public app you want to configure for others to install.
-2. In "Homepage URL," type the URL for your app's homepage and click **Save changes**. ![Homepage URL](/assets/images/github-apps/github_apps_homepageURL.png)
-3. GitHub provides a landing page for your app that includes a link to your app's "Homepage URL." To visit the landing page on GitHub, copy the URL from "Public link" and paste it into a browser. ![Public link](/assets/images/github-apps/github_apps_public_link.png)
-4. Create a homepage for your app that includes the app installation URL: `{% data variables.product.oauth_host_code %}/apps/<app name>/installations/new`.
+1. На [странице параметров приложений GitHub](https://github.com/settings/apps) выберите общедоступное приложение, которое необходимо настроить, чтобы другие пользователи могли его установить.
+2. В поле "URL-адрес домашней страницы" введите URL-адрес домашней страницы приложения и щелкните **Сохранить изменения**.
+![URL-адрес домашней страницы](/assets/images/github-apps/github_apps_homepageURL.png)
+3. GitHub предоставляет целевую страницу для приложения, которая содержит ссылку на "URL-адрес домашней страницы" приложения. Чтобы посетить целевую страницу на GitHub, скопируйте URL-адрес из "Общедоступной ссылки" и вставьте его в браузер.
+![Общедоступная ссылка](/assets/images/github-apps/github_apps_public_link.png)
+4. Создайте домашнюю страницу для приложения, включающую URL-адрес для установки приложения: `{% data variables.product.oauth_host_code %}/apps/<app name>/installations/new`.
 
-### Authorizing users during installation
+## Авторизация пользователей во время установки
 
-You can simplify the authorization process by completing it during app installation. To do this, select **Request user authorization (OAuth) during installation** when creating or modifying your app in GitHub. See "[Creating a GitHub App](/apps/building-github-apps/creating-a-github-app/)" to learn more.
+Процесс авторизации можно упростить, выполнив его во время установки приложения. Для этого выберите **Запросить авторизацию пользователя (OAuth)** во время установки при создании или изменении приложения в GitHub. Дополнительные сведения см. в разделе [Создание приложения GitHub](/apps/building-github-apps/creating-a-github-app/).
 
-Once someone has installed your app, you will need to get an access token for the user. See steps 2 and 3 in "[Identifying users on your site](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site)" to learn more.
-### Preserving an application state during installation
+После установки приложения потребуется получить маркер доступа для пользователя. Дополнительные сведения см. в шагах 2 и 3 в разделе [Идентификация пользователей на вашем сайте](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site).
+## Сохранение состояния приложения во время установки
 
-You can provide a `state` parameter in an app's installation URL to preserve the state of the application page and return people back to that state after they install, authenticate, or accept updates to your GitHub App. For example, you could use the `state` to correlate an installation to a user or account.
+Можно указать параметр `state` в URL-адресе установки для приложения, чтобы сохранить состояние страницы приложения и вернуть людей в это состояние после установки, проверки подлинности или принятия обновлений для приложения GitHub. Например, можно использовать `state` для корреляции установки с пользователем или учетной записью.
 
-To preserve a state, add it to the installation URL:
+Чтобы сохранить состояние, добавьте в URL-адрес установки:
 
 `{% data variables.product.oauth_host_code %}/apps/<app name>/installations/new?state=AB12t`

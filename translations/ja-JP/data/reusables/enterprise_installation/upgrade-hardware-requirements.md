@@ -1,22 +1,30 @@
-{% if currentVersion ver_gt "enterprise-server@2.20" and currentVersion ver_lt "enterprise-server@3.2" %}
+---
+ms.openlocfilehash: faf2e19d40e921c1a3d1b6cff91aaf3e4dd2b97b
+ms.sourcegitcommit: 67064b14c9d4d18819db8f6398358b77a1c8002a
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 05/17/2022
+ms.locfileid: "145111438"
+---
+{% ifversion ghes < 3.2 %}
 
-### {% data variables.product.prodname_ghe_server %} 3.0 以降の最小要件について
+### <a name="about-minimum-requirements-for--data-variablesproductprodname_ghe_server--30-and-later"></a>{% data variables.product.prodname_ghe_server %} 3.0 以降の最小要件について
 
-{% data variables.product.prodname_ghe_server %} 3.0 以降にアップグレードする前に、インスタンスにプロビジョニングしたハードウェアリソースを確認してください。 {% data variables.product.prodname_ghe_server %} 3.0 は、{% data variables.product.prodname_actions %} や {% data variables.product.prodname_registry %} などの新機能を導入しているため、バージョン 2.22 以前よりも多くのリソースが必要となります。 詳しい情報については、[{% data variables.product.prodname_ghe_server %} 3.0 のリリースノート](/enterprise-server@3.0/admin/release-notes)を参照してください。
+{% data variables.product.prodname_ghe_server %} 3.0 以降にアップグレードする前に、インスタンスにプロビジョニングしたハードウェアリソースを確認してください。 {% data variables.product.prodname_ghe_server %} 3.0 は、{% data variables.product.prodname_actions %} や {% data variables.product.prodname_registry %} などの新機能を導入しているため、バージョン 2.22 以前よりも多くのリソースが必要となります。 詳細については、[{% data variables.product.prodname_ghe_server %} 3.0 リリース ノート](/enterprise-server@3.0/admin/release-notes)を参照してください。
 
-次の表では、{% data variables.product.prodname_ghe_server %} 3.0 以降の要件の増加を**太字**で示しています。
+次の表では、{% data variables.product.prodname_ghe_server %} 3.0 以降の要件の増加を **太字** で示しています。
 
-| ユーザライセンス               |                        vCPUs |                                  メモリ |                         アタッチされたストレージ | ルートストレージ |
-|:---------------------- | ----------------------------:| ------------------------------------:| ------------------------------------:| --------:|
-| トライアル、デモ、あるいは10人の軽量ユーザ |   **4**<br/>_2 から増加_ |   **32 GB**<br/>_16 GB から増加_ | **150 GB**<br/>_100 GB から増加_ |   200 GB |
-| 10-3000                |   **8**<br/>_4 から増加_ |   **48 GB**<br/>_32 GB から増加_ | **300 GB**<br/>_250 GB から増加_ |   200 GB |
-| 3000-5000              |  **12**<br/>_8 から増加_ |                                64 GB |                               500 GB |   200 GB |
-| 5000-8000              | **16**<br/>_12 から増加_ |                                96 GB |                               750 GB |   200 GB |
-| 8000-10000+            | **20**<br/>_16 から増加_ | **160 GB**<br/>_128 GB から増加_ |                              1000 GB |   200 GB |
+| ユーザー ライセンス | vCPU 数 | メモリ | ストレージの接続 | ルート ストレージ |
+| :- | -: | -: | -: | -: |
+| トライアル、デモ、あるいは10人の軽量ユーザ | **4**<br/>_2 以上_ | **32 GB**<br/>_16 GB 以上_ | **150 GB**<br/>_100 GB 以上_ | 200 GB |
+| 10-3000  | **8**<br/>_4 以上_ | **48 GB**<br/>_32 GB 以上_ | **300 GB**<br/>_250 GB 以上_ | 200 GB |
+| 3000-5000 | **12**<br/>_8 以上_ | 64 GB | 500 GB | 200 GB |
+| 5000-8000 | **16**<br/>_12 以上_ | 96 GB | 750 GB | 200 GB |
+| 8000-10000+ | **20**<br/>_16 以上_ | **160 GB**<br/>_128 GB 以上_ | 1000 GB | 200 GB |
 
-{% if currentVersion ver_gt "enterprise-server@2.21" %}
+{% ifversion ghes %}
 
-{% data variables.product.prodname_actions %}のハードウェアの要件に関する詳しい情報については「[{% data variables.product.prodname_ghe_server %}で{% data variables.product.prodname_actions %}を利用しはじめる](/admin/github-actions/getting-started-with-github-actions-for-github-enterprise-server#review-hardware-considerations)」を参照してください。
+{% data variables.product.prodname_actions %} のハードウェア要件の詳細については、「[{% data variables.product.prodname_ghe_server %} での {% data variables.product.prodname_actions %} の概要](/admin/github-actions/getting-started-with-github-actions-for-github-enterprise-server#review-hardware-considerations)」を参照してください。
 
 {% endif %}
 

@@ -1,38 +1,44 @@
 ---
-title: About organizations for procurement companies
-intro: 'Businesses use organizations to collaborate on shared projects with multiple owners and administrators. You can create an organization for your client, make a payment on their behalf, then pass ownership of the organization to your client.'
+title: Об организациях для закупочных компаний
+intro: 'Предприятия используют организации для совместной работы над общими проектами с несколькими владельцами и администраторами. Вы можете создать организацию для своего клиента, совершить платеж от его имени, а затем передать права владения организацией своему клиенту.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/about-organizations-for-procurement-companies
-  - /articles/about-organizations-for-resellers/
+  - /articles/about-organizations-for-resellers
   - /articles/about-organizations-for-procurement-companies
-  - /github/setting-up-and-managing-billing-and-payments-on-github/about-organizations-for-procurement-companies
   - /github/setting-up-and-managing-billing-and-payments-on-github/setting-up-paid-organizations-for-procurement-companies/about-organizations-for-procurement-companies
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: overview
 topics:
   - Organizations
+shortTitle: About organizations
+ms.openlocfilehash: 9a4b4012e4de7b2aee3cc10a4c03fe18d8dc6309
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147879125'
 ---
+Чтобы получить доступ к организации, каждый участник должен войти в свою личную учетную запись.
 
-To access an organization, each member must sign into their own personal user account.
+Участники организации могут иметь разные роли, например *владелец* или *менеджер по выставлению счетов*:
 
-Organization members can have different roles, such as *owner* or *billing manager*:
+- **Владельцы** имеют полный административный доступ к организации и ее содержимому.
+- **Менеджеры по выставлению счетов** могут управлять параметрами выставления счетов, но не имеют доступа к содержимому организации. Менеджеры по выставлению счетов не отображаются в списке участников организации.
 
-- **Owners** have complete administrative access to an organization and its contents.
-- **Billing managers** can manage billing settings, and cannot access organization contents. Billing managers are not shown in the list of organization members.
+## Платежи и цены для организаций
 
-### Payments and pricing for organizations
+Мы не предоставляем предложения с расценками для цен организации. Вы можете ознакомиться с нашими опубликованными ценами на [организации](https://github.com/pricing) и [хранилище больших файлов Git](/articles/about-storage-and-bandwidth-usage/). Мы не предоставляем скидки для закупочных компаний или для заказов на продление.
 
-We don't provide quotes for organization pricing. You can see our published pricing for [organizations](https://github.com/pricing) and [Git Large File Storage](/articles/about-storage-and-bandwidth-usage/). We do not provide discounts for procurement companies or for renewal orders.
+Мы принимаем оплату в долларах США, хотя пользователи могут находиться в любой точке мира.
 
-We accept payment in US dollars, although end users may be located anywhere in the world.
+Мы принимаем оплату кредитной картой и PayPal. Мы не принимаем оплату по заказу на покупку или накладной.
 
-We accept payment by credit card and PayPal. We don't accept payment by purchase order or invoice.
+Для упрощения и повышения эффективности закупок мы рекомендуем закупочным компаниям настроить ежегодное выставление счетов для организаций своих клиентов.
 
-For easier and more efficient purchasing, we recommend that procurement companies set up yearly billing for their clients' organizations.
+## Дополнительные материалы
 
-### Дополнительная литература
-
-- "[Creating and paying for an organization on behalf of a client](/articles/creating-and-paying-for-an-organization-on-behalf-of-a-client)"
-- "[Upgrading or downgrading your client's paid organization](/articles/upgrading-or-downgrading-your-client-s-paid-organization)"
-- "[Renewing your client's paid organization](/articles/renewing-your-client-s-paid-organization)"
+- [Создание и оплата организации от имени клиента](/articles/creating-and-paying-for-an-organization-on-behalf-of-a-client)
+- [Обновление или понижение версии платной организации вашего клиента](/articles/upgrading-or-downgrading-your-client-s-paid-organization)
+- [Возобновление платной организации вашего клиента](/articles/renewing-your-client-s-paid-organization)

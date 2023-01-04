@@ -1,13 +1,14 @@
 ---
-title: Building GitHub Apps
-intro: You can build GitHub Apps for yourself or others to use. Learn how to register and set up permissions and authentication options for GitHub Apps.
+title: Erstellen von GitHub-Apps
+intro: 'Du kannst GitHub-Apps für dich selbst oder andere erstellen. Erfahre, wie du Berechtigungen und Authentifizierungsoptionen für GitHub-Apps registrieren und einrichten kannst.'
 redirect_from:
-  - /apps/building-integrations/setting-up-and-registering-github-apps/
+  - /apps/building-integrations/setting-up-and-registering-github-apps
   - /apps/building-github-apps
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
 children:
@@ -21,5 +22,11 @@ children:
   - /creating-a-github-app-from-a-manifest
   - /creating-a-github-app-using-url-parameters
   - /creating-a-custom-badge-for-your-github-app
+ms.openlocfilehash: ad6d995a68414247849ef52a96f576b755ca4541
+ms.sourcegitcommit: 9a7b3a9ccb983af5df2cd94da7fecf7a8237529b
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147876789'
 ---
 

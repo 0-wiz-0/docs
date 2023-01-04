@@ -1,28 +1,34 @@
 ---
-title: Launching GitHub Desktop from the command line
+title: 명령줄에서 GitHub Desktop 시작
 shortTitle: Launching from the command line
-intro: You can launch GitHub Desktop from the command line.
+intro: 명령줄에서 GitHub Desktop을 시작할 수 있습니다.
 redirect_from:
   - /desktop/getting-started-with-github-desktop/launching-github-desktop-from-the-command-line
   - /desktop/installing-and-configuring-github-desktop/launching-github-desktop-from-the-command-line
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 5d9851cc8596299b9d3c4f6ec4d2c72e7d4a2b49
+ms.sourcegitcommit: 5f40f9341dd1e953f4be8d1642f219e628e00cc8
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 10/04/2022
+ms.locfileid: '148009060'
 ---
-
 {% mac %}
 
-1. In the menu bar, select the **{% data variables.product.prodname_desktop %}** menu, then click **Install Command Line Tool**. ![Install Command Line Tool option in the {% data variables.product.prodname_desktop %} drop-down menu](/assets/images/help/desktop/mac-install-command-line-tool.png)
-2. Open Terminal.
+1. 메뉴 바에서 **{% data variables.product.prodname_desktop %}** 메뉴를 선택한 다음 **Install Command Line Tool**(명령줄 도구 설치)을 클릭합니다.
+![{% data variables.product.prodname_desktop %} 드롭다운 메뉴에서 명령줄 도구 설치 옵션](/assets/images/help/desktop/mac-install-command-line-tool.png)
+2. 터미널을 엽니다.
 3. {% data reusables.desktop.launch-desktop-from-command-line %}
 
   ```shell
-  $ github <em>/path/to/repo</em>
+  $ github /PATH/TO/REPO
   ```
 
-  You can also change to your repository path and then type `github .` to open that repository.
+  리포지토리 경로로 변경한 다음 `github .`를 입력하여 해당 리포지토리를 열 수도 있습니다.
 
   ```shell
-  $ cd <em>/path/to/repo</em>
+  $ cd /PATH/TO/REPO
   [repo]$ github .
   ```
 
@@ -30,17 +36,17 @@ versions:
 
 {% windows %}
 
-1. Open a command prompt.
+1. 명령 프롬프트를 엽니다.
 2. {% data reusables.desktop.launch-desktop-from-command-line %}
 
   ```shell
-  C:\Users\octocat> github <em>path\to\repo</em>
+  C:\Users\octocat> github PATH\TO\REPO
   ```
 
- You can also change to your repository path and then type `github .` to open that repository.
+ 리포지토리 경로로 변경한 다음 `github .`를 입력하여 해당 리포지토리를 열 수도 있습니다.
 
   ```shell
-  C:\Users\octocat> cd <em>repo\myrepo</em>
+  C:\Users\octocat> cd REPO\MY-REPO
   C:\Users\octocat\repo\myrepo> github .
   ```
 

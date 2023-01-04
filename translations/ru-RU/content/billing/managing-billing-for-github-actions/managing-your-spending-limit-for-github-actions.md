@@ -1,12 +1,12 @@
 ---
-title: Managing your spending limit for GitHub Actions
-intro: 'You can set a spending limit for {% data variables.product.prodname_actions %} usage.'
-product: '{% data reusables.gated-features.actions %}'
+title: Управление предельной суммой расходов для GitHub Actions
+intro: 'Можно настроить предельную сумму расходов для использования {% data variables.product.prodname_actions %}.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-your-spending-limit-for-github-actions
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions/managing-your-spending-limit-for-github-actions
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Actions
@@ -14,48 +14,49 @@ topics:
   - Organizations
   - Spending limits
   - User account
+shortTitle: Spending limits for Actions
+ms.openlocfilehash: c1bd595a866b9e48fa4e82ebe93718328514fad9
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145088095'
 ---
+## Сведения о предельных суммах расходов за {% data variables.product.prodname_actions %}
 
-### About spending limits for {% data variables.product.prodname_actions %}
+{% data reusables.actions.actions-billing %}
 
-{% data reusables.github-actions.actions-billing %}
+{% data reusables.actions.actions-spending-limit-brief %}
 
-{% data reusables.github-actions.actions-spending-limit-brief %}
+{% data reusables.actions.actions-packages-set-spending-limit %} Дополнительную информацию о ценах на потребление {% data variables.product.prodname_actions %} см. в статье [Сведения о выставлении счетов за {% data variables.product.prodname_actions %}](/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
 
-{% data reusables.actions.actions-packages-set-spending-limit %} For more information about pricing for {% data variables.product.prodname_actions %} usage, see "[About billing for {% data variables.product.prodname_actions %}](/billing/managing-billing-for-github-actions/about-billing-for-github-actions)."
+{% ifversion ghec %} Если вы приобрели {% data variables.product.prodname_enterprise %} в рамках Соглашения Enterprise Майкрософт, то вы можете подключить свой идентификатор подписки Azure к корпоративной учетной записи, чтобы включить и оплатить использование {% data variables.product.prodname_actions %} свыше объемов, включенных в вашу учетную запись. Дополнительные сведения см. в разделе [Подключение подписки Azure к организации](/billing/managing-billing-for-your-github-account/connecting-an-azure-subscription-to-your-enterprise).
+{% endif %}
 
-If you purchased {% data variables.product.prodname_enterprise %} through a Microsoft Enterprise Agreement, you can connect your Azure Subscription ID to your enterprise account to enable and pay for {% data variables.product.prodname_actions %} usage beyond the amounts including with your account. For more information, see "[Connecting an Azure subscription to your enterprise](/github/setting-up-and-managing-your-enterprise/connecting-an-azure-subscription-to-your-enterprise)."
+Как только вы задали предельную сумму расходов, отличную от 0 долл. США, вы будете оплачивать любые существующие превышения в текущем расчетном периоде. Например, если ваша организация использует {% data variables.product.prodname_team %}, не допускает избыточное использование и создает артефакты рабочего процесса, которые увеличивают объемы потребления хранилища в месяц с 1,9 до 2,1 ГБ, вы сможете использовать немного больше объема хранилища, чем 2 ГБ, включаемых в продукт.
 
-As soon as you set a spending limit other than $0, you will be responsible for any existing overages in the current billing period. For example, if your organization uses {% data variables.product.prodname_team %}, does not allow overages, and creates workflow artifacts that increase your storage usage for the month from 1.9GB to 2.1GB, you will use slightly more storage than the 2GB your product includes.
+Так как вы не включили избытки, следующая попытка создания артефакта рабочего процесса завершится ошибкой. Вы не получите счет за превышение в размере 0,1 ГБ в этом месяце. Однако если включить избыток, первый счет будет включать 0,1 ГБ существующего превышения для текущего цикла выставления счетов, а также любое дополнительное избыточное использование.
 
-Because you have not enabled overages, your next attempt to create a workflow artifact will fail. You will not receive a bill for the 0.1GB overage that month. However, if you enable overages, your first bill will include the 0.1GB of existing overage for the current billing cycle, as well as any additional overages you accrue.
+## Управление предельной суммой расходов за {% data variables.product.prodname_actions %} для личной учетной записи
 
-### Managing the spending limit for {% data variables.product.prodname_actions %} for your user account
+Любой пользователь может управлять предельной суммой расходов за {% data variables.product.prodname_actions %} для своей личной учетной записи.
 
-Anyone can manage the spending limit for {% data variables.product.prodname_actions %} for their own user account.
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.billing_plans %} {% data reusables.dotcom_billing.manage-spending-limit %} {% data reusables.dotcom_billing.monthly-spending-limit %} {% data reusables.dotcom_billing.update-spending-limit %}
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.billing_plans %}
-{% data reusables.dotcom_billing.manage-spending-limit %}
-{% data reusables.dotcom_billing.monthly-spending-limit %}
-{% data reusables.dotcom_billing.update-spending-limit %}
+## Управление предельной суммой расходов за {% data variables.product.prodname_actions %} для организации
 
-### Managing the spending limit for {% data variables.product.prodname_actions %} for your organization
+Владельцы организаций и менеджеры по выставлению счетов могут управлять предельной суммой расходов за {% data variables.product.prodname_actions %} для организации.
 
-Organizations owners and billing managers can manage the spending limit for {% data variables.product.prodname_actions %} for an organization.
+{% data reusables.organizations.billing-settings %} {% data reusables.dotcom_billing.manage-spending-limit %} {% data reusables.dotcom_billing.monthly-spending-limit-actions-packages %} {% data reusables.dotcom_billing.update-spending-limit %}
 
-{% data reusables.organizations.billing-settings %}
-{% data reusables.dotcom_billing.manage-spending-limit %}
-{% data reusables.dotcom_billing.monthly-spending-limit %}
-{% data reusables.dotcom_billing.update-spending-limit %}
+{% ifversion ghec %}
+## Управление предельной суммой расходов за {% data variables.product.prodname_actions %} для корпоративной учетной записи
 
-### Managing the spending limit for {% data variables.product.prodname_actions %} for your enterprise account
+Владельцы предприятий и менеджеры по выставлению счетов могут управлять предельной суммой расходов за {% data variables.product.prodname_actions %} для корпоративной учетной записи.
 
-Enterprise owners and billing managers can manage the spending limit for {% data variables.product.prodname_actions %} for an enterprise account.
+{% data reusables.enterprise-accounts.access-enterprise %} {% data reusables.enterprise-accounts.settings-tab %} {% data reusables.enterprise-accounts.billing-tab %}
+1. Над разделом "Ежемесячное использование {% data variables.product.prodname_actions %} и Packages" нажмите **Предельная сумма расходов**.
+  ![Вкладка "Предельная сумма расходов"](/assets/images/help/settings/spending-limit-tab-enterprise.png) {% data reusables.dotcom_billing.monthly-spending-limit %} {% data reusables.dotcom_billing.update-spending-limit %} {% endif %}
 
-{% data reusables.enterprise-accounts.access-enterprise %}
-{% data reusables.enterprise-accounts.settings-tab %}
-{% data reusables.enterprise-accounts.billing-tab %}
-1. Above "{% data variables.product.prodname_actions %} and Packages monthly usage", click **Spending Limit**. ![Spending limit tab](/assets/images/help/settings/spending-limit-tab-enterprise.png)
-{% data reusables.dotcom_billing.monthly-spending-limit %}
-{% data reusables.dotcom_billing.update-spending-limit %}
+## Управление уведомлениями по электронной почте об использовании и предельной сумме расходов
+{% data reusables.billing.email-notifications %}

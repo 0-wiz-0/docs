@@ -1,21 +1,30 @@
 ---
-title: Reviewing your security logs for Codespaces
-shortTitle: Reviewing your security logs
-intro: 'You can use the security log to review all actions related to {% data variables.product.prodname_codespaces %}.'
+title: Просмотр журналов безопасности для Codespaces
+shortTitle: Security logs
+intro: Журнал безопасности можно использовать для проверки всех действий, связанных с {% data variables.product.prodname_codespaces %}.
+product: '{% data reusables.gated-features.codespaces %}'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
-  - Codespaces
-  - Developer
-  - Security
+- Codespaces
+- Developer
+- Security
+ms.openlocfilehash: 6e6b06192a370a50c686fda4c56f522d242a016e
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145119816"
 ---
+## <a name="about-security-logs-for--data-variablesproductprodname_codespaces-"></a>Сведения о журналах безопасности для {% data variables.product.prodname_codespaces %}
 
-{% data reusables.codespaces.release-stage %}
+При выполнении действия, связанного с {% data variables.product.prodname_codespaces %}, в репозиториях, принадлежащих личной учетной записи, можно просмотреть такие действия в журнале безопасности. Сведения о доступе к журналу см. в разделе [Просмотр журнала безопасности](/github/authenticating-to-github/reviewing-your-security-log#accessing-your-security-log).
 
-### About security logs for {% data variables.product.prodname_codespaces %}
+![Журнал безопасности с информацией Codespaces](/assets/images/help/settings/codespaces-audit-log.png)
 
-When you perform an action related to {% data variables.product.prodname_codespaces %} in repositories owned by your user account, you can review the actions in the security log. For information about accessing the log, see "[Reviewing your security log](/github/authenticating-to-github/reviewing-your-security-log#accessing-your-security-log)."
+Журнал безопасности содержит сведения о том, какое действие было выполнено и когда. Сведения о действиях {% data variables.product.prodname_codespaces %} см. в разделе [Действия категории {% data variables.product.prodname_codespaces %}](/github/authenticating-to-github/reviewing-your-security-log#codespaces-category-actions).
 
-![security log with Codespaces information](/assets/images/help/settings/codespaces-audit-log.png)
+## <a name="further-reading"></a>Дополнительные материалы
 
-The security log includes details on what action occured and when you performed it. For information about {% data variables.product.prodname_codespaces %} actions, see "[{% data variables.product.prodname_codespaces %} category actions](/github/authenticating-to-github/reviewing-your-security-log#codespaces-category-actions)".
+- [Просмотр журналов аудита организации для {% data variables.product.prodname_codespaces %}](/codespaces/managing-codespaces-for-your-organization/reviewing-your-organizations-audit-logs-for-codespaces)

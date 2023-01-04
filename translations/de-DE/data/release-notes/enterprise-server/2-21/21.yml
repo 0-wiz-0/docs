@@ -1,15 +1,15 @@
----
-date: '2021-05-13'
+date: '13.05.2021'
 sections:
   security_fixes:
-    - Packages have been updated to the latest security versions.
+    - Die Pakete wurden auf die neuesten Sicherheitsversionen aktualisiert.
   bugs:
-    - Orchestrator auto failover could be enabled during the phase of config apply.
-    - Users with maintainer permissions to a repository were shown an e-mail verification warning instead of a successful page build on the repository Pages settings page.
+    - Das automatische Failover für den Orchestrator konnte während der Konfigurationsanwendungsphase aktiviert werden.
+    - Benutzern mit Verwaltungsberechtigungen für ein Repository wurde eine E-Mail-Überprüfungswarnung angezeigt anstatt eines erfolgreichen Seitenbuilds auf der Repositoryeinstellungsseite in Pages.
   known_issues:
-    - On a freshly set up GitHub Enterprise Server without any users, an attacker could create the first admin user.
-    - Custom firewall rules are not maintained during an upgrade.
-    - Git LFS tracked files [uploaded through the web interface](https://github.com/blog/2105-upload-files-to-your-repositories) are incorrectly added directly to the repository.
-    - Issues cannot be closed if they contain a permalink to a blob in the same repository where the file path is longer than 255 characters.
-    - When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results.
-    - Security alerts are not reported when pushing to a repository on the command line.
+    - In einer neu eingerichteten GitHub Enterprise Server-Instanz ohne Benutzer konnte ein Angreifer den ersten Administratorbenutzer erstellen.
+    - Benutzerdefinierte Firewallregeln werden während eines Upgrades nicht aufrechterhalten.
+    - "Nachverfolgte Git-LFS-Dateien, [die über die Webbenutzeroberfläche hochgeladen wurden](https://github.com/blog/2105-upload-files-to-your-repositories), werden dem Repository fälschlicherweise direkt hinzugefügt."
+    - "Issues können nicht geschlossen werden, wenn sie einen Permalink zu einem Blob im selben Repository enthalten und der Dateipfad länger ist als 255 Zeichen."
+    - "Wenn die Option zum Durchsuchen von GitHub.com mit GitHub Connect aktiviert wird, sind Issues in privaten und internen Repositorys nicht in den GitHub.com-Suchergebnissen enthalten."
+    - "Sicherheitswarnungen werden nicht gemeldet, wenn etwas über die Befehlszeile an ein Repository gepusht wird."
+    - 'Wenn ein Replikatknoten in einer Hochverfügbarkeitskonfiguration offline ist, kann {% data variables.product.product_name %} eventuell noch immer Anfragen von {% data variables.product.prodname_pages %} an den Offlineknoten weiterleiten, was die Verfügbarkeit von {% data variables.product.prodname_pages %} für Benutzer verringert.'

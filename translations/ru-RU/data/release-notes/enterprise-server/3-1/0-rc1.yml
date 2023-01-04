@@ -1,21 +1,20 @@
----
 date: '2021-05-06'
 release_candidate: true
 deprecated: true
-intro: If {% data variables.product.product_location %} is running a release candidate build, you can't upgrade with a hotpatch. We recommend only running release candidates on test environments.
+intro: "Если на {% data variables.product.product_location %} выполняется сборка релиз-кандидата, обновление с помощью горячего исправления невозможно. Рекомендуем запускать релиз-кандидаты только в тестовых средах."
 sections:
   security_fixes:
-    - '**MEDIUM** Under certain circumstances, users who were removed from a team or organization could retain write access to branches they had existing pull requests opened for.'
-    - Packages have been updated to the latest security versions.
+    - '**Средняя важность.** В некоторых случаях пользователи, удаленные из команды или организации, могли сохранить доступ для записи в ветвях, где у них были открытые запросы на вытягивание.'
+    - Пакеты обновлены до последних версий систем безопасности.
   bugs:
-    - 'A scheduled cleanup job can cause performance to degrade on an instance with a very large `check_annotations` table.'
+    - 'Запланированное задание очистки может привести к ухудшению производительности на экземпляре с очень крупной таблицей "check_annotations".'
   changes:
-    - Check annotations older than 4 months will be archived.
-    - 'The `firstPatchedVersion` field is now available on `SecurityVulnerability` objects in the GraphQL API.'
+    - Заметки к проверкам старше четырех месяцев будут помещены в архив.
+    - 'В объектах "SecurityVulnerability" API-интерфейса GraphQL теперь доступно поле "firstPatchedVersion".'
   known_issues:
-    - The GitHub Packages npm registry no longer returns a time value in metadata responses. This was done to allow for substantial performance improvements. We continue to have all the data necessary to return a time value as part of the metadata response and will resume returning this value in the future once we have solved the existing performance issues.
-    - On a freshly set up GitHub Enterprise Server without any users, an attacker could create the first admin user.
-    - Custom firewall rules are not maintained during an upgrade.
-    - Git LFS tracked files [uploaded through the web interface](https://github.com/blog/2105-upload-files-to-your-repositories) are incorrectly added directly to the repository.
-    - Issues cannot be closed if they contain a permalink to a blob in the same repository where the file path is longer than 255 characters.
-    - When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results.
+    - "Реестр npm для GitHub Packages больше не возвращает значение времени в ответах с метаданными. Это изменение позволяет существенно улучшить производительность. Все данные, необходимые для возврата значения времени в ответе с метаданными, по-прежнему доступны, и мы возобновим этот возврат в будущем, как только имеющиеся проблемы с производительностью будут решены."
+    - "Злоумышленник мог создать первого пользователя с правами администратора на новом, только что настроенном сервере GitHub Enterprise Server, не имеющем пользователей."
+    - Пользовательские правила брандмауэра не сохраняются в процессе обновления.
+    - "Отслеживаемые файлы Git LFS, [отправленные через веб-интерфейс](https://github.com/blog/2105-upload-files-to-your-repositories), ошибочно добавлялись напрямую в репозиторий."
+    - "Невозможно закрывать проблемы, если они содержат постоянную ссылку на BLOB-объект в том же репозитории с путем, длина которого превышает 255 символов."
+    - "Когда в GitHub Connect включен параметр \"Пользователи могут выполнять поиск на GitHub.com\", результаты поиска на GitHub.com не включают проблемы в частных и внутренних репозиториях."

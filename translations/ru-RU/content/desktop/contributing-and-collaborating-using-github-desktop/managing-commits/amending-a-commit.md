@@ -1,22 +1,27 @@
 ---
-title: Amending a commit
-intro: 'You can use {% data variables.product.prodname_desktop %} to amend your last commit.'
+title: Изменение фиксации
+intro: 'Для изменения последней фиксации можно использовать {% data variables.product.prodname_desktop %}.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 8d92d5f755df662c4948196cf9f84b3227ec0067
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145117504'
 ---
+## Сведения о внесении изменений в фиксацию
 
-## About amending a commit
+Изменение фиксации — это способ изменения последней фиксации, выполненной в текущей ветви. Это может быть полезно, если вам нужно изменить сообщение фиксации или если вы забыли включить изменения в фиксацию.
 
-Amending a commit is a way to modify the most recent commit you have made in your current branch. This can be helpful if you need to edit the commit message or if you forgot to include changes in the commit.
+Можно продолжать вносить изменения в фиксацию, пока она не будет отправлена в удаленный репозиторий. После отправки фиксации параметр изменения будет отключен в {% data variables.product.prodname_desktop %}. При изменении фиксации вы заменяете предыдущую фиксацию новой фиксацией в текущей ветви. Изменение фиксации, отправленной в удаленный репозиторий, может запутать других участников совместной работы с репозиторием.
 
-You can continue to amend a commit until you push it to the remote repository. After you push a commit, the option to amend it is disabled in {% data variables.product.prodname_desktop %}. When you amend a commit, you replace the previous commit with a new commit to your current branch. Amending a commit that has been pushed to the remote repository could cause confusion for other collaborators working with the repository.
-
-## Amending a commit
+## Изменение фиксации
 
 {% data reusables.desktop.history-tab %}
-2. Right-click on the most recent commit and select **Amend commit**.
-  ![Amend commit context menu](/assets/images/help/desktop/amend-commit-context-menu.png)
-3. Click the **Summary** field to modify the commit message. Optionally, you can modify or add information about the commit in the **Description** field.
-4. Select any uncommitted changes that you would like to add to the commit. For more information about selecting changes, see "[Committing and reviewing changes to your project](/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project#selecting-changes-to-include-in-a-commit)."
-5. Once you have finalized your changes, click **Amend last commit**.
-  ![Amend last commit overview](/assets/images/help/desktop/amend-last-commit-overview.png)
+2. Щелкните последнюю фиксацию правой кнопкой мыши и выберите пункт **Изменить фиксацию**.
+  ![Пункт "Изменить фиксацию" в контекстном меню](/assets/images/help/desktop/amend-commit-context-menu.png)
+3. Щелкните поле **Сводка**, чтобы изменить сообщение о фиксации. При необходимости можно изменить или добавить сведения о фиксации в поле **Описание**.
+4. Выберите все незафиксированные изменения, которые вы хотите добавить в фиксацию. Дополнительные сведения о выборе изменений см. в разделе [Фиксация и просмотр изменений в проекте](/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project#selecting-changes-to-include-in-a-commit).
+5. После внесения всех изменений нажмите кнопку **Изменить последнюю фиксацию**.
+  ![Общий вид изменения последней фиксации](/assets/images/help/desktop/amend-last-commit-overview.png)

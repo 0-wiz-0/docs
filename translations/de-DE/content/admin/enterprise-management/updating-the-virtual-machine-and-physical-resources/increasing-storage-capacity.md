@@ -1,85 +1,99 @@
 ---
 title: Speicherkapazität erhöhen
-intro: 'Sie können die für Git-Repositorys, Datenbanken, Suchindizes und andere persistente Anwendungsdaten verfügbare Speicherkapazität erhöhen oder ändern.'
+intro: 'Du kannst die für Git-Repositorys, Datenbanken, Suchindizes und andere persistente Anwendungsdaten verfügbare Speicherkapazität erhöhen oder ändern.'
 redirect_from:
   - /enterprise/admin/installation/increasing-storage-capacity
   - /enterprise/admin/enterprise-management/increasing-storage-capacity
   - /admin/enterprise-management/increasing-storage-capacity
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Enterprise
   - Infrastructure
   - Performance
   - Storage
+shortTitle: Increase storage capacity
+ms.openlocfilehash: b6542e1f43ce4111358de3940c8e46dea2afd5d5
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '147881122'
 ---
-
 {% data reusables.enterprise_installation.warning-on-upgrading-physical-resources %}
 
-Wenn sich mehr Benutzer {% data variables.product.product_location %} anschließen, müssen Sie die Größe Ihres Storage-Volumes anpassen. Informationen zur Storage-Größenanpassung finden Sie in der Dokumentation für Ihre Virtualisierungsplattform.
+Wenn mehr Benutzer*innen an {% data variables.product.product_location %} teilnehmen, musst du die Größe deines Speichervolumes anpassen. Informationen zur Storage-Größenanpassung findest du in der Dokumentation für deine Virtualisierungsplattform.
 
-### Anforderungen und Empfehlungen
+## Anforderungen und Empfehlungen
 
 {% note %}
 
-**Note:** Before resizing any storage volume, put your instance in maintenance mode. Weitere Informationen finden Sie unter „[Wartungsmodus aktivieren und planen](/enterprise/{{ currentVersion }}/admin/guides/installation/enabling-and-scheduling-maintenance-mode)“.
+**Hinweis:** Bevor du die Größe eines Speichervolumes änderst, versetze deine Instanz in den Wartungsmodus.{% ifversion ip-exception-list %} Du kannst Änderungen überprüfen, indem du eine IP-Ausnahmeliste konfigurierst, um den Zugriff über angegebenen IP-Adressen zuzulassen. {% endif %} Weitere Informationen findest du unter [Aktivieren und Planen des Wartungsmodus](/enterprise/admin/guides/installation/enabling-and-scheduling-maintenance-mode).
 
 {% endnote %}
 
-#### Minimum requirements
+### Mindestanforderungen
 
 {% data reusables.enterprise_installation.hardware-rec-table %}
 
-### Größe der Datenpartition erhöhen
+## Größe der Datenpartition erhöhen
 
-1. Passen Sie die Größe der vorhandenen Benutzer-Volume-Disk mithilfe der Tools Ihrer Virtualisierungsplattform an.
+1. Passe die Größe der vorhandenen Benutzer-Volume-Disk mithilfe der Tools deiner Virtualisierungsplattform an.
 {% data reusables.enterprise_installation.ssh-into-instance %}
-3. Versetzen Sie die Appliance in den Wartungsmodus. Weitere Informationen finden Sie unter „[Wartungsmodus aktivieren und planen](/enterprise/{{ currentVersion }}/admin/guides/installation/enabling-and-scheduling-maintenance-mode)“.
-4. Starten Sie die Appliance neu, um die neue Storage-Zuordnung zu ermitteln:
+3. Versetze die Appliance in den Wartungsmodus. Weitere Informationen findest du unter [Aktivieren und Planen des Wartungsmodus](/enterprise/admin/guides/installation/enabling-and-scheduling-maintenance-mode).
+4. Starte die Appliance neu, um die neue Speicherzuordnung zu ermitteln:
   ```shell
   $ sudo reboot
   ```
-5. Run the `ghe-storage-extend` command to expand the `/data/user` filesystem:
+5. Führe den Befehl `ghe-storage-extend` aus, um das Dateisystem `/data/user` zu erweitern:
   ```shell
   $ ghe-storage-extend
   ```
 
-### Größe der Root-Partition mit einer neuen Appliance erhöhen
+## Größe der Root-Partition mit einer neuen Appliance erhöhen
 
-1. Richten Sie eine neue {% data variables.product.prodname_ghe_server %}-Instanz mit einer größeren Root-Disk ein. Verwenden Sie dazu dieselbe Version wie Ihre aktuelle Appliance. Weitere Informationen finden Sie unter „[{% data variables.product.prodname_ghe_server %}-Instanz einrichten](/enterprise/{{ currentVersion }}/admin/guides/installation/setting-up-a-github-enterprise-server-instance)“.
-2. Fahren Sie die aktuelle Appliance herunter:
+1. Richte eine neue {% data variables.product.prodname_ghe_server %}-Instanz mit einer größeren Root-Disk ein. Verwende dazu dieselbe Version wie deine aktuelle Appliance. Weitere Informationen findest du unter [Einrichten einer {% data variables.product.prodname_ghe_server %}-Instanz](/enterprise/admin/guides/installation/setting-up-a-github-enterprise-server-instance).
+2. Fahre die aktuelle Appliance herunter:
   ```shell
   $ sudo poweroff
   ```
-3. Trennen Sie mithilfe der Tools Ihrer Virtualisierungsplattform die Daten-Disk von der aktuellen Appliance.
-4. Fügen Sie die Daten-Disk an die neue Appliance mit der größeren Root-Disk an.
+3. Trenne mithilfe der Tools deiner Virtualisierungsplattform die Daten-Disk von der aktuellen Appliance.
+4. Füge die Daten-Disk an die neue Appliance mit der größeren Root-Disk an.
 
-### Größe der Root-Partition mit einer vorhandenen Appliance erhöhen
+## Größe der Root-Partition mit einer vorhandenen Appliance erhöhen
 
 {% warning %}
 
-**Warning:** Before increasing the root partition size, you must put your instance in maintenance mode. Weitere Informationen finden Sie unter „[Wartungsmodus aktivieren und planen](/enterprise/{{ currentVersion }}/admin/guides/installation/enabling-and-scheduling-maintenance-mode)“.
+**Warnung:** Bevor du die Stammpartition vergrößerst, musst du deine Instanz in den Wartungsmodus versetzen. Weitere Informationen findest du unter [Aktivieren und Planen des Wartungsmodus](/enterprise/admin/guides/installation/enabling-and-scheduling-maintenance-mode).
 
 {% endwarning %}
 
-1. Fügen Sie eine neue Disk an Ihre {% data variables.product.prodname_ghe_server %}-Appliance an.
-2. Führen Sie den Befehl `parted` aus, um die Disk zu formatieren:
+1. Füge eine neue Disk an deine {% data variables.product.prodname_ghe_server %}-Appliance an.
+1. Führe den Befehl `lsblk` aus, um den Gerätenamen des neuen Datenträgers zu ermitteln.
+1. Führe den Befehl `parted` aus, um den Datenträger zu formatieren, und ersetze dabei `/dev/xvdg` durch deinen Gerätenamen:
   ```shell
   $ sudo parted /dev/xvdg mklabel msdos
   $ sudo parted /dev/xvdg mkpart primary ext4 0% 50%
   $ sudo parted /dev/xvdg mkpart primary ext4 50% 100%
   ```
-3. Führen Sie den Befehl `ghe-upgrade` aus, um auf der neu partitionierten Disk ein vollständiges, plattformspezifisches Paket zu installieren. Ein universelles Hotpach-Upgrade-Paket wie `github-enterprise-2.11.9.hpkg` funktioniert nicht erwartungsgemäß. After the `ghe-upgrade` command completes, application services will automatically terminate.
+1. Um die Replikation zu beenden, führst du den Befehl `ghe-repl-stop` aus.
+
+   ```shell
+   $ ghe-repl-stop
+   ```
+   
+1. Führe den Befehl `ghe-upgrade` aus, um auf dem neu partitionierten Datenträger ein vollständiges, plattformspezifisches Paket zu installieren. Ein universelles Hotpatch-Upgradepaket wie `github-enterprise-2.11.9.hpkg` funktioniert nicht wie erwartet. Nach Abschluss des Befehls `ghe-upgrade` werden Anwendungsdienste automatisch beendet.
 
   ```shell
   $ ghe-upgrade PACKAGE-NAME.pkg -s -t /dev/xvdg1
   ```
-4. As the root user, using a text editor of your choice, edit the _/etc/fstab_ file, changing the UUID for the `/` mount point to the UUID of the new root drive. You can obtain the UUID of the new root drive with the command `sudo lsblk -f`.
-5. Fahren Sie die Appliance herunter:
+1. Fahre die Appliance herunter:
   ```shell
   $ sudo poweroff
   ```
-6. Entfernen Sie auf dem Hypervisor die alte Root-Disk, und fügen Sie die neue Root-Disk am selben Ort als die alte Root-Disk an.
-7. Starten Sie die Appliance.
-8. Ensure system services are functioning correctly, then release maintenance mode. Weitere Informationen finden Sie unter „[Wartungsmodus aktivieren und planen](/admin/guides/installation/enabling-and-scheduling-maintenance-mode)“.
+1. Entferne auf dem Hypervisor die alte Root-Disk, und füge die neue Root-Disk am selben Ort als die alte Root-Disk an.
+1. Starten Sie die Appliance.
+1. Stelle sicher, dass Systemdienste ordnungsgemäß funktionieren, und gib dann den Wartungsmodus frei. Weitere Informationen findest du unter [Aktivieren und Planen des Wartungsmodus](/admin/guides/installation/enabling-and-scheduling-maintenance-mode).
+
+Wenn deine Appliance für Hochverfügbarkeit oder Georeplikation konfiguriert ist, musst du die Replikation mit `ghe-repl-start` auf jedem Replikatknoten starten, nachdem der Speicher auf allen Knoten aktualisiert wurde.

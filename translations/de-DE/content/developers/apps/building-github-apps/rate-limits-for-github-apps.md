@@ -1,60 +1,90 @@
 ---
-title: Rate limits for GitHub Apps
+title: Rate limits for GitHub Apps (Ratenbegrenzungen für GitHub-Apps)
 intro: '{% data reusables.shortdesc.rate_limits_github_apps %}'
 redirect_from:
-  - /early-access/integrations/rate-limits/
-  - /apps/building-integrations/setting-up-and-registering-github-apps/about-rate-limits-for-github-apps/
-  - /apps/building-github-apps/rate-limits-for-github-apps/
+  - /early-access/integrations/rate-limits
+  - /apps/building-integrations/setting-up-and-registering-github-apps/about-rate-limits-for-github-apps
+  - /apps/building-github-apps/rate-limits-for-github-apps
   - /apps/building-github-apps/understanding-rate-limits-for-github-apps
   - /developers/apps/rate-limits-for-github-apps
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
+shortTitle: Rate limits
+ms.openlocfilehash: 46e1fddabff7d0e9c8d3d21c6a0d18668083ae63
+ms.sourcegitcommit: 478f2931167988096ae6478a257f492ecaa11794
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147710355'
 ---
+{% data reusables.enterprise.rate_limit %}
 
-### Server-to-server requests
+{% data reusables.rest-api.always-check-your-limit %}
 
-{% if currentVersion == "free-pro-team@latest" %}
+{% ifversion ghec or fpt %}
 
-Different server-to-server request rate limits apply to {% data variables.product.prodname_github_app %}s if the app is installed on organizations or repositories owned by a {% data variables.product.prodname_ghe_cloud %} account.
+## Informationen zu Ratengrenzwerten für Apps
 
-#### Normal server-to-server rate limits
-
-{% endif %}
-
-{% data reusables.apps.api-rate-limits-non-ghec %}
-
-{% if currentVersion == "free-pro-team@latest" %}
-
-#### {% data variables.product.prodname_ghe_cloud %} server-to-server rate limits
-
-{% data variables.product.prodname_github_app %}s that are installed on an organization or repository owned by a {% data variables.product.prodname_ghe_cloud %} account and make server-to-server requests have a rate limit of 15,000 requests per hour.
+Die Ratengrenzwerte für {% data variables.product.prodname_github_apps %} und {% data variables.product.prodname_oauth_apps %} hängen von dem Plan für die Organisation ab, in der du die Anwendung installierst. Weitere Informationen findest du unter [{% data variables.product.company_short %}-Produkte](/get-started/learning-about-github/githubs-products) und [Typen von {% data variables.product.company_short %}-Konten](/get-started/learning-about-github/types-of-github-accounts#organization-accounts).
 
 {% endif %}
 
-### User-to-server requests
+## Server-zu-Server-Anforderungen
 
-{% data variables.product.prodname_github_app %}s can also act [on behalf of a user](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-and-authorizing-users-for-github-apps), making user-to-server requests.
+{% ifversion ghec or fpt %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-
-Different user-to-server request rate limits apply to {% data variables.product.prodname_github_app %}s if the app is installed on organizations or repositories owned by a {% data variables.product.prodname_ghe_cloud %} account and the authenticated user also belongs to the same {% data variables.product.prodname_ghe_cloud %} account.
-
-#### Normal user-to-server rate limits
+### Standardmäßige Server-zu-Server-Ratengrenzwerte für {% data variables.product.prodname_dotcom_the_website %}
 
 {% endif %}
 
-User-to-server requests are rate limited at 5,000 requests per hour and per authenticated user. All OAuth applications authorized by that user, personal access tokens owned by that user, and requests authenticated with that user's{% if currentVersion == "github-ae@latest" %} token{% else %} username and password{% endif %} share the same quota of 5,000 requests per hour for that user.
+{% data variables.product.prodname_github_apps %}, die Server-zu-Server-Anforderungen vornehmen, verwenden den minimalen Ratengrenzwert der Installation von 5.000 Anforderungen pro Stunde. Wenn eine Anwendung in einer Organisation mit mehr als 20 Benutzern installiert ist, erhält die Anwendung für jeden Benutzer weitere 50 Anforderungen pro Stunde. Installationen mit mehr als 20 Repositorys erhalten weitere 50 Anforderungen pro Stunde für jedes Repository. Der maximale Ratengrenzwert für eine Installation beträgt 12.500 Anforderungen pro Stunde.
 
-{% if currentVersion == "free-pro-team@latest" %}
+{% ifversion fpt or ghec %}
 
-#### {% data variables.product.prodname_ghe_cloud %} user-to-server rate limits
-
-When a user belongs to a {% data variables.product.prodname_ghe_cloud %} account, user-to-server requests to resources owned by the same {% data variables.product.prodname_ghe_cloud %} account are rate limited at 15,000 requests per hour and per authenticated user. All OAuth applications authorized by that user, personal access tokens owned by that user, and {% data variables.product.prodname_ghe_cloud %} requests authenticated with that user's username and password share the same quota of 5,000 requests per hour for that user.
+### Server-zu-Server-Ratengrenzwerte für {% data variables.product.prodname_ghe_cloud %}
 
 {% endif %}
 
-For more detailed information about rate limits, see "[Rate limiting](/rest/overview/resources-in-the-rest-api#rate-limiting)" for REST API and "[Resource limitations](/graphql/overview/resource-limitations)" for GraphQL API.
+{% ifversion fpt or ghec %}
+
+{% data variables.product.prodname_github_apps %}, die in einer Organisation innerhalb eines Unternehmens auf {% data variables.product.product_location %} installiert sind, unterliegen einem Grenzwert von 15.000 Anforderungen pro Stunde je Organisation, in der die App installiert ist.
+
+{% endif %}
+
+## Benutzer-zu-Server-Anforderungen
+
+{% data variables.product.prodname_github_apps %} und {% data variables.product.prodname_oauth_apps %} können auch im Namen eines Benutzers agieren und Benutzer-zu-Server-Anforderungen ausgeben, nachdem der Benutzer die App autorisiert hat. Weitere Informationen findest du unter [Autorisieren von {% data variables.product.prodname_github_apps %}](/authentication/keeping-your-account-and-data-secure/authorizing-github-apps) und [Autorisieren von {% data variables.product.prodname_oauth_apps %}](/authentication/keeping-your-account-and-data-secure/authorizing-oauth-apps).
+
+Benutzer-zu-Server-Anforderungen von {% data variables.product.prodname_oauth_apps %} werden mit einem OAuth-Token authentifiziert. Benutzer-zu-Server-Anforderungen von {% data variables.product.prodname_github_apps %} werden entweder mit einem OAuth-Token oder einem ablaufenden Benutzerzugriffstoken authentifiziert. Weitere Informationen findest du unter [Identifizieren und Autorisieren von Benutzer*innen für {% data variables.product.prodname_github_apps %}](/developers/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps#identifying-and-authorizing-users-for-github-apps) und [Autorisieren von {% data variables.product.prodname_oauth_apps %}](/developers/apps/building-oauth-apps/authorizing-oauth-apps).
+
+{% ifversion fpt or ghec %}
+
+### Standardmäßige Benutzer-zu-Server-Ratengrenzwerte für {% data variables.product.prodname_dotcom_the_website %}
+
+{% endif %}
+
+{% ifversion ghec %}
+
+Die Ratengrenzwerte für Benutzer-zu-Server-Anforderungen, die von {% data variables.product.prodname_github_apps %} ausgegeben werden, hängen davon ab, wo die App installiert ist. Wenn die App in Organisationen oder Repositorys installiert wird, die sich im Besitz eines Unternehmens in {% data variables.product.product_location %} befinden, dann ist die Rate höher als bei Installationen außerhalb eines Unternehmens.
+
+{% endif %}
+
+{% data reusables.apps.user-to-server-rate-limits %}
+
+{% ifversion fpt or ghec %}
+
+### Benutzer-zu-Server-Ratengrenzwerte für {% data variables.product.prodname_ghe_cloud %}
+
+{% data reusables.apps.user-to-server-rate-limits-ghec %}
+
+{% endif %}
+
+## Weitere Informationsquellen
+
+- [Ratengrenzwerte](/rest/overview/resources-in-the-rest-api#rate-limiting) in der REST-API-Dokumentation
+- [Ressourcenbeschränkungen](/graphql/overview/resource-limitations) in der GraphQL-API-Dokumentation

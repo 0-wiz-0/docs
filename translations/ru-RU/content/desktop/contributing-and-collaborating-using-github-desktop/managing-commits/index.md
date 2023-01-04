@@ -1,8 +1,8 @@
 ---
-title: Managing commits
-intro: 'You can use {% data variables.product.prodname_desktop %} to amend, cherry-pick, reorder, revert, and squash commits.'
+title: Управление фиксациями
+intro: 'Вы можете использовать {% data variables.product.prodname_desktop %} для изменения, отбора изменений, переупорядочения, отмены изменений фиксаций со сжатием.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
 children:
   - /reverting-a-commit
   - /cherry-picking-a-commit
@@ -10,4 +10,11 @@ children:
   - /squashing-commits
   - /amending-a-commit
   - /managing-tags
+ms.openlocfilehash: ca229074be505abf1db9865807c38c95bd11e572
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145117499'
 ---
+

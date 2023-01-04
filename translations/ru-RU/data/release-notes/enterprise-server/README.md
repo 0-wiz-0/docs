@@ -1,37 +1,54 @@
-# Release notes for GitHub Enterprise Server
+---
+ms.openlocfilehash: bf7a1cdb9c8b1300ef8ba8ab2dd427a9b5d28128
+ms.sourcegitcommit: 6185352bc563024d22dee0b257e2775cadd5b797
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 12/09/2022
+ms.locfileid: "148193464"
+---
+# Заметки о выпуске сервера GitHub Enterprise
 
-Rendered here: https://docs.github.com/en/enterprise-server@latest/admin/release-notes
+Отрисовывается здесь: https://docs.github.com/en/enterprise-server@latest/admin/release-notes
 
-## How it works
+## Добавление заметок о выпуске в нерекомендуемый выпуск GitHub Enterprise Server
 
-### Placeholder content file
+Во время устаревания выпуска GitHub Enterprise Server в рамках [этого шаблона проблемы](/.github/actions-scripts/enterprise-server-issue-templates/deprecation-issue.md) документация по проектированию удаляет yaml-файлы с заметками о выпуске версии из `github/docs-internal`.
 
-A content file exists in `content/admin/release-notes.md`. It has a special frontmatter property `layout: release-notes` and no Markdown content. The source of the release notes comes from YAML data.
+Если заинтересованные лица запрашивают обновление устаревших заметок о выпуске, вы можете обновить заметки, выполнив следующие действия.
 
-### YAML source
+1. Просмотрите долго выполняющуюся ветвь <code>enterprise-<em>VERSION</em>-release</code> и создайте запрос на вытягивание, чтобы обновить заметки о выпуске для устаревшей версии в этой ветви.
+2. Обратитесь к #docs инженерии, чтобы запросить повторное извлечение и обновление содержимого, хранящегося в Azure. См. раздел о повторном извлечении содержимого в [контрольном списке для нерекомендуемого использования](/.github/actions-scripts/enterprise-server-issue-templates/deprecation-issue.md).
 
-The source data for the release notes lives in this directory (`data/release-notes/enterprise-server`).
+## Принцип работы
 
-The directories are named by GHES release number (with a hyphen instead of a period).
+### Файл содержимого заполнителя
 
-The YAML files in each directory are named by patch number. Some patch filenames may end with `-rc<num>.yml`, which means it's a release candidate. A release candidate file also requires `release_candidate: true` in the YAML data.
+Файл содержимого существует в `content/admin/release-notes.md`. Он имеет специальное свойство `layout: release-notes` frontmatter без содержимого Markdown. Источник заметок о выпуске можно получить из данных YAML.
 
-Release notes of deprecated GHES versions (see `lib/enterprise-server-releases.js`) are **not** removed from the site and will always be displayed alongside currently supported versions.
+### Источник YAML
 
-Note that patch files can be deprecated individually (i.e., hidden on the docs site) by an optional `deprecated: true` property.
+Исходные данные для заметок о выпуске находятся в этом каталоге (`data/release-notes/enterprise-server`).
 
-### Middleware processing
+Имена каталогов содержат номер выпуска GHES (с дефисом вместо точки).
 
-The YAML data is processed and sorted by `middleware/contextualizers/release-notes.js` and added to the `context` object.
+Файлы YAML в каждом каталоге именуются по номеру исправления. Некоторые имена файлов исправлений могут заканчиваться `-rc<num>.yml`, это означает, что это релиз-кандидат. Для файла релиз-кандидата также требуется `release_candidate: true` в данных YAML.
 
-### Layouts
+Заметки о выпуске нерекомендуемых версий GHES (см `lib/enterprise-server-releases.js`) **не** удаляются с сайта, и всегда будут отображаться вместе с текущими поддерживаемыми версиями.
 
-The `context` object data is rendered by `layouts/release-notes.html` and `includes/enterprise-server-release-notes.html`.
+Обратите внимание, что файлы исправлений могут быть нерекомендуемыми по отдельности (т. е. скрытыми на сайте документации) с указанием необязательного свойства `deprecated: true`.
 
-The release notes page has a custom design with CSS in `stylesheets/release-notes.scss` and client-side JavaScript in `javascripts/release-notes.js`.
+### Обработка ПО промежуточного слоя
 
-### Schema
+Данные YAML обрабатываются и сортируются по `middleware/contextualizers/ghes-release-notes.js` и добавляются в объект `context`.
 
-The schema that validates the YAML data lives in `tests/helpers/schemas/ghes-release-notes-schema.js`. See the schema file to find out the required and optional properties.
+### Макеты
 
-The schema is exercised by a test in `tests/linting/lint-files.js`. The test will fail if the data does not pass validation.
+Данные объекта `context` отрисовывается с помощью `components/release-notes`.
+
+Страница заметок о выпуске имеет пользовательский дизайн с использованием CSS в `stylesheets/release-notes.scss`.
+
+### схема
+
+Схема, проверяющая, находятся ли данные YAML в `tests/helpers/schemas/release-notes-schema.js`. Просмотрите файл схемы, чтобы найти обязательные и необязательные свойства.
+
+Схема выполняется тестом в `tests/linting/lint-files.js`. Если данные не проходят проверку, тест завершится ошибкой.

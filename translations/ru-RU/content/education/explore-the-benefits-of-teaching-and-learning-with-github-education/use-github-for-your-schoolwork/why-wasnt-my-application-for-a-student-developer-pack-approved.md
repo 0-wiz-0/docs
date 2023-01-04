@@ -1,72 +1,78 @@
 ---
-title: Why wasn't my application for a student developer pack approved?
-intro: 'Review common reasons that applications for the {% data variables.product.prodname_student_pack %} are not approved and learn tips for reapplying successfully.'
+title: Почему моя заявка на пакет средств разработки для учащихся не была утверждена?
+intro: Ознакомьтесь с распространенными причинами, по которым приложения для {% data variables.product.prodname_student_pack %} не были утверждены, и изучите рекомендации по повторному применению.
 redirect_from:
-  - /education/teach-and-learn-with-github-education/why-wasnt-my-application-for-a-student-developer-pack-approved
-  - /github/teaching-and-learning-with-github-education/why-wasnt-my-application-for-a-student-developer-pack-approved
-  - /articles/why-was-my-application-for-a-student-developer-pack-denied/
-  - /articles/why-wasn-t-my-application-for-a-student-developer-pack-approved
-  - /articles/why-wasnt-my-application-for-a-student-developer-pack-approved
-  - /education/explore-the-benefits-of-teaching-and-learning-with-github-education/why-wasnt-my-application-for-a-student-developer-pack-approved
+- /education/teach-and-learn-with-github-education/why-wasnt-my-application-for-a-student-developer-pack-approved
+- /github/teaching-and-learning-with-github-education/why-wasnt-my-application-for-a-student-developer-pack-approved
+- /articles/why-was-my-application-for-a-student-developer-pack-denied
+- /articles/why-wasn-t-my-application-for-a-student-developer-pack-approved
+- /articles/why-wasnt-my-application-for-a-student-developer-pack-approved
+- /education/explore-the-benefits-of-teaching-and-learning-with-github-education/why-wasnt-my-application-for-a-student-developer-pack-approved
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: Application not approved
+ms.openlocfilehash: 91c8ce9342bd1485b81770381b8ea195b1fa0c13
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145112256"
 ---
-
 {% tip %}
 
-**Tip:** {% data reusables.education.about-github-education-link %}
+**Подсказка**. {% data reusables.education.about-github-education-link %}
 
 {% endtip %}
 
-### Unclear academic affiliation documents
+## <a name="unclear-academic-affiliation-documents"></a>Неубедительные документы об академической принадлежности
 
-If the dates or schedule mentioned in your uploaded image do not match our eligibility criteria, we require further proof of your academic status.
+Если даты или расписание, указанные на отправленном изображении, не подходят под наши критерии соответствия, нам потребуется дополнительное подтверждение вашего статуса учащегося.
 
-If the image you uploaded doesn't clearly identify your current academic status or if the uploaded image is blurry, we require further proof of your academic status. {% data reusables.education.upload-proof-reapply %}
-
-{% data reusables.education.pdf-support %}
-
-### Using an academic email with an unverified domain
-
-If your academic email address has an unverified domain, we require further proof of your academic status. {% data reusables.education.upload-proof-reapply %}
+Если загруженное изображение нечетко определяет ваш текущий статус учащегося или загруженное изображение размыто, нам потребуется дополнительное подтверждение вашего статуса учащегося. {% data reusables.education.upload-proof-reapply %}
 
 {% data reusables.education.pdf-support %}
 
-### Using an academic email from a school with lax email policies
+## <a name="using-an-academic-email-with-an-unverified-domain"></a>Использование рабочей электронной почты с непроверенным доменом
 
-If your school issues email addresses prior to paid student enrollment, we require further proof of your academic status. {% data reusables.education.upload-proof-reapply %}
+Если ваш адрес электронной почты учащегося имеет неподтвержденный домен, нам потребуется дополнительное подтверждение вашего статуса учащегося. {% data reusables.education.upload-proof-reapply %}
 
 {% data reusables.education.pdf-support %}
 
-If you have other questions or concerns about the school domain please ask your school IT staff to contact us.
+## <a name="using-an-academic-email-from-a-school-with-lax-email-policies"></a>Использование рабочей электронной почты из школы с недостаточными политиками электронной почты
 
-### Academic email address already used
+Если ваше учебное заведение выдает адреса электронной почты к платной регистрации учащихся, мы требуем дальнейшего подтверждения вашего статуса учащегося. {% data reusables.education.upload-proof-reapply %}
 
-If your academic email address was already used to request a {% data variables.product.prodname_student_pack %} for a different {% data variables.product.prodname_dotcom %} account, you cannot reuse the academic email address to successfully apply for another {% data variables.product.prodname_student_pack %}.
+{% data reusables.education.pdf-support %}
+
+Если у вас есть другие вопросы или опасения по поводу домена учебного заведения, обратитесь к ИТ-персоналу учебного заведения, чтобы связаться с нами.
+
+## <a name="academic-email-address-already-used"></a>Адрес электронной почты учащегося уже используется
+
+Если ваш адрес электронной почты учащегося уже использовался для запроса {% data variables.product.prodname_student_pack %} для другой учетной записи {% data variables.product.prodname_dotcom %}, вы не можете повторно использовать адрес электронной почты учащегося, чтобы успешно подать заявку на другой {% data variables.product.prodname_student_pack %}.
 
 {% note %}
 
-**Note:** It is against the {% data variables.product.prodname_dotcom %} [Terms of Service](/articles/github-terms-of-service/#3-account-requirements) to maintain more than one individual account.
+**Примечание.** Это касается [Условия предоставления услуг](/articles/github-terms-of-service/#3-account-requirements) {% data variables.product.prodname_dotcom %} для обслуживания нескольких отдельных учетных записей.
 
 {% endnote %}
 
-If you have more than one personal user account, you must merge your accounts. To retain the discount, keep the account that was granted the discount. You can rename the retained account and keep your contribution history by adding all your email addresses to the retained account.
+Если у вас несколько личных учетных записей, необходимо их объединить. Чтобы сохранить скидку, сохраните учетную запись, для которой была предоставлена эта скидка. Вы можете переименовать сохраненную учетную запись и сохранить историю своих вкладов, добавив все свои адреса электронной почты в сохраненную учетную запись.
 
-Дополнительные сведения см. в:
-- "[Merging multiple user accounts](/articles/merging-multiple-user-accounts)"
-- "[Changing your {% data variables.product.prodname_dotcom %} username](/articles/changing-your-github-username)"
-- "[Adding an email address to your {% data variables.product.prodname_dotcom %} account](/articles/adding-an-email-address-to-your-github-account)"
+Дополнительные сведения см. в разделе:
+- [Объединение нескольких личных учетных записей](/articles/merging-multiple-user-accounts)
+- [Изменение имени пользователя {% data variables.product.prodname_dotcom %}](/articles/changing-your-github-username)
+- [Добавление адреса электронной почты в учетную запись {% data variables.product.prodname_dotcom %}](/articles/adding-an-email-address-to-your-github-account).
 
-### Ineligible student status
+## <a name="ineligible-student-status"></a>Несоответствующий требованиям статус учащегося
 
-You're ineligible for a {% data variables.product.prodname_student_pack %} if:
-- You're enrolled in an informal learning program that is not part of the [{% data variables.product.prodname_campus_program %}](https://education.github.com/schools) and not enrolled in a degree or diploma granting course of study.
-- You're pursuing a degree which will be terminated in the current academic session.
-- You're under 13 years old.
+Вы не соответствуете требованиям для {% data variables.product.prodname_student_pack %}, если:
+- Вы зачислены в неформальную программу обучения, которая не является частью [{% data variables.product.prodname_campus_program %}](https://education.github.com/schools) и не зарегистрирована в качестве учебного курса, по окончанию которого присваивается степень или выдается диплом.
+- Получение степени будет завершено во время текущей академической сессии.
+- Вам не исполнилось 13 лет.
 
-Your instructor may still apply for a {% data variables.product.prodname_education %} discount for classroom use. If you're a student at a coding school or bootcamp, you will become eligible for a {% data variables.product.prodname_student_pack %} if your school joins the [{% data variables.product.prodname_campus_program %}](https://education.github.com/schools).
+Ваш преподаватель по-прежнему может подать заявку на скидку {% data variables.product.prodname_education %} для использования в классе. Если вы учащийся в школе программирования или учебном лагере, вы получите право на {% data variables.product.prodname_student_pack %}, если ваше учебное заведение присоединится к [{% data variables.product.prodname_campus_program %}](https://education.github.com/schools).
 
-### Дополнительная литература
+## <a name="further-reading"></a>Дополнительные материалы
 
-- "[How to get the GitHub Student Developer Pack without a student ID](https://github.blog/2019-07-30-how-to-get-the-github-student-developer-pack-without-a-student-id/)" on {% data variables.product.prodname_blog %}
-- "[Apply for a student developer pack](/education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-a-student-developer-pack)"
+- [Получение пакета средств разработки GitHub для учащихся без идентификатора учащегося](https://github.blog/2019-07-30-how-to-get-the-github-student-developer-pack-without-a-student-id/) ({% data variables.product.prodname_blog %})
+- [Подача заявки на пакет средств разработки для учащихся](/education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-a-student-developer-pack)

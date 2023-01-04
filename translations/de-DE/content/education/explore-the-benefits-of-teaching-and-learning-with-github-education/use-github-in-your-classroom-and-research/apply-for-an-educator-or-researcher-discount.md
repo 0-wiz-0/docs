@@ -1,59 +1,40 @@
 ---
-title: Apply for an educator or researcher discount
-intro: 'Wenn Sie ein Lehrer oder Forscher sind, können Sie beantragen, {% data variables.product.prodname_team %} kostenlos für das Konto Ihrer Organisation zu erhalten.'
+title: Beantragen eines Rabatts für Lehr- und Forschungskräfte
+intro: Wenn du ein Lehrer oder Forscher bist, kannst du beantragen, {% data variables.product.prodname_team %} kostenlos für das Konto deiner Organisation zu erhalten.
 redirect_from:
-  - /education/teach-and-learn-with-github-education/apply-for-an-educator-or-researcher-discount
-  - /github/teaching-and-learning-with-github-education/applying-for-an-educator-or-researcher-discount
-  - /articles/applying-for-a-classroom-discount/
-  - /articles/applying-for-a-discount-for-your-school-club/
-  - /articles/applying-for-an-academic-research-discount/
-  - /articles/applying-for-a-discount-for-your-first-robotics-team/
-  - /articles/applying-for-an-educator-or-researcher-discount
-  - /education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-an-educator-or-researcher-discount
+- /education/teach-and-learn-with-github-education/apply-for-an-educator-or-researcher-discount
+- /github/teaching-and-learning-with-github-education/applying-for-an-educator-or-researcher-discount
+- /articles/applying-for-a-classroom-discount
+- /articles/applying-for-a-discount-for-your-school-club
+- /articles/applying-for-an-academic-research-discount
+- /articles/applying-for-a-discount-for-your-first-robotics-team
+- /articles/applying-for-an-educator-or-researcher-discount
+- /education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-an-educator-or-researcher-discount
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: Apply for a discount
+ms.openlocfilehash: 1cc101b2008846a882c347bb87f1744110849bb3
+ms.sourcegitcommit: dc42bb4a4826b414751ffa9eed38962c3e3fea8e
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145283464"
 ---
-
-### Informationen zu Lehrer- und Forscherrabatten
+## <a name="about-educator-and-researcher-discounts"></a>Informationen zu Lehrer- und Forscherrabatten
 
 {% data reusables.education.about-github-education-link %}
 
 {% data reusables.education.educator-requirements %}
 
-For more information about user accounts on {% data variables.product.product_name %}, see "[Signing up for a new {% data variables.product.prodname_dotcom %} account](/github/getting-started-with-github/signing-up-for-a-new-github-account)."
+Weitere Informationen zum Erstellen eines Kontos auf {% data variables.product.product_name %} findest du unter [Registrieren für ein neues {% data variables.product.prodname_dotcom %}-Konto](/github/getting-started-with-github/signing-up-for-a-new-github-account).
 
-### Einen Lehrer- oder Forscherrabatt beantragen
+## <a name="applying-for-an-educator-or-researcher-discount"></a>Einen Lehrer- oder Forscherrabatt beantragen
 
-{% data reusables.education.benefits-page %}
-{% data reusables.education.click-get-teacher-benefits %}
-{% data reusables.education.select-email-address %}
-{% data reusables.education.upload-proof-status %}
-{% data reusables.education.school-name %}
-{% data reusables.education.plan-to-use-github %}
-{% data reusables.education.submit-application %}
+{% data reusables.education.benefits-page %} {% data reusables.education.click-get-teacher-benefits %} {% data reusables.education.select-email-address %} {% data reusables.education.upload-proof-status %} {% data reusables.education.school-name %} {% data reusables.education.plan-to-use-github %} {% data reusables.education.submit-application %}
 
-### Ein Upgrade Deiner Organisation durchführen
+## <a name="further-reading"></a>Weiterführende Themen
 
-Nachdem Dein Antrag für einen Lehrer- oder Forscherrabatt genehmigt wurde, kannst Du die von Dir mit Deiner Lerngemeinschaft benutzte Organisation auf {% data variables.product.prodname_team %} hochstufen, was die kostenlose Nutzung von unbegrenzten Benutzern und privaten Repositorys erlaubt. Du kannst eine vorhandene Organisation hochstufen oder eine neue Organisation für das Hochstufen erstellen.
-
-#### Hochstufen einer vorhandenen Organisation
-
-{% data reusables.education.upgrade-page %}
-{% data reusables.education.upgrade-organization %}
-
-#### Hochstufen einer neuen Organisation
-
-{% data reusables.education.upgrade-page %}
-1. Klicke auf {% octicon "plus" aria-label="The plus symbol" %} **Create an organization** (Erstelle eine Organisation). ![Schaltfläche „Create an organization“ (Eine Organisation erstellen)](/assets/images/help/education/create-org-button.png)
-3. Lies die Informationen, dann klicke auf **Create organization** (Organisation erstellen). ![Schaltfläche „Create organization“ (Organisation erstellen)](/assets/images/help/education/create-organization-button.png)
-4. Klicke unter "Choose your plan" (Wähle Deinen Plan), auf **Choose {% data variables.product.prodname_free_team %}** (Wähle Produkt).
-5. Folge den Anweisungen, um Deine Organisation zu erstellen.
-{% data reusables.education.upgrade-page %}
-{% data reusables.education.upgrade-organization %}
-
-### Weiterführende Informationen
-
-- „[Warum wurde mein Antrag eines Lehrer- oder Forscherrabatts nicht genehmigt?](/articles/why-wasn-t-my-application-for-an-educator-or-researcher-discount-approved)“
+- [Warum wurde mein Antrag auf einen Rabatt für Lehr- und Forschungskräfte nicht genehmigt?](/articles/why-wasn-t-my-application-for-an-educator-or-researcher-discount-approved)
 - [{% data variables.product.prodname_education %}](https://education.github.com)
-- [{% data variables.product.prodname_classroom %}-Videos](https://classroom.github.com/videos)
-- [{% data variables.product.prodname_education_community %}](https://education.github.community/)
+- [{% data variables.product.prodname_classroom %} Videos](https://classroom.github.com/videos)
+- [{% data variables.product.prodname_education_community %}]({% data variables.product.prodname_education_forum_link %})

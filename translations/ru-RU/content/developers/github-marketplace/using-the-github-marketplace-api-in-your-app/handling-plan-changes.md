@@ -1,65 +1,71 @@
 ---
-title: Handling plan changes
-intro: 'Upgrading or downgrading a {% data variables.product.prodname_marketplace %} app triggers the [`marketplace_purchase` event](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) webhook with the `changed` action, which kicks off the upgrade or downgrade flow.'
+title: Обработка изменений плана
+intro: 'Повышение или понижение уровня приложения {% data variables.product.prodname_marketplace %} запускает веб-перехватчик [`marketplace_purchase` события](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) с действием `changed`, которое запускает поток повышение или понижение уровня.'
 redirect_from:
-  - /apps/marketplace/administering-listing-plans-and-user-accounts/upgrading-or-downgrading-plans/
-  - /apps/marketplace/integrating-with-the-github-marketplace-api/upgrading-and-downgrading-plans/
+  - /apps/marketplace/administering-listing-plans-and-user-accounts/upgrading-or-downgrading-plans
+  - /apps/marketplace/integrating-with-the-github-marketplace-api/upgrading-and-downgrading-plans
   - /marketplace/integrating-with-the-github-marketplace-api/upgrading-and-downgrading-plans
   - /developers/github-marketplace/handling-plan-changes
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+ms.openlocfilehash: fd5cc838c01130ab9e8a1f7c040b254655cbaef0
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145135863'
 ---
+Дополнительные сведения о повышении и понижении уровня в контексте выставления счетов см. в разделе [Интеграция с API {% data variables.product.prodname_marketplace %}](/marketplace/integrating-with-the-github-marketplace-api/).
 
-For more information about upgrading and downgrading as it relates to billing, see "[Integrating with the {% data variables.product.prodname_marketplace %} API](/marketplace/integrating-with-the-github-marketplace-api/)."
+## Шаг 1. Событие изменения плана ценообразования
 
-### Step 1. Pricing plan change event
+GitHub отправляет веб-перехватчик `marketplace_purchase` с действием `changed` в приложение, когда клиент вносит такие изменения в свой заказ {% data variables.product.prodname_marketplace %}:
+* Повышение уровня до более дорогого плана или понижения до более дешевого тарифного плана.
+* Добавляет или удаляет рабочие места из существующего плана.
+* Вносит изменения в цикл выставления счетов.
 
-GitHub send the `marketplace_purchase` webhook with the `changed` action to your app, when a customer makes any of these changes to their {% data variables.product.prodname_marketplace %} order:
-* Upgrades to a more expensive pricing plan or downgrades to a lower priced plan.
-* Adds or removes seats to their existing plan.
-* Changes the billing cycle.
+GitHub отправит веб-перехватчик, когда изменение вступит в силу. Например, когда клиент понижает уровень тарифного плана, GitHub отправляет веб-перехватчик в конце цикла выставления счетов клиента. GitHub отправляет веб-перехватчик в приложение сразу, если клиент повышает уровень плана, чтобы сразу разрешить ему доступ к новой службе. Если клиент переходит с месячного на годовой цикл выставления счетов, это считается повышением уровня. Дополнительные сведения о действиях, которые считаются повышением или понижением уровня, см. в разделе [Выставление счетов клиентам в {% data variables.product.prodname_marketplace %}](/marketplace/selling-your-app/billing-customers-in-github-marketplace/).
 
-GitHub will send the webhook when the change takes effect. For example, when a customer downgrades a plan, GitHub sends the webhook at the end of the customer's billing cycle. GitHub sends a webhook to your app immediately when a customer upgrades their plan to allow them access to the new service right away. If a customer switches from a monthly to a yearly billing cycle, it's considered an upgrade. See "[Billing customers in {% data variables.product.prodname_marketplace %}](/marketplace/selling-your-app/billing-customers-in-github-marketplace/)" to learn more about what actions are considered an upgrade or downgrade.
+Ознакомьтесь с `effective_date`, `marketplace_purchase` и `previous_marketplace_purchase` в веб-перехватчике `marketplace_purchase`, чтобы обновить дату начала действия плана и внести изменения в цикл выставления счетов и тарифный план клиента. Пример полезных данных `marketplace_purchase` см. в разделе [{% data variables.product.prodname_marketplace %}](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/).
 
-Read the `effective_date`, `marketplace_purchase`, and `previous_marketplace_purchase` from the `marketplace_purchase` webhook to update the plan's start date and make changes to the customer's billing cycle and pricing plan. See "[{% data variables.product.prodname_marketplace %} webhook events](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/)" for an example of the `marketplace_purchase` event payload.
+Если для вашего приложения предлагаются бесплатные пробные версии, вы получите веб-перехватчик `marketplace_purchase` с помощью действия `changed` после истечения срока действия бесплатной пробной версии. Если срок действия бесплатной пробной версии клиента истекает, переведите клиент с бесплатной пробной версии на платный план.
 
-If your app offers free trials, you'll receive the `marketplace_purchase` webhook with the `changed` action when the free trial expires. If the customer's free trial expires, upgrade the customer to the paid version of the free-trial plan.
+## Шаг 2. Обновление учетных записей клиентов
 
-### Step 2. Updating customer accounts
+Вам потребуется обновить сведения об учетной записи клиента, чтобы отразить цикл выставления счетов и изменения в плане ценообразования, внесенные клиентом в свой заказ {% data variables.product.prodname_marketplace %}. Отображение повышения уровня для тарифного плана `seat_count` (для тарифных планов с оплатой по числу единиц) и цикла выставления счетов на веб-сайте приложения Marketplace или в пользовательском интерфейсе приложения при получении веб-перехватчика действия `changed`.
 
-You'll need to update the customer's account information to reflect the billing cycle and pricing plan changes the customer made to their {% data variables.product.prodname_marketplace %} order. Display upgrades to the pricing plan, `seat_count` (for per-unit pricing plans), and billing cycle on your Marketplace app's website or your app's UI when you receive the `changed` action webhook.
+Когда клиент понижает уровень тарифного плана, рекомендуется проверить, не превысил ли клиент лимиты для плана, и взаимодействовать с клиентом напрямую в пользовательском интерфейсе или связаться с ним по телефону или по электронной почте.
 
-When a customer downgrades a plan, it's recommended to review whether a customer has exceeded their plan limits and engage with them directly in your UI or by reaching out to them by phone or email.
-
-To encourage people to upgrade you can display an upgrade URL in your app's UI. See "[About upgrade URLs](#about-upgrade-urls)" for more details.
+Чтобы мотивировать пользователей повысить уровень, вы можете настроить отображение URL-адреса обновления в пользовательском интерфейсе приложения. Дополнительные сведения см. в разделе [Сведения об URL-адресах обновления](#about-upgrade-urls).
 
 {% note %}
 
-**Note:** We recommend performing a periodic synchronization using `GET /marketplace_listing/plans/:id/accounts` to ensure your app has the correct plan, billing cycle information, and unit count (for per-unit pricing) for each account.
+**Примечание.** Мы рекомендуем регулярно выполнять синхронизацию с помощью `GET /marketplace_listing/plans/:id/accounts`, чтобы убедиться, что приложение использует правильный план, информацию о цикле выставления счетов и количество единиц (для тарифных планов с оплатой по числу единиц) для каждой учетной записи.
 
 {% endnote %}
 
-### Failed upgrade payments
+## Ошибка платежа при повышении уровня
 
 {% data reusables.marketplace.marketplace-failed-purchase-event %}
 
-### About upgrade URLs
+## Сведения об URL-адресах обновления
 
-You can redirect users from your app's UI to upgrade on GitHub using an upgrade URL:
+Вы можете перенаправить пользователей из пользовательского интерфейса приложения, чтобы повысить уровень в GitHub с помощью URL-адреса обновления:
 
-```
+```text
 https://www.github.com/marketplace/<LISTING_NAME>/upgrade/<LISTING_PLAN_NUMBER>/<CUSTOMER_ACCOUNT_ID>
 ```
 
-For example, if you notice that a customer is on a 5 person plan and needs to move to a 10 person plan, you could display a button in your app's UI that says "Here's how to upgrade" or show a banner with a link to the upgrade URL. The upgrade URL takes the customer to your listing plan's upgrade confirmation page.
+Например, если вы заметили, что клиент использует тарифный план, рассчитанный на 5 пользователей, и ему требуется перейти на план на 10 пользователей, можно отобразить в пользовательском интерфейсе приложения кнопку с текстом "Действия для повышения уровня" или баннер со ссылкой на URL-адрес обновления. URL-адрес обновления перенаправляет клиента на страницу, где можно подтвердить повышение уровня тарифного плана.
 
-Use the `LISTING_PLAN_NUMBER` for the plan the customer would like to purchase. When you create new pricing plans they receive a `LISTING_PLAN_NUMBER`, which is unique to each plan across your listing, and a `LISTING_PLAN_ID`, which is unique to each plan in the {% data variables.product.prodname_marketplace %}. You can find these numbers when you [List plans](/rest/reference/apps#list-plans), which identifies your listing's pricing plans. Use the `LISTING_PLAN_ID` and the "[List accounts for a plan](/rest/reference/apps#list-accounts-for-a-plan)" endpoint to get the `CUSTOMER_ACCOUNT_ID`.
+Используйте `LISTING_PLAN_NUMBER` для тарифного плана, который клиент хочет приобрести. При создании новых тарифных планов они получают `LISTING_PLAN_NUMBER`, который является уникальным для каждого плана в листинге, а также `LISTING_PLAN_ID`, который также является уникальным для каждого плана в {% data variables.product.prodname_marketplace %}. Эти цифры можно найти при [перечислении планов](/rest/reference/apps#list-plans), которые идентифицируют тарифные планы в вашем листинге. Используйте конечную точку `LISTING_PLAN_ID` и [Список учетных записей для плана](/rest/reference/apps#list-accounts-for-a-plan), чтобы получить `CUSTOMER_ACCOUNT_ID`.
 
 
 {% note %}
 
-**Note:** If your customer upgrades to additional units (such as seats), you can still send them to the appropriate plan for their purchase, but we are unable to support `unit_count` parameters at this time.
+**Примечание.** Если ваш клиент повышает уровень с учетом дополнительных единиц (например, рабочих мест), вы по-прежнему можете перевести его на страницу, где он может приобрести нужный план, но мы не поддерживаем параметры `unit_count` в настоящее время.
 
 {% endnote %}

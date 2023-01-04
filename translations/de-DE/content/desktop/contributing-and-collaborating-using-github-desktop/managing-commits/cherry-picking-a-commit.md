@@ -1,24 +1,30 @@
 ---
-title: Cherry-picking a commit
-intro: You can pick a specific commit on one branch and copy the commit to another branch.
+title: Cherrypicking eines Commits
+intro: Du kannst einen bestimmten Commit in einem Branch auswählen und diesen in einen anderen Branch kopieren.
 versions:
-  free-pro-team: '*'
+  fpt: '*'
 redirect_from:
   - /desktop/contributing-and-collaborating-using-github-desktop/cherry-picking-a-commit
+ms.openlocfilehash: 6dad1615b9a8c224c3648be60759b5bb6ccf0d62
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145090132'
 ---
+## Informationen zum Git-Cherrypicking
 
-### About Git cherry-pick
+Du kannst das Cherrypicking für einen Commit in einem Branch ausführen, um eine Kopie des Commits mit den gleichen Änderungen an einem anderen Branch zu erstellen. Wenn du Änderungen am falschen Branch committest oder dieselben Änderungen an einem anderen Branch vornehmen möchtest, kannst du den Commit auswählen, um die Änderungen auf einen andere Branch anzuwenden. Du kannst das Cherrypicking auch verwenden, um bestimmte Änderungen anzuwenden, bevor du bereit bist, einen Pull Request zu erstellen oder zusammenzuführen. Wenn du beispielsweise eine Fehlerkorrektur für einen Featurebranch ausführst, kannst du den Commit mit der Fehlerkorrektur für andere Branches deines Projekts auswählen.
 
-You can cherry-pick a commit on one branch to create a copy of the commit with the same changes on another branch. If you commit changes to the wrong branch or want to make the same changes to another branch, you can cherry-pick the commit to apply the changes to another branch. You can also use cherry-picking to apply specific changes before you are ready to create or merge a pull request. For example, if you commit a bug fix to a feature branch, you can cherry-pick the commit with the bug fix to other branches of your project.
+Du kannst das Cherrypicking auch verwenden, wenn du mit einem Team zusammenarbeitest. Einige Projekte umfassen Beiträge von Cherrypicking-Commits. Weitere Informationen findest du unter [Verteiltes Git – Verwalten eines Projekts](https://git-scm.com/book/en/v2/Distributed-Git-Maintaining-a-Project#_rebase_cherry_pick) in der Git-Dokumentation.
 
-You can also use cherry-picking when collaborating with a team. Some projects incorporate contributions by cherry-picking commits. For more information, see [Distributed Git - Maintaining a Project](https://git-scm.com/book/en/v2/Distributed-Git-Maintaining-a-Project#_rebase_cherry_pick) in the Git documentation.
-
-### Cherry-picking a commit
+## Cherrypicking eines Commits
 
 {% data reusables.desktop.current-branch-menu %}
-2. In the list of branches, click the branch that has the commit that you want to cherry-pick.
+2. Klicke in der Liste der Branches auf den Branch, der den Commit hat, den du zum Cherrypicking verwenden möchtest.
 {% data reusables.desktop.history-tab %}
-4. Drag the commit that you want to cherry-pick to the {% octicon "git-branch" aria-label="The branch icon" %} **Current Branch** menu and drop the commit on the branch that you want to copy the commit to. ![Dragging a commit to another branch in the Current Branch menu](/assets/images/help/desktop/cherry-picking.png)
+4. Ziehe den Commit, den für das Cherrypicking verwenden möchtest, auf das Menü {% octicon "git-branch" aria-label="The branch icon" %} **Current Branch** (Aktueller Branch) und lege den Commit auf dem Branch ab, auf den du den Commit kopieren möchtest.
+  ![Ziehen eines Commits auf einen anderen Branch im Menü „Current Branch“ (Aktueller Branch)](/assets/images/help/desktop/cherry-picking.png)
 
-### Weiterführende Informationen
-- [git-cherry-pick](https://git-scm.com/docs/git-cherry-pick) in the Git documentation
+## Weitere Informationsquellen
+- [Git-Cherrypicking](https://git-scm.com/docs/git-cherry-pick) in der Git-Dokumentation

@@ -1,7 +1,17 @@
-You need an access token to publish, install, and delete packages.
+---
+ms.openlocfilehash: b189db919701cb53e317e1d7852528ab0bb79b79
+ms.sourcegitcommit: d697e0ea10dc076fd62ce73c28a2b59771174ce8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/20/2022
+ms.locfileid: "148098374"
+---
+{% данных reusables.package_registry.packages-classic-pat-only %}
 
-You can use a personal access token (PAT) to authenticate to {% data variables.product.prodname_registry %} or the {% data variables.product.prodname_dotcom %} API. When you create a personal access token, you can assign the token different scopes depending on your needs. For more information about packages-related scopes for a PAT, see "[About permissions for GitHub Packages](/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries)."
+Вам нужен маркер доступа для публикации, установки и удаления частных, внутренних и общедоступных пакетов.
 
-To authenticate to a {% data variables.product.prodname_registry %} registry within a {% data variables.product.prodname_actions %} workflow, you can use:
-- `GITHUB_TOKEN` to publish packages associated with the workflow repository.
-- a PAT to install packages associated with other private repositories (which `GITHUB_TOKEN` can't access).
+Для проверки подлинности в {% данных variables.product.prodname_registry %} или API {% ifversion fpt или ghec %}{% variables.product.pat_v1 данных variables.product.prodname_dotcom %}{% остальных %}{% данных %}{% variables.product.product_name %}{%endif %}. При создании {% данных variables.product.pat_v1 %}можно назначить маркер различным областям в зависимости от ваших потребностей. Дополнительные сведения о областях, связанных с пакетами для {% данных variables.product.pat_v1 %}, см. в разделе "[Сведения о разрешениях для пакетов GitHub](/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries)".
+
+Для проверки подлинности в реестре {% data variables.product.prodname_registry %} в рабочем процессе {% data variables.product.prodname_actions %} можно использовать следующее:
+- `GITHUB_TOKEN` для публикации пакетов, связанных с репозиторием рабочих процессов.
+- значение {% данных variables.product.pat_v1 %} с по крайней мере `packages:read` областью для установки пакетов, связанных с другими частными репозиториями (которые `GITHUB_TOKEN` не могут получить доступ).

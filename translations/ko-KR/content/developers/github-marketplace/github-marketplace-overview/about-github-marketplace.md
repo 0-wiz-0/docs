@@ -1,65 +1,71 @@
 ---
-title: About GitHub Marketplace
-intro: 'Learn about {% data variables.product.prodname_marketplace %} where you can share your apps and actions publicly with all {% data variables.product.product_name %} users.'
+title: GitHub Marketplace 정보
+intro: '모든 {% data variables.product.product_name %} 사용자와 앱 및 작업을 공개적으로 공유할 수 있는 {% data variables.product.prodname_marketplace %}에 대해 알아봅니다.'
 redirect_from:
-  - /apps/marketplace/getting-started/
+  - /apps/marketplace/getting-started
   - /marketplace/getting-started
   - /developers/github-marketplace/about-github-marketplace
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+ms.openlocfilehash: 5a722d35fb74607b9200a1fe30d804df44330cea
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145089729'
 ---
+[{% data variables.product.prodname_marketplace %}](https://github.com/marketplace)은(는) 사용자를 {% data variables.product.prodname_dotcom %} 워크플로를 확장하고 개선하려는 개발자에게 연결합니다. {% data variables.product.prodname_marketplace %}에서 개발자에 대해 사용할 수 있는 무료 및 유료 도구를 나열할 수 있습니다. {% data variables.product.prodname_marketplace %}은(는) 개발자에게 {% data variables.product.prodname_actions %} 및 앱이라는 두 가지 유형의 도구를 제공하며, 각 도구에는 {% data variables.product.prodname_marketplace %}에 추가하기 위한 여러 단계가 필요합니다.
 
-[{% data variables.product.prodname_marketplace %}](https://github.com/marketplace) connects you to developers who want to extend and improve their {% data variables.product.prodname_dotcom %} workflows. You can list free and paid tools for developers to use in {% data variables.product.prodname_marketplace %}. {% data variables.product.prodname_marketplace %} offers developers two types of tools: {% data variables.product.prodname_actions %} and Apps, and each tool requires different steps for adding it to {% data variables.product.prodname_marketplace %}.
-
-### GitHub Actions
+## GitHub 작업
 
 {% data reusables.actions.actions-not-verified %}
 
-To learn about publishing {% data variables.product.prodname_actions %} in {% data variables.product.prodname_marketplace %}, see "[Publishing actions in GitHub Marketplace](/actions/creating-actions/publishing-actions-in-github-marketplace)."
+{% data variables.product.prodname_marketplace %}에 {% data variables.product.prodname_actions %}을(를) 게시하는 방법에 대한 자세한 내용은 “[GitHub Marketplace에서 작업 게시](/actions/creating-actions/publishing-actions-in-github-marketplace)”를 참조하세요.
 
-### 앱
+## 앱
 
-Anyone can share their apps with other users for free on {% data variables.product.prodname_marketplace %} but only apps owned by organizations can sell their app.
+누구나 {% data variables.product.prodname_marketplace %}에서 다른 사용자와 앱을 무료로 공유할 수 있지만 조직에서 소유의 앱만 해당 앱을 판매할 수 있습니다. 
 
-To publish paid plans for your app and display a marketplace badge, you must complete the publisher verification process. For more information, see "[Applying for publisher verification for your organization](/developers/github-marketplace/applying-for-publisher-verification-for-your-organization)" or "[Requirements for listing an app](/developers/github-marketplace/requirements-for-listing-an-app)."
+앱에 대한 유료 플랜을 게시하고 마켓플레이스 배지를 표시하려면 게시자 확인 프로세스를 완료해야 합니다. 자세한 내용은 “[조직에 대한 게시자 확인 신청](/developers/github-marketplace/applying-for-publisher-verification-for-your-organization)” 또는 “[앱을 나열하기 위한 요구 사항](/developers/github-marketplace/requirements-for-listing-an-app)”을 참조하세요.
 
-Once the organization meets the requirements, someone with owner permissions in the organization can publish paid plans for any of their apps. Each app with a paid plan also goes through a financial onboarding process to enable payments.
+조직이 요구 사항을 충족하면 조직의 소유자 권한이 있는 사용자는 앱에 대한 유료 플랜을 게시할 수 있습니다. 유료 플랜이 있는 각 앱은 결제를 가능하게 하는 금융 온보딩 프로세스를 거치기도 합니다.
 
-To publish apps with free plans, you only need to meet the general requirements for listing any app. For more information, see "[Requirements for all GitHub Marketplace listings](/developers/github-marketplace/requirements-for-listing-an-app#requirements-for-all-github-marketplace-listings)."
+무료 플랜으로 앱을 게시하려면 모든 앱을 나열하기 위한 일반적인 요구 사항만 충족하면 됩니다. 자세한 내용은 “[모든 GitHub Marketplace 목록에 대한 요구 사항](/developers/github-marketplace/requirements-for-listing-an-app#requirements-for-all-github-marketplace-listings)”을 참조하세요.
 
-#### New to apps?
+### 앱이 처음이신가요?
 
-If you're interested in creating an app for {% data variables.product.prodname_marketplace %}, but you're new to {% data variables.product.prodname_github_apps %} or {% data variables.product.prodname_oauth_app %}s, see "[Building {% data variables.product.prodname_github_apps %}](/developers/apps/building-github-apps)" or "[Building {% data variables.product.prodname_oauth_app %}s](/developers/apps/building-oauth-apps)."
+{% data variables.product.prodname_marketplace %}의 앱을 제작하는 데 관심이 있지만 {% data variables.product.prodname_github_apps %} 또는 {% data variables.product.prodname_oauth_apps %}에 대해 잘 모르신다면 “[{% data variables.product.prodname_github_apps %} 빌드](/developers/apps/building-github-apps)” 또는 “[{% data variables.product.prodname_oauth_apps %} 빌드](/developers/apps/building-oauth-apps)”를 참조하세요.
 
-#### GitHub Apps vs. OAuth Apps
+### {% data variables.product.prodname_github_apps %} 대 {% data variables.product.prodname_oauth_apps %}
 
-{% data reusables.marketplace.github_apps_preferred %}, although you can list both OAuth and {% data variables.product.prodname_github_app %}s in {% data variables.product.prodname_marketplace %}. For more information, see "[Differences between {% data variables.product.prodname_github_apps %} and {% data variables.product.prodname_oauth_app %}s](/apps/differences-between-apps/)" and "[Migrating {% data variables.product.prodname_oauth_app %}s to {% data variables.product.prodname_github_apps %}](/apps/migrating-oauth-apps-to-github-apps/)."
+{% data variables.product.prodname_marketplace %}에서 OAuth 및 {% data variables.product.prodname_github_apps %} 둘 다 나열할 수 있지만 {% data reusables.marketplace.github_apps_preferred %}입니다. 자세한 내용은 “[{% data variables.product.prodname_github_apps %} 및 {% data variables.product.prodname_oauth_apps %}의 차이점](/apps/differences-between-apps/)”과 “[{% data variables.product.prodname_oauth_apps %}에서 {% data variables.product.prodname_github_apps %}(으)로 마이그레이션](/apps/migrating-oauth-apps-to-github-apps/)”을 참조하세요.
 
-### Publishing an app to {% data variables.product.prodname_marketplace %} overview
+## {% data variables.product.prodname_marketplace %}에 앱 게시 개요
 
-When you have finished creating your app, you can share it with other users by publishing it to {% data variables.product.prodname_marketplace %}. In summary, the process is:
+앱 만들기를 마쳤으면 {% data variables.product.prodname_marketplace %}에 게시하여 다른 사용자와 공유할 수 있습니다. 요약하면 프로세스는 다음과 같습니다.
 
-1. Review your app carefully to ensure that it will behave as expected in other repositories and that it follows best practice guidelines. For more information, see "[Security best practices for apps](/developers/github-marketplace/security-best-practices-for-apps)" and "[Requirements for listing an app](/developers/github-marketplace/requirements-for-listing-an-app#best-practice-for-customer-experience)."
+1. 앱을 주의 깊게 검토하여 다른 리포지토리에서 예상대로 동작하고 모범 사례 지침을 따르는지 확인합니다. 자세한 내용은 “[앱에 대한 보안 모범 사례](/developers/github-marketplace/security-best-practices-for-apps)” 및 “[앱을 나열하기 위한 요구 사항](/developers/github-marketplace/requirements-for-listing-an-app#best-practice-for-customer-experience)”을 참조하세요.
 
-1. Add webhook events to the app to track user billing requests. For more information about the {% data variables.product.prodname_marketplace %} API, webhook events, and billing requests, see "[Using the {% data variables.product.prodname_marketplace %} API in your app](/developers/github-marketplace/using-the-github-marketplace-api-in-your-app)."
+1. 웹후크 이벤트를 앱에 추가하여 사용자 청구 요청을 추적합니다. {% data variables.product.prodname_marketplace %} API, 웹후크 이벤트 및 청구 요청에 대한 자세한 내용은 “[앱에서 {% data variables.product.prodname_marketplace %} API 사용](/developers/github-marketplace/using-the-github-marketplace-api-in-your-app)”을 참조하세요.
 
-1. Create a draft {% data variables.product.prodname_marketplace %} listing. For more information, see "[Drafting a listing for your app](/developers/github-marketplace/drafting-a-listing-for-your-app)."
+1. {% data variables.product.prodname_marketplace %} 목록 초안을 만듭니다. 자세한 내용은 “[앱 목록 초안 작성](/developers/github-marketplace/drafting-a-listing-for-your-app)”을 참조하세요.
 
-1. Add a pricing plan. For more information, see "[Setting pricing plans for your listing](/developers/github-marketplace/setting-pricing-plans-for-your-listing)."
+1. 가격 책정 플랜을 선택합니다. 자세한 내용은 “[목록에 대한 가격 책정 플랜 설정](/developers/github-marketplace/setting-pricing-plans-for-your-listing)”을 참조하세요.
 
-1. Read and accept the terms of the "[{% data variables.product.prodname_marketplace %} Developer Agreement](/articles/github-marketplace-developer-agreement/)."
+1. “[{% data variables.product.prodname_marketplace %} 개발자 계약](/free-pro-team@latest/github/site-policy/github-marketplace-developer-agreement)”의 약관을 읽고 동의합니다.
 
-1. Submit your listing for publication in {% data variables.product.prodname_marketplace %}. For more information, see "[Submitting your listing for publication](/developers/github-marketplace/submitting-your-listing-for-publication)."
+1. {% data variables.product.prodname_marketplace %}에 게시할 목록을 제출합니다. 자세한 내용은 “[게시할 목록 제출](/developers/github-marketplace/submitting-your-listing-for-publication)”을 참조하세요.
 
-### Seeing how your app is performing
+## 앱의 성능 보기
 
-You can access metrics and transactions for your listing. For more information, see:
+목록에 대한 메트릭 및 트랜잭션에 액세스할 수 있습니다. 자세한 내용은 다음을 참조하세요.
 
-- "[Viewing metrics for your listing](/developers/github-marketplace/viewing-metrics-for-your-listing)"
-- "[Viewing transactions for your listing](/developers/github-marketplace/viewing-transactions-for-your-listing)"
+- “[목록에 대한 메트릭 보기](/developers/github-marketplace/viewing-metrics-for-your-listing)”
+- “[목록에 대한 트랜잭션 보기](/developers/github-marketplace/viewing-transactions-for-your-listing)”
 
-### Contacting Support
+## 지원 센터에 연락 
 
-If you have questions about {% data variables.product.prodname_marketplace %}, please contact {% data variables.contact.contact_support %} directly.
+{% data variables.product.prodname_marketplace %}에 대한 질문이 있는 경우 {% data variables.contact.contact_support %}에 직접 문의하세요.

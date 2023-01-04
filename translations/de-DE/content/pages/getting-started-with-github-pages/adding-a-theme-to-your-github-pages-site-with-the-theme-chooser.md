@@ -1,46 +1,63 @@
 ---
-title: Ein Design mit dem Theme Chooser zu Deiner GitHub Pages-Website hinzufügen
-intro: 'Sie können zu Ihrer {% data variables.product.prodname_pages %}-Website ein Design hinzufügen, um das Aussehen der Website anzupassen.'
+title: Hinzufügen eines Designs zu deiner GitHub Pages-Website mit dem Theme Chooser
+intro: Du kannst deiner {% data variables.product.prodname_pages %}-Website ein Design hinzufügen, um das Aussehen der Website anzupassen.
 redirect_from:
-  - /articles/creating-a-github-pages-site-with-the-jekyll-theme-chooser/
-  - /articles/adding-a-jekyll-theme-to-your-github-pages-site-with-the-jekyll-theme-chooser/
-  - /articles/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser
-  - /github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser
+- /articles/creating-a-github-pages-site-with-the-jekyll-theme-chooser
+- /articles/adding-a-jekyll-theme-to-your-github-pages-site-with-the-jekyll-theme-chooser
+- /articles/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser
+- /github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser
 product: '{% data reusables.gated-features.pages %}'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
-  - Pages
+- Pages
+shortTitle: Add theme to a Pages site
+permissions: People with admin permissions for a repository can use the theme chooser to add a theme to a {% data variables.product.prodname_pages %} site.
+ms.openlocfilehash: b38ce81802b5137f49fef076ffdc5a16392a446d
+ms.sourcegitcommit: febc27cb8f2d53c97b51e614a941931f85ae5d95
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 07/27/2022
+ms.locfileid: "147428365"
 ---
+## <a name="about-the-theme-chooser"></a>Informationen zum Theme Chooser
 
-Personen mit Administratorberechtigungen für ein Repository können mit dem Theme Chooser ein Design zu einer {% data variables.product.prodname_pages %}-Website hinzufügen.
+{% ifversion pages-custom-workflow %}
 
-### Informationen zum Theme Chooser
+{% note %}
 
-Der Theme Chooser fügt ein Jekyll-Design zu Deinem Repository hinzu. Weitere Informationen zu Jekyll findest Du unter „[Informationen zu {% data variables.product.prodname_pages %} und Jekyll](/articles/about-github-pages-and-jekyll).“
+**Hinweis**: Der Jekyll Theme Chooser wird für {% data variables.product.prodname_pages %}-Websites, die mit einem benutzerdefinierten {% data variables.product.prodname_actions %}-Workflow veröffentlicht werden, nicht unterstützt. Wenn du deine Website mit Jekyll erstellst und mit einem benutzerdefinierten {% data variables.product.prodname_actions %}-Workflow veröffentlichst, kannst du ein Design hinzufügen, indem du die `_config.yml`-Datei bearbeitest. Weitere Informationen findest du unter [Hinzufügen eines Designs zu deiner GitHub Pages-Website mit Jekyll](/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll).
 
-Wie der Theme Chooser funktioniert, hängt davon ab, ob Dein Repository öffentlich oder privat ist.
-  - Wenn {% data variables.product.prodname_pages %} bereits für Dein Repository aktiviert ist, fügt der Theme Chooser Dein Design zur aktuellen Veröffentlichungsquelle hinzu.
-  - If your repository is public and {% data variables.product.prodname_pages %} is disabled for your repository, using the theme chooser will enable {% data variables.product.prodname_pages %} and configure the default branch as your publishing source.
-  - Wenn Dein Repository privat und {% data variables.product.prodname_pages %} für Dein Repository deaktiviert ist, musst Du {% data variables.product.prodname_pages %} durch die Konfiguration einer Veröffentlichungsquelle erst aktivieren, bevor Du den Theme Chooser verwenden kannst.
+{% endnote %}
 
-Weitere Informationen zu Veröffentlichungsquellen findest Du unter „[Informationen zu {% data variables.product.prodname_pages %}](/articles/about-github-pages#publishing-sources-for-github-pages-sites).“
+{% endif %}
 
-Wenn Du in der Vergangenheit manuell ein Jekyll-Design zu Deinem Repository hinzugefügt hast, werden diese Dateien möglicherweise auch nach der Verwendung des Theme Chooser noch angewendet. Um Konflikte zu vermeiden, solltest Du alle manuell hinzugefügten Design-Ordner und -Dateien entfernen, bevor Du den Theme Chooser verwendest. Weitere Informationen findest Du unter „[Ein Design zur {% data variables.product.prodname_pages %}-Website mit Jekyll hinzufügen](/articles/adding-a-theme-to-your-github-pages-site-using-jekyll).“
+Der Theme Chooser fügt deinem Repository ein Jekyll-Design hinzu. Weitere Informationen zu Jekyll findest du unter [Informationen zu {% data variables.product.prodname_pages %} und Jekyll](/articles/about-github-pages-and-jekyll).
 
-### Ein Design mit dem Theme Chooser hinzufügen
+Die Funktionsweise des Theme Chooser hängt davon ab, ob dein Repository öffentlich oder privat ist.
+  - Wenn {% data variables.product.prodname_pages %} bereits für dein Repository aktiviert ist, fügt der Theme Chooser dein Design zur aktuellen Veröffentlichungsquelle hinzu.
+  - Wenn dein Repository öffentlich und {% data variables.product.prodname_pages %} für dein Repository deaktiviert ist, aktiviert die Verwendung des Theme Chooser {% data variables.product.prodname_pages %} und konfiguriert den Standardbranch als Veröffentlichungsquelle.
+  - Wenn dein Repository privat und {% data variables.product.prodname_pages %} für dein Repository deaktiviert ist, musst du {% data variables.product.prodname_pages %} durch die Konfiguration einer Veröffentlichungsquelle erst aktivieren, bevor du den Theme Chooser verwenden kannst.
 
-{% data reusables.pages.navigate-site-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.pages.sidebar-pages %}
-3. Klicke unter „{% data variables.product.prodname_pages %}“ auf **Choose a theme** (Ein Design auswählen) oder **Change theme** (Design ändern). ![Schaltfläche „Choose a theme“ (Ein Design auswählen)](/assets/images/help/pages/choose-a-theme.png)
-4. Klicke oben auf der Seite auf das gewünschte Design und anschließend auf **Select theme** (Design auswählen). ![Designoptionen und Schaltfläche „Select theme“ (Design auswählen)](/assets/images/help/pages/select-theme.png)
-5. Möglicherweise wirst Du dazu aufgefordert, die *README.md*-Datei Deiner Website zu bearbeiten.
-   - Um die Datei zu einem späteren Zeitpunkt zu bearbeiten, klicke auf **Cancel** (Abbrechen). ![Link „Cancel“ (Abbrechen) beim Bearbeiten einer Datei](/assets/images/help/pages/cancel-edit.png)
-   - Wenn Du die Datei jetzt bearbeiten möchtest, findest Du Informationen hierzu unter „[Dateien in Deinem Repository bearbeiten](/articles/editing-files-in-your-repository/).“
+Weitere Informationen zu Veröffentlichungsquellen findest du unter [Informationen zu {% data variables.product.prodname_pages %}](/articles/about-github-pages#publishing-sources-for-github-pages-sites).
 
-Das ausgewählte Design wird automatisch auf Markdown-Dateien in Deinem Repository angewendet. Um Dein Design auf die HTML-Dateien in Deinem Repository anzuwenden, musst Du YAML-Frontmatter hinzufügen, um ein Layout für jede Datei festzulegen. Weitere Informationen findest Du unter „[Frontmatter](https://jekyllrb.com/docs/front-matter/)“ auf der Jekyll-Website.
+Wenn du deinem Repository in der Vergangenheit manuell ein Jekyll-Design hinzugefügt hast, werden diese Dateien möglicherweise auch nach der Verwendung des Theme Chooser angewendet. Um Konflikte zu vermeiden, solltest du alle manuell hinzugefügten Designordner und -dateien entfernen, bevor du den Theme Chooser verwendest. Weitere Informationen findest du unter [Hinzufügen eines Designs zu deiner {% data variables.product.prodname_pages %}-Website mit Jekyll](/articles/adding-a-theme-to-your-github-pages-site-using-jekyll).
 
-### Weiterführende Informationen
+## <a name="adding-a-theme-with-the-theme-chooser"></a>Ein Design mit dem Theme Chooser hinzufügen
+
+{% data reusables.pages.navigate-site-repo %} {% data reusables.repositories.sidebar-settings %} {% data reusables.pages.sidebar-pages %}
+3. Klicke unter {% data variables.product.prodname_pages %} auf **Design auswählen** oder **Design ändern**.
+  ![Schaltfläche „Design auswählen“](/assets/images/help/pages/choose-a-theme.png)
+4. Klicke oben auf der Seite auf das gewünschte Design und anschließend auf **Design auswählen**.
+  ![Designoptionen und Schaltfläche „Design auswählen“](/assets/images/help/pages/select-theme.png)
+5. Möglicherweise wirst du aufgefordert, die Datei *README.md* deiner Website zu bearbeiten.
+   - Um die Datei später zu bearbeiten, klickst du auf **Abbrechen**.
+   ![Link „Abbrechen“ beim Bearbeiten einer Datei](/assets/images/help/pages/cancel-edit.png)
+   - Informationen zum direkten Bearbeiten der Datei findest du unter [Bearbeiten von Dateien](/repositories/working-with-files/managing-files/editing-files).
+
+Das ausgewählte Design wird automatisch auf Markdowndateien in deinem Repository angewendet. Um dein Design auf die HTML-Dateien in deinem Repository anzuwenden, musst du YAML-Frontmatter hinzufügen, um ein Layout für jede Datei festzulegen. Weitere Informationen findest du auf der Jekyll-Website unter [Front Matter](https://jekyllrb.com/docs/front-matter/).
+
+## <a name="further-reading"></a>Weiterführende Themen
 
 - [Designs](https://jekyllrb.com/docs/themes/) auf der Jekyll-Website

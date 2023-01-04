@@ -1,41 +1,45 @@
 ---
-title: Reordering commits
-intro: "You can use {% data variables.product.prodname_desktop %} to reorder commits in your branch's history."
+title: 重新排序提交
+intro: '您可以使用 {% data variables.product.prodname_desktop %} 对分支历史记录中的提交重新排序。'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 5f68af5f2798e6780a91515886130f2b3ca7e6aa
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145099266'
 ---
+## 关于重新排序提交
 
-## About reordering a commit
+重新订购允许您更改您的提交历史记录，以提供更有意义的提交进度。 {% data variables.product.prodname_desktop %} 允许您在分支历史记录中拖放提交以重新排序。
 
-Reordering allows you to alter your commit history to provide a more meaningful progression of commits. {% data variables.product.prodname_desktop %} allows you to drag-and-drop commits in your branch's history to reorder them.
-
-## Reordering a commit
+## 重新排序提交
 
 {% data reusables.desktop.current-branch-menu %}
-2. In the list of branches, click the branch with the commits that you want to reorder.
+2. 在分支列表中，单击包含您想要重新排序其提交的分支。
 {% data reusables.desktop.history-tab %}
-4. Drag the commit that you want to reorder and drop it between two adjoining commits.
-  ![reorder drag and drop](/assets/images/help/desktop/reorder-drag-and-drop.png)
-While the application reorders the commits, a **Reorder in process** dialog indicates the progress of the change.
+4. 拖动您想要重新排序的提交，并将其置于两个相邻的提交之间。
+  ![对拖放进行重新排序](/assets/images/help/desktop/reorder-drag-and-drop.png)当应用程序重新排序提交时，“正在进行重新排序”对话框将指示更改的进度。
 
-## Error messages when reordering commits
+## 重新排序提交时的错误消息
 
-When you reorder commits, you may see one of the following notifications or error messages.
+重新排序提交时，您可能会看到以下通知或错误消息。
 
-* A notification states that the requested change to the branch will require a force push to update the remote branch. This is shown when the commits that you reordered were previously pushed to the remote branch. Force pushing alters the commit history of the branch and will affect other collaborators who are working in that branch.  Select **Begin reorder** to start the reorder, and then click **Force push origin** to push your changes.
+* 通知指出，请求的分支更改将需要强制推送以更新远程分支。 当您重新排序的提交之前被推送到远程分支时，将会显示此通知。 强制推送会更改分支的提交历史记录，并影响处理该分支的其他协作者。  选择“开始重新排序”以开始重新排序，然后单击“强制推送源”以推送所做的更改 。
 
-  ![reorder force push dialog](/assets/images/help/desktop/reorder-force-push-dialog.png)
+  ![重新排序强制推送对话框](/assets/images/help/desktop/reorder-force-push-dialog.png)
 
-* An error states that the reorder failed because there is a merge commit among the reordered commits.
+* 错误表示重排序失败，因为重新排序的提交之间有合并提交。
 
-  ![reorder merge commit dialog](/assets/images/help/desktop/reorder-merge-commit-dialog.png)
+  ![重新排序合并提交对话框](/assets/images/help/desktop/reorder-merge-commit-dialog.png)
 
-* A notification is shown indicating that there are uncommitted changes present on your current branch. Select **Stash Changes and Continue** to store the changes and proceed, or select **Close** to dismiss the message and commit the changes. When there are no longer any uncommitted changes, you can reorder your commits.
+* 通知显示您当前分支上存在未提交的更改。 选择“”存储更改并继续，或选择“关闭”以关闭消息并提交更改 。 当不再有任何未提交的更改时，您可以重新排序您的提交。
 
-  ![reorder stash dialog](/assets/images/help/desktop/reorder-stash-dialog.png)
+  ![重新排序暂存对话框](/assets/images/help/desktop/reorder-stash-dialog.png)
 
-* A message states that there are merge conflicts that you must resolve before the application can continue reordering commits on your branch.
-    1. Click **View conflicts** to see the conflicts.
-    {% data reusables.desktop.resolve-merge-conflicts %}
-
-  ![reorder resolve conflicts message](/assets/images/help/desktop/reorder-resolve-conflicts.png)
+* 消息指出，必须先解决冲突，然后应用程序才可继续重新排序分支上的提交。
+    1. 单击“查看冲突”以查看冲突。
+      ![重新排序解决冲突消息](/assets/images/help/desktop/reorder-resolve-conflicts.png) {% data reusables.desktop.resolve-merge-conflicts %}
+   3. 当所有冲突得到解决时，您可以重新排序您的提交。
+  

@@ -1,7 +1,14 @@
+---
+ms.openlocfilehash: 1254cbeb3ee84e625e46ebc13be30336fd60a41d
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/10/2022
+ms.locfileid: "145108384"
+---
 {% tip %}
 
-**Note:** Locking a repository prevents all read or write access to the repository. You cannot associate new teams or collaborators with a locked repository.
-If you're performing a trial run, you do not need to lock the repository. When you migrate data from a repository that's in use,
+**Hinweis**: Das Sperren eines Repositorys verhindert den gesamten Schreibzugriff auf das Repository. Einem gesperrten Repository können keine neuen Teams oder Mitarbeiter zugeordnet werden.
 
-{% data variables.product.company_short %} strongly recommends locking the repository. Weitere Informationen finden Sie unter „[Informationen zu Migrationen](/enterprise/admin/migrations/about-migrations#types-of-migrations)“.
+Wenn du eine Testversion ausführst, musst du das Repository nicht sperren. Wenn du Daten aus einem Repository migrierst, das gerade verwendet wird, empfiehlt {% data variables.product.company_short %} die Sperrung des Repositorys. Weitere Informationen findest du unter [Informationen zu Migrationen](/enterprise/admin/migrations/about-migrations#types-of-migrations).
 {% endtip %}

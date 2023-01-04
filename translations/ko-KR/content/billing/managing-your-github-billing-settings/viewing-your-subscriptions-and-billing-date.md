@@ -1,36 +1,40 @@
 ---
-title: Viewing your subscriptions and billing date
-intro: 'You can view your account''s subscription, your other paid features and products, and your next billing date in your account''s billing settings.'
+title: 구독 및 청구 날짜 보기
+intro: '계정의 청구 설정에서 계정의 구독, 다른 유료 기능 및 제품, 다음 청구 날짜를 볼 수 있습니다.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-your-github-billing-settings/viewing-your-subscriptions-and-billing-date
   - /github/setting-up-and-managing-billing-and-payments-on-github/viewing-your-subscriptions-and-billing-date
-  - /articles/finding-your-next-billing-date/
-  - /articles/finding-your-personal-account-s-next-billing-date/
-  - /articles/finding-your-organization-s-next-billing-date/
-  - /articles/viewing-your-plans-and-billing-date/
+  - /articles/finding-your-next-billing-date
+  - /articles/finding-your-personal-account-s-next-billing-date
+  - /articles/finding-your-organization-s-next-billing-date
+  - /articles/viewing-your-plans-and-billing-date
   - /articles/viewing-your-subscriptions-and-billing-date
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Accounts
   - Organizations
   - User account
+shortTitle: Subscriptions & billing date
+ms.openlocfilehash: c623155dcf2e839202237e5e67c93665f7e354df
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145087820'
 ---
+## 개인 계정의 다음 청구 날짜 찾기
 
-### Finding your personal account's next billing date
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.billing_plans %} {% data reusables.dotcom_billing.next_billing_date %}
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.billing_plans %}
-{% data reusables.dotcom_billing.next_billing_date %}
-
-### Finding your organization's next billing date
+## 조직의 다음 청구 날짜 찾기
 
 {% data reusables.dotcom_billing.org-billing-perms %}
 
-{% data reusables.organizations.billing-settings %}
-{% data reusables.dotcom_billing.next_billing_date %}
+{% data reusables.organizations.billing-settings %} {% data reusables.dotcom_billing.next_billing_date %}
 
-### 더 읽을거리
+## 추가 참고 자료
 
-- "[About billing for {% data variables.product.product_name %} accounts](/articles/about-billing-for-github-accounts)"
+- “[{% data variables.product.prodname_dotcom %} 계정에 대한 청구 정보](/articles/about-billing-for-github-accounts)”

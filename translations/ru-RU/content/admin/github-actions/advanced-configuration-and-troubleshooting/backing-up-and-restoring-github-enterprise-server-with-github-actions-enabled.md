@@ -1,9 +1,9 @@
 ---
-title: Backing up and restoring GitHub Enterprise Server with GitHub Actions enabled
+title: Резервное копирование и восстановление сервера GitHub Enterprise с включенным GitHub Actions
 shortTitle: Backing up and restoring
-intro: '{% data variables.product.prodname_actions %} data on your external storage provider is not included in regular {% data variables.product.prodname_ghe_server %} backups, and must be backed up separately.'
+intro: 'Чтобы восстановить резервную копию {% данных variables.location.product_location %} при включении {% данных variables.product.prodname_actions %} необходимо настроить {% данных variables.product.prodname_actions %} перед восстановлением резервной копии с помощью {% данных variables.product.prodname_enterprise_backup_utilities %}.'
 versions:
-  enterprise-server: '>=3.0'
+  ghes: '*'
 type: how_to
 topics:
   - Actions
@@ -12,19 +12,37 @@ topics:
   - Infrastructure
 redirect_from:
   - /admin/github-actions/backing-up-and-restoring-github-enterprise-server-with-github-actions-enabled
+ms.openlocfilehash: 43279c6b99cce6618de9253c5d0451c0a661b095
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148107312'
 ---
+## Сведения о резервном копировании данных {% variables.product.product_name %} при использовании {% данных variables.product.prodname_actions %}
 
-{% data reusables.actions.enterprise-storage-ha-backups %}
+Вы можете использовать {% данных variables.product.prodname_enterprise_backup_utilities %} для резервного копирования и восстановления данных и конфигурации для {% данных variables.location.product_location %} в новый экземпляр. Дополнительные сведения см. в статье "[Настройка резервных копий на устройстве](/admin/configuration/configuring-backups-on-your-appliance)".
 
-If you use {% data variables.product.prodname_enterprise_backup_utilities %} to back up {% data variables.product.product_location %}, it's important to note that {% data variables.product.prodname_actions %} data stored on your external storage provider is not included in the backup.
+Однако не все данные для {% данных variables.product.prodname_actions %} включены в эти резервные копии. {% data reusables.actions.enterprise-storage-ha-backups %}
 
-This is an overview of the steps required to restore {% data variables.product.product_location %} with {% data variables.product.prodname_actions %} to a new appliance:
+## Восстановление резервной копии {% данных variables.product.product_name %} при включении {% данных variables.product.prodname_actions %}
 
-1. Confirm that the original appliance is offline.
-1. Manually configure network settings on the replacement {% data variables.product.prodname_ghe_server %} appliance. Network settings are excluded from the backup snapshot, and are not overwritten by `ghe-restore`.
-1. Configure the replacement appliance to use the same {% data variables.product.prodname_actions %} external storage configuration as the original appliance.
-1. Enable {% data variables.product.prodname_actions %} on the replacement appliance. This will connect the replacement appliance to the same  external storage for {% data variables.product.prodname_actions %}.
-1. After {% data variables.product.prodname_actions %} is configured with the external storage provider, use the `ghe-restore` command to restore the rest of the data from the backup. For more information, see "[Restoring a backup](/admin/configuration/configuring-backups-on-your-appliance#restoring-a-backup)."
-1. Re-register your self-hosted runners on the replacement appliance. For more information, see [Adding self-hosted runners](/actions/hosting-your-own-runners/adding-self-hosted-runners).
+Чтобы восстановить резервную копию {% данных variables.location.product_location %} с {% данных variables.product.prodname_actions %}}, необходимо вручную настроить параметры сети и внешнее хранилище на целевом экземпляре перед восстановлением резервной копии из {% данных variables.product.prodname_enterprise_backup_utilities %}. 
 
-For more information on backing up and restoring {% data variables.product.prodname_ghe_server %}, see "[Configuring backups on your appliance](/admin/configuration/configuring-backups-on-your-appliance)."
+1. Убедитесь, что исходный экземпляр находится в автономном режиме.
+1. Вручную настройте параметры сети для замены экземпляра {% данных variables.product.prodname_ghe_server %}. Параметры сети исключаются из моментального снимка резервной копии и не перезаписываются `ghe-restore`. Дополнительные сведения см. в разделе [Настройка параметров сети](/admin/configuration/configuring-network-settings).
+1. SSH в целевом экземпляре. Дополнительные сведения см. в разделе [Доступ к административной оболочке (SSH)](/admin/configuration/accessing-the-administrative-shell-ssh).
+
+   ```shell{:copy}
+   $ ssh -p 122 admin@HOSTNAME
+   ```
+1. Настройте целевой экземпляр для использования той же внешней службы хранилища для {% данных variables.product.prodname_actions %} в качестве исходного экземпляра, введя одну из следующих команд.
+{% indented_data_reference reusables.actions.configure-storage-provider-platform-commands spaces=3 %} {% данных reusables.actions.configure-storage-provider %}
+1. Чтобы подготовиться к включению {% данных variables.product.prodname_actions %} в целевом экземпляре, введите следующую команду.
+
+   ```shell{:copy}
+   ghe-config app.actions.enabled true
+   ```
+{% данных reusables.actions.apply-configuration-and-enable %}
+1. После настройки и включения {% данных variables.product.prodname_actions %} для восстановления остальных данных из резервной копии используйте `ghe-restore` команду. Дополнительные сведения см. в разделе [Восстановление резервной копии](/admin/configuration/configuring-backups-on-your-appliance#restoring-a-backup).
+1. Повторно зарегистрируйте локальные средства выполнения в целевом экземпляре. Дополнительные сведения см. в разделе [Добавление локальных средств выполнения](/actions/hosting-your-own-runners/adding-self-hosted-runners).

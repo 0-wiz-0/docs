@@ -1,30 +1,31 @@
----
 date: '2021-04-28'
 sections:
   security_fixes:
-    - Packages have been updated to the latest security versions.
+    - Пакеты обновлены до последних версий систем безопасности.
   bugs:
-    - During upgrades, the process would pause indefinitely after `cleanup nomad job`.
-    - 'Failing `ghe-cluster-failover` with the error message `Trilogy::Error: trilogy_connect`.'
-    - '`ghe-cluster-status-mysql` showed warnings about failovers as errors.'
-    - Setup script running on MySQL replication may have caused unnecessary database reseeding during database failover.
-    - Upgrades did not include the latest version of Actions runner properly installed.
-    - '`github-env` configuration could result in zombie processes.'
-    - '`config-apply` could take longer than necessary due to `rake db:migrate` being called unnecessarily.'
-    - Orchestrator could have failed over to a MySQL replica which was not replicating from primary during seeding phase when primary could not be connected.
-    - Organizations or projects with errors blocked migration and could not be excluded.
-    - The Create Repository button was disabled for users who belonged to more than 50 organizations.
-    - Deleting a branch would temporarily flash an error message indicating something went wrong when the deletion was successful.
-    - The `rms-packages` index was shown in the site admin dashboard.
-    - Organization owner was unable to create internal repository due to the correct visibility options not being displayed on the form.
-    - The repository actions tab rendered a 500 in cases where the actions starter workflows were misconfigured.
-    - Customers with more than three storage hosts were unable to restore to their disaster-recovery cluster due to the fullest disks being selected instead of empty nodes.
-    - Code Scanning backend services did not start up reliably after applying hotpatches.
+    - Во время обновлений процесс приостанавливался на неопределенный срок после `cleanup nomad job` (очистки задания Nomad).
+    - 'Возникал сбой "ghe-cluster-failover" с сообщением об ошибке "Trilogy::Error: trilogy_connect".'
+    - 'Предупреждения "ghe-cluster-status-mysql" об отработках отказа отображались как ошибки.'
+    - Скрипт настройки для репликации MySQL мог вызывать ненужное повторное заполнение базы данных при ее отработке отказа.
+    - Обновления не включали корректную установку последней версии средства выполнения Actions.
+    - 'Конфигурация "github-env" могла приводить к зомби-процессам.'
+    - 'Выполнение "config-apply" могло длиться дольше, чем требуется, из-за ненужного вызова "rake db:migrate".'
+    - "Оркестратор мог выполнять отработку отказа на реплику MySQL, которая не реплицировалась с главного экземпляра на этапе начального заполнения, когда подключение главного экземпляра было невозможно."
+    - Организации или проекты с ошибками блокировали миграцию и не могли быть исключены.
+    - "Для пользователей, входивших более чем в 50 организаций, была отключена кнопка \"Создать репозиторий\"."
+    - "При удалении ветви временно появлялось сообщение об ошибке, хотя удаление выполнялось."
+    - "В информационной панели администратора сайта отображался индекс \"rms-packages\"."
+    - "Владелец организации не мог создавать внутренний репозиторий из-за того, что в форме не отображались корректные параметры видимости."
+    - На вкладке Actions репозитория отображалась ошибка 500 в случаях неверной настройки рабочих процессов средства запуска Actions.
+    - "Клиенты, имеющие более трех узлов хранилища, не могли выполнить аварийное восстановление в предназначенном для этого кластере из-за того, что выбирались наиболее заполненные диски вместо пустых узлов."
+    - Запуск внутренних служб сканирования кода был ненадежным после применения горячих исправлений.
   changes:
-    - Preflight checks allow all AWS instance types by default.
+    - Предварительные проверки по умолчанию разрешают все типы экземпляров AWS.
   known_issues:
-    - On a freshly set up GitHub Enterprise Server without any users, an attacker could create the first admin user.
-    - Custom firewall rules are not maintained during an upgrade.
-    - Git LFS tracked files [uploaded through the web interface](https://github.com/blog/2105-upload-files-to-your-repositories) are incorrectly added directly to the repository.
-    - Issues cannot be closed if they contain a permalink to a blob in the same repository where the file path is longer than 255 characters.
-    - When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results.
+    - "Злоумышленник мог создать первого пользователя с правами администратора на новом, только что настроенном сервере GitHub Enterprise Server, не имеющем пользователей."
+    - Пользовательские правила брандмауэра не сохраняются в процессе обновления.
+    - "Отслеживаемые файлы Git LFS, [отправленные через веб-интерфейс](https://github.com/blog/2105-upload-files-to-your-repositories), ошибочно добавлялись напрямую в репозиторий."
+    - "Невозможно закрывать проблемы, если они содержат постоянную ссылку на BLOB-объект в том же репозитории с путем, длина которого превышает 255 символов."
+    - "Когда в GitHub Connect включен параметр \"Пользователи могут выполнять поиск на GitHub.com\", результаты поиска на GitHub.com не включают проблемы в частных и внутренних репозиториях."
+    - "Когда узел реплики в конфигурации с высокой доступностью отключен, {% data variables.product.product_name %} все равно может маршрутизировать на него запросы {% data variables.product.prodname_pages %}, уменьшая доступность {% data variables.product.prodname_pages %} для пользователей."
+    - "Ограничения ресурсов, относящиеся к обработке перехватчиков перед получением, могут приводить к сбою некоторых из них."

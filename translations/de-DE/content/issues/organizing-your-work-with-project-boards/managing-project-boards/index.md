@@ -1,11 +1,9 @@
 ---
-title: Projektboards verwalten
-shortTitle: Projektboards verwalten
-intro: Learn how to create and manage project boards
+title: 'Verwalten von {% data variables.product.prodname_projects_v1 %}n'
+shortTitle: 'Managing {% data variables.product.prodname_projects_v1 %}'
+intro: 'Informationen zum Erstellen und Verwalten von {% data variables.projects.projects_v1_boards %}'
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  feature: projects-v1
 topics:
   - Issues
   - Projects
@@ -23,5 +21,12 @@ children:
   - /deleting-a-project-board
 redirect_from:
   - /github/managing-your-work-on-github/managing-project-boards
+allowTitleToDifferFromFilename: true
+ms.openlocfilehash: b4034bc9c9ffd29709ac491c6729787c958dd50b
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148109569'
 ---
-
+{% data reusables.projects.project_boards_old %}

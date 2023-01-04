@@ -1,65 +1,120 @@
 ---
-title: Setting your billing email
-intro: 'Your account''s billing email is where {% data variables.product.product_name %} sends receipts and other billing-related communication.'
+title: Настройка адреса электронной почты для выставления счетов
+intro: 'На адрес электронной почты для выставления счетов учетной записи {% data variables.product.product_name %} отправляет квитанции и другие сообщения, связанные с выставлением счетов.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/setting-your-billing-email
-  - /articles/setting-your-personal-account-s-billing-email/
-  - /articles/can-i-change-what-email-address-received-my-github-receipt/
-  - '/articles/how-do-i-change-the-billing-email,setting-your-billing-email/'
-  - /articles/setting-your-organization-s-billing-email/
+  - /articles/setting-your-personal-account-s-billing-email
+  - /articles/can-i-change-what-email-address-received-my-github-receipt
+  - '/articles/how-do-i-change-the-billing-email,setting-your-billing-email'
+  - /articles/setting-your-organization-s-billing-email
   - /articles/setting-your-billing-email
-  - /github/setting-up-and-managing-billing-and-payments-on-github/setting-your-billing-email
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-your-github-billing-settings/setting-your-billing-email
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Organizations
   - User account
+shortTitle: Billing email
+ms.openlocfilehash: 35b340a697bafd0c7e3047983496b71048cbe0ac
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145087848'
 ---
+## Настройка адреса электронной почты для выставления счетов в личной учетной записи
 
-### Setting your personal account's billing email
+На основной адрес электронной почты в вашей личной учетной записи {% data variables.product.product_name %} отправляет квитанции и другие сообщения, связанные с выставлением счетов.
 
-Your personal account's primary email is where {% data variables.product.product_name %} sends receipts and other billing-related communication.
+Ваш основной адрес электронной почты указан в параметрах электронной почты учетной записи.
+Мы также используем ваш основной адрес электронной почты в качестве адреса электронной почты для выставления счетов.
 
-Your primary email address is the first email listed in your account email settings. We also use your primary email address as our billing email address.
+Если вы хотите изменить адрес электронной почты для выставления счетов, см. раздел "[Изменение основного адреса электронной почты](/articles/changing-your-primary-email-address)".
 
-If you'd like to change your billing email, see "[Changing your primary email address](/articles/changing-your-primary-email-address)."
+## Настройка адреса электронной почты для выставления счетов в организации
 
-### Setting your organization's billing email
-
-Your organization's billing email is where {% data variables.product.product_name %} sends receipts and other billing-related communication. The email address does not need to be unique to the organization account.
-
-{% data reusables.dotcom_billing.org-billing-perms %}
-
-{% data reusables.organizations.billing-settings %}
-1. Under "Billing management", to the right of the billing email address, click **Edit**. ![Current billing emails](/assets/images/help/billing/billing-change-email.png)
-2. Type a valid email address, then click **Update**. ![Change billing email address modal](/assets/images/help/billing/billing-change-email-modal.png)
-
-### Managing additional recipients for your organization's billing email
-
-If you have users that want to receive billing reports, you can add their email addresses as billing email recipients. This feature is only available to organizations that are not managed by an enterprise.
+На адрес электронной почты для выставления счетов в организации {% data variables.product.product_name %} отправляет квитанции и другие сообщения, связанные с выставлением счетов. Адрес электронной почты не обязательно должен быть уникальным для учетной записи организации.
 
 {% data reusables.dotcom_billing.org-billing-perms %}
 
-#### Adding a recipient for billing notifications
+{% data reusables.organizations.billing-settings %}
+1. В разделе "Управление выставлением счетов" справа от адреса электронной почты для выставления счетов нажмите **Изменить**.
+  ![Текущие адреса электронной почты для выставления счетов](/assets/images/help/billing/billing-change-email.png)
+2. Введите допустимый адрес электронной почты и нажмите **Обновить**.
+  ![Модальное окно изменения адреса электронной почты для выставления счетов](/assets/images/help/billing/billing-change-email-modal.png)
+
+## Управление дополнительными получателями электронной почты о выставлении счетов в организации
+
+Если у вас есть пользователи, которым нужно получать отчеты о выставлении счетов, можно добавить их адреса электронной почты в список получателей электронной почты о выставлении счетов. Эта функция доступна только организациям, которые не управляются предприятием.
+
+{% data reusables.dotcom_billing.org-billing-perms %}
+
+### Добавление получателя для уведомлений о выставлении счетов
 
 {% data reusables.organizations.billing-settings %}
-1. Under "Billing management", to the right of "Email recipients", click **Add**. ![Add recipient](/assets/images/help/billing/billing-add-email-recipient.png)
-1. Type the email address of the recipient, then click **Add**. ![Add recipient modal](/assets/images/help/billing/billing-add-email-recipient-modal.png)
+1. В разделе "Управление выставлением счетов" справа от "Получатели электронной почты" нажмите кнопку **Добавить**.
+  ![Добавление получателя](/assets/images/help/billing/billing-add-email-recipient.png)
+1. Введите адрес электронной почты получателя и нажмите **Добавить**.
+  ![Модальное окно добавления получателя](/assets/images/help/billing/billing-add-email-recipient-modal.png)
 
-#### Changing the primary recipient for billing notifications
+### Изменение основного получателя для уведомлений о выставлении счетов
 
-One address must always be designated as the primary recipient. The address with this designation can't be removed until a new primary recipient is selected.
-
-{% data reusables.organizations.billing-settings %}
-1. Under "Billing management", find the email address you want to set as the primary recipient.
-1. To the right of the email address, use the "Edit" drop-down menu, and click **Mark as primary**. ![Mark primary recipient](/assets/images/help/billing/billing-change-primary-email-recipient.png)
-
-#### Removing a recipient from billing notifications
+Один адрес всегда должен быть указан в качестве основного получателя. Адрес с этим обозначением нельзя удалить, пока не будет выбран новый основной получатель.
 
 {% data reusables.organizations.billing-settings %}
-1. Under "Email recipients", find the email address you want to remove.
-1. For the user's entry in the list, click **Edit**. ![Edit recipient](/assets/images/help/billing/billing-edit-email-recipient.png)
-1. To the right of the email address, use the "Edit" drop-down menu, and click **Remove**. ![Remove recipient](/assets/images/help/billing/billing-remove-email-recipient.png)
-1. Review the confirmation prompt, then click **Remove**.
+1. В разделе "Управление выставлением счетов" найдите адрес электронной почты, который нужно сделать основным получателем.
+1. Справа от этого адреса в раскрывающемся меню "Изменить" выберите **Отметить как основной**.
+  ![Отметить основного получателя](/assets/images/help/billing/billing-change-primary-email-recipient.png)
+
+### Удаление получателя уведомлений о выставлении счетов
+
+{% data reusables.organizations.billing-settings %}
+1. В разделе "Получатели электронной почты" найдите адрес электронной почты, который нужно удалить.
+1. Для записи пользователя в списке нажмите **Изменить**.
+  ![Изменить получателя](/assets/images/help/billing/billing-edit-email-recipient.png)
+1. Справа от адреса электронной почты в раскрывающемся меню "Изменить" выберите **Удалить**.
+  ![Удалить получателя](/assets/images/help/billing/billing-remove-email-recipient.png)
+1. Ознакомьтесь с запросом на подтверждение и нажмите **Удалить**.
+
+{% ifversion ghec %}
+## Настройка адреса электронной почты для выставления счетов на предприятии
+
+На адрес электронной почты для выставления счетов на предприятии {% data variables.product.product_name %} отправляет квитанции и другие сообщения, связанные с выставлением счетов. Адрес электронной почты не обязательно должен быть уникальным для учетной записи предприятия.
+
+Просматривать и изменять параметры выставления счетов для предприятия могут только участники с ролью ответственного по предприятию или менеджера по выставлению счетов. Дополнительные сведения см. в разделе [Управление пользователями на предприятии](/admin/user-management/managing-users-in-your-enterprise/roles-in-an-enterprise).
+
+{% data reusables.enterprise-accounts.access-enterprise %} {% data reusables.enterprise-accounts.settings-tab %} {% data reusables.enterprise-accounts.billing-tab %}
+1. Щелкните **Электронная почта о выставлении счетов**. 
+2. В разделе "Получатели электронной почты" справа от адреса электронной почты для выставления счетов нажмите **Изменить**.
+  ![Снимок экрана: текущий адрес электронной почты для выставления счетов с выделенной кнопкой "Изменить"](/assets/images/help/billing/billing-change-email.png)
+2. Введите допустимый адрес электронной почты и нажмите **Обновить**.
+  ![Снимок экрана: модальное окно изменения адреса электронной почты для выставления счетов с введенным примером адреса электронной почты](/assets/images/help/billing/billing-change-email-modal.png)
+
+## Управление дополнительными получателями электронной почты о выставлении счетов на предприятии
+
+Если у вас есть пользователи, которым нужно получать отчеты о выставлении счетов, можно добавить их адреса электронной почты в список получателей электронной почты о выставлении счетов. 
+
+Просматривать и изменять параметры выставления счетов для предприятия могут только участники с ролью ответственного по предприятию или менеджера по выставлению счетов. Дополнительные сведения см. в разделе [Управление пользователями на предприятии](/admin/user-management/managing-users-in-your-enterprise/roles-in-an-enterprise).
+
+### Добавление получателя уведомлений о выставлении счетов
+
+{% data reusables.enterprise-accounts.access-enterprise %} {% data reusables.enterprise-accounts.settings-tab %} {% data reusables.enterprise-accounts.billing-tab %}
+1. Щелкните **Электронная почта о выставлении счетов**. 
+2. В разделе "Получатели электронной почты" справа от адреса электронной почты для выставления счетов нажмите **Добавить**.
+   ![Снимок экрана: текущий адрес электронной почты для выставления счетов с выделенной кнопкой "Добавить"](/assets/images/help/billing/billing-add-email-recipient.png)
+3. Введите адрес электронной почты получателя и нажмите **Добавить**.
+   ![Снимок экрана: модальное окно добавления адреса электронной почты для выставления счетов без введенного адреса электронной почты](/assets/images/help/billing/billing-add-email-recipient-modal.png)
+
+### Удаление получателя уведомлений о выставлении счетов
+
+{% data reusables.enterprise-accounts.access-enterprise %} {% data reusables.enterprise-accounts.settings-tab %} {% data reusables.enterprise-accounts.billing-tab %}
+1. Щелкните **Электронная почта о выставлении счетов**. 
+2. В разделе "Получатели электронной почты" найдите адрес электронной почты, который нужно удалить.
+3. Для записи пользователя в списке нажмите **Изменить**.
+   ![Снимок экрана: адрес электронной почты получателя с выделенной кнопкой "Изменить"](/assets/images/help/billing/billing-edit-email-recipient.png)
+4. Справа от адреса электронной почты в раскрывающемся меню "Изменить" выберите **Удалить**.
+   ![Снимок экрана: адрес электронной почты получателя с выделенной кнопкой "Удалить"](/assets/images/help/billing/billing-remove-email-recipient.png)
+5. Ознакомьтесь с запросом на подтверждение и нажмите **Удалить**.
+{% endif %}

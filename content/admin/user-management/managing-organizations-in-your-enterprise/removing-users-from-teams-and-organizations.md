@@ -5,13 +5,15 @@ redirect_from:
   - /enterprise/admin/user-management/removing-users-from-teams-and-organizations
   - /admin/user-management/removing-users-from-teams-and-organizations
 versions:
-  enterprise-server: '*'
+  ghes: '*'
+  ghae: '*'
 type: how_to
 topics:
   - Access management
   - Accounts
   - Enterprise
   - Teams
+shortTitle: Remove user membership
 ---
 Only owners or team admins can remove organization members. When a user is removed from a team or organization, their issues, pull requests, and comments in the organization's repositories remain intact and are still attributed to the user.
 
@@ -23,6 +25,8 @@ Only owners or team admins can remove organization members. When a user is remov
 
 ## Removing a team member
 
+{% ifversion ghes %}
+
 {% warning %}
 
 **Note:** {% data reusables.enterprise_management_console.badge_indicator %}
@@ -31,8 +35,10 @@ To remove an existing member of a team synced to an LDAP group, contact your LDA
 
 {% endwarning %}
 
+{% endif %}
+
 {% data reusables.profile.access_org %}
-{% data reusables.user_settings.access_org %}
+{% data reusables.user-settings.access_org %}
 {% data reusables.organizations.specific_team %}
 4. Select the person or people you'd like to remove.
 ![Check box next to organization member](/assets/images/help/teams/team-member-check-box.png)
@@ -42,7 +48,7 @@ To remove an existing member of a team synced to an LDAP group, contact your LDA
 ## Removing a user from an organization
 
 {% data reusables.profile.access_org %}
-{% data reusables.user_settings.access_org %}
+{% data reusables.user-settings.access_org %}
 {% data reusables.organizations.people %}
 4. Next to the name of the users you want to remove from the organization, click the check box.
 ![Remove user checkbox](/assets/images/help/organizations/Organization-remove-user.png)

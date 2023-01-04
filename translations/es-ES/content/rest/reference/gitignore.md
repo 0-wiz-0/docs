@@ -1,23 +1,23 @@
 ---
 title: Gitignore
+intro: The Gitignore API fetches `.gitignore` templates that can be used to ignore files and directories.
 redirect_from:
-  - /v3/gitignore
+- /v3/gitignore
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - API
+- API
+miniTocMaxHeadingLevel: 3
+ms.openlocfilehash: 5bbf6f76efd56eaf6f5257db3b52278c503b6807
+ms.sourcegitcommit: ea9a577cff7ec16ded25ed57417c83ec04816428
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 04/07/2022
+ms.locfileid: "141531992"
 ---
-
-Cuando creas un repositorio de {% data variables.product.product_name %} nuevo a través de la API, puedes especificar una [plantilla de .gitignore](/github/getting-started-with-github/ignoring-files) para que aplique al repositorio cuando éste se cree. La API de plantillas de .gitignore lista y recupera plantillas del [repositorio de .gitignore](https://github.com/github/gitignore) de {% data variables.product.product_name %}.
-
-### Tipos de medios personalizados para gitignore
-
-Puedes utilizar este tipo de medios personalizado cuando obtengas una plantilla de gitignore.
-
-    application/vnd.github.VERSION.raw
-
-Para obtener más información, consulta la sección "[Tipos de medios](/rest/overview/media-types)".
-
-{% include rest_operations_at_current_path %}
+<!--
+  Operations are automatically generated. Markdown for this page is located in data/reusables/rest-reference/gitignore
+-->

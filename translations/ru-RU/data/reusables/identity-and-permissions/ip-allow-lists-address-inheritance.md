@@ -1,3 +1,11 @@
-If you select **Enable IP allow list configuration for installed GitHub Apps** in your allow list settings, then IP addresses from installed {% data variables.product.prodname_github_apps %} are added to your allow list. This happens irrespective of whether your allow list is currently enabled. If you install a {% data variables.product.prodname_github_app %} and then the creator of that application changes the addresses in its allow list, your allow list is automatically updated with those changes.
+---
+ms.openlocfilehash: ce7aa40d4312947c099afb8c1a8b88bacd021847
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: "145110059"
+---
+Если выбрать параметр **Включить конфигурацию списка разрешенных IP-адресов для установленных приложений GitHub** в параметрах списка разрешенных IP-адресов, в этот список будут добавлены адреса из установленных {% data variables.product.prodname_github_apps %}. Это произойдет независимо от того, включен ли в этот момент список разрешений. Если вы установите {% data variables.product.prodname_github_app %} и после этого создатель приложения изменит его список разрешенных адресов, ваш список автоматически обновится соответствующим образом.
 
-You can identify the IP addresses that have been automatically added from {% data variables.product.prodname_github_apps %} by reviewing the description field. The description for these IP addresses is: "Managed by the NAME GitHub App." Unlike addresses you add manually, you cannot edit, delete, or disable IP addresses that are automatically added from {% data variables.product.prodname_github_apps %}.
+IP-адреса, которые были автоматически добавлены из {% data variables.product.prodname_github_apps %}, можно определить, просмотрев их поле описания. Для таких IP-адресов в поле описания содержится следующая информация: "Управляется приложением GitHub ИМЯ". В отличие от добавляемых вручную адресов, изменять, удалять или отключать IP-адреса, которые добавляются автоматически из {% data variables.product.prodname_github_apps %}, нельзя.

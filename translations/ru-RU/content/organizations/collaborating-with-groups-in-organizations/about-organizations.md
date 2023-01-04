@@ -1,33 +1,59 @@
 ---
-title: About organizations
-intro: Organizations are shared accounts where businesses and open-source projects can collaborate across many projects at once. Owners and administrators can manage member access to the organization's data and projects with sophisticated security and administrative features.
+title: Сведения об организациях
+intro: 'Организации являются общими учетными записями, в которых компании и проекты с открытым кодом могут совместно работать одновременно над несколькими проектами благодаря продвинутым функциям безопасности и администрирования.'
 redirect_from:
   - /articles/about-organizations
   - /github/setting-up-and-managing-organizations-and-teams/about-organizations
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Organizations
   - Teams
+ms.openlocfilehash: 0269554568c8781706a8d79600f5b6191d0b9598
+ms.sourcegitcommit: 1529de77bfcbe45519131b5f5fb3ab319758c2d2
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/14/2022
+ms.locfileid: '148164334'
 ---
+## Сведения об организациях
 
-{% data reusables.organizations.organizations_include %}
+{% data для повторного использования.organizations.about-organizations %} Дополнительные сведения о типах учетных записей см. в разделе [Типы учетных записей {% data variables.product.prodname_dotcom %}](/get-started/learning-about-github/types-of-github-accounts).
 
-{% if currentVersion == "free-pro-team@latest" %}
-### Organizations and enterprise accounts
+Вы можете пригласить неограниченное количество пользователей для присоединения к организации, а затем назначить этим членам организации различные роли, предоставляющие различные уровни доступа к организации и ее данным. Дополнительные сведения см. в статье "[Роли в организации](/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization)".
 
-Enterprise accounts allow owners to centrally manage policy and billing for multiple {% data variables.product.prodname_dotcom_the_website %} organizations.
+Помимо управления доступом к самой организации, вы можете отдельно управлять доступом к репозиториям, доскам проектов и приложениям вашей организации. Дополнительные сведения см. в разделе "[Роли репозитория для организации](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)", "[Разрешения доски проектов для организации"](/organizations/managing-access-to-your-organizations-project-boards/project-board-permissions-for-an-organization) и "[Управление доступом к приложениям организации](/organizations/managing-access-to-your-organizations-apps)".
 
-For organizations that belong to an enterprise account, billing is managed at the enterprise account level, and billing settings are not available at the organization level. Enterprise owners can set policy for all organizations in the enterprise account or allow organization owners to set the policy at the organization level. Organization owners cannot change settings enforced for your organization at the enterprise account level. If you have questions about a policy or setting for your organization, contact the owner of your enterprise account.
+Чтобы упростить управление доступом и улучшить совместную работу, можно создать вложенные команды, которые отражают структуру группы, с каскадными правами доступа и упоминаниями. Дополнительные сведения см. в статье "[Сведения о командах](/organizations/organizing-members-into-teams/about-teams)".
 
-{% data reusables.gated-features.enterprise-accounts %}
+Вы можете настроить организацию в соответствии с уникальными потребностями группы, управляя параметрами, такими как ограничение типов репозиториев, которые могут создавать участники. Дополнительные сведения см. в статье "[Управление параметрами организации](/organizations/managing-organization-settings)".
 
-{% data reusables.organizations.org-ownership-recommendation %} For more information, see "[Maintaining ownership continuity for your organization](/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization)."
+Чтобы повысить безопасность организации, вы можете применить требования безопасности и просмотреть журнал аудита организации. Дополнительные сведения см. в разделе [Обеспечение безопасности организации](/organizations/keeping-your-organization-secure).
 
-### Terms of service and data protection for organizations
+Сведения о том, как использовать организации наиболее эффективно, см. в разделе [Рекомендации для организаций](/organizations/collaborating-with-groups-in-organizations/best-practices-for-organizations).
 
-An entity, such as a company, non-profit, or group, can agree to the Standard Terms of Service or the Corporate Terms of Service for their organization. For more information, see "[Upgrading to the Corporate Terms of Service](/articles/upgrading-to-the-corporate-terms-of-service)."
+{% ifversion fpt or ghec %}
+## Сведения о доступности функций
+
+{% data reusables.organizations.organization-plans %} {% endif %}
+
+## Организации и корпоративные учетные записи
+
+Корпоративные учетные записи {% ifversion fpt %} — это функция {% data variables.product.prodname_ghe_cloud %}, которая позволяет владельцам централизованно управлять политиками и выставлением счетов для нескольких организаций. Дополнительные сведения см. в [документации по {% data variables.product.prodname_ghe_cloud %}](/enterprise-cloud@latest/organizations/collaborating-with-groups-in-organizations/about-organizations).
+{% else %} {% ifversion ghec %} Для организаций, принадлежащих к корпоративной учетной записи, выставление счетов осуществляется на уровне корпоративной учетной записи, а параметры выставления счетов недоступны на уровне организации. Владельцы корпоративных учетных записей {% endif %} могут задать политику для всех организаций в корпоративной учетной записи или разрешить владельцам организации устанавливать политику на уровне организации. Владельцы организации не могут изменять параметры, применяемые для вашей организации на уровне корпоративной учетной записи. Если у вас есть вопросы о политике или настройке для вашей организации, обратитесь к владельцу своей корпоративной учетной записи.
+
+{% ifversion ghec %} {% data reusables.enterprise.create-an-enterprise-account %} Дополнительные сведения см. в статье [Создание корпоративной учетной записи](/admin/overview/creating-an-enterprise-account).
+
+{% data reusables.enterprise-accounts.invite-organization %}
+
+{% endif %} {% endif %}
+
+{% ifversion fpt or ghec %}
+## Условия обслуживания и защита данных для организаций
+
+Сущность (например, компания, некоммерческая организация или группа компаний) может принять стандартные или корпоративные условия предоставления услуг для своей организации. Дополнительные сведения см. в разделе [Повышение уровня до корпоративных условий предоставления услуг](/articles/upgrading-to-the-corporate-terms-of-service).
 
 {% endif %}

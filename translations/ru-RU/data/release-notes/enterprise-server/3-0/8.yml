@@ -1,26 +1,27 @@
----
 date: '2021-05-25'
 sections:
   security_fixes:
-    - '**MEDIUM:** Under certain circumstances, users who were removed from a team or organization could retain write access to branches they had existing pull requests opened for.'
-    - Packages have been updated to the latest security versions.
+    - '**Средняя важность.** В некоторых случаях пользователи, удаленные из команды или организации, могли сохранить доступ для записи в ветвях, где у них были открытые запросы на вытягивание.'
+    - Пакеты обновлены до последних версий систем безопасности.
   bugs:
-    - On the "Configure Actions and Packages" page of the initial installation process, when an admin clicked the "Test domain settings" button the test did not complete.
-    - Running `ghe-btop` failed with error `cannot find a 'babeld' container`.
-    - Users were experiencing service unavailability after upgrading due to a mismatch of internal and external timeout values.
-    - Normal replication delays in MSSQL generated warnings.
-    - Link for GitHub Enterprise Clustering Guide on management console was incorrect.
-    - An IP address added by an admin using the "Create Whitelist Entry" button could still be locked out.
-    - References to the "Dependency graph" and "Dependabot alerts" features were shown on repositories where they were not enabled.
-    - HTTP POST requests to the `/hooks` endpoint could fail with a 401 response due to the `hookID` being set incorrectly.
-    - The `build-server` process failed to clean up processes leaving them in the `defunct` state.
-    - '`spokesd` created excessive log entries including the phrase "fixing placement skipped".'
+    - "Когда администратор нажимал кнопку \"Тест параметров домена\" на странице \"Настройка Actions и Packages\" в процессе начальной установки, тест не выполнялся."
+    - "Происходил сбой выполнения \"ghe-btop\" с ошибкой \"cannot find a 'babeld' container\" (не найден контейнер \"babeId\")."
+    - После обновления пользователи сталкивались с недоступностью служб из-за несоответствия внутренних и внешних значений времени ожидания.
+    - При нормальных задержках репликации в MSSQL возникали предупреждения.
+    - Ссылка на руководство по кластеризации GitHub Enterprise в консоли управления была неверной.
+    - "Администратор мог нажать кнопку \"Создать запись в списке разрешений\" и добавить IP-адрес, но этот адрес все равно блокировался."
+    - "Ссылки на компоненты \"Граф зависимостей\" и \"Оповещения Dependabot\" отображались в репозиториях, где эти компоненты не включены."
+    - "Из-за неверно заданного значения \"hookID\" запросы HTTP POST к конечной точке \"/hooks\" могли не срабатывать, получая ответ 401."
+    - "Процессу \"build-server\" не удавалось очистить процессы, и они оставались в состоянии \"defunct\" (нерабочее)."
+    - 'При использовании "spokesd" создавались лишние записи в журнале, содержащие фразу "fixing placement skipped" (исправление размещения пропущено).'
   changes:
-    - Check annotations older than 4 months will be archived.
+    - Заметки к проверкам старше четырех месяцев будут помещены в архив.
   known_issues:
-    - Access to a repository through the administrative shell using `ghe-repo <owner>/<reponame>` will hang. As a workaround, use `ghe-repo <owner>/<reponame> -c "bash -i"` until a fix is available in the next version.
-    - On a freshly set up GitHub Enterprise Server without any users, an attacker could create the first admin user.
-    - Custom firewall rules are not maintained during an upgrade.
-    - Git LFS tracked files [uploaded through the web interface](https://github.com/blog/2105-upload-files-to-your-repositories) are incorrectly added directly to the repository.
-    - Issues cannot be closed if they contain a permalink to a blob in the same repository where the file path is longer than 255 characters.
-    - When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results.
+    - "При доступе к репозиторию через административную оболочку с использованием \"ghe-repo <владелец>/<имя_репозитория>\" происходит зависание. В качестве обходного решения используйте \"ghe-repo <владелец>/<имя_репозитория> -c 'bash -i'\", пока в следующей версии не станет доступно исправление."
+    - "Злоумышленник мог создать первого пользователя с правами администратора на новом, только что настроенном сервере GitHub Enterprise Server, не имеющем пользователей."
+    - Пользовательские правила брандмауэра не сохраняются в процессе обновления.
+    - "Отслеживаемые файлы Git LFS, [отправленные через веб-интерфейс](https://github.com/blog/2105-upload-files-to-your-repositories), ошибочно добавлялись напрямую в репозиторий."
+    - "Невозможно закрывать проблемы, если они содержат постоянную ссылку на BLOB-объект в том же репозитории с путем, длина которого превышает 255 символов."
+    - "Когда в GitHub Connect включен параметр \"Пользователи могут выполнять поиск на GitHub.com\", результаты поиска на GitHub.com не включают проблемы в частных и внутренних репозиториях."
+    - "Когда узел реплики в конфигурации с высокой доступностью отключен, {% data variables.product.product_name %} все равно может маршрутизировать на него запросы {% data variables.product.prodname_pages %}, уменьшая доступность {% data variables.product.prodname_pages %} для пользователей."
+    - "Ограничения ресурсов, относящиеся к обработке перехватчиков перед получением, могут приводить к сбою некоторых из них."

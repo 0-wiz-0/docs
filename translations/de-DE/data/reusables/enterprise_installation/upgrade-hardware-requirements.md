@@ -1,22 +1,30 @@
-{% if currentVersion ver_gt "enterprise-server@2.20" and currentVersion ver_lt "enterprise-server@3.2" %}
+---
+ms.openlocfilehash: faf2e19d40e921c1a3d1b6cff91aaf3e4dd2b97b
+ms.sourcegitcommit: 67064b14c9d4d18819db8f6398358b77a1c8002a
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 05/17/2022
+ms.locfileid: "145102315"
+---
+{% ifversion ghes < 3.2 %}
 
-### About minimum requirements for {% data variables.product.prodname_ghe_server %} 3.0 and later
+### <a name="about-minimum-requirements-for--data-variablesproductprodname_ghe_server--30-and-later"></a>Informationen zu den Mindestanforderungen für {% data variables.product.prodname_ghe_server %} 3.0 und höher
 
-Before upgrading to {% data variables.product.prodname_ghe_server %} 3.0 or later, review the hardware resources you've provisioned for your instance. {% data variables.product.prodname_ghe_server %} 3.0 introduces new features such as {% data variables.product.prodname_actions %} and {% data variables.product.prodname_registry %}, and requires more resources than versions 2.22 and earlier. For more information, see the [{% data variables.product.prodname_ghe_server %} 3.0 release notes](/enterprise-server@3.0/admin/release-notes).
+Überprüfe vor einem Upgrade von {% data variables.product.prodname_ghe_server %} 3.0 oder höher die Hardwareressourcen, die du für deine Instanz bereitgestellt hast. In {% data variables.product.prodname_ghe_server %} 3.0 werden neue Features wie {% data variables.product.prodname_actions %} und {% data variables.product.prodname_registry %} eingeführt, und diese Version erfordert mehr Ressourcen als Version 2.22 und niedriger. Weitere Informationen findest du in den [Versionshinweisen zu {% data variables.product.prodname_ghe_server %} 3.0](/enterprise-server@3.0/admin/release-notes).
 
-Increased requirements for {% data variables.product.prodname_ghe_server %} 3.0 and later are **bold** in the following table.
+Die höheren Anforderungen für {% data variables.product.prodname_ghe_server %} 3.0 und höher sind in der folgenden Tabelle **fett** formatiert.
 
-| Benutzerlizenzen                                           |                           vCPUs |                         Arbeitsspeicher |                        Attached-Storage | Root-Storage |
-|:---------------------------------------------------------- | -------------------------------:| ---------------------------------------:| ---------------------------------------:| ------------:|
-| Test, Demo oder 10 Benutzer mit eingeschränkten Funktionen |   **4**<br/>_Up from 2_ |   **32 GB**<br/>_Up from 16 GB_ | **150 GB**<br/>_Up from 100 GB_ |       200 GB |
-| 10–3000                                                    |   **8**<br/>_Up from 4_ |   **48 GB**<br/>_Up from 32 GB_ | **300 GB**<br/>_Up from 250 GB_ |       200 GB |
-| 3000–5000                                                  |  **12**<br/>_Up from 8_ |                                   64 GB |                                  500 GB |       200 GB |
-| 5000–8000                                                  | **16**<br/>_Up from 12_ |                                   96 GB |                                  750 GB |       200 GB |
-| 8000–10000+                                                | **20**<br/>_Up from 16_ | **160 GB**<br/>_Up from 128 GB_ |                                 1000 GB |       200 GB |
+| Benutzerlizenzen | vCPUs | Arbeitsspeicher | Angeschlossener Speicher | Stammspeicher |
+| :- | -: | -: | -: | -: |
+| Test, Demo oder 10 Benutzer mit eingeschränkten Funktionen | **4**<br/>_Erhöht von 2_ | **32 GB**<br/>_Erhöht von 16 GB_ | **150 GB**<br/>_Erhöht von 100 GB_ | 200 GB |
+| 10–3000  | **8**<br/>_Erhöht von 4_ | **48 GB**<br/>_Erhöht von 32 GB_ | **300 GB**<br/>_Erhöht von 250 GB_ | 200 GB |
+| 3000–5000 | **12**<br/>_Erhöht von 8_ | 64 GB | 500 GB | 200 GB |
+| 5000–8000 | **16**<br/>_Erhöht von 12_ | 96 GB | 750 GB | 200 GB |
+| 8000–10000+ | **20**<br/>_Erhöht von 16_ | **160 GB**<br/>_Erhöht von 128 GB_ | 1000 GB | 200 GB |
 
-{% if currentVersion ver_gt "enterprise-server@2.21" %}
+{% ifversion ghes %}
 
-For more information about hardware requirements for {% data variables.product.prodname_actions %}, see "[Getting started with {% data variables.product.prodname_actions %} for {% data variables.product.prodname_ghe_server %}](/admin/github-actions/getting-started-with-github-actions-for-github-enterprise-server#review-hardware-considerations)."
+Weitere Informationen zu den Hardwareanforderungen für {% data variables.product.prodname_actions %} findest du unter [Erste Schritte mit {% data variables.product.prodname_actions %} für {% data variables.product.prodname_ghe_server %}](/admin/github-actions/getting-started-with-github-actions-for-github-enterprise-server#review-hardware-considerations).
 
 {% endif %}
 

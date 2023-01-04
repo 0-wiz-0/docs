@@ -1,39 +1,46 @@
 ---
-title: Making a GitHub App public or private
+title: Преобразование приложения GitHub в общедоступное или частное
 intro: '{% data reusables.shortdesc.making-a-github-app-public-or-private %}'
 redirect_from:
-  - /apps/building-integrations/setting-up-and-registering-github-apps/about-installation-options-for-github-apps/
-  - /apps/building-github-apps/installation-options-for-github-apps/
-  - /apps/building-integrations/managing-github-apps/changing-a-github-app-s-installation-option/
-  - /apps/managing-github-apps/changing-a-github-app-s-installation-option/
+  - /apps/building-integrations/setting-up-and-registering-github-apps/about-installation-options-for-github-apps
+  - /apps/building-github-apps/installation-options-for-github-apps
+  - /apps/building-integrations/managing-github-apps/changing-a-github-app-s-installation-option
+  - /apps/managing-github-apps/changing-a-github-app-s-installation-option
   - /apps/managing-github-apps/making-a-github-app-public-or-private
   - /developers/apps/making-a-github-app-public-or-private
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
+shortTitle: Manage app visibility
+ms.openlocfilehash: f276be130be76f110d4c4ad3c0bfa3bff708aad6
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147065893'
 ---
+Сведения о проверке подлинности см. в разделе [Проверка подлинности в приложениях GitHub](/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation).
 
-For authentication information, see "[Authenticating with GitHub Apps](/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation)."
+## Процесс установки общедоступного приложения
 
-### Public installation flow
+Процесс установки общедоступного приложения предполагает наличие целевой страницы, с которой другие пользователи, помимо владельца приложения, могут устанавливать приложение в своих репозиториях. Ссылка на нее предоставляется в поле "Общедоступная ссылка" при настройке приложения GitHub. Дополнительные сведения см. в разделе [Установка приложений GitHub](/apps/installing-github-apps/).
 
-Public installation flows have a landing page to enable other people besides the app owner to install the app in their repositories. This link is provided in the "Public link" field when setting up your GitHub App. For more information, see "[Installing GitHub Apps](/apps/installing-github-apps/)."
+## Процесс установки частного приложения
 
-### Private installation flow
+Процесс установки частного приложения позволяет устанавливать приложение GitHub только его владельцу. Ограниченные сведения о приложении GitHub будут отображаться на общедоступной странице, но кнопка **Установить** будет доступна только администраторам организации или личной учетной записи, если приложение GitHub принадлежит ей. Частные приложения GitHub можно установить только в учетной записи пользователя или организации владельца приложения.
 
-Private installation flows allow only the owner of a GitHub App to install it. Limited information about the GitHub App will still exist on a public page, but the **Install** button will only be available to organization administrators or the user account if the GitHub App is owned by an individual account. Private{% if currentVersion ver_lt "enterprise-server@3.2" or currentVersion == "github-ae@latest" %}, or internal,{% endif %} GitHub Apps can only be installed on the user or organization account of the owner.
+## Изменение круга пользователей, которым доступна установка приложения GitHub
 
-### Changing who can install your GitHub App
+Чтобы изменить круг пользователей, которым доступна установка приложения GitHub, выполните указанные ниже действия.
 
-To change who can install the GitHub App:
-
-{% data reusables.user-settings.access_settings %}
-{% data reusables.user-settings.developer_settings %}
-{% data reusables.user-settings.github_apps %}
-3. Select the GitHub App whose installation option you want to change. ![App selection](/assets/images/github-apps/github_apps_select-app.png)
-{% data reusables.user-settings.github_apps_advanced %}
-5. Depending on the installation option of your GitHub App, click either **Make public** or **Make {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" %}private{% else %}internal{% endif %}**. ![Button to change the installation option of your GitHub App](/assets/images/github-apps/github_apps_make_public.png)
-6. Depending on the installation option of your GitHub App, click either **Yes, make this GitHub App public** or **Yes, make this GitHub App {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" %}private{% else %}internal{% endif %}**. ![Button to confirm the change of your installation option](/assets/images/github-apps/github_apps_confirm_installation_option.png)
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.developer_settings %} {% data reusables.user-settings.github_apps %}
+3. Выберите приложение GitHub, вариант установки которого нужно изменить.
+![Выбор приложения](/assets/images/github-apps/github_apps_select-app.png) {% data reusables.user-settings.github_apps_advanced %}
+5. В зависимости от варианта установки приложения GitHub выберите **Сделать общедоступным** или **Сделать частным**.
+![Кнопка для изменения варианта установки приложения GitHub](/assets/images/github-apps/github_apps_make_public.png)
+6. В зависимости от варианта установки приложения GitHub выберите **Да, сделать это приложение GitHub общедоступным** или **Да, сделать это приложение GitHub {% ifversion fpt or ghec %}внутренним{% else %}частным{% endif %}** .
+![Кнопка для подтверждения изменения варианта установки](/assets/images/github-apps/github_apps_confirm_installation_option.png)

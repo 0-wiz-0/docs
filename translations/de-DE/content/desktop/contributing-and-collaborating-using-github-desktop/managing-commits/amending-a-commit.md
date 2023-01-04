@@ -1,22 +1,27 @@
 ---
-title: Amending a commit
-intro: 'You can use {% data variables.product.prodname_desktop %} to amend your last commit.'
+title: Ändern eines Commits
+intro: 'Du kannst mit {% data variables.product.prodname_desktop %} deinen letzten Commit ändern.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 8d92d5f755df662c4948196cf9f84b3227ec0067
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145105347'
 ---
+## Informationen zum Ändern eines Commits
 
-## About amending a commit
+Durch das Ändern eines Commits kannst du den letzten Commit bearbeiten, den du in deinem aktuellen Branch durchgeführt hast. Das kann nützlich sein, wenn du die Commitnachricht bearbeiten musst, oder wenn du vergessen hast, Änderungen in den Commit aufzunehmen.
 
-Amending a commit is a way to modify the most recent commit you have made in your current branch. This can be helpful if you need to edit the commit message or if you forgot to include changes in the commit.
+Du kannst einen Commit so lange ändern, bis du ihn an das Remoterepository pushst. Nachdem du einen Commit gepusht hast, wird die Option zur Änderung des Commits in {% data variables.product.prodname_desktop %} deaktiviert. Wenn du einen Commit änderst, ersetzt du den vorherigen Commit durch einen neuen Commit in deinem aktuellen Branch. Das Ändern eines Commits, der in das Remoterepository gepusht wurde, könnte für Verwirrung bei anderen Projektbeteiligten sorgen, die mit dem Repository arbeiten.
 
-You can continue to amend a commit until you push it to the remote repository. After you push a commit, the option to amend it is disabled in {% data variables.product.prodname_desktop %}. When you amend a commit, you replace the previous commit with a new commit to your current branch. Amending a commit that has been pushed to the remote repository could cause confusion for other collaborators working with the repository.
-
-## Amending a commit
+## Ändern eines Commits
 
 {% data reusables.desktop.history-tab %}
-2. Right-click on the most recent commit and select **Amend commit**.
-  ![Amend commit context menu](/assets/images/help/desktop/amend-commit-context-menu.png)
-3. Click the **Summary** field to modify the commit message. Optionally, you can modify or add information about the commit in the **Description** field.
-4. Select any uncommitted changes that you would like to add to the commit. For more information about selecting changes, see "[Committing and reviewing changes to your project](/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project#selecting-changes-to-include-in-a-commit)."
-5. Once you have finalized your changes, click **Amend last commit**.
-  ![Amend last commit overview](/assets/images/help/desktop/amend-last-commit-overview.png)
+2. Klicke mit der rechten Maustaste auf den letzten Commit, und wähle **Commit ändern** aus.
+  ![Kontextmenü „Commit ändern“](/assets/images/help/desktop/amend-commit-context-menu.png)
+3. Klicke auf das Feld **Zusammenfassung**, um die Commitnachricht zu ändern. Optional kannst du im Feld **Beschreibung** Informationen zum Commit ändern oder hinzufügen.
+4. Wähle alle Änderungen aus, die bisher nicht committet wurden und die du dem Commit hinzufügen möchtest. Weitere Informationen findest du unter [Committen und Überprüfen von Änderungen an deinem Projekt](/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project#selecting-changes-to-include-in-a-commit).
+5. Wenn du deine Änderungen fertig gestellt hast, klicke auf **Letzten Commit ändern**.
+  ![Übersicht: Ändern des letzten Commits](/assets/images/help/desktop/amend-last-commit-overview.png)

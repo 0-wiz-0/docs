@@ -1,83 +1,89 @@
 ---
-title: Setting up the tool cache on self-hosted runners without internet access
-intro: 'To use the included `actions/setup` actions on self-hosted runners without internet access, you must first populate the runner''s tool cache for your workflows.'
+title: 인터넷에 액세스할 수 없는 자체 호스팅 실행기에서 도구 캐시 설정
+intro: 인터넷에 액세스하지 않고 자체 호스팅 실행기에서 포함된 `actions/setup` 작업을 사용하려면 먼저 워크플로에 대한 실행기 도구 캐시를 채워야 합니다.
 redirect_from:
   - /enterprise/admin/github-actions/setting-up-the-tool-cache-on-self-hosted-runners-without-internet-access
   - /admin/github-actions/setting-up-the-tool-cache-on-self-hosted-runners-without-internet-access
 versions:
-  enterprise-server: '>=2.22'
-  github-ae: next
+  ghes: '*'
+  ghae: '*'
+type: tutorial
 topics:
+  - Actions
   - Enterprise
+  - Networking
+  - Storage
+shortTitle: Tool cache for offline runners
+ms.openlocfilehash: fe1b070880db8353064f1be5a26b0a63a5e92cf5
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147529298'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
-{% data reusables.actions.ae-beta %}
-
-### About the included setup actions and the runner tool cache
+## 포함된 설정 작업 및 실행기 도구 캐시 정보
 
 {% data reusables.actions.enterprise-no-internet-actions %}
 
-Most official {% data variables.product.prodname_dotcom %}-authored actions are automatically bundled with {% data variables.product.product_name %}. However, self-hosted runners without internet access require some configuration before they can use the included `actions/setup-LANGUAGE` actions, such as `setup-node`.
+{% data variables.product.prodname_dotcom %}에서 작성된 대부분의 공식 작업은 자동으로 {% data variables.product.product_name %}와 번들됩니다. 그러나 인터넷에 액세스할 수 없는 자체 호스팅 실행기가 포함된 `actions/setup-LANGUAGE` 작업(예: `setup-node`)을 사용하려면 몇 가지 구성이 필요합니다.
 
-The `actions/setup-LANGUAGE` actions normally need internet access to download the required environment binaries into the runner's tool cache. Self-hosted runners without internet access can't download the binaries, so you must manually populate the tool cache on the runner.
+`actions/setup-LANGUAGE` 작업은 일반적으로 필요한 환경 이진 파일을 실행기 도구 캐시에 다운로드하기 위해 인터넷에 액세스할 수 있어야 합니다. 인터넷에 액세스할 수 없는 자체 호스팅 실행기는 이진 파일을 다운로드할 수 없으므로 실행기의 도구 캐시를 수동으로 채워야 합니다.
 
-You can populate the runner tool cache by running a {% data variables.product.prodname_actions %} workflow on {% data variables.product.prodname_dotcom_the_website %} that uploads a {% data variables.product.prodname_dotcom %}-hosted runner's tool cache as an artifact, which you can then transfer and extract on your internet-disconnected self-hosted runner.
+{% data variables.product.prodname_dotcom_the_website %}에서 {% data variables.product.prodname_dotcom %} 호스팅 실행기의 도구 캐시를 아티팩트로 업로드하는 {% data variables.product.prodname_actions %} 워크플로를 실행하여 실행기 도구 캐시를 채울 수 있습니다. 그런 다음, 인터넷 연결이 끊긴 자체 호스팅 실행기에서 아티팩트를 전송하고 추출할 수 있습니다.
 
 {% note %}
 
-**Note:** You can only use a {% data variables.product.prodname_dotcom %}-hosted runner's tool cache for a self-hosted runner that has an identical operating system and architecture. For example, if you are using a `ubuntu-18.04` {% data variables.product.prodname_dotcom %}-hosted runner to generate a tool cache, your self-hosted runner must be a 64-bit Ubuntu 18.04 machine. For more information on {% data variables.product.prodname_dotcom %}-hosted runners, see "<a href="/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources" class="dotcom-only">Virtual environments for GitHub-hosted runners</a>."
+**참고:** 운영 체제와 아키텍처가 동일한 자체 호스팅 실행기에서만 {% data variables.product.prodname_dotcom %} 호스팅 실행기의 도구 캐시를 사용할 수 있습니다. 예를 들어 `ubuntu-22.04` {% data variables.product.prodname_dotcom %} 호스팅 실행기를 사용하여 도구 캐시를 생성하는 경우 자체 호스팅 실행기는 64비트 Ubuntu 22.04 머신이어야 합니다. {% data variables.product.prodname_dotcom %}에서 호스트되는 실행기에 대한 자세한 내용은 “[{% data variables.product.prodname_dotcom %}에서 호스트되는 실행기 정보](/free-pro-team@latest/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)”를 참조하세요.
 
 {% endnote %}
 
-### 빌드전 요구 사양
+## 필수 조건
 
-* Determine which development environments your self-hosted runners will need. The following example demonstrates how to populate a tool cache for the `setup-node` action, using Node.js versions 10 and 12.
-* Access to a repository on {% data variables.product.prodname_dotcom_the_website %} that you can use to run a workflow.
-* Access to your self-hosted runner's file system to populate the tool cache folder.
+* 자체 호스팅 실행기에 필요한 개발 환경을 결정합니다. 다음 예제에서는 Node.js 버전 10과 12를 사용하여 `setup-node` 작업용 도구 캐시를 채우는 방법을 보여 줍니다.
+* 워크플로를 실행하는 데 사용할 수 있는 {% data variables.product.prodname_dotcom_the_website %}의 리포지토리에 대한 액세스 권한
+* 도구 캐시 폴더를 채울 자체 호스팅 실행기의 파일 시스템에 대한 액세스 권한
 
-### Populating the tool cache for a self-hosted runner
+## 자체 호스팅 실행기용 도구 캐시 채우기
 
-1. On {% data variables.product.prodname_dotcom_the_website %}, navigate to a repository that you can use to run a {% data variables.product.prodname_actions %} workflow.
-1. Create a new workflow file in the repository's `.github/workflows` folder that uploads an artifact containing the {% data variables.product.prodname_dotcom %}-hosted runner's tool cache.
+1. {% data variables.product.prodname_dotcom_the_website %}에서 {% data variables.product.prodname_actions %} 워크플로를 실행하는 데 사용할 수 있는 리포지토리로 이동합니다.
+1. 리포지토리의 `.github/workflows` 폴더에 {% data variables.product.prodname_dotcom %} 호스팅 실행기의 도구 캐시가 포함된 아티팩트를 업로드하는 새 워크플로 파일을 만듭니다.
 
-   The following example demonstrates a workflow that uploads the tool cache for an Ubuntu 18.04 environment, using the `setup-node` action with Node.js versions 10 and 12.
+   다음 예제에서는 Node.js 버전 10과 12에서 `setup-node` 작업을 사용하여 Ubuntu 22.04 환경용 도구 캐시를 업로드하는 워크플로를 보여 줍니다.
 
-   {% raw %}
    ```yaml
    name: Upload Node.js 10 and 12 tool cache
    on: push
    jobs:
      upload_tool_cache:
-       runs-on: ubuntu-18.04
+       runs-on: ubuntu-22.04
        steps:
          - name: Clear any existing tool cache
            run: |
-             mv "${{ runner.tool_cache }}" "${{ runner.tool_cache }}.old"
-             mkdir -p "${{ runner.tool_cache }}"
+             mv "{% raw %}${{ runner.tool_cache }}" "${{ runner.tool_cache }}.old"{% endraw %}
+             mkdir -p "{% raw %}${{ runner.tool_cache }}{% endraw %}"
          - name: Setup Node 10
-           uses: actions/setup-node@v1
+           uses: {% data reusables.actions.action-setup-node %}
            with:
              node-version: 10.x
          - name: Setup Node 12
-           uses: actions/setup-node@v1
+           uses: {% data reusables.actions.action-setup-node %}
            with:
              node-version: 12.x
          - name: Archive tool cache
            run: |
-             cd "${{ runner.tool_cache }}"
+             cd "{% raw %}${{ runner.tool_cache }}{% endraw %}"
              tar -czf tool_cache.tar.gz *
          - name: Upload tool cache artifact
-           uses: actions/upload-artifact@v2
+           uses: {% data reusables.actions.action-upload-artifact %}
            with:
-             path: ${{runner.tool_cache}}/tool_cache.tar.gz
+             path: {% raw %}${{runner.tool_cache}}/tool_cache.tar.gz{% endraw %}
    ```
-   {% endraw %}
-1. Download the tool cache artifact from the workflow run. For instructions on downloading artifacts, see "[Downloading workflow artifacts](/actions/managing-workflow-runs/downloading-workflow-artifacts)."
-1. Transfer the tool cache artifact to your self hosted runner and extract it to the local tool cache directory. The default tool cache directory is `RUNNER_DIR/_work/_tool`. If the runner hasn't processed any jobs yet, you might need to create the `_work/_tool` directories.
+1. 워크플로 실행에서 도구 캐시 아티팩트를 다운로드합니다. 아티팩트 다운로드 방법에 대한 지침은 “[워크플로 아티팩트 다운로드](/actions/managing-workflow-runs/downloading-workflow-artifacts)”를 참조하세요.
+1. 도구 캐시 아티팩트를 자체 호스팅 실행기로 전송하고 로컬 도구 캐시 디렉터리에 추출합니다. 기본 도구 캐시 디렉터리는 `RUNNER_DIR/_work/_tool`입니다. 실행기에서 아직 작업을 처리하지 않은 경우 `_work/_tool` 디렉터리를 만들어야 할 수도 있습니다.
 
-    After extracting the tool cache artifact uploaded in the above example, you should have a directory structure on your self-hosted runner that is similar to the following example:
+    위 예제에서 업로드된 도구 캐시 아티팩트를 추출하면 자체 호스팅 실행기에 다음 예제와 유사한 디렉터리 구조가 있습니다.
 
     ```
     RUNNER_DIR
@@ -87,9 +93,9 @@ You can populate the runner tool cache by running a {% data variables.product.pr
         └── _tool
             └── node
                 ├── 10.22.0
-                │   └── ...
+                │   └── ...
                 └── 12.18.3
                     └── ...
     ```
 
-Your self-hosted runner without internet access should now be able to use the `setup-node` action. If you are having problems, make sure that you have populated the correct tool cache for your workflows. For example, if you need to use the `setup-python` action, you will need to populate the tool cache with the Python environment you want to use.
+인터넷에 액세스할 수 없는 자체 호스팅 실행기에서 이제 `setup-node` 작업을 사용할 수 있습니다. 문제가 있는 경우 워크플로에 맞는 도구 캐시를 채웠는지 확인합니다. 예를 들어 `setup-python` 작업을 사용해야 하는 경우 사용할 Python 환경으로 도구 캐시를 채워야 합니다.

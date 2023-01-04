@@ -1,65 +1,91 @@
----
 getting_started:
-  title: 'Get started with {% data variables.product.prodname_actions %}'
-  description: 'Discover the possibilities of {% data variables.product.prodname_actions %} by creating your first workflow.'
+  title: 'Начало работы с {% data variables.product.prodname_actions %}'
+  description: 'Создайте первый рабочий процесс, чтобы изучить возможности {% data variables.product.prodname_actions %}.'
   guides:
-    - /actions/learn-github-actions/introduction-to-github-actions
-    - /actions/learn-github-actions/finding-and-customizing-actions
-    - /actions/learn-github-actions/essential-features-of-github-actions
-    - /actions/learn-github-actions/managing-complex-workflows
-    - /actions/learn-github-actions/security-hardening-for-github-actions
+    - Знакомство с GitHub Actions
+    - Поиск и настройка действий
+    - Основные возможности GitHub Actions
+    - Управление сложными рабочими процессами
+    - Повторное использование рабочих процессов
+    - Усиление безопасности для GitHub Actions
   featured_track: true
 continuous_integration:
-  title: 'Build and test code'
-  description: 'You can create custom continuous integration (CI) workflows right in your repository.'
+  title: 'Сборка и тестирование кода'
+  description: 'Создавайте настраиваемые рабочие процессы непрерывной интеграции (CI) в своем репозитории.'
   guides:
-    - /actions/guides/about-continuous-integration
-    - /actions/guides/setting-up-continuous-integration-using-workflow-templates
-    - /actions/guides/about-service-containers
-    - /actions/guides/building-and-testing-nodejs
-    - /actions/guides/building-and-testing-powershell
-    - /actions/guides/building-and-testing-python
-    - /actions/guides/building-and-testing-ruby
-    - /actions/guides/building-and-testing-java-with-maven
-    - /actions/guides/building-and-testing-java-with-gradle
-    - /actions/guides/building-and-testing-java-with-ant
+    - Сведения о непрерывной интеграции
+    - Сборка и тестирование в PowerShell
+    - Сборка и тестирование проекта Ruby
+    - Сборка и тестирование проекта Java с помощью Maven
+    - Сборка и тестирование проекта Java с помощью Gradle
+    - Сборка и тестирование проекта Java с помощью Ant
+    - Сборка и тестирование проекта Swift
 continuous_deployment:
-  title: 'Automate your deployments'
-  description: 'Learn how to automate release publishing for your project with a custom continuous deployment (CD) workflow in {% data variables.product.prodname_actions %}.'
+  title: 'Автоматизация развертываний'
+  description: 'Научитесь автоматизировать публикацию выпусков для проекта с помощью настраиваемого рабочего процесса непрерывного развертывания (CD) в {% data variables.product.prodname_actions %}.'
   guides:
-    - /actions/guides/about-packaging-with-github-actions
-    - /actions/guides/publishing-nodejs-packages
-    - /actions/guides/publishing-java-packages-with-maven
-    - /actions/guides/publishing-java-packages-with-gradle
-    - /actions/guides/publishing-docker-images
+    - Сведения о публикации с помощью GitHub Actions
+    - Публикация пакетов Node.js
+    - Публикация пакетов Java с помощью Maven
+    - Публикация пакетов Java с помощью Gradle
+    - Публикация образов Docker
 deploy_to_the_cloud:
-  title: 'Deploy to the cloud'
-  description: 'Learn how to use {% data variables.product.prodname_actions %} to build an application and deploy it to various cloud-based platforms.'
+  title: 'Развертывание в облаке'
+  description: 'Научитесь собирать приложение и развертывать его на различных облачных платформах с помощью {% data variables.product.prodname_actions %}.'
   guides:
-    - /actions/guides/deploying-to-amazon-elastic-container-service
-    - /actions/guides/deploying-to-azure-app-service
-    - /actions/guides/deploying-to-google-kubernetes-engine
+    - Развертывание в Amazon Elastic Container Service
+    - Развертывание в службе приложений Azure
+    - Развертывание в Google Kubernetes Engine
+adopting_github_actions_for_your_enterprise_ghec:
+  title: 'Внедрение GitHub Actions для предприятия'
+  description: 'Узнайте, как спланировать и реализовать выпуск {% data variables.product.prodname_actions %} на вашем предприятии.'
+  versions:
+    ghec: '*'
+  guides:
+    - Сведения о GitHub Actions для предприятий
+    - Общие сведения о GitHub Actions
+    - Начало работы с GitHub Actions на предприятии
+    - Перенос предприятия в GitHub Actions
+    - Начало работы с GitHub Actions для GitHub Enterprise Cloud
+    - Усиление безопасности для GitHub Actions
+    - Сведения о выставлении счетов за GitHub Actions
+adopting_github_actions_for_your_enterprise_ghes_and_ghae:
+  title: 'Внедрение GitHub Actions для предприятия'
+  description: 'Узнайте, как спланировать и реализовать выпуск {% data variables.product.prodname_actions %} на вашем предприятии.'
+  versions:
+    ghes: '*'
+    ghae: '*'
+  guides:
+    - Сведения о GitHub Actions для предприятий
+    - Общие сведения о GitHub Actions
+    - Начало работы с GitHub Actions на предприятии
+    - Перенос предприятия в GitHub Actions
+    - Начало работы с GitHub Actions для GitHub Enterprise Cloud
+    - Начало работы с GitHub Actions для GitHub Enterprise Server
+    - Начало работы с локальными средствами выполнения на предприятии
+    - Усиление безопасности для GitHub Actions
+    - Сведения о выставлении счетов за GitHub Actions
 hosting_your_own_runners:
-  title: 'Host your own runners'
-  description: 'You can create self-hosted runners to run workflows in a highly customizable environment.'
+  title: 'Размещение собственных средств выполнения'
+  description: 'Можно создавать локальные средства выполнения тестов для выполнения рабочих процессов в настраиваемой среде.'
   guides:
-    - /actions/hosting-your-own-runners/about-self-hosted-runners
-    - /actions/hosting-your-own-runners/adding-self-hosted-runners
-    - /actions/hosting-your-own-runners/configuring-the-self-hosted-runner-application-as-a-service
-    - /actions/hosting-your-own-runners/using-a-proxy-server-with-self-hosted-runners
-    - /actions/hosting-your-own-runners/using-labels-with-self-hosted-runners
-    - /actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow
-    - /actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups
-    - /actions/hosting-your-own-runners/monitoring-and-troubleshooting-self-hosted-runners
+    - Сведения о локальных средствах выполнения
+    - Добавление локальных средств выполнения
+    - Настройка приложения локального средства выполнения в качестве службы
+    - Использование прокси-сервера с локальными средствами выполнения
+    - Использование меток с локальными средствами выполнения
+    - Использование локальных средств выполнения в рабочем процессе
+    - Управление доступом к локальным средствам выполнения с помощью групп
+    - Мониторинг и устранение неполадок локальных средств выполнения
 create_actions:
-  title: 'Create an action'
-  description: 'Do you have an idea for a new action? Have you built something custom for your project? Learn how to build shareable actions and publish them to GitHub Marketplace.'
+  title: 'Создание действия'
+  description: 'Вы придумали новое действие? Создали настраиваемое действие для своего проекта? Узнайте, как создавать совместно используемые действия и публиковать их в GitHub Marketplace.'
   guides:
-    - /actions/creating-actions/about-actions
-    - /actions/creating-actions/creating-a-docker-container-action
-    - /actions/creating-actions/creating-a-javascript-action
-    - /actions/creating-actions/creating-a-composite-run-steps-action
-    - /actions/creating-actions/metadata-syntax-for-github-actions
-    - /actions/creating-actions/dockerfile-support-for-github-actions
-    - /actions/creating-actions/setting-exit-codes-for-actions
-    - /actions/creating-actions/publishing-actions-in-github-marketplace
+    - Сведения о настраиваемых действиях
+    - Создание действия контейнера Docker
+    - Создание действия JavaScript
+    - Создание составного действия
+    - Синтаксис метаданных для GitHub Actions
+    - Поддержка Dockerfile для GitHub Actions
+    - Настройка кодов завершения для действий
+    - Публикация действий в GitHub Marketplace

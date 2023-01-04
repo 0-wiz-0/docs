@@ -1,12 +1,19 @@
 ---
-title: Escaneo de secretos
+title: Análisis de secretos
+intro: Use the secret scanning API to retrieve and update secret alerts from a repository.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.1'
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
+  ghae: '*'
+miniTocMaxHeadingLevel: 3
+ms.openlocfilehash: 4fc4515c4b8024d7c6f600f334dbdbd45c2e051f
+ms.sourcegitcommit: ea9a577cff7ec16ded25ed57417c83ec04816428
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 04/07/2022
+ms.locfileid: "141525712"
 ---
-
-{% data reusables.secret-scanning.api-beta %}
-
-La API de {% data variables.product.prodname_secret_scanning %} te permite recuperar y actualizar las alertas del escaneo de secretos desde un repositorio {% if currentVersion == "free-pro-team@latest" %}privado{% endif %}. Para obtener más información sobre el escaneo de secretos, consulta la sección "[Acerca del escaneo de secretos](/code-security/secret-security/about-secret-scanning)".
-
-{% include rest_operations_at_current_path %}
+<!--
+  Operations are automatically generated. Markdown for this page is located in data/reusables/rest-reference/secret-scanning
+-->

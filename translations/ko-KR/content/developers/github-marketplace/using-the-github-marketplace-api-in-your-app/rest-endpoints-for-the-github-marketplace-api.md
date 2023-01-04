@@ -1,31 +1,38 @@
 ---
-title: REST endpoints for the GitHub Marketplace API
-intro: 'To help manage your app on {% data variables.product.prodname_marketplace %}, use these {% data variables.product.prodname_marketplace %} API endpoints.'
+title: GitHub Marketplace API에 대한 REST 엔드포인트
+intro: '{% data variables.product.prodname_marketplace %}에서 앱을 관리하려면 이러한 {% data variables.product.prodname_marketplace %} API 엔드포인트를 사용합니다.'
 redirect_from:
-  - /apps/marketplace/github-marketplace-api-endpoints/
-  - /apps/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-rest-api-endpoints/
+  - /apps/marketplace/github-marketplace-api-endpoints
+  - /apps/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-rest-api-endpoints
   - /marketplace/integrating-with-the-github-marketplace-api/github-marketplace-rest-api-endpoints
   - /developers/github-marketplace/rest-endpoints-for-the-github-marketplace-api
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+shortTitle: REST API
+ms.openlocfilehash: aac7df5600863521c482b8a13c31abf8fd103ecf
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145112495'
 ---
+Marketplace 목록에 사용할 수 있는 몇 가지 유용한 엔드포인트는 다음과 같습니다.
 
-Here are some useful endpoints available for Marketplace listings:
+* [플랜 나열](/rest/reference/apps#list-plans)
+* [플랜에 대한 계정 나열](/rest/reference/apps#list-accounts-for-a-plan)
+* [계정에 대한 구독 플랜 가져오기](/rest/reference/apps#get-a-subscription-plan-for-an-account)
+* [인증된 사용자의 구독 나열](/rest/reference/apps#list-subscriptions-for-the-authenticated-user)
 
-* [List plans](/rest/reference/apps#list-plans)
-* [List accounts for a plan](/rest/reference/apps#list-accounts-for-a-plan)
-* [Get a subscription plan for an account](/rest/reference/apps#get-a-subscription-plan-for-an-account)
-* [List subscriptions for the authenticated user](/rest/reference/apps#list-subscriptions-for-the-authenticated-user)
+{% data variables.product.prodname_marketplace %} API를 사용할 때 인증하는 방법에 대한 자세한 내용은 다음 페이지를 참조하세요.
 
-See these pages for details on how to authenticate when using the {% data variables.product.prodname_marketplace %} API:
-
-* [Authorization options for OAuth Apps](/apps/building-oauth-apps/authorizing-oauth-apps/)
-* [Authentication options for GitHub Apps](/apps/building-github-apps/authenticating-with-github-apps/)
+* [OAuth 앱에 대한 권한 부여 옵션](/apps/building-oauth-apps/authorizing-oauth-apps/)
+* [GitHub 앱에 대한 권한 부여 옵션](/apps/building-github-apps/authenticating-with-github-apps/)
 
 {% note %}
 
-**Note:** [Rate limits for the REST API](/rest#rate-limiting) apply to all {% data variables.product.prodname_marketplace %} API endpoints.
+**참고:** [REST API에 대한 속도 제한](/rest/overview/resources-in-the-rest-api#rate-limiting)은 모든 {% data variables.product.prodname_marketplace %} API 엔드포인트에 적용됩니다.
 
 {% endnote %}

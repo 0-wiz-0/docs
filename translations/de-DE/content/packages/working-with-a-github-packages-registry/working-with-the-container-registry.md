@@ -1,6 +1,6 @@
 ---
-title: Working with the Container registry
-intro: 'You can store and manage Docker and OCI images in the {% data variables.product.prodname_container_registry %}, which uses the package namespace `https://ghcr.io`.'
+title: Arbeiten mit der Containerregistrierung
+intro: 'Du kannst Docker- und OCI-Images in der {% data variables.product.prodname_container_registry %} speichern und verwalten, die den Paketnamespace `https://{% data reusables.package_registry.container-registry-hostname %}` verwendet.'
 product: '{% data reusables.gated-features.packages %}'
 redirect_from:
   - /packages/managing-container-images-with-github-container-registry/pushing-and-pulling-docker-images
@@ -8,114 +8,134 @@ redirect_from:
   - /packages/guides/pushing-and-pulling-docker-images
   - /packages/getting-started-with-github-container-registry/about-github-container-registry
   - /packages/managing-container-images-with-github-container-registry
+  - /packages/working-with-a-github-packages-registry/enabling-improved-container-support-with-the-container-registry
+  - /packages/getting-started-with-github-container-registry/enabling-improved-container-support
+  - /packages/guides/container-guides-for-github-packages/enabling-improved-container-support
+  - /packages/guides/enabling-improved-container-support
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
+  ghes: '>= 3.5'
+shortTitle: Container registry
+ms.openlocfilehash: fc99e2e21a647c7a1a2517de8aa68822faac496e
+ms.sourcegitcommit: 478f2931167988096ae6478a257f492ecaa11794
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147705051'
 ---
+{% data reusables.package_registry.container-registry-ghes-beta %}
 
-{% data reusables.package_registry.container-registry-beta %}
+## Informationen zur {% data variables.product.prodname_container_registry %}
 
-{% data reusables.package_registry.docker-vs-container-registry %}
+{% data reusables.package_registry.container-registry-benefits %}
 
-### About {% data variables.product.prodname_container_registry %} support
+{% ifversion ghes > 3.4 %}
 
-To push and pull container images, an organization admin or the owner of a personal account must enable the {% data variables.product.prodname_container_registry %}. For more information, see "[Enabling improved container support with the {% data variables.product.prodname_container_registry %}](/packages/working-with-a-github-packages-registry/enabling-improved-container-support-with-the-container-registry)."
+Um die {% data variables.product.prodname_container_registry %} für {% data variables.product.product_name %} zu verwenden, muss dein Websiteadministrator zunächst {% data variables.product.prodname_registry %} für deine Instanz konfigurieren **und** die Isolierung von Unterdomänen aktivieren. Weitere Informationen findest du unter [Erste Schritte mit GitHub Packages für dein Unternehmen](/admin/packages/getting-started-with-github-packages-for-your-enterprise) und [Aktivieren der Unterdomänenisolation](/admin/configuration/configuring-network-settings/enabling-subdomain-isolation).
 
-When installing or publishing a Docker image, the Container registry supports foreign layers, such as Windows images.
+{% endif %}
 
-The {% data variables.product.prodname_container_registry %} currently supports the following container image formats:
+## {% data variables.product.prodname_container_registry %}: Unterstützung
 
-* [Docker Image Manifest V2, Schema 2](https://docs.docker.com/registry/spec/manifest-v2-2/)
-* [Open Container Initiative (OCI) Specifications](https://github.com/opencontainers/image-spec)
+Die {% data variables.product.prodname_container_registry %} unterstützt derzeit die folgenden Containerimageformate:
 
-### Authenticating to the {% data variables.product.prodname_container_registry %}
+* [Docker-Imagemanifest, Version 2, Schema 2](https://docs.docker.com/registry/spec/manifest-v2-2/)
+* [Spezifikationen der Open Container Initiative (OCI)](https://github.com/opencontainers/image-spec)
 
-{% data reusables.package_registry.authenticate_with_pat_for_container_registry %}
+Bei der Installation oder Veröffentlichung eines Docker-Image unterstützt die {% data variables.product.prodname_container_registry %} Fremdebenen wie z. B. Windows-Images.
+
+## Authentifizieren bei der {% data variables.product.prodname_container_registry %}
+
+{% ifversion fpt or ghec or ghes > 3.4 %} Verwende zum Authentifizieren bei der {% data variables.product.prodname_container_registry %} (`ghcr.io`) innerhalb eines {% data variables.product.prodname_actions %}-Workflows das `GITHUB_TOKEN` für beste Sicherheit und Erfahrung. {% data reusables.package_registry.authenticate_with_pat_for_v2_registry %} {% endif %}
+
+{% ifversion ghes %}Achte darauf, `HOSTNAME` in den folgenden Beispielen durch den {% data variables.product.product_location_enterprise %}-Hostnamen oder die entsprechende IP-Adresse zu ersetzen.{% endif %}
 
 {% data reusables.package_registry.authenticate-to-container-registry-steps %}
 
-### Pushing container images
+## Pushen von Containerimages
 
-This example pushes the latest version of `IMAGE-NAME`.
+In diesem Beispiel wird die neueste Version von `IMAGE_NAME` gepusht.
   ```shell
-  $ docker push ghcr.io/OWNER/IMAGE_NAME:latest
+  $ docker push {% data reusables.package_registry.container-registry-hostname %}/OWNER/IMAGE_NAME:latest
   ```
 
-This example pushes the `2.5` version of the image.
+In diesem Beispiel wird die `2.5`-Version des Image gepusht.
   ```shell
-  $ docker push ghcr.io/OWNER/IMAGE-NAME:2.5
+  $ docker push {% data reusables.package_registry.container-registry-hostname %}/OWNER/IMAGE_NAME:2.5
   ```
 
-When you first publish a package, the default visibility is private. To change the visibility or set access permissions, see "[Configuring a package's access control and visibility](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)."
+Wenn du ein Paket zum ersten Mal veröffentlichst, ist die Sichtbarkeit standardmäßig auf privat eingestellt. Um die Sichtbarkeit zu ändern oder Zugriffsberechtigungen festzulegen, solltest du den Artikel [Konfigurieren der Zugriffssteuerung und Sichtbarkeit eines Pakets](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility).
 
-### Pulling container images
+## Pullen von Containerimages
 
-#### Pull by digest
+### Pullen mit „digest“
 
-To ensure you're always using the same image, you can specify the exact container image version you want to pull by the `digest` SHA value.
+Um sicherzustellen, dass du immer dasselbe Image verwendest, kannst du die exakte Version des Containerimage, die du pullen möchtest, mit dem SHA-Wert `digest` angeben.
 
-1. To find the digest SHA value, use `docker inspect` or `docker pull` and copy the SHA value after `Digest:`
+1. Um den Digest-SHA-Wert zu finden, musst du `docker inspect` oder `docker pull` verwenden und den SHA-Wert nach `Digest:` kopieren.
   ```shell
-  $ docker inspect ghcr.io/OWNER/IMAGE_NAME
+  $ docker inspect {% data reusables.package_registry.container-registry-hostname %}/OWNER/IMAGE_NAME
   ```
-2. Remove image locally as needed.
+2. Entferne das Image nach Bedarf lokal.
   ```shell
-  $ docker rmi  ghcr.io/OWNER/IMAGE_NAME.latest
-  ```
-
-3. Pull the container image with `@YOUR_SHA_VALUE` after the image name.
-  ```shell
-  $ docker pull ghcr.io/OWNER/IMAGE_NAME@sha256:82jf9a84u29hiasldj289498uhois8498hjs29hkuhs
+  $ docker rmi  {% data reusables.package_registry.container-registry-hostname %}/OWNER/IMAGE_NAME:latest
   ```
 
-#### Pull by name
-
+3. Pulle das Containerimage mit `@YOUR_SHA_VALUE` dem Imagenamen.
   ```shell
-  $ docker pull ghcr.io/OWNER/IMAGE_NAME
+  $ docker pull {% data reusables.package_registry.container-registry-hostname %}/OWNER/IMAGE_NAME@sha256:82jf9a84u29hiasldj289498uhois8498hjs29hkuhs
   ```
 
-#### Pull by name and version
+### Pullen nach Name
 
-Docker CLI example showing an image pulled by its name and the `1.14.1` version tag:
   ```shell
-  $ docker pull ghcr.io/OWNER/IMAGE_NAME:1.14.1
+  $ docker pull {% data reusables.package_registry.container-registry-hostname %}/OWNER/IMAGE_NAME
+  ```
+
+### Pullen nach Name und Version
+
+Dieses Docker-CLI-Beispiel zeigt ein Image, das nach Namen und `1.14.1`-Versionstag gepullt wurde:
+  ```shell
+  $ docker pull {% data reusables.package_registry.container-registry-hostname %}/OWNER/IMAGE_NAME:1.14.1
   > 5e35bd43cf78: Pull complete
   > 0c48c2209aab: Pull complete
   > fd45dd1aad5a: Pull complete
   > db6eb50c2d36: Pull complete
   > Digest: sha256:ae3b135f133155b3824d8b1f62959ff8a72e9cf9e884d88db7895d8544010d8e
-  > Status: Downloaded newer image for ghcr.io/orgname/image-name/release:1.14.1
-  > ghcr.io/orgname/image-name/release:1.14.1
+  > Status: Downloaded newer image for {% data reusables.package_registry.container-registry-hostname %}/orgname/image-name/release:1.14.1
+  > {% data reusables.package_registry.container-registry-hostname %}/orgname/image-name/release:1.14.1
   ```
 
-#### Pull by name and latest version
+### Pullen nach Name und neuester Version
 
   ```shell
-  $ docker pull ghcr.io/OWNER/IMAGE_NAME:latest
+  $ docker pull {% data reusables.package_registry.container-registry-hostname %}/OWNER/IMAGE_NAME:latest
   > latest: Pulling from user/image-name
   > Digest: sha256:b3d3e366b55f9a54599220198b3db5da8f53592acbbb7dc7e4e9878762fc5344
-  > Status: Downloaded newer image for ghcr.io/user/image-name:latest
-  > ghcr.io/user/image-name:latest
+  > Status: Downloaded newer image for {% data reusables.package_registry.container-registry-hostname %}/user/image-name:latest
+  > {% data reusables.package_registry.container-registry-hostname %}/user/image-name:latest
   ```
 
-### Building container images
+## Erstellen von Containerimages
 
-This example builds the `hello_docker` image:
+In diesem Beispiel wird das Image `hello_docker` erstellt:
   ```shell
   $ docker build -t hello_docker .
   ```
 
-### Tagging container images
+## Taggen von Containerimages
 
-1. Find the ID for the Docker image you want to tag.
+1. Suche die ID des Docker-Image, das du taggen möchten.
   ```shell
   $ docker images
   > REPOSITORY                                            TAG                 IMAGE ID            CREATED             SIZE
-  > ghcr.io/my-org/hello_docker         latest              38f737a91f39        47 hours ago        91.7MB
-  > ghcr.io/my-username/hello_docker    latest              38f737a91f39        47 hours ago        91.7MB
+  > {% data reusables.package_registry.container-registry-hostname %}/my-org/hello_docker         latest              38f737a91f39        47 hours ago        91.7MB
+  > {% data reusables.package_registry.container-registry-hostname %}/my-username/hello_docker    latest              38f737a91f39        47 hours ago        91.7MB
   > hello-world                                           latest              fce289e99eb9        16 months ago       1.84kB
   ```
 
-2. Tag your Docker image using the image ID and your desired image name and hosting destination.
+2. Tagge dein Docker-Image mithilfe der Image-ID, des gewünschten Imagenamens und des gewünschten Hostingziels.
   ```shell
-  $ docker tag 38f737a91f39 ghcr.io/OWNER/NEW_IMAGE_NAME:latest
+  $ docker tag 38f737a91f39 {% data reusables.package_registry.container-registry-hostname %}/OWNER/NEW_IMAGE_NAME:latest
   ```

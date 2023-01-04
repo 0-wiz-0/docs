@@ -1,14 +1,14 @@
----
-date: '2020-10-20'
+date: '20.10.2020'
 sections:
   security_fixes:
-    - 'Packages have been updated to the latest security versions. {% comment %} https://github.com/github/enterprise2/pull/23095, https://github.com/github/enterprise2/pull/23081 {% endcomment %}'
+    - 'Die Pakete wurden auf die neuesten Sicherheitsversionen aktualisiert. {% comment %} https://github.com/github/enterprise2/pull/23095, https://github.com/github/enterprise2/pull/23081 {% endcomment %}'
   bugs:
-    - 'The enterprise account "Confirm two-factor requirement policy" messaging was incorrect. {% comment %} https://github.com/github/github/pull/158737 {% endcomment %}'
+    - 'Die Meldung „Richtlinie für erforderliche Zwei-Faktor-Authentifizierung bestätigen“ des Unternehmenskontos war falsch. {% comment %} https://github.com/github/github/pull/158737 {% endcomment %}'
   known_issues:
-    - 'On a freshly set up GitHub Enterprise Server without any users, an attacker could create the first admin user. {% comment %} https://github.com/github/enterprise2/issues/1889 {% endcomment %}'
-    - 'Custom firewall rules are not maintained during an upgrade. {% comment %} https://github.com/github/enterprise2/issues/2823 {% endcomment %}'
-    - 'Git LFS tracked files [uploaded through the web interface](https://github.com/blog/2105-upload-files-to-your-repositories) are incorrectly added directly to the repository. {% comment %} https://github.com/github/github/issues/54684 {% endcomment %}'
-    - 'Issues cannot be closed if they contain a permalink to a blob in the same repository where the file path is longer than 255 characters. {% comment %} https://github.com/github/github/issues/107731 {% endcomment %}'
-    - 'When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results. {% comment %} https://github.com/github/admin-experience/issues/571 {% endcomment %}'
-    - 'Security alerts are not reported when pushing to a repository on the command line. {% comment %} https://github.com/github/github/issues/143190 {% endcomment %}'
+    - 'In einer neu eingerichteten GitHub Enterprise Server-Instanz ohne Benutzer konnte ein Angreifer den ersten Administratorbenutzer erstellen. {% comment %} https://github.com/github/enterprise2/issues/1889 {% endcomment %}'
+    - 'Benutzerdefinierte Firewallregeln werden während eines Upgrades nicht aufrechterhalten. {% comment %} https://github.com/github/enterprise2/issues/2823 {% endcomment %}'
+    - 'Nachverfolgte Git-LFS-Dateien, [die über die Webschnittstelle hochgeladen wurden](https://github.com/blog/2105-upload-files-to-your-repositories), werden dem Repository fälschlicherweise direkt hinzugefügt. {% comment %} https://github.com/github/github/issues/54684 {% endcomment %}'
+    - 'Issues können nicht geschlossen werden, wenn sie einen Permalink zu einem Blob im selben Repository enthalten und der Dateipfad länger ist als 255 Zeichen. {% comment %} https://github.com/github/github/issues/107731 {% endcomment %}'
+    - 'Wenn die Option zum Durchsuchen von GitHub.com mit GitHub Connect aktiviert wird, sind Issues in privaten und internen Repositorys nicht in den GitHub.com-Suchergebnissen enthalten. {% comment %} https://github.com/github/admin-experience/issues/571 {% endcomment %}'
+    - 'Sicherheitswarnungen werden nicht gemeldet, wenn etwas über die Befehlszeile an ein Repository gepusht wird. {% comment %} https://github.com/github/github/issues/143190 {% endcomment %}'
+    - 'Wenn ein Replikatknoten in einer Hochverfügbarkeitskonfiguration offline ist, kann {% data variables.product.product_name %} eventuell noch immer Anfragen von {% data variables.product.prodname_pages %} an den Offlineknoten weiterleiten, was die Verfügbarkeit von {% data variables.product.prodname_pages %} für Benutzer verringert.'

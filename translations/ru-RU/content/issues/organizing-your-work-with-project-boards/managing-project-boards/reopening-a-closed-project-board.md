@@ -1,28 +1,37 @@
 ---
-title: Reopening a closed project board
-intro: You can reopen a closed project board and and restart any workflow automation that was configured for the project board.
+title: 'Повторное открытие закрытого компонента "{% data variables.product.prodname_project_v1 %}"'
+intro: 'Закрытая {% data variables.projects.projects_v1_board %} может быть открыта повторно, и если {% data variables.projects.projects_v1_board %} имеет автоматизированные рабочие процессы, их можно перезапустить.'
 redirect_from:
   - /github/managing-your-work-on-github/managing-project-boards/reopening-a-closed-project-board
   - /articles/reopening-a-closed-project-board
   - /github/managing-your-work-on-github/reopening-a-closed-project-board
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  feature: projects-v1
 topics:
   - Pull requests
+shortTitle: 'Reopen {% data variables.product.prodname_project_v1 %}'
+allowTitleToDifferFromFilename: true
+ms.openlocfilehash: e0101378c0b7049f7cba5e04dd28231a1237d0c5
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148109575'
 ---
+{% data reusables.projects.project_boards_old %}
 
-When you close a project board, any workflow automation that was configured for the project board will pause by default. For more information, see "[Closing a project board](/articles/closing-a-project-board)."
+Когда {% data variables.projects.projects_v1_board %} закрывается, если {% data variables.projects.projects_v1_board %} имеет автоматизированные рабочие процессы, они по умолчанию будут приостановлены. Дополнительные сведения: [Закрытие компонента "{% data variables.product.prodname_project_v1 %}"](/articles/closing-a-project-board).
 
-When you reopen a project board, you have the option to *sync* automation, which updates the position of the cards on the board according to the automation settings configured for the board.
+Когда {% data variables.projects.projects_v1_board %} открывается повторно, вы можете *синхронизировать* автоматизацию, и тогда положение карточек на доске обновляется в соответствии с настроенными для нее параметрами автоматизации.
 
-1. Navigate to the project board you want to reopen.
+1. Должна быть выбрана {% data variables.projects.projects_v1_board %}, которую требуется открыть повторно.
 {% data reusables.project-management.click-menu %}
-3. Choose whether to sync automation for your project board or reopen your project board without syncing.
-    - To reopen your project board and sync automation, click **Reopen and sync project**. ![Select "Reopen and resync project" button](/assets/images/help/projects/reopen-and-sync-project.png)
-    - To reopen your project board without syncing automation, using the reopen drop-down menu, click **Reopen only**. Then, click **Reopen only**. ![Reopen closed project board drop-down menu](/assets/images/help/projects/reopen-closed-project-board-drop-down-menu.png)
+3. Выберите, должна ли ваша {% data variables.projects.projects_v1_board %} синхронизировать автоматизацию или {% data variables.projects.projects_v1_board %} откроется повторно без синхронизации.
+    - Если {% data variables.projects.projects_v1_board %} должна открыться повторно и синхронизировать автоматизацию, щелкните **Повторно открыть и синхронизировать проект**.
+  ![Нажмите кнопку "Повторно открыть и повторно синхронизировать проект"](/assets/images/help/projects/reopen-and-sync-project.png)
+    - Если {% data variables.projects.projects_v1_board %} должна открыться повторно без синхронизации автоматизации, в раскрывающемся меню повторного открытия щелкните **Только открыть**. Затем щелкните **Только открыть**.
+  ![Раскрывающееся меню повторного открытия закрытой доски проекта](/assets/images/help/projects/reopen-closed-project-board-drop-down-menu.png)
 
-### Дополнительная литература
+## Дополнительные материалы
 
-- "[Configuring automation for project boards](/articles/configuring-automation-for-project-boards)"
+- [Настройка автоматизации компонента "{% data variables.product.prodname_projects_v1 %}"](/articles/configuring-automation-for-project-boards)

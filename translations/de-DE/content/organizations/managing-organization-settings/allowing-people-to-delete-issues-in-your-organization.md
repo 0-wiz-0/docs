@@ -5,20 +5,26 @@ redirect_from:
   - /articles/allowing-people-to-delete-issues-in-your-organization
   - /github/setting-up-and-managing-organizations-and-teams/allowing-people-to-delete-issues-in-your-organization
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Organizations
   - Teams
+shortTitle: Allow issue deletion
+ms.openlocfilehash: 6396b54d7a6e7113344935e4229843f580c246b6
+ms.sourcegitcommit: 219fb805abddaef3e5547638bd798da890020bfd
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147876818'
 ---
-
 Standardmäßig können Issues in den Repositorys einer Organisation nicht gelöscht werden. Ein Organisationsinhaber muss diese Funktion erst für alle Repositorys der Organisation aktivieren.
 
-Nach der Aktivierung können Organisationsinhaber und Personen mit Administratorberechtigungen für ein Repository der Organisation Issues löschen. Zu den Personen mit Administratorberechtigungen für ein Repository gehören Organisationsmitglieder und externe Mitarbeiter mit Administratorberechtigungen. Weitere Informationen findest Du unter „[Repository-Berechtigungsebenen für eine Organisation](/articles/repository-permission-levels-for-an-organization/)“ und „[Einen Issue löschen](/articles/deleting-an-issue).“
+Nach der Aktivierung können Organisationsbesitzer und Personen mit Administratorzugriff in einem im Besitz der Organisation befindlichen Repository Issues löschen. Zu den Personen mit Administratorzugriff für ein Repository gehören Organisationsmitglieder und externe Mitarbeiter, die Administratorzugriff erhalten haben. Weitere Informationen findest du unter [Repositoryrollen für eine Organisation](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization) und [Löschen eines Issues](/articles/deleting-an-issue).
 
-{% data reusables.profile.access_org %}
-{% data reusables.profile.org_settings %}
-{% data reusables.organizations.member-privileges %}
-5. Wähle unter „Issue deletion“ (Issue-Löschung) die Option **Allow members to delete issues for this organization** (Mitgliedern das Löschen von Issues für diese Organisation erlauben) aus. ![Kontrollkästchen, um Personen das Löschen von Issues zu erlauben](/assets/images/help/settings/issue-deletion.png)
-6. Klicke auf **Save** (Speichern).
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.organizations.member-privileges %}
+5. Wähle unter „Issue-Löschung“ die Option **Mitgliedern das Löschen von Issues für diese Organisation erlauben** aus.
+![Kontrollkästchen, um Personen das Löschen von Issues zu erlauben](/assets/images/help/settings/issue-deletion.png)
+6. Klicken Sie auf **Speichern**.

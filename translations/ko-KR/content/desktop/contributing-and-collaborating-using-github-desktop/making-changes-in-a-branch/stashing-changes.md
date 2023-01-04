@@ -1,31 +1,31 @@
 ---
-title: Stashing changes
-intro: You can temporarily save your changes without committing them to a branch by stashing the changes.
+title: 스태시 변경
+intro: 변경 내용을 스태시하여 분기에 커밋하지 않고 변경 내용을 일시적으로 저장할 수 있습니다.
 versions:
-  free-pro-team: '*'
+  fpt: '*'
 redirect_from:
   - /desktop/contributing-and-collaborating-using-github-desktop/stashing-changes
+ms.openlocfilehash: ef061bec3c60041fc40ab3e8be45d1557ca90219
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145117511'
 ---
+## 스태시된 변경 내용 정보
 
-### About stashed changes
+리포지토리에 변경 내용을 적용하려면 파일을 저장한 다음 변경 내용을 분기에 커밋해야 합니다. 아직 커밋할 준비가 되지 않은 변경 내용을 저장한 경우 나중에 변경 내용을 스태시할 수 있습니다. 변경 내용을 스태시하면 변경 내용이 파일에서 일시적으로 제거되고 나중에 변경 내용을 복원하거나 취소하도록 선택할 수 있습니다. {% data variables.product.prodname_desktop %}을(를) 사용하여 한 번에 하나의 변경 내용 집합만 스태시할 수 있습니다. {% data variables.product.prodname_desktop %}을(를) 사용하여 변경 내용을 스태시하면 저장되지 않은 모든 변경 내용이 스태시됩니다. 분기에서 변경 내용을 스태시하면 분기를 안전하게 변경하거나 현재 분기를 다른 내용으로 변경할 수 있습니다.
 
-To apply your changes to your repository, you must save the files and then commit the changes to a branch. If you have saved changes that you are not ready to commit yet, you can stash the changes for later. When you stash changes, the changes are temporarily removed from the files and you can choose to restore or discard the changes later. You can only stash one set of changes at a time with {% data variables.product.prodname_desktop %}. If you use {% data variables.product.prodname_desktop %} to stash changes, all unsaved changes will be stashed. After you stash changes on a branch, you can safely change branches or make other changes to your current branch.
+{% data variables.product.prodname_desktop %}을(를) 사용하여 분기를 전환하는데 변경 내용을 저장했지만 커밋되고 않은 경우, {% data variables.product.prodname_desktop %}은(는) 변경 내용을 스태시하거나 다른 분기로 가져오라는 메시지를 표시합니다. 자세한 내용은 “[분기 관리](/desktop/contributing-to-projects/managing-branches#switching-between-branches)”를 참조하세요.
 
-If you use {% data variables.product.prodname_desktop %} to switch branches while you have saved, but not committed, changes, {% data variables.product.prodname_desktop %} will prompt you to stash the changes or bring them to the other branch. For more information, see "[Managing branches](/desktop/contributing-to-projects/managing-branches#switching-between-branches)."
+## 스태시 변경
 
-### Stashing changes
+{% data reusables.desktop.click-changed-files-header %} {% data reusables.desktop.click-stash-all-changes %}
 
-{% data reusables.desktop.click-changed-files-header %}
-{% data reusables.desktop.click-stash-all-changes %}
+## 스태시된 변경 내용 복원
 
-### Restoring stashed changes
+{% data reusables.desktop.navigate-to-stashed-changes %} {% data reusables.desktop.click-stashed-changes %} {% data reusables.desktop.click-restore %}
 
-{% data reusables.desktop.navigate-to-stashed-changes %}
-{% data reusables.desktop.click-stashed-changes %}
-{% data reusables.desktop.click-restore %}
+## 스태시된 변경 내용 삭제
 
-### Discarding stashed changes
-
-{% data reusables.desktop.navigate-to-stashed-changes %}
-{% data reusables.desktop.click-stashed-changes %}
-{% data reusables.desktop.click-discard %}
+{% data reusables.desktop.navigate-to-stashed-changes %} {% data reusables.desktop.click-stashed-changes %} {% data reusables.desktop.click-discard %}

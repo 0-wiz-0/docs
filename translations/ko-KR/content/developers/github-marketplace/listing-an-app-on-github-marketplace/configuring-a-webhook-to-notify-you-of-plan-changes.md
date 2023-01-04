@@ -1,43 +1,50 @@
 ---
-title: Configuring a webhook to notify you of plan changes
-intro: 'After [creating a draft {% data variables.product.prodname_marketplace %} listing](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/), you can configure a webhook that notifies you when changes to customer account plans occur. After you configure the webhook, you can [handle the `marketplace_purchase` event types](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) in your app.'
+title: 플랜 변경 내용을 알리도록 웹후크 구성
+intro: '[{% data variables.product.prodname_marketplace %} 목록 초안을 만든](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/) 후 고객 계정 플랜에 변경이 발생할 때 알림을 제공하는 웹후크를 구성할 수 있습니다. 웹후크를 구성한 후 앱에서[ `marketplace_purchase`이벤트 유형](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/)을 처리할 수 있습니다.'
 redirect_from:
-  - /apps/adding-integrations/managing-listings-on-github-marketplace/adding-webhooks-for-a-github-marketplace-listing/
-  - /apps/marketplace/managing-github-marketplace-listings/adding-webhooks-for-a-github-marketplace-listing/
-  - /apps/marketplace/setting-up-github-marketplace-webhooks/creating-a-webhook-for-a-github-marketplace-listing/
-  - /apps/marketplace/listing-on-github-marketplace/configuring-the-github-marketplace-webhook/
+  - /apps/adding-integrations/managing-listings-on-github-marketplace/adding-webhooks-for-a-github-marketplace-listing
+  - /apps/marketplace/managing-github-marketplace-listings/adding-webhooks-for-a-github-marketplace-listing
+  - /apps/marketplace/setting-up-github-marketplace-webhooks/creating-a-webhook-for-a-github-marketplace-listing
+  - /apps/marketplace/listing-on-github-marketplace/configuring-the-github-marketplace-webhook
   - /marketplace/listing-on-github-marketplace/configuring-the-github-marketplace-webhook
   - /developers/github-marketplace/configuring-a-webhook-to-notify-you-of-plan-changes
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+shortTitle: Webhooks for plan changes
+ms.openlocfilehash: 85ffaa8809860ff4b693075e416723717296f86c
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145089702'
 ---
+{% data variables.product.prodname_marketplace %} 이벤트 웹후크는 애플리케이션의 {% data variables.product.prodname_marketplace %} 목록 페이지에서만 설정할 수 있습니다. [애플리케이션의 개발자 설정 페이지](https://github.com/settings/developers)에서 다른 모든 이벤트를 구성할 수 있습니다. {% data variables.product.prodname_marketplace %} 목록을 만들지 않았다면, “[{% data variables.product.prodname_marketplace %} 목록 초안 만들기](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/)”를 읽고 방법을 확인하세요.
 
-The {% data variables.product.prodname_marketplace %} event webhook can only be set up from your application's {% data variables.product.prodname_marketplace %} listing page. You can configure all other events from your [application's developer settings page](https://github.com/settings/developers). If you haven't created a {% data variables.product.prodname_marketplace %} listing, read "[Creating a draft {% data variables.product.prodname_marketplace %} listing](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/)" to learn how.
+## webhook 만들기
 
-### Creating a webhook
+{% data variables.product.prodname_marketplace %} 목록에서 웹후크를 만들려면 [{% data variables.product.prodname_marketplace %} 목록 페이지](https://github.com/marketplace/manage)의 왼쪽 사이드바에서 **웹후크** 를 클릭합니다. 웹후크를 구성하는 데 필요한 다음 웹후크 구성 옵션이 표시됩니다.
 
-To create a webhook for your {% data variables.product.prodname_marketplace %} listing, click **Webhook** in the left sidebar of your [{% data variables.product.prodname_marketplace %} listing page](https://github.com/marketplace/manage). You'll see the following webhook configuration options needed to configure your webhook:
-
-#### Payload URL
+### 페이로드 URL
 
 {% data reusables.webhooks.payload_url %}
 
-#### Content type
+### 내용 유형
 
-{% data reusables.webhooks.content_type %} GitHub recommends using the `application/json` content type.
+{% data reusables.webhooks.content_type %} GitHub에서는 `application/json` 콘텐츠 형식을 사용하는 것이 좋습니다.
 
-#### Secret
+### 비밀
 
 {% data reusables.webhooks.secret %}
 
-#### Active
+### Active
 
-By default, webhook deliveries are "Active." You can choose to disable the delivery of webhook payloads during development by deselecting "Active." If you've disabled webhook deliveries, you will need to select "Active" before you submit your app for review.
+기본적으로 웹후크는 “활성”으로 제공됩니다. 개발 중에 “활성”을 선택 취소하여 웹후크 페이로드의 제공을 사용하지 않도록 선택할 수 있습니다. 웹후크 제공을 사용하지 않도록 설정한 경우 검토를 위해 앱을 제출하기 전 “활성”을 선택해야 합니다.
 
-### Viewing webhook deliveries
+## 웹후크 제공 보기
 
-Once you've configured your {% data variables.product.prodname_marketplace %} webhook, you'll be able to inspect `POST` request payloads from the **Webhook** page of your application's [{% data variables.product.prodname_marketplace %} listing](https://github.com/marketplace/manage). GitHub doesn't resend failed delivery attempts. Ensure your app can receive all webhook payloads sent by GitHub.
+{% data variables.product.prodname_marketplace %} 웹후크를 구성하면 애플리케이션의 [{% data variables.product.prodname_marketplace %} 목록](https://github.com/marketplace/manage)에 대한 **웹후크** 페이지에서 `POST` 요청 페이로드를 검사할 수 있습니다. GitHub는 제공 시도가 실패하면 다시 전송하지 않습니다. 앱이 GitHub에서 보낸 모든 웹후크 페이로드를 받을 수 있는지 확인합니다.
 
-![Inspect recent {% data variables.product.prodname_marketplace %} webhook deliveries](/assets/images/marketplace/marketplace_webhook_deliveries.png)
+![최근 {% data variables.product.prodname_marketplace %} 웹후크 제공 검사](/assets/images/marketplace/marketplace_webhook_deliveries.png)

@@ -9,39 +9,43 @@ redirect_from:
   - /packages/using-github-packages-with-your-projects-ecosystem/configuring-apache-maven-for-use-with-github-packages
   - /packages/guides/configuring-apache-maven-for-use-with-github-packages
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
+shortTitle: Apache Maven registry
+ms.openlocfilehash: 0d2fafd69ac870a521fee8c7105b79bf8839d62c
+ms.sourcegitcommit: 1309b46201604c190c63bfee47dce559003899bf
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147061707'
 ---
+{% data reusables.package_registry.packages-ghes-release-stage %} {% data reusables.package_registry.packages-ghae-release-stage %}
 
-{% data reusables.package_registry.packages-ghes-release-stage %}
-{% data reusables.package_registry.packages-ghae-release-stage %}
+{% data reusables.package_registry.admins-can-configure-package-types %}
 
-{% data reusables.package_registry.default-name %} たとえば、{% data variables.product.prodname_dotcom %}は`OWNER/test`というリポジトリ内の`com.example:test`という名前のパッケージを公開します。
-
-### {% data variables.product.prodname_registry %} への認証を行う
+## {% data variables.product.prodname_registry %} への認証を行う
 
 {% data reusables.package_registry.authenticate-packages %}
 
 {% data reusables.package_registry.authenticate-packages-github-token %}
 
-#### 個人アクセストークンでの認証
+### 個人アクセストークンでの認証
 
 {% data reusables.package_registry.required-scopes %}
 
-*~/.m2/settings.xml*ファイルを編集して個人アクセストークンを含めることで、Apache Mavenで{% data variables.product.prodname_registry %}の認証を受けられます。 *~/.m2/settings.xml*ファイルがないなら新しく作成してください。
+*~/.m2/settings.xml* ファイルを編集して個人アクセストークンを含めることで、Apache Maven で{% data variables.product.prodname_registry %}の認証を受けられます。 *~/.m2/settings.xml* ファイルが存在しない場合は新しく作成します。
 
-`servers`タグの中に、子として`server`タグを`id`付きで追加し、*USERNAME*を{% data variables.product.prodname_dotcom %}のユーザ名で、*TOKEN*を個人アクセストークンで置き換えてください。
+`servers` タグで`id` のある子`server`タグを追加し、*USERNAME* はご自分の {% data variables.product.prodname_dotcom %} ユーザー名と、*TOKEN* はご自分の個人アクセス トークンと置き換えます。
 
-`repositories`の中で、リポジトリの`id`をクレデンシャルを含む`server`タグに追加した`id`にマッピングして、リポジトリを設定してください。 {% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %} *HOSTNAME* を {% data variables.product.product_location %} のホスト名に、{% endif %}*OWNER* をリポジトリを所有するユーザもしくはOrganizationの名前に置き換えます。 大文字はサポートされていないため、仮に{% data variables.product.prodname_dotcom %}のユーザあるいはOrganization名が大文字を含んでいても、リポジトリオーナーには小文字を使わなければなりません。
+`repositories` タグで、リポジトリの `id` を、資格情報を含む `server` タグ追加した `id` にマッピングして、リポジトリを構成します。 {% ifversion ghes or ghae %}*HOSTNAME* を {% data variables.product.product_location %} のホスト名に置き換え、{% endif %} *OWNER* をリポジトリを所有するユーザーまたは Organization の名前に置き換えます。 大文字はサポートされていないため、仮に{% data variables.product.prodname_dotcom %}のユーザあるいはOrganization名が大文字を含んでいても、リポジトリオーナーには小文字を使わなければなりません。
 
-複数のリポジトリとやりとりをしたい場合には、それぞれのリポジトリを`repositories`タグの子の個別の`repository`に追加し、それぞれの`id`を`servers` タグのクレデンシャルにマッピングできます。
+複数のリポジトリとやりとりする場合は、各リポジトリを `repositories` タグ内の個別の `repository` の子に追加し、それぞれの `id` を `servers` タグ内の資格情報にマッピングします。
 
 {% data reusables.package_registry.apache-maven-snapshot-versions-supported %}
 
-{% if enterpriseServerVersions contains currentVersion %}
-パッケージの作成に関する詳しい情報については[maven.apache.orgのドキュメンテーション](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)を参照してください。
-{% endif %}
+{% ifversion ghes %} インスタンスで Subdomain Isolation が有効になっている場合: {% endif %}
 
 ```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
@@ -63,7 +67,7 @@ versions:
         </repository>
         <repository>
           <id>github</id>
-          <url>https://{% if currentVersion == "free-pro-team@latest" %}maven.pkg.github.com{% else %}maven.HOSTNAME{% endif %}/OWNER/*</url>
+          <url>https://{% ifversion fpt or ghec %}maven.pkg.github.com{% else %}maven.HOSTNAME{% endif %}/OWNER/REPOSITORY</url>
           <snapshots>
             <enabled>true</enabled>
           </snapshots>
@@ -82,8 +86,7 @@ versions:
 </settings>
 ```
 
-{% if enterpriseServerVersions contains currentVersion %}
-たとえば、以下の*OctodogApp*と*OctocatApp*は同じリポジトリに公開されます。
+{% ifversion ghes %}インスタンスで Subdomain Isolation が無効になっている場合:
 
 ```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
@@ -105,7 +108,7 @@ versions:
         </repository>
         <repository>
           <id>github</id>
-          <url>https://maven.pkg.github.com/OWNER/*</url>
+          <url>HOSTNAME/_registry/maven/OWNER/REPOSITORY</url>
           <snapshots>
             <enabled>true</enabled>
           </snapshots>
@@ -125,15 +128,15 @@ versions:
 ```
 {% endif %}
 
-### パッケージを公開する
+## パッケージの公開
 
-{% data reusables.package_registry.default-name %} たとえば、{% data variables.product.prodname_dotcom %}は`OWNER/test`というリポジトリ内の`com.example:test`という名前のパッケージを公開します。
+{% data reusables.package_registry.default-name %} たとえば、{% data variables.product.prodname_dotcom %}は `OWNER/test` というリポジトリ内の `com.example:test` という名前のパッケージを公開します。
 
-同じリポジトリに複数のパッケージを公開したい場合には、そのリポジトリのURLを*pom.xml*ファイルの`<distributionManagement>`要素に含めてください。 {% data variables.product.prodname_dotcom %} は、このこのフィールドを元にしてリポジトリを照合します。 リポジトリ名も`distributionManagement`要素の一部なので、複数のパッケージを同じリポジトリに公開するための追加手順はありません。
+複数のパッケージを同じリポジトリに公開する場合は、リポジトリの URL を *pom.xml* ファイルの `<distributionManagement>` 要素に含めることができます。 {% data variables.product.prodname_dotcom %} は、このこのフィールドを元にしてリポジトリを照合します。 リポジトリ名も `distributionManagement` 要素の一部なので、複数のパッケージを同じリポジトリに公開するための追加手順はありません。
 
-パッケージの作成に関する詳しい情報については[maven.apache.orgのドキュメンテーション](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)を参照してください。
+パッケージの作成について詳しくは、[maven.apache.org のドキュメント](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)を参照してください。
 
-1. パッケージディレクトリにある*pom.xml*ファイルの`distributionManagement`要素を編集し、{% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %}*HOSTNAME*を{% data variables.product.product_location %}のホスト名で、{% endif %}`OWNER`をリポジトリを所有するユーザもしくはOrganizationアカウント名で、`REPOSITORY`をプロジェクトを含むリポジトリ名で置き換えてください。{% if enterpriseServerVersions contains currentVersion %}
+1. パッケージ ディレクトリにある *pom.xml* ファイルの `distributionManagement` 要素を編集し、{% ifversion ghes or ghae %}*HOSTNAME* を {% data variables.product.product_location %} のホスト名に、{% endif %}`OWNER` をリポジトリを所有するユーザーまたは Organization のアカウント名に、`REPOSITORY` をプロジェクトを含むリポジトリ名で置き換えます。{% ifversion ghes %}
 
   もしもインスタンスでSubdomain Isolationが有効化されているなら:{% endif %}
   ```xml
@@ -141,10 +144,10 @@ versions:
      <repository>
        <id>github</id>
        <name>GitHub OWNER Apache Maven Packages</name>
-       <url>https://{% if currentVersion == "free-pro-team@latest" %}maven.pkg.github.com{% else %}maven.HOSTNAME{% endif %}/OWNER/REPOSITORY</url>
+       <url>https://{% ifversion fpt or ghec %}maven.pkg.github.com{% else %}maven.HOSTNAME{% endif %}/OWNER/REPOSITORY</url>
      </repository>
   </distributionManagement>
-  ```{% if enterpriseServerVersions contains currentVersion %}
+  ```{% ifversion ghes %}
   If your instance has subdomain isolation disabled:
   ```xml
   <distributionManagement>
@@ -156,19 +159,19 @@ versions:
   </distributionManagement>
   ```{% endif %}
 {% data reusables.package_registry.checksum-maven-plugin %}
-1. パッケージを公開します。
+1. Publish the package.
    ```shell
    $ mvn deploy
   ```
 
 {% data reusables.package_registry.viewing-packages %}
 
-### パッケージをインストールする
+## パッケージのインストール
 
-{% data variables.product.prodname_registry %}からApache Mavenパッケージをインストールするには、*pom.xml*ファイルを編集してパッケージを依存関係として含めてください。 複数のリポジトリからパッケージをインストールしたい場合は、それぞれについて`repository`タグを追加してください。 プロジェクト内での*pom.xml*ファイルの利用に関する詳しい情報については、Apache Mavenドキュメンテーション中の「[ Introduction to the POM](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html)」を参照してください。
+Apache Maven パッケージを {% data variables.product.prodname_registry %} 空インストールするには、パッケージを依存関係として含めるように *pom.xml* ファイルを編集します。 複数のリポジトリからパッケージをインストールしたい場合は、それぞれについて `repository` タグを追加します。 プロジェクトで *pom.xml* ファイルを使用する方法について詳しくは、Apache Maven ドキュメントの「[POM の概要](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html)」を参照してください。
 
 {% data reusables.package_registry.authenticate-step %}
-2. パッケージの依存関係をプロジェクトの*pom.xml*ファルの`dependencies`要素に追加し、`com.example:test`をパッケージで置き換えてください。
+2. パッケージの依存関係をプロジェクト *pom.xml* ファイルの `dependencies` 要素に追加し、`com.example:test` をご自分のパッケージに置き換えます。
 
   ```xml
   <dependencies>
@@ -186,7 +189,7 @@ versions:
   $ mvn install
   ```
 
-### 参考リンク
+## 参考資料
 
-- 「[Gradleレジストリの利用](/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry)」
-- 「{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" %}[パッケージを削除および復元する](/packages/learn-github-packages/deleting-and-restoring-a-package){% elsif currentVersion ver_lt "enterprise-server@3.1" or currentVersion == "github-ae@latest" %}[パッケージを削除する](/packages/learn-github-packages/deleting-a-package){% endif %}」
+- 「[Gradle レジストリを使用する](/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry)」
+- 「[パッケージを削除および復元する](/packages/learn-github-packages/deleting-and-restoring-a-package)」

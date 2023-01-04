@@ -1,944 +1,898 @@
 ---
-title: Identifying and authorizing users for GitHub Apps
+title: Идентификация и авторизация пользователей для приложений GitHub
 intro: '{% data reusables.shortdesc.identifying_and_authorizing_github_apps %}'
 redirect_from:
-  - /early-access/integrations/user-identification-authorization/
-  - /apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/
+  - /early-access/integrations/user-identification-authorization
+  - /apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps
   - /apps/building-github-apps/identifying-and-authorizing-users-for-github-apps
   - /developers/apps/identifying-and-authorizing-users-for-github-apps
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
+shortTitle: Identify & authorize users
+ms.openlocfilehash: 302e7a25931c3af2957dae7a67e0ca080fc5bd50
+ms.sourcegitcommit: f54d01e643f994ce48f0774dbc680ad77dd6193f
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/10/2022
+ms.locfileid: '148160583'
 ---
-
 {% data reusables.pre-release-program.expiring-user-access-tokens %}
 
-When your GitHub App acts on behalf of a user, it performs user-to-server requests. These requests must be authorized with a user's access token. User-to-server requests include requesting data for a user, like determining which repositories to display to a particular user. These requests also include actions triggered by a user, like running a build.
+Когда приложение GitHub действует от имени пользователя, оно выполняет запросы между пользователями. Эти запросы должны быть авторизованы с помощью маркера доступа пользователя. Запросы типа "пользователь — сервер" включают запрос данных для пользователя, например определение того, какие репозитории отобразить определенному пользователю. Эти запросы также включают действия, инициированные пользователем, например запуск сборки.
 
 {% data reusables.apps.expiring_user_authorization_tokens %}
 
-### Identifying users on your site
+## Идентификация пользователей на вашем сайте
 
-To authorize users for standard apps that run in the browser, use the [web application flow](#web-application-flow).
+Чтобы авторизовать пользователей для стандартных приложений, запущенных в браузере, используйте [поток веб-приложений](#web-application-flow).
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.21" or currentVersion == "github-ae@latest" %}
-To authorize users for headless apps without direct access to the browser, such as CLI tools or Git credential managers, use the [device flow](#device-flow). The device flow uses the OAuth 2.0 [Device Authorization Grant](https://tools.ietf.org/html/rfc8628).
-{% endif %}
+Чтобы авторизовать пользователей для автономных приложений без прямого доступа к браузеру, таких как инструменты CLI или менеджеры учетных данных Git, используйте [поток устройства](#device-flow). Поток устройства использует [предоставление разрешения авторизации устройства](https://tools.ietf.org/html/rfc8628) OAuth 2.0.
 
-### Web application flow
+## Процесс для веб-приложения
 
-Using the web application flow, the process to identify users on your site is:
+При использовании потока веб-приложения процесс идентификации пользователей на вашем сайте выглядит следующим образом:
 
-1. Users are redirected to request their GitHub identity
-2. Users are redirected back to your site by GitHub
-3. Your GitHub App accesses the API with the user's access token
+1. Пользователи перенаправляются для запроса удостоверения GitHub.
+2. Пользователи перенаправляются из GitHub обратно на сайт.
+3. Ваше приложение GitHub получает доступ к API с маркером доступа пользователя.
 
-If you select **Request user authorization (OAuth) during installation** when creating or modifying your app, step 1 will be completed during app installation. For more information, see "[Authorizing users during installation](/apps/installing-github-apps/#authorizing-users-during-installation)."
+Если выбрать **Запрашивать авторизацию пользователя (OAuth) во время установки** при создании или изменении приложения, шаг 1 будет выполнен во время его установки. Дополнительные сведения см. в разделе [Авторизация пользователей во время установки](/apps/installing-github-apps/#authorizing-users-during-installation).
 
-#### 1. Request a user's GitHub identity
+### 1. Запрос удостоверения GitHub пользователя
+Направьте пользователя по следующему URL-адресу в его браузере:
 
     GET {% data variables.product.oauth_host_code %}/login/oauth/authorize
 
-When your GitHub App specifies a `login` parameter, it prompts users with a specific account they can use for signing in and authorizing your app.
+Когда приложение GitHub указывает параметр `login`, оно предлагает пользователям определенную учетную запись для входа и авторизации приложения.
 
-##### Parameters
+#### Параметры
 
-| Name           | Тип      | Description                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| -------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `client_id`    | `строка` | **Required.** The client ID for your GitHub App. You can find this in your [GitHub App settings](https://github.com/settings/apps) when you select your app. **Note:** The app ID and client ID are not the same, and are not interchangeable.                                                                                                                                                                                          |
-| `redirect_uri` | `строка` | The URL in your application where users will be sent after authorization. This must be an exact match to {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" %} one of the URLs you provided as a **Callback URL** {% else %} the URL you provided in the **User authorization callback URL** field{% endif %} when setting up your GitHub App and can't contain any additional parameters. |
-| `state`        | `строка` | This should contain a random string to protect against forgery attacks and could contain any other arbitrary data.                                                                                                                                                                                                                                                                                                                      |
-| `login`        | `строка` | Suggests a specific account to use for signing in and authorizing the app.                                                                                                                                                                                                                                                                                                                                                              |
-| `allow_signup` | `строка` | Whether or not unauthenticated users will be offered an option to sign up for {% data variables.product.prodname_dotcom %} during the OAuth flow. The default is `true`. Use `false` when a policy prohibits signups.                                                                                                                                                                                                                   |
-
-{% note %}
-
-**Note:** You don't need to provide scopes in your authorization request. Unlike traditional OAuth, the authorization token is limited to the permissions associated with your GitHub App and those of the user.
-
-{% endnote %}
-
-#### 2. Users are redirected back to your site by GitHub
-
-If the user accepts your request, GitHub redirects back to your site with a temporary `code` in a code parameter as well as the state you provided in the previous step in a `state` parameter. If the states don't match, the request was created by a third party and the process should be aborted.
+Имя | Тип | Описание
+-----|------|------------
+`client_id` | `string` | **Обязательный.** Идентификатор клиента для вашего приложения GitHub. Его можно найти в [параметрах приложения GitHub](https://github.com/settings/apps) при выборе приложения. **Примечание**. Идентификатор приложения и идентификатор клиента не совпадают и не являются взаимозаменяемыми.
+`redirect_uri` | `string` | URL-адрес в приложении, на который пользователи будут направляться после авторизации. Он должен точно совпадать с {% ifversion fpt or ghes or ghec %} одним из URL-адресов, которые вы указали в качестве **URL-адреса обратного вызова** {% else %} URL-адреса, который вы указали в поле **-адреса обратного вызова авторизации пользователя**{% endif %} при настройке приложения GitHub и не может содержать никаких дополнительных параметров.
+`state` | `string` | Он должен содержать случайную строку для защиты от атак в форме подделки и может содержать любые другие произвольные данные.
+`login` | `string` | Предлагает определенную учетную запись для входа и авторизации приложения.
+`allow_signup` | `string` | Будет ли пользователям, не прошедшим проверку подлинности, предлагаться возможность подписаться на {% data variables.product.prodname_dotcom %} во время потока OAuth. Значение по умолчанию — `true`. Используйте значение `false`, когда политика запрещает регистрацию.
 
 {% note %}
 
-**Note:** If you select **Request user authorization (OAuth) during installation** when creating or modifying your app, GitHub returns a temporary `code` that you will need to exchange for an access token. The `state` parameter is not returned when GitHub initiates the OAuth flow during app installation.
+**Примечание**. Вам не нужно указывать области в запросе авторизации. В отличие от традиционной авторизации OAuth, маркер авторизации ограничен разрешениями, связанными с вашим приложением GitHub и разрешениями пользователя.
 
 {% endnote %}
 
-Exchange this `code` for an access token. {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.21" or currentVersion == "github-ae@latest" %} When expiring tokens are enabled, the access token expires in 8 hours and the refresh token expires in 6 months. Every time you refresh the token, you get a new refresh token. For more information, see "[Refreshing user-to-server access tokens](/developers/apps/refreshing-user-to-server-access-tokens)."
+### 2. Перенаправление пользователей из GitHub обратно на ваш сайт
 
-Expiring user tokens are currently an optional feature and subject to change. To opt-in to the user-to-server token expiration feature, see "[Activating optional features for apps](/developers/apps/activating-optional-features-for-apps)."{% endif %}
+Если пользователь принимает ваш запрос, GitHub перенаправляет обратно на ваш сайт с временным `code` в параметре кода, а также с состоянием, указанным на предыдущем шаге в параметре `state`. Если состояния не совпадают, это значит, что запрос был создан третьей стороной, и процесс следует прервать.
+
+{% note %}
+
+**Примечание**. Если выбрать **Запрашивать авторизацию пользователя (OAuth) во время установки** при создании или изменении приложения, GitHub вернет временный `code`, который нужно будет обменять на маркер доступа. Параметр `state` не возвращается, когда GitHub инициирует поток OAuth во время установки приложения.
+
+{% endnote %}
+
+Обменяйте этот `code` на маркер доступа.  Когда маркеры с истекающим сроком действия включены, срок действия маркера доступа истекает через 8 часов, а срок действия маркера обновления — через 6 месяцев. При каждом обновлении маркера вы получаете новый маркер обновления. Дополнительные сведения см. в разделе [Обновление токенов доступа между пользователями и сервером](/developers/apps/refreshing-user-to-server-access-tokens).
+
+Пользовательские маркеры с истекающим сроком действия на данный момент являются дополнительной функцией и могут быть изменены. Сведения о включении функции ограничения срока действия маркеров "пользователь —сервер" см. в разделе [Активация дополнительных функций для приложений](/developers/apps/activating-optional-features-for-apps).
+
+Отправьте запрос в следующую конечную точку для получения маркера доступа:
 
     POST {% data variables.product.oauth_host_code %}/login/oauth/access_token
 
-##### Parameters
+#### Параметры
 
-| Name            | Тип      | Description                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| --------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `client_id`     | `строка` | **Required.** The  client ID for your GitHub App.                                                                                                                                                                                                                                                                                                                                                                                       |
-| `client_secret` | `строка` | **Required.** The  client secret for your GitHub App.                                                                                                                                                                                                                                                                                                                                                                                   |
-| `код`           | `строка` | **Required.** The code you received as a response to Step 1.                                                                                                                                                                                                                                                                                                                                                                            |
-| `redirect_uri`  | `строка` | The URL in your application where users will be sent after authorization. This must be an exact match to {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" %} one of the URLs you provided as a **Callback URL** {% else %} the URL you provided in the **User authorization callback URL** field{% endif %} when setting up your GitHub App and can't contain any additional parameters. |
-| `state`         | `строка` | The unguessable random string you provided in Step 1.                                                                                                                                                                                                                                                                                                                                                                                   |
+Имя | Тип | Описание
+-----|------|------------
+`client_id` | `string` | **Обязательный.** Идентификатор клиента для вашего приложения GitHub.
+`client_secret` | `string`   | **Обязательный.** Секрет клиента для вашего приложения GitHub.
+`code` | `string`   | **Обязательный.** Код, полученный в качестве ответа на шаге 1.
+`redirect_uri` | `string` | URL-адрес в приложении, на который пользователи будут направляться после авторизации. Он должен точно совпадать с {% ifversion fpt or ghes or ghec %} одним из URL-адресов, которые вы указали в качестве **URL-адреса обратного вызова** {% else %} URL-адреса, который вы указали в поле **-адреса обратного вызова авторизации пользователя**{% endif %} при настройке приложения GitHub и не может содержать никаких дополнительных параметров.
 
-##### Response
+#### Ответ
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.21" or currentVersion == "github-ae@latest" %}
-
-By default, the response takes the following form. The response parameters `expires_in`, `refresh_token`,  and `refresh_token_expires_in` are only returned when you enable expiring user-to-server access tokens.
+По умолчанию ответ принимает следующий вид. Параметры ответа `expires_in`, `refresh_token` и `refresh_token_expires_in` возвращаются только в том случае, если включено ограничение срока действия маркеров доступа "пользователь — сервер".
 
 ```json
 {
-  "access_token": "{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" or currentVersion == "github-ae@next" %}ghu_16C7e42F292c6912E7710c838347Ae178B4a{% else %}e72e16c7e42f292c6912e7710c838347ae178b4a{% endif %}",
+  "access_token": "ghu_16C7e42F292c6912E7710c838347Ae178B4a",
   "expires_in": 28800,
-  "refresh_token": "{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" or currentVersion == "github-ae@next" %}ghr_1B4a2e77838347a7E420ce178F2E7c6912E169246c34E1ccbF66C46812d16D5B1A9Dc86A1498{% else %}r1.c1b4a2e77838347a7e420ce178f2e7c6912e1692{% endif %}",
+  "refresh_token": "ghr_1B4a2e77838347a7E420ce178F2E7c6912E169246c34E1ccbF66C46812d16D5B1A9Dc86A1498",
   "refresh_token_expires_in": 15811200,
   "scope": "",
   "token_type": "bearer"
 }
 ```
-{% else %}
 
-By default, the response takes the following form:
+### 3. Приложение GitHub обращается к API с маркером доступа пользователя
 
-    access_token={% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" or currentVersion == "github-ae@next" %}ghu_16C7e42F292c6912E7710c838347Ae178B4a{% else %}e72e16c7e42f292c6912e7710c838347ae178b4a{% endif %}&token_type=bearer
+Маркер доступа пользователя позволяет приложению GitHub отправлять запросы к API от имени пользователя.
 
-{% endif %}
-
-#### 3. Your GitHub App accesses the API with the user's access token
-
-The user's access token allows the GitHub App to make requests to the API on behalf of a user.
-
-    Authorization: token OAUTH-TOKEN
+    Authorization: Bearer OAUTH-TOKEN
     GET {% data variables.product.api_url_code %}/user
 
-For example, in curl you can set the Authorization header like this:
+Например, в curl можно задать заголовок авторизации следующим образом:
 
 ```shell
-curl -H "Authorization: token OAUTH-TOKEN" {% data variables.product.api_url_pre %}/user
+curl -H "Authorization: Bearer OAUTH-TOKEN" {% data variables.product.api_url_pre %}/user
 ```
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.21" or currentVersion == "github-ae@latest" %}
-### Device flow
+## Процесс для устройства
 
-{% if currentVersion ver_lt "enterprise-server@3.1" %}
 {% note %}
 
-**Note:** The device flow is in public beta and subject to change.
+**Примечание**. Процесс для устройства находится в стадии общедоступной бета-версии и может быть изменен.
 
 {% endnote %}
-{% endif %}
 
-The device flow allows you to authorize users for a headless app, such as a CLI tool or Git credential manager.
+Процесс для устройства позволяет авторизовать пользователей для автономного приложения, например средства CLI или диспетчера учетных данных GIT.
 
-For more information about authorizing users using the device flow, see "[Authorizing OAuth Apps](/developers/apps/authorizing-oauth-apps#device-flow)".
+{% ifversion device-flow-is-opt-in %}Прежде чем использовать процесс для устройства с целью идентификации и авторизации пользователей, необходимо сначала включить его в параметрах приложения. Дополнительные сведения о включении потоков устройств см. в разделе [Изменение приложения GitHub](/developers/apps/managing-github-apps/modifying-a-github-app). {% endif %}Дополнительные сведения об авторизации пользователей с помощью процесса для устройства см. в разделе [Авторизация приложений OAuth](/developers/apps/authorizing-oauth-apps#device-flow).
 
-{% endif %}
+## Проверка доступа пользователя к ресурсам установки
 
-### Check which installation's resources a user can access
+После получения токена OAuth для пользователя можно проверить, к каким установкам этот пользователь имеет доступ.
 
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_lt "enterprise-server@2.22" %}
-{% data reusables.pre-release-program.machine-man-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
-{% endif %}
-
-Once you have an OAuth token for a user, you can check which installations that user can access.
-
-    Authorization: token OAUTH-TOKEN
+    Authorization: Bearer OAUTH-TOKEN
     GET /user/installations
 
-You can also check which repositories are accessible to a user for an installation.
+Кроме того, можно проверить, какие репозитории доступны пользователю для установки.
 
-    Authorization: token OAUTH-TOKEN
+    Authorization: Bearer OAUTH-TOKEN
     GET /user/installations/:installation_id/repositories
 
-More details can be found in: [List app installations accessible to the user access token](/rest/reference/apps#list-app-installations-accessible-to-the-user-access-token) and [List repositories accessible to the user access token](/rest/reference/apps#list-repositories-accessible-to-the-user-access-token).
+Дополнительные сведения см. в статьях: [Список установок приложений, доступных для маркера доступа пользователя](/rest/apps#list-app-installations-accessible-to-the-user-access-token) и [Список репозиториев, доступных для маркера доступа пользователя](/rest/apps#list-repositories-accessible-to-the-user-access-token).
 
-### Handling a revoked GitHub App authorization
+## Обработка отозванной авторизации приложения GitHub
 
-If a user revokes their authorization of a GitHub App, the app will receive the [`github_app_authorization`](/webhooks/event-payloads/#github_app_authorization) webhook by default. GitHub Apps cannot unsubscribe from this event. {% data reusables.webhooks.authorization_event %}
+Если пользователь отзывает свою авторизацию приложения GitHub, приложение по умолчанию получит веб-перехватчик [`github_app_authorization`](/webhooks/event-payloads/#github_app_authorization). Приложения GitHub не могут отменить подписку на это событие. {% data reusables.webhooks.authorization_event %}
 
-### User-level permissions
+## Разрешения уровня пользователя
 
-You can add user-level permissions to your GitHub App to access user resources, such as user emails, that are granted by individual users as part of the [user authorization flow](#identifying-users-on-your-site). User-level permissions differ from [repository and organization-level permissions](/rest/reference/permissions-required-for-github-apps), which are granted at the time of installation on an organization or user account.
+Вы можете добавить разрешения уровня пользователя в свое приложение GitHub для доступа к пользовательским ресурсам, таким как электронные письма пользователей. Такие разрешения предоставляются отдельными пользователями в рамках [потока авторизации пользователей](#identifying-users-on-your-site). Разрешения уровня пользователя отличаются от [разрешений на уровне репозитория и организации](/rest/overview/permissions-required-for-github-apps), которые предоставляются во время установки в организации или личной учетной записи.
 
-You can select user-level permissions from within your GitHub App's settings in the **User permissions** section of the **Permissions & webhooks** page. For more information on selecting permissions, see "[Editing a GitHub App's permissions](/apps/managing-github-apps/editing-a-github-app-s-permissions/)."
+Разрешения уровня пользователя можно выбрать в параметрах приложения GitHub в разделе **Разрешения пользователя** на странице **Разрешения и веб-перехватчики**. Дополнительные сведения о выборе разрешений см. в статье [Изменение разрешений приложения GitHub](/apps/managing-github-apps/editing-a-github-app-s-permissions/).
 
-When a user installs your app on their account, the installation prompt will list the user-level permissions your app is requesting and explain that the app can ask individual users for these permissions.
+Когда пользователь устанавливает ваше приложение в своей учетной записи, в запросе на установку будут перечислены разрешения уровня пользователя, которые запрашивает приложение, и приведено объяснение, что приложение может запрашивать эти разрешения у отдельных пользователей.
 
-Because user-level permissions are granted on an individual user basis, you can add them to your existing app without prompting users to upgrade. You will, however, need to send existing users through the user authorization flow to authorize the new permission and get a new user-to-server token for these requests.
+Так как разрешения уровня пользователя предоставляются отдельным пользователям, их можно добавить в имеющееся приложение, не запрашивая у пользователей обновление. Однако вам потребуется отправить существующих пользователей через поток авторизации пользователей, чтобы авторизовать новое разрешение и получить новый маркер от пользователя к серверу для этих запросов.
 
-### User-to-server requests
+## Запросы между пользователем и сервером
 
-While most of your API interaction should occur using your server-to-server installation access tokens, certain endpoints allow you to perform actions via the API using a user access token. Your app can make the following requests using [GraphQL v4](/graphql) or [REST v3](/rest) endpoints.
+Хотя большая часть вашего взаимодействия с API должна происходить с использованием ваших маркеров доступа установки от сервера к серверу, некоторые конечные точки позволяют выполнять действия с помощью API с использованием маркера доступа пользователя. Ваше приложение может выполнять следующие запросы, используя конечные точки [GraphQL](/graphql) или [REST](/rest).
 
-#### Supported endpoints
+### Поддерживаемые конечные точки
 
-{% if currentVersion == "free-pro-team@latest" %}
-##### Actions Runners
+{% ifversion fpt or ghec %}
+#### Средства выполнения действий
 
-* [List runner applications for a repository](/rest/reference/actions#list-runner-applications-for-a-repository)
-* [List self-hosted runners for a repository](/rest/reference/actions#list-self-hosted-runners-for-a-repository)
-* [Get a self-hosted runner for a repository](/rest/reference/actions#get-a-self-hosted-runner-for-a-repository)
-* [Delete a self-hosted runner from a repository](/rest/reference/actions#delete-a-self-hosted-runner-from-a-repository)
-* [Create a registration token for a repository](/rest/reference/actions#create-a-registration-token-for-a-repository)
-* [Create a remove token for a repository](/rest/reference/actions#create-a-remove-token-for-a-repository)
-* [List runner applications for an organization](/rest/reference/actions#list-runner-applications-for-an-organization)
-* [List self-hosted runners for an organization](/rest/reference/actions#list-self-hosted-runners-for-an-organization)
-* [Get a self-hosted runner for an organization](/rest/reference/actions#get-a-self-hosted-runner-for-an-organization)
-* [Delete a self-hosted runner from an organization](/rest/reference/actions#delete-a-self-hosted-runner-from-an-organization)
-* [Create a registration token for an organization](/rest/reference/actions#create-a-registration-token-for-an-organization)
-* [Create a remove token for an organization](/rest/reference/actions#create-a-remove-token-for-an-organization)
+* [Список приложений средств выполнения для репозитория](/rest/actions#list-runner-applications-for-a-repository)
+* [Список локальных средств выполнения для репозитория](/rest/actions#list-self-hosted-runners-for-a-repository)
+* [Получение локального средства выполнения для репозитория](/rest/actions#get-a-self-hosted-runner-for-a-repository)
+* [Удаление локального средства выполнения из репозитория](/rest/actions#delete-a-self-hosted-runner-from-a-repository)
+* [Создание токена регистрации для репозитория](/rest/actions#create-a-registration-token-for-a-repository)
+* [Создание токена удаления для репозитория](/rest/actions#create-a-remove-token-for-a-repository)
+* [Список приложений средств выполнения для организации](/rest/actions#list-runner-applications-for-an-organization)
+* [Список локальных средств выполнения для организации](/rest/actions#list-self-hosted-runners-for-an-organization)
+* [Получение локального средства выполнения для организации](/rest/actions#get-a-self-hosted-runner-for-an-organization)
+* [Удаление локального средства выполнения для организации](/rest/actions#delete-a-self-hosted-runner-from-an-organization)
+* [Создание токена регистрации для организации](/rest/actions#create-a-registration-token-for-an-organization)
+* [Создание токена удаления для организации](/rest/actions#create-a-remove-token-for-an-organization)
 
-##### Actions Secrets
+#### Секреты действий
 
-* [Get a repository public key](/rest/reference/actions#get-a-repository-public-key)
-* [List repository secrets](/rest/reference/actions#list-repository-secrets)
-* [Get a repository secret](/rest/reference/actions#get-a-repository-secret)
-* [Create or update a repository secret](/rest/reference/actions#create-or-update-a-repository-secret)
-* [Delete a repository secret](/rest/reference/actions#delete-a-repository-secret)
-* [Get an organization public key](/rest/reference/actions#get-an-organization-public-key)
-* [List organization secrets](/rest/reference/actions#list-organization-secrets)
-* [Get an organization secret](/rest/reference/actions#get-an-organization-secret)
-* [Create or update an organization secret](/rest/reference/actions#create-or-update-an-organization-secret)
-* [List selected repositories for an organization secret](/rest/reference/actions#list-selected-repositories-for-an-organization-secret)
-* [Set selected repositories for an organization secret](/rest/reference/actions#set-selected-repositories-for-an-organization-secret)
-* [Add selected repository to an organization secret](/rest/reference/actions#add-selected-repository-to-an-organization-secret)
-* [Remove selected repository from an organization secret](/rest/reference/actions#remove-selected-repository-from-an-organization-secret)
-* [Delete an organization secret](/rest/reference/actions#delete-an-organization-secret)
-{% endif %}
+* [Получение открытого ключа репозитория](/rest/actions#get-a-repository-public-key)
+* [Список секретов репозитория](/rest/actions#list-repository-secrets)
+* [Получение секрета репозитория](/rest/actions#get-a-repository-secret)
+* [Создание или обновление секрета репозитория](/rest/actions#create-or-update-a-repository-secret)
+* [Удаление секрета репозитория](/rest/actions#delete-a-repository-secret)
+* [Получение открытого ключа организации](/rest/actions#get-an-organization-public-key)
+* [Список секретов организации](/rest/actions#list-organization-secrets)
+* [Получение секрета организации](/rest/actions#get-an-organization-secret)
+* [Создание или обновление секрета организации](/rest/actions#create-or-update-an-organization-secret)
+* [Список выбранных репозиториев для секрета организации](/rest/actions#list-selected-repositories-for-an-organization-secret)
+* [Настройка выбранных репозиториев для секрета организации](/rest/actions#set-selected-repositories-for-an-organization-secret)
+* [Добавление выбранного репозитория к секрету организации](/rest/actions#add-selected-repository-to-an-organization-secret)
+* [Удаление выбранного репозитория из секрета организации](/rest/actions#remove-selected-repository-from-an-organization-secret)
+* [Удаление секрета организации](/rest/actions#delete-an-organization-secret) {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-##### Artifacts
+{% ifversion fpt or ghec %}
+#### Artifacts
 
-* [List artifacts for a repository](/rest/reference/actions#list-artifacts-for-a-repository)
-* [List workflow run artifacts](/rest/reference/actions#list-workflow-run-artifacts)
-* [Get an artifact](/rest/reference/actions#get-an-artifact)
-* [Delete an artifact](/rest/reference/actions#delete-an-artifact)
-* [Download an artifact](/rest/reference/actions#download-an-artifact)
-{% endif %}
+* [Список артефактов для репозитория](/rest/actions#list-artifacts-for-a-repository)
+* [Список артефактов выполнения рабочего процесса](/rest/actions#list-workflow-run-artifacts)
+* [Получение артефакта](/rest/actions#get-an-artifact)
+* [Удаление артефакта](/rest/actions#delete-an-artifact)
+* [Загрузка артефакта](/rest/actions#download-an-artifact) {% endif %}
 
-##### Check Runs
+#### Проверка запусков
 
-* [Create a check run](/rest/reference/checks#create-a-check-run)
-* [Get a check run](/rest/reference/checks#get-a-check-run)
-* [Update a check run](/rest/reference/checks#update-a-check-run)
-* [List check run annotations](/rest/reference/checks#list-check-run-annotations)
-* [List check runs in a check suite](/rest/reference/checks#list-check-runs-in-a-check-suite)
-* [List check runs for a Git reference](/rest/reference/checks#list-check-runs-for-a-git-reference)
+* [Создание выполнения проверки](/rest/checks#create-a-check-run)
+* [Получение выполнения проверки](/rest/checks#get-a-check-run)
+* [Обновление выполнения проверки](/rest/checks#update-a-check-run)
+* [Список аннотаций выполнения проверки](/rest/checks#list-check-run-annotations)
+* [Список выполнений проверок в наборе проверок](/rest/checks#list-check-runs-in-a-check-suite)
+* [Список выполнений проверок для ссылки на Git](/rest/checks#list-check-runs-for-a-git-reference)
 
-##### Проверить пакеты
+#### Проверить пакеты
 
-* [Create a check suite](/rest/reference/checks#create-a-check-suite)
-* [Get a check suite](/rest/reference/checks#get-a-check-suite)
-* [Rerequest a check suite](/rest/reference/checks#rerequest-a-check-suite)
-* [Update repository preferences for check suites](/rest/reference/checks#update-repository-preferences-for-check-suites)
-* [List check suites for a Git reference](/rest/reference/checks#list-check-suites-for-a-git-reference)
+* [Создание набора проверок](/rest/checks#create-a-check-suite)
+* [Получение набора проверок](/rest/checks#get-a-check-suite)
+* [Повторный запрос набора проверок](/rest/checks#rerequest-a-check-suite)
+* [Обновление параметров репозитория для наборов проверок](/rest/checks#update-repository-preferences-for-check-suites)
+* [Список наборов проверок для ссылки Git](/rest/checks#list-check-suites-for-a-git-reference)
 
-##### Codes Of Conduct
+#### Правила поведения
 
-* [Get all codes of conduct](/rest/reference/codes-of-conduct#get-all-codes-of-conduct)
-* [Get a code of conduct](/rest/reference/codes-of-conduct#get-a-code-of-conduct)
+* [Получение всех правил поведения](/rest/codes-of-conduct#get-all-codes-of-conduct)
+* [Получение правил поведения](/rest/codes-of-conduct#get-a-code-of-conduct)
 
-##### Deployment Statuses
+#### Состояния развертывания
 
-* [List deployment statuses](/rest/reference/repos#list-deployment-statuses)
-* [Create a deployment status](/rest/reference/repos#create-a-deployment-status)
-* [Get a deployment status](/rest/reference/repos#get-a-deployment-status)
+* [Список состояний развертывания](/rest/deployments#list-deployment-statuses)
+* [Создание состояния развертывания](/rest/deployments#create-a-deployment-status)
+* [Получение состояния развертывания](/rest/deployments#get-a-deployment-status)
 
-##### Deployments
+#### Развернутые приложения
 
-* [List deployments](/rest/reference/repos#list-deployments)
-* [Create a deployment](/rest/reference/repos#create-a-deployment)
-* [Get a deployment](/rest/reference/repos#get-a-deployment){% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.20" or currentVersion == "github-ae@latest" %}
-* [Delete a deployment](/rest/reference/repos#delete-a-deployment){% endif %}
+* [Перечислить развертывания](/rest/deployments#list-deployments)
+* [Создание развертывания](/rest/deployments#create-a-deployment)
+* [Получение развертывания](/rest/deployments#get-a-deployment)
+* [Удаление развертывания](/rest/deployments#delete-a-deployment)
 
-##### События
+#### События
 
-* [List public events for a network of repositories](/rest/reference/activity#list-public-events-for-a-network-of-repositories)
-* [List public organization events](/rest/reference/activity#list-public-organization-events)
+* [Список общедоступных событий для сети репозиториев](/rest/activity#list-public-events-for-a-network-of-repositories)
+* [Список событий общественных организаций](/rest/activity#list-public-organization-events)
 
-##### Feeds
+#### Веб-каналы
 
-* [Get feeds](/rest/reference/activity#get-feeds)
+* [Получение веб-каналов](/rest/activity#get-feeds)
 
-##### Git Blobs
+#### Большие двоичные объекты Git
 
-* [Create a blob](/rest/reference/git#create-a-blob)
-* [Get a blob](/rest/reference/git#get-a-blob)
+* [Создание BLOB-объекта](/rest/git#create-a-blob)
+* [Получение большого двоичного объекта](/rest/git#get-a-blob)
 
-##### Git Commits
+#### Фиксация Git
 
-* [Create a commit](/rest/reference/git#create-a-commit)
-* [Get a commit](/rest/reference/git#get-a-commit)
+* [Создание фиксации](/rest/git#create-a-commit)
+* [Получение фиксации](/rest/git#get-a-commit)
 
-##### Git Refs
+#### Ссылки на Git
 
-* [Create a reference](/rest/reference/git#create-a-reference)* [Get a reference](/rest/reference/git#get-a-reference)
-* [List matching references](/rest/reference/git#list-matching-references)
-* [Update a reference](/rest/reference/git#update-a-reference)
-* [Delete a reference](/rest/reference/git#delete-a-reference)
+* [Создание ссылки](/rest/git#create-a-reference)
+* [Получение ссылки](/rest/git#get-a-reference)
+* [Список совпадающих ссылок](/rest/git#list-matching-references)
+* [Обновление ссылки](/rest/git#update-a-reference)
+* [Удаление ссылки](/rest/git#delete-a-reference)
 
-##### Git Tags
+#### Теги Git
 
-* [Create a tag object](/rest/reference/git#create-a-tag-object)
-* [Get a tag](/rest/reference/git#get-a-tag)
+* [Создание объекта тега](/rest/git#create-a-tag-object)
+* [Получение тега](/rest/git#get-a-tag)
 
-##### Git Trees
+#### Деревья Git
 
-* [Create a tree](/rest/reference/git#create-a-tree)
-* [Get a tree](/rest/reference/git#get-a-tree)
+* [Создание дерева](/rest/git#create-a-tree)
+* [Получение дерева](/rest/git#get-a-tree)
 
-##### Gitignore Templates
+#### Шаблоны Gitignore
 
-* [Get all gitignore templates](/rest/reference/gitignore#get-all-gitignore-templates)
-* [Get a gitignore template](/rest/reference/gitignore#get-a-gitignore-template)
+* [Получение всех шаблонов gitignore](/rest/gitignore#get-all-gitignore-templates)
+* [Получение шаблона gitignore](/rest/gitignore#get-a-gitignore-template)
 
-##### Installations
+#### Установки
 
-* [List repositories accessible to the user access token](/rest/reference/apps#list-repositories-accessible-to-the-user-access-token)
+* [Список репозиториев, доступных для маркера доступа пользователя](/rest/apps#list-repositories-accessible-to-the-user-access-token)
 
-{% if currentVersion == "free-pro-team@latest" %}
-##### Interaction Limits
+{% ifversion fpt or ghec %}
+#### Ограничения взаимодействия
 
-* [Get interaction restrictions for an organization](/rest/reference/interactions#get-interaction-restrictions-for-an-organization)
-* [Set interaction restrictions for an organization](/rest/reference/interactions#set-interaction-restrictions-for-an-organization)
-* [Remove interaction restrictions for an organization](/rest/reference/interactions#remove-interaction-restrictions-for-an-organization)
-* [Get interaction restrictions for a repository](/rest/reference/interactions#get-interaction-restrictions-for-a-repository)
-* [Set interaction restrictions for a repository](/rest/reference/interactions#set-interaction-restrictions-for-a-repository)
-* [Remove interaction restrictions for a repository](/rest/reference/interactions#remove-interaction-restrictions-for-a-repository)
-{% endif %}
+* [Получение ограничений взаимодействия для организации](/rest/interactions#get-interaction-restrictions-for-an-organization)
+* [Настройка ограничений взаимодействия для организации](/rest/interactions#set-interaction-restrictions-for-an-organization)
+* [Удаление ограничений взаимодействия для организации](/rest/interactions#remove-interaction-restrictions-for-an-organization)
+* [Получение ограничений взаимодействия для репозитория](/rest/interactions#get-interaction-restrictions-for-a-repository)
+* [Настройка ограничений взаимодействия для репозитория](/rest/interactions#set-interaction-restrictions-for-a-repository)
+* [Удаление ограничений взаимодействия для репозитория](/rest/interactions#remove-interaction-restrictions-for-a-repository) {% endif %}
 
-##### Issue Assignees
+#### Уполномоченные по проблеме
 
-* [Add assignees to an issue](/rest/reference/issues#add-assignees-to-an-issue)
-* [Remove assignees from an issue](/rest/reference/issues#remove-assignees-from-an-issue)
+* [Добавление уполномоченных к проблеме](/rest/issues#add-assignees-to-an-issue)
+* [Удаление уполномоченных из проблемы](/rest/issues#remove-assignees-from-an-issue)
 
-##### Issue Comments
+#### Комментарии к проблеме
 
-* [List issue comments](/rest/reference/issues#list-issue-comments)
-* [Create an issue comment](/rest/reference/issues#create-an-issue-comment)
-* [List issue comments for a repository](/rest/reference/issues#list-issue-comments-for-a-repository)
-* [Get an issue comment](/rest/reference/issues#get-an-issue-comment)
-* [Update an issue comment](/rest/reference/issues#update-an-issue-comment)
-* [Delete an issue comment](/rest/reference/issues#delete-an-issue-comment)
+* [Список комментариев к проблеме](/rest/issues#list-issue-comments)
+* [Создание комментария к проблеме](/rest/issues#create-an-issue-comment)
+* [Список комментариев к проблемам для репозитория](/rest/issues#list-issue-comments-for-a-repository)
+* [Получение комментария к проблеме](/rest/issues#get-an-issue-comment)
+* [Обновление комментария к проблеме](/rest/issues#update-an-issue-comment)
+* [Удаление комментария к проблеме](/rest/issues#delete-an-issue-comment)
 
-##### Issue Events
+#### События проблемы
 
-* [List issue events](/rest/reference/issues#list-issue-events)
+* [Список проблемных событий](/rest/issues#list-issue-events)
 
-##### Issue Timeline
+#### Временная шкала проблем
 
-* [List timeline events for an issue](/rest/reference/issues#list-timeline-events-for-an-issue)
+* [Список событий временной шкалы для проблемы](/rest/issues#list-timeline-events-for-an-issue)
 
-##### Вопросы
+#### Проблемы
 
-* [List issues assigned to the authenticated user](/rest/reference/issues#list-issues-assigned-to-the-authenticated-user)
-* [List assignees](/rest/reference/issues#list-assignees)
-* [Check if a user can be assigned](/rest/reference/issues#check-if-a-user-can-be-assigned)
-* [List repository issues](/rest/reference/issues#list-repository-issues)
-* [Create an issue](/rest/reference/issues#create-an-issue)
-* [Get an issue](/rest/reference/issues#get-an-issue)
-* [Update an issue](/rest/reference/issues#update-an-issue)
-* [Lock an issue](/rest/reference/issues#lock-an-issue)
-* [Unlock an issue](/rest/reference/issues#unlock-an-issue)
+* [Список проблем, назначенных пользователю, прошедшему проверку подлинности](/rest/issues#list-issues-assigned-to-the-authenticated-user)
+* [Список уполномоченных](/rest/issues#list-assignees)
+* [Проверка возможности назначения пользователя](/rest/issues#check-if-a-user-can-be-assigned)
+* [Список проблем репозитория](/rest/issues#list-repository-issues)
+* [Создание проблемы](/rest/issues#create-an-issue)
+* [Получение проблемы](/rest/issues#get-an-issue)
+* [Обновление проблемы](/rest/issues#update-an-issue)
+* [Блокировка проблемы](/rest/issues#lock-an-issue)
+* [Разблокировка проблемы](/rest/issues#unlock-an-issue)
 
-{% if currentVersion == "free-pro-team@latest" %}
-##### Jobs
+{% ifversion fpt or ghec %}
+#### Задания
 
-* [Get a job for a workflow run](/rest/reference/actions#get-a-job-for-a-workflow-run)
-* [Download job logs for a workflow run](/rest/reference/actions#download-job-logs-for-a-workflow-run)
-* [List jobs for a workflow run](/rest/reference/actions#list-jobs-for-a-workflow-run)
-{% endif %}
+* [Получение задания для выполнения рабочего процесса](/rest/actions#get-a-job-for-a-workflow-run)
+* [Скачивание журналов заданий для запуска рабочего процесса](/rest/actions#download-job-logs-for-a-workflow-run)
+* [Список заданий для запуска рабочего процесса](/rest/actions#list-jobs-for-a-workflow-run) {% endif %}
 
-##### Labels
+#### Метки
 
-* [List labels for an issue](/rest/reference/issues#list-labels-for-an-issue)
-* [Add labels to an issue](/rest/reference/issues#add-labels-to-an-issue)
-* [Set labels for an issue](/rest/reference/issues#set-labels-for-an-issue)
-* [Remove all labels from an issue](/rest/reference/issues#remove-all-labels-from-an-issue)
-* [Remove a label from an issue](/rest/reference/issues#remove-a-label-from-an-issue)
-* [List labels for a repository](/rest/reference/issues#list-labels-for-a-repository)
-* [Create a label](/rest/reference/issues#create-a-label)
-* [Get a label](/rest/reference/issues#get-a-label)
-* [Update a label](/rest/reference/issues#update-a-label)
-* [Delete a label](/rest/reference/issues#delete-a-label)
-* [Get labels for every issue in a milestone](/rest/reference/issues#list-labels-for-issues-in-a-milestone)
+* [Список меток для проблемы](/rest/issues#list-labels-for-an-issue)
+* [Добавление меток для проблемы](/rest/issues#add-labels-to-an-issue)
+* [Настройка меток для проблемы](/rest/issues#set-labels-for-an-issue)
+* [Удаление всех меток из проблемы](/rest/issues#remove-all-labels-from-an-issue)
+* [Удаление метки из проблемы](/rest/issues#remove-a-label-from-an-issue)
+* [Список меток для репозитория](/rest/issues#list-labels-for-a-repository)
+* [Создание Label](/rest/issues#create-a-label)
+* [Получение метки](/rest/issues#get-a-label)
+* [Обновление метки](/rest/issues#update-a-label)
+* [Удаление метки](/rest/issues#delete-a-label)
+* [Получение метки для каждой проблемы в вехе](/rest/issues#list-labels-for-issues-in-a-milestone)
 
-##### Licenses
+#### Лицензии
 
-* [Get all commonly used licenses](/rest/reference/licenses#get-all-commonly-used-licenses)
-* [Get a license](/rest/reference/licenses#get-a-license)
+* [Получение всех часто используемых лицензий](/rest/licenses#get-all-commonly-used-licenses)
+* [Получение лицензии](/rest/licenses#get-a-license)
 
-##### Markdown
+#### Markdown
 
-* [Render a Markdown document](/rest/reference/markdown#render-a-markdown-document)
-* [Render a markdown document in raw mode](/rest/reference/markdown#render-a-markdown-document-in-raw-mode)
+* [Преобразование для просмотра документа Markdown](/rest/markdown#render-a-markdown-document)
+* [Преобразование для просмотра документа Markdown в режиме RAW](/rest/markdown#render-a-markdown-document-in-raw-mode)
 
-##### Meta
+#### Meta
 
-* [Meta](/rest/reference/meta#meta)
+* [Meta](/rest/meta#meta)
 
-##### Milestones
+#### Вехи
 
-* [List milestones](/rest/reference/issues#list-milestones)
-* [Create a milestone](/rest/reference/issues#create-a-milestone)
-* [Get a milestone](/rest/reference/issues#get-a-milestone)
-* [Update a milestone](/rest/reference/issues#update-a-milestone)
-* [Delete a milestone](/rest/reference/issues#delete-a-milestone)
+* [Список вех](/rest/issues#list-milestones)
+* [Создание вехи](/rest/issues#create-a-milestone)
+* [Получение вехи](/rest/issues#get-a-milestone)
+* [Обновление вехи](/rest/issues#update-a-milestone)
+* [Удаление вехи](/rest/issues#delete-a-milestone)
 
-##### Organization Hooks
+#### Перехватчики организации
 
-* [List organization webhooks](/rest/reference/orgs#webhooks/#list-organization-webhooks)
-* [Create an organization webhook](/rest/reference/orgs#webhooks/#create-an-organization-webhook)
-* [Get an organization webhook](/rest/reference/orgs#webhooks/#get-an-organization-webhook)
-* [Update an organization webhook](/rest/reference/orgs#webhooks/#update-an-organization-webhook)
-* [Delete an organization webhook](/rest/reference/orgs#webhooks/#delete-an-organization-webhook)
-* [Ping an organization webhook](/rest/reference/orgs#webhooks/#ping-an-organization-webhook)
+* [Список веб-перехватчиков организации](/rest/orgs#webhooks/#list-organization-webhooks)
+* [Создание веб-перехватчика организации](/rest/orgs#webhooks/#create-an-organization-webhook)
+* [Получение веб-перехватчика организации](/rest/orgs#webhooks/#get-an-organization-webhook)
+* [Обновление веб-перехватчика организации](/rest/orgs#webhooks/#update-an-organization-webhook)
+* [Удаление веб-перехватчика организации](/rest/orgs#webhooks/#delete-an-organization-webhook)
+* [Проверка связи с веб-перехватчиком организации](/rest/orgs#webhooks/#ping-an-organization-webhook)
 
-{% if currentVersion == "free-pro-team@latest" %}
-##### Organization Invitations
+{% ifversion fpt or ghec %}
+#### Приглашения организации
 
-* [List pending organization invitations](/rest/reference/orgs#list-pending-organization-invitations)
-* [Create an organization invitation](/rest/reference/orgs#create-an-organization-invitation)
-* [List organization invitation teams](/rest/reference/orgs#list-organization-invitation-teams)
-{% endif %}
+* [Список ожидающих приглашений организаций](/rest/orgs#list-pending-organization-invitations)
+* [Создание приглашений организации](/rest/orgs#create-an-organization-invitation)
+* [Список команд приглашений организаций](/rest/orgs#list-organization-invitation-teams) {% endif %}
 
-##### Organization Members
+#### Участники организации
 
-* [List organization members](/rest/reference/orgs#list-organization-members)
-* [Check organization membership for a user](/rest/reference/orgs#check-organization-membership-for-a-user)
-* [Remove an organization member](/rest/reference/orgs#remove-an-organization-member)
-* [Get organization membership for a user](/rest/reference/orgs#get-organization-membership-for-a-user)
-* [Set organization membership for a user](/rest/reference/orgs#set-organization-membership-for-a-user)
-* [Remove organization membership for a user](/rest/reference/orgs#remove-organization-membership-for-a-user)
-* [List public organization members](/rest/reference/orgs#list-public-organization-members)
-* [Check public organization membership for a user](/rest/reference/orgs#check-public-organization-membership-for-a-user)
-* [Set public organization membership for the authenticated user](/rest/reference/orgs#set-public-organization-membership-for-the-authenticated-user)
-* [Remove public organization membership for the authenticated user](/rest/reference/orgs#remove-public-organization-membership-for-the-authenticated-user)
+* [Список участников организации](/rest/orgs#list-organization-members)
+* [Проверка членства пользователя в организации](/rest/orgs#check-organization-membership-for-a-user)
+* [Удаление участника организации](/rest/orgs#remove-an-organization-member)
+* [Получение членства в организации для пользователя](/rest/orgs#get-organization-membership-for-a-user)
+* [Настройка членства в организации для пользователя](/rest/orgs#set-organization-membership-for-a-user)
+* [Удаление членства в организации для пользователя](/rest/orgs#remove-organization-membership-for-a-user)
+* [Список участников общественных организаций](/rest/orgs#list-public-organization-members)
+* [Проверка членства пользователя в общественной организации](/rest/orgs#check-public-organization-membership-for-a-user)
+* [Настройка членства в общедоступной организации для пользователя, прошедшего проверку подлинности](/rest/orgs#set-public-organization-membership-for-the-authenticated-user)
+* [Удаление членства в общедоступной организации для пользователя, прошедшего проверку подлинности](/rest/orgs#remove-public-organization-membership-for-the-authenticated-user)
 
-##### Organization Outside Collaborators
+#### Организация сторонних участников совместной работы
 
-* [List outside collaborators for an organization](/rest/reference/orgs#list-outside-collaborators-for-an-organization)
-* [Convert an organization member to outside collaborator](/rest/reference/orgs#convert-an-organization-member-to-outside-collaborator)
-* [Remove outside collaborator from an organization](/rest/reference/orgs#remove-outside-collaborator-from-an-organization)
+* [Список сторонних участников совместной работы для организации](/rest/orgs#list-outside-collaborators-for-an-organization)
+* [Преобразование участника организации в стороннего участника совместной работы](/rest/orgs#convert-an-organization-member-to-outside-collaborator)
+* [Удаление стороннего участника совместной работы из организации](/rest/orgs#remove-outside-collaborator-from-an-organization)
 
-{% if enterpriseServerVersions contains currentVersion %}
-##### Organization Pre Receive Hooks
+{% ifversion ghes %}
+#### Перехватчики предварительного получения организации
 
-* [List pre-receive hooks for an organization](/enterprise/user/rest/reference/enterprise-admin#list-pre-receive-hooks-for-an-organization)
-* [Get a pre-receive hook for an organization](/enterprise/user/rest/reference/enterprise-admin#get-a-pre-receive-hook-for-an-organization)
-* [Update pre-receive hook enforcement for an organization](/enterprise/user/rest/reference/enterprise-admin#update-pre-receive-hook-enforcement-for-an-organization)
-* [Remove pre-receive hook enforcement for an organization](/enterprise/user/rest/reference/enterprise-admin#remove-pre-receive-hook-enforcement-for-an-organization)
-{% endif %}
+* [Список перехватчиков предварительного получения для организации](/enterprise/user/rest/reference/enterprise-admin#list-pre-receive-hooks-for-an-organization)
+* [Получение перехватчика предварительного получения для организации](/enterprise/user/rest/reference/enterprise-admin#get-a-pre-receive-hook-for-an-organization)
+* [Обновление принудительного использования перехватчика предварительного получения для организации](/enterprise/user/rest/reference/enterprise-admin#update-pre-receive-hook-enforcement-for-an-organization)
+* [Отмена принудительного использования перехватчика предварительного получения для организации](/enterprise/user/rest/reference/enterprise-admin#remove-pre-receive-hook-enforcement-for-an-organization) {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.20" or currentVersion == "github-ae@latest" %}
-##### Organization Team Projects
+#### Командные проекты организации
 
-* [List team projects](/rest/reference/teams#list-team-projects)
-* [Check team permissions for a project](/rest/reference/teams#check-team-permissions-for-a-project)
-* [Add or update team project permissions](/rest/reference/teams#add-or-update-team-project-permissions)
-* [Remove a project from a team](/rest/reference/teams#remove-a-project-from-a-team)
-{% endif %}
+* [Список командных проектов](/rest/teams#list-team-projects)
+* [Проверка разрешений группы для проекта](/rest/teams#check-team-permissions-for-a-project)
+* [Добавление или обновление разрешений для командного проекта](/rest/teams#add-or-update-team-project-permissions)
+* [Удаление проекта из команды](/rest/teams#remove-a-project-from-a-team)
 
-##### Organization Team Repositories
-
-* [List team repositories](/rest/reference/teams#list-team-repositories)
-* [Check team permissions for a repository](/rest/reference/teams#check-team-permissions-for-a-repository)
-* [Add or update team repository permissions](/rest/reference/teams#add-or-update-team-repository-permissions)
-* [Remove a repository from a team](/rest/reference/teams#remove-a-repository-from-a-team)
-
-{% if currentVersion == "free-pro-team@latest" %}
-##### Organization Team Sync
-
-* [List idp groups for a team](/rest/reference/teams#list-idp-groups-for-a-team)
-* [Create or update idp group connections](/rest/reference/teams#create-or-update-idp-group-connections)
-* [List IdP groups for an organization](/rest/reference/teams#list-idp-groups-for-an-organization)
-{% endif %}
-
-##### Organization Teams
-
-* [List teams](/rest/reference/teams#list-teams)
-* [Create a team](/rest/reference/teams#create-a-team)
-* [Get a team by name](/rest/reference/teams#get-a-team-by-name)
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_lt "enterprise-server@2.21" %}
-* [Get a team](/rest/reference/teams#get-a-team)
-{% endif %}
-* [Update a team](/rest/reference/teams#update-a-team)
-* [Delete a team](/rest/reference/teams#delete-a-team)
-{% if currentVersion == "free-pro-team@latest" %}
-* [List pending team invitations](/rest/reference/teams#list-pending-team-invitations)
-{% endif %}
-* [List team members](/rest/reference/teams#list-team-members)
-* [Get team membership for a user](/rest/reference/teams#get-team-membership-for-a-user)
-* [Add or update team membership for a user](/rest/reference/teams#add-or-update-team-membership-for-a-user)
-* [Remove team membership for a user](/rest/reference/teams#remove-team-membership-for-a-user)
-* [List child teams](/rest/reference/teams#list-child-teams)
-* [List teams for the authenticated user](/rest/reference/teams#list-teams-for-the-authenticated-user)
+#### Репозитории команды организации
 
-##### Organizations
+* [Список репозиториев команды](/rest/teams#list-team-repositories)
+* [Проверка разрешений команды для репозитория](/rest/teams#check-team-permissions-for-a-repository)
+* [Добавление или обновление разрешений на репозиторий команды](/rest/teams#add-or-update-team-repository-permissions)
+* [Удаление репозитория из команды](/rest/teams#remove-a-repository-from-a-team)
 
-* [List organizations](/rest/reference/orgs#list-organizations)
-* [Get an organization](/rest/reference/orgs#get-an-organization)
-* [Update an organization](/rest/reference/orgs#update-an-organization)
-* [List organization memberships for the authenticated user](/rest/reference/orgs#list-organization-memberships-for-the-authenticated-user)
-* [Get an organization membership for the authenticated user](/rest/reference/orgs#get-an-organization-membership-for-the-authenticated-user)
-* [Update an organization membership for the authenticated user](/rest/reference/orgs#update-an-organization-membership-for-the-authenticated-user)
-* [List organizations for the authenticated user](/rest/reference/orgs#list-organizations-for-the-authenticated-user)
-* [List organizations for a user](/rest/reference/orgs#list-organizations-for-a-user)
-
-{% if currentVersion == "free-pro-team@latest" %}
-##### Organizations Credential Authorizations
-
-* [List SAML SSO authorizations for an organization](/rest/reference/orgs#list-saml-sso-authorizations-for-an-organization)
-* [Remove a SAML SSO authorization for an organization](/rest/reference/orgs#remove-a-saml-sso-authorization-for-an-organization)
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" %}
-##### Organizations Scim
-
-* [List SCIM provisioned identities](/rest/reference/scim#list-scim-provisioned-identities)
-* [Provision and invite a SCIM user](/rest/reference/scim#provision-and-invite-a-scim-user)
-* [Get SCIM provisioning information for a user](/rest/reference/scim#get-scim-provisioning-information-for-a-user)
-* [Set SCIM information for a provisioned user](/rest/reference/scim#set-scim-information-for-a-provisioned-user)
-* [Update an attribute for a SCIM user](/rest/reference/scim#update-an-attribute-for-a-scim-user)
-* [Delete a SCIM user from an organization](/rest/reference/scim#delete-a-scim-user-from-an-organization)
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" %}
-##### Source Imports
-
-* [Get an import status](/rest/reference/migrations#get-an-import-status)
-* [Start an import](/rest/reference/migrations#start-an-import)
-* [Update an import](/rest/reference/migrations#update-an-import)
-* [Cancel an import](/rest/reference/migrations#cancel-an-import)
-* [Get commit authors](/rest/reference/migrations#get-commit-authors)
-* [Map a commit author](/rest/reference/migrations#map-a-commit-author)
-* [Get large files](/rest/reference/migrations#get-large-files)
-* [Update Git LFS preference](/rest/reference/migrations#update-git-lfs-preference)
-{% endif %}
-
-##### Project Collaborators
-
-* [List project collaborators](/rest/reference/projects#list-project-collaborators)
-* [Add project collaborator](/rest/reference/projects#add-project-collaborator)
-* [Remove project collaborator](/rest/reference/projects#remove-project-collaborator)
-* [Get project permission for a user](/rest/reference/projects#get-project-permission-for-a-user)
-
-##### Projects
-
-* [List organization projects](/rest/reference/projects#list-organization-projects)
-* [Create an organization project](/rest/reference/projects#create-an-organization-project)
-* [Get a project](/rest/reference/projects#get-a-project)
-* [Update a project](/rest/reference/projects#update-a-project)
-* [Delete a project](/rest/reference/projects#delete-a-project)
-* [List project columns](/rest/reference/projects#list-project-columns)
-* [Create a project column](/rest/reference/projects#create-a-project-column)
-* [Get a project column](/rest/reference/projects#get-a-project-column)
-* [Update a project column](/rest/reference/projects#update-a-project-column)
-* [Delete a project column](/rest/reference/projects#delete-a-project-column)
-* [List project cards](/rest/reference/projects#list-project-cards)
-* [Create a project card](/rest/reference/projects#create-a-project-card)
-* [Move a project column](/rest/reference/projects#move-a-project-column)
-* [Get a project card](/rest/reference/projects#get-a-project-card)
-* [Update a project card](/rest/reference/projects#update-a-project-card)
-* [Delete a project card](/rest/reference/projects#delete-a-project-card)
-* [Move a project card](/rest/reference/projects#move-a-project-card)
-* [List repository projects](/rest/reference/projects#list-repository-projects)
-* [Create a repository project](/rest/reference/projects#create-a-repository-project)
-
-##### Pull Comments
-
-* [List review comments on a pull request](/rest/reference/pulls#list-review-comments-on-a-pull-request)
-* [Create a review comment for a pull request](/rest/reference/pulls#create-a-review-comment-for-a-pull-request)
-* [List review comments in a repository](/rest/reference/pulls#list-review-comments-in-a-repository)
-* [Get a review comment for a pull request](/rest/reference/pulls#get-a-review-comment-for-a-pull-request)
-* [Update a review comment for a pull request](/rest/reference/pulls#update-a-review-comment-for-a-pull-request)
-* [Delete a review comment for a pull request](/rest/reference/pulls#delete-a-review-comment-for-a-pull-request)
-
-##### Pull Request Review Events
-
-* [Dismiss a review for a pull request](/rest/reference/pulls#dismiss-a-review-for-a-pull-request)
-* [Submit a review for a pull request](/rest/reference/pulls#submit-a-review-for-a-pull-request)
-
-##### Pull Request Review Requests
-
-* [List requested reviewers for a pull request](/rest/reference/pulls#list-requested-reviewers-for-a-pull-request)
-* [Request reviewers for a pull request](/rest/reference/pulls#request-reviewers-for-a-pull-request)
-* [Remove requested reviewers from a pull request](/rest/reference/pulls#remove-requested-reviewers-from-a-pull-request)
-
-##### Pull Request Reviews
-
-* [List reviews for a pull request](/rest/reference/pulls#list-reviews-for-a-pull-request)
-* [Create a review for a pull request](/rest/reference/pulls#create-a-review-for-a-pull-request)
-* [Get a review for a pull request](/rest/reference/pulls#get-a-review-for-a-pull-request)
-* [Update a review for a pull request](/rest/reference/pulls#update-a-review-for-a-pull-request)
-* [List comments for a pull request review](/rest/reference/pulls#list-comments-for-a-pull-request-review)
-
-##### Pulls
-
-* [List pull requests](/rest/reference/pulls#list-pull-requests)
-* [Create a pull request](/rest/reference/pulls#create-a-pull-request)
-* [Get a pull request](/rest/reference/pulls#get-a-pull-request)
-* [Update a pull request](/rest/reference/pulls#update-a-pull-request)
-* [List commits on a pull request](/rest/reference/pulls#list-commits-on-a-pull-request)
-* [List pull requests files](/rest/reference/pulls#list-pull-requests-files)
-* [Check if a pull request has been merged](/rest/reference/pulls#check-if-a-pull-request-has-been-merged)
-* [Merge a pull request (Merge Button)](/rest/reference/pulls#merge-a-pull-request)
-
-##### Reactions
-
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.20" or currentVersion == "github-ae@latest" %}* [Delete a reaction](/rest/reference/reactions#delete-a-reaction-legacy){% else %}* [Delete a reaction](/rest/reference/reactions#delete-a-reaction){% endif %}
-* [List reactions for a commit comment](/rest/reference/reactions#list-reactions-for-a-commit-comment)
-* [Create reaction for a commit comment](/rest/reference/reactions#create-reaction-for-a-commit-comment)
-* [List reactions for an issue](/rest/reference/reactions#list-reactions-for-an-issue)
-* [Create reaction for an issue](/rest/reference/reactions#create-reaction-for-an-issue)
-* [List reactions for an issue comment](/rest/reference/reactions#list-reactions-for-an-issue-comment)
-* [Create reaction for an issue comment](/rest/reference/reactions#create-reaction-for-an-issue-comment)
-* [List reactions for a pull request review comment](/rest/reference/reactions#list-reactions-for-a-pull-request-review-comment)
-* [Create reaction for a pull request review comment](/rest/reference/reactions#create-reaction-for-a-pull-request-review-comment)
-* [List reactions for a team discussion comment](/rest/reference/reactions#list-reactions-for-a-team-discussion-comment)
-* [Create reaction for a team discussion comment](/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)
-* [List reactions for a team discussion](/rest/reference/reactions#list-reactions-for-a-team-discussion)
-* [Create reaction for a team discussion](/rest/reference/reactions#create-reaction-for-a-team-discussion){% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.20" or currentVersion == "github-ae@latest" %}
-* [Delete a commit comment reaction](/rest/reference/reactions#delete-a-commit-comment-reaction)
-* [Delete an issue reaction](/rest/reference/reactions#delete-an-issue-reaction)
-* [Delete a reaction to a commit comment](/rest/reference/reactions#delete-an-issue-comment-reaction)
-* [Delete a pull request comment reaction](/rest/reference/reactions#delete-a-pull-request-comment-reaction)
-* [Delete team discussion reaction](/rest/reference/reactions#delete-team-discussion-reaction)
-* [Delete team discussion comment reaction](/rest/reference/reactions#delete-team-discussion-comment-reaction){% endif %}
-
-##### Repositories
-
-* [List organization repositories](/rest/reference/repos#list-organization-repositories)
-* [Create a repository for the authenticated user](/rest/reference/repos#create-a-repository-for-the-authenticated-user)
-* [Get a repository](/rest/reference/repos#get-a-repository)
-* [Update a repository](/rest/reference/repos#update-a-repository)
-* [Delete a repository](/rest/reference/repos#delete-a-repository)
-* [Compare two commits](/rest/reference/repos#compare-two-commits)
-* [List repository contributors](/rest/reference/repos#list-repository-contributors)
-* [List forks](/rest/reference/repos#list-forks)
-* [Create a fork](/rest/reference/repos#create-a-fork)
-* [List repository languages](/rest/reference/repos#list-repository-languages)
-* [List repository tags](/rest/reference/repos#list-repository-tags)
-* [List repository teams](/rest/reference/repos#list-repository-teams)
-* [Transfer a repository](/rest/reference/repos#transfer-a-repository)
-* [List public repositories](/rest/reference/repos#list-public-repositories)
-* [List repositories for the authenticated user](/rest/reference/repos#list-repositories-for-the-authenticated-user)
-* [List repositories for a user](/rest/reference/repos#list-repositories-for-a-user)
-* [Create repository using a repository template](/rest/reference/repos#create-repository-using-a-repository-template)
-
-##### Repository Activity
-
-* [List stargazers](/rest/reference/activity#list-stargazers)
-* [List watchers](/rest/reference/activity#list-watchers)
-* [List repositories starred by a user](/rest/reference/activity#list-repositories-starred-by-a-user)
-* [Check if a repository is starred by the authenticated user](/rest/reference/activity#check-if-a-repository-is-starred-by-the-authenticated-user)
-* [Star a repository for the authenticated user](/rest/reference/activity#star-a-repository-for-the-authenticated-user)
-* [Unstar a repository for the authenticated user](/rest/reference/activity#unstar-a-repository-for-the-authenticated-user)
-* [List repositories watched by a user](/rest/reference/activity#list-repositories-watched-by-a-user)
-
-{% if currentVersion == "free-pro-team@latest" %}
-##### Repository Automated Security Fixes
-
-* [Enable automated security fixes](/rest/reference/repos#enable-automated-security-fixes)
-* [Disable automated security fixes](/rest/reference/repos#disable-automated-security-fixes)
-{% endif %}
-
-##### Repository Branches
-
-* [List branches](/rest/reference/repos#list-branches)
-* [Get a branch](/rest/reference/repos#get-a-branch)
-* [Get branch protection](/rest/reference/repos#get-branch-protection)
-* [Update branch protection](/rest/reference/repos#update-branch-protection)
-* [Delete branch protection](/rest/reference/repos#delete-branch-protection)
-* [Get admin branch protection](/rest/reference/repos#get-admin-branch-protection)
-* [Set admin branch protection](/rest/reference/repos#set-admin-branch-protection)
-* [Delete admin branch protection](/rest/reference/repos#delete-admin-branch-protection)
-* [Get pull request review protection](/rest/reference/repos#get-pull-request-review-protection)
-* [Update pull request review protection](/rest/reference/repos#update-pull-request-review-protection)
-* [Delete pull request review protection](/rest/reference/repos#delete-pull-request-review-protection)
-* [Get commit signature protection](/rest/reference/repos#get-commit-signature-protection)
-* [Create commit signature protection](/rest/reference/repos#create-commit-signature-protection)
-* [Delete commit signature protection](/rest/reference/repos#delete-commit-signature-protection)
-* [Get status checks protection](/rest/reference/repos#get-status-checks-protection)
-* [Update status check protection](/rest/reference/repos#update-status-check-protection)
-* [Remove status check protection](/rest/reference/repos#remove-status-check-protection)
-* [Get all status check contexts](/rest/reference/repos#get-all-status-check-contexts)
-* [Add status check contexts](/rest/reference/repos#add-status-check-contexts)
-* [Set status check contexts](/rest/reference/repos#set-status-check-contexts)
-* [Remove status check contexts](/rest/reference/repos#remove-status-check-contexts)
-* [Get access restrictions](/rest/reference/repos#get-access-restrictions)
-* [Delete access restrictions](/rest/reference/repos#delete-access-restrictions)
-* [List teams with access to the protected branch](/rest/reference/repos#list-teams-with-access-to-the-protected-branch)
-* [Add team access restrictions](/rest/reference/repos#add-team-access-restrictions)
-* [Set team access restrictions](/rest/reference/repos#set-team-access-restrictions)
-* [Remove team access restriction](/rest/reference/repos#remove-team-access-restrictions)
-* [List user restrictions of protected branch](/rest/reference/repos#list-users-with-access-to-the-protected-branch)
-* [Add user access restrictions](/rest/reference/repos#add-user-access-restrictions)
-* [Set user access restrictions](/rest/reference/repos#set-user-access-restrictions)
-* [Remove user access restrictions](/rest/reference/repos#remove-user-access-restrictions)
-* [Merge a branch](/rest/reference/repos#merge-a-branch)
-
-##### Repository Collaborators
-
-* [List repository collaborators](/rest/reference/repos#list-repository-collaborators)
-* [Check if a user is a repository collaborator](/rest/reference/repos#check-if-a-user-is-a-repository-collaborator)
-* [Add a repository collaborator](/rest/reference/repos#add-a-repository-collaborator)
-* [Remove a repository collaborator](/rest/reference/repos#remove-a-repository-collaborator)
-* [Get repository permissions for a user](/rest/reference/repos#get-repository-permissions-for-a-user)
-
-##### Repository Commit Comments
-
-* [List commit comments for a repository](/rest/reference/repos#list-commit-comments-for-a-repository)
-* [Get a commit comment](/rest/reference/repos#get-a-commit-comment)
-* [Update a commit comment](/rest/reference/repos#update-a-commit-comment)
-* [Delete a commit comment](/rest/reference/repos#delete-a-commit-comment)
-* [List commit comments](/rest/reference/repos#list-commit-comments)
-* [Create a commit comment](/rest/reference/repos#create-a-commit-comment)
-
-##### Repository Commits
-
-* [List commits](/rest/reference/repos#list-commits)
-* [Get a commit](/rest/reference/repos#get-a-commit)
-* [List branches for head commit](/rest/reference/repos#list-branches-for-head-commit)
-* [List pull requests associated with commit](/rest/reference/repos#list-pull-requests-associated-with-commit)
-
-##### Repository Community
-
-* [Get the code of conduct for a repository](/rest/reference/codes-of-conduct#get-the-code-of-conduct-for-a-repository)
-{% if currentVersion == "free-pro-team@latest" %}
-* [Get community profile metrics](/rest/reference/repos#get-community-profile-metrics)
-{% endif %}
-
-##### Repository Contents
-
-* [Download a repository archive](/rest/reference/repos#download-a-repository-archive)
-* [Get repository content](/rest/reference/repos#get-repository-content)
-* [Create or update file contents](/rest/reference/repos#create-or-update-file-contents)
-* [Delete a file](/rest/reference/repos#delete-a-file)
-* [Get a repository README](/rest/reference/repos#get-a-repository-readme)
-* [Get the license for a repository](/rest/reference/licenses#get-the-license-for-a-repository)
-
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.20" or currentVersion == "github-ae@latest" %}
-##### Repository Event Dispatches
-
-* [Create a repository dispatch event](/rest/reference/repos#create-a-repository-dispatch-event)
-{% endif %}
-
-##### Repository Hooks
-
-* [List repository webhooks](/rest/reference/repos#list-repository-webhooks)
-* [Create a repository webhook](/rest/reference/repos#create-a-repository-webhook)
-* [Get a repository webhook](/rest/reference/repos#get-a-repository-webhook)
-* [Update a repository webhook](/rest/reference/repos#update-a-repository-webhook)
-* [Delete a repository webhook](/rest/reference/repos#delete-a-repository-webhook)
-* [Ping a repository webhook](/rest/reference/repos#ping-a-repository-webhook)
-* [Test the push repository webhook](/rest/reference/repos#test-the-push-repository-webhook)
-
-##### Repository Invitations
-
-* [List repository invitations](/rest/reference/repos#list-repository-invitations)
-* [Update a repository invitation](/rest/reference/repos#update-a-repository-invitation)
-* [Delete a repository invitation](/rest/reference/repos#delete-a-repository-invitation)
-* [List repository invitations for the authenticated user](/rest/reference/repos#list-repository-invitations-for-the-authenticated-user)
-* [Accept a repository invitation](/rest/reference/repos#accept-a-repository-invitation)
-* [Decline a repository invitation](/rest/reference/repos#decline-a-repository-invitation)
-
-##### Repository Keys
-
-* [List deploy keys](/rest/reference/repos#list-deploy-keys)
-* [Create a deploy key](/rest/reference/repos#create-a-deploy-key)
-* [Get a deploy key](/rest/reference/repos#get-a-deploy-key)
-* [Delete a deploy key](/rest/reference/repos#delete-a-deploy-key)
-
-##### Repository Pages
-
-* [Get a GitHub Pages site](/rest/reference/repos#get-a-github-pages-site)
-* [Create a GitHub Pages site](/rest/reference/repos#create-a-github-pages-site)
-* [Update information about a GitHub Pages site](/rest/reference/repos#update-information-about-a-github-pages-site)
-* [Delete a GitHub Pages site](/rest/reference/repos#delete-a-github-pages-site)
-* [List GitHub Pages builds](/rest/reference/repos#list-github-pages-builds)
-* [Request a GitHub Pages build](/rest/reference/repos#request-a-github-pages-build)
-* [Get GitHub Pages build](/rest/reference/repos#get-github-pages-build)
-* [Get latest pages build](/rest/reference/repos#get-latest-pages-build)
-
-{% if enterpriseServerVersions contains currentVersion %}
-##### Repository Pre Receive Hooks
-
-* [List pre-receive hooks for a repository](/enterprise/user/rest/reference/enterprise-admin#list-pre-receive-hooks-for-a-repository)
-* [Get a pre-receive hook for a repository](/enterprise/user/rest/reference/enterprise-admin#get-a-pre-receive-hook-for-a-repository)
-* [Update pre-receive hook enforcement for a repository](/enterprise/user/rest/reference/enterprise-admin#update-pre-receive-hook-enforcement-for-a-repository)
-* [Remove pre-receive hook enforcement for a repository](/enterprise/user/rest/reference/enterprise-admin#remove-pre-receive-hook-enforcement-for-a-repository)
-{% endif %}
-
-##### Repository Releases
-
-* [List releases](/rest/reference/repos/#list-releases)
-* [Create a release](/rest/reference/repos/#create-a-release)
-* [Get a release](/rest/reference/repos/#get-a-release)
-* [Update a release](/rest/reference/repos/#update-a-release)
-* [Delete a release](/rest/reference/repos/#delete-a-release)
-* [List release assets](/rest/reference/repos/#list-release-assets)
-* [Get a release asset](/rest/reference/repos/#get-a-release-asset)
-* [Update a release asset](/rest/reference/repos/#update-a-release-asset)
-* [Delete a release asset](/rest/reference/repos/#delete-a-release-asset)
-* [Get the latest release](/rest/reference/repos/#get-the-latest-release)
-* [Get a release by tag name](/rest/reference/repos/#get-a-release-by-tag-name)
-
-##### Repository Stats
-
-* [Get the weekly commit activity](/rest/reference/repos#get-the-weekly-commit-activity)
-* [Get the last year of commit activity](/rest/reference/repos#get-the-last-year-of-commit-activity)
-* [Get all contributor commit activity](/rest/reference/repos#get-all-contributor-commit-activity)
-* [Get the weekly commit count](/rest/reference/repos#get-the-weekly-commit-count)
-* [Get the hourly commit count for each day](/rest/reference/repos#get-the-hourly-commit-count-for-each-day)
-
-{% if currentVersion == "free-pro-team@latest" %}
-##### Repository Vulnerability Alerts
-
-* [Enable vulnerability alerts](/rest/reference/repos#enable-vulnerability-alerts)
-* [Disable vulnerability alerts](/rest/reference/repos#disable-vulnerability-alerts)
-{% endif %}
-
-##### Root
-
-* [Root endpoint](/rest#root-endpoint)
-* [Emojis](/rest/reference/emojis#emojis)
-* [Get rate limit status for the authenticated user](/rest/reference/rate-limit#get-rate-limit-status-for-the-authenticated-user)
-
-##### Поиск
-
-* [Search code](/rest/reference/search#search-code)
-* [Search commits](/rest/reference/search#search-commits)
-* [Search labels](/rest/reference/search#search-labels)
-* [Search repositories](/rest/reference/search#search-repositories)
-* [Search topics](/rest/reference/search#search-topics)
-* [Search users](/rest/reference/search#search-users)
-
-##### Statuses
-
-* [Get the combined status for a specific reference](/rest/reference/repos#get-the-combined-status-for-a-specific-reference)
-* [List commit statuses for a reference](/rest/reference/repos#list-commit-statuses-for-a-reference)
-* [Create a commit status](/rest/reference/repos#create-a-commit-status)
-
-##### Team Discussions
-
-* [List discussions](/rest/reference/teams#list-discussions)
-* [Create a discussion](/rest/reference/teams#create-a-discussion)
-* [Get a discussion](/rest/reference/teams#get-a-discussion)
-* [Update a discussion](/rest/reference/teams#update-a-discussion)
-* [Delete a discussion](/rest/reference/teams#delete-a-discussion)
-* [List discussion comments](/rest/reference/teams#list-discussion-comments)
-* [Create a discussion comment](/rest/reference/teams#create-a-discussion-comment)
-* [Get a discussion comment](/rest/reference/teams#get-a-discussion-comment)
-* [Update a discussion comment](/rest/reference/teams#update-a-discussion-comment)
-* [Delete a discussion comment](/rest/reference/teams#delete-a-discussion-comment)
-
-##### Topics
-
-* [Get all repository topics](/rest/reference/repos#get-all-repository-topics)
-* [Replace all repository topics](/rest/reference/repos#replace-all-repository-topics)
-
-{% if currentVersion == "free-pro-team@latest" %}
-##### Traffic
-
-* [Get repository clones](/rest/reference/repos#get-repository-clones)
-* [Get top referral paths](/rest/reference/repos#get-top-referral-paths)
-* [Get top referral sources](/rest/reference/repos#get-top-referral-sources)
-* [Get page views](/rest/reference/repos#get-page-views)
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" %}
-##### User Blocking
-
-* [List users blocked by the authenticated user](/rest/reference/users#list-users-blocked-by-the-authenticated-user)
-* [Check if a user is blocked by the authenticated user](/rest/reference/users#check-if-a-user-is-blocked-by-the-authenticated-user)
-* [List users blocked by an organization](/rest/reference/orgs#list-users-blocked-by-an-organization)
-* [Check if a user is blocked by an organization](/rest/reference/orgs#check-if-a-user-is-blocked-by-an-organization)
-* [Block a user from an organization](/rest/reference/orgs#block-a-user-from-an-organization)
-* [Unblock a user from an organization](/rest/reference/orgs#unblock-a-user-from-an-organization)
-* [Block a user](/rest/reference/users#block-a-user)
-* [Unblock a user](/rest/reference/users#unblock-a-user)
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" or enterpriseServerVersions contains currentVersion %}
-##### User Emails
-
-{% if currentVersion == "free-pro-team@latest" %}
-* [Set primary email visibility for the authenticated user](/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user)
-{% endif %}
-* [List email addresses for the authenticated user](/rest/reference/users#list-email-addresses-for-the-authenticated-user)
-* [Add email address(es)](/rest/reference/users#add-an-email-address-for-the-authenticated-user)
-* [Delete email address(es)](/rest/reference/users#delete-an-email-address-for-the-authenticated-user)
-* [List public email addresses for the authenticated user](/rest/reference/users#list-public-email-addresses-for-the-authenticated-user)
-{% endif %}
-
-##### User Followers
-
-* [List followers of a user](/rest/reference/users#list-followers-of-a-user)
-* [List the people a user follows](/rest/reference/users#list-the-people-a-user-follows)
-* [Check if a person is followed by the authenticated user](/rest/reference/users#check-if-a-person-is-followed-by-the-authenticated-user)
-* [Follow a user](/rest/reference/users#follow-a-user)
-* [Unfollow a user](/rest/reference/users#unfollow-a-user)
-* [Check if a user follows another user](/rest/reference/users#check-if-a-user-follows-another-user)
-
-##### User Gpg Keys
-
-* [List GPG keys for the authenticated user](/rest/reference/users#list-gpg-keys-for-the-authenticated-user)
-* [Create a GPG key for the authenticated user](/rest/reference/users#create-a-gpg-key-for-the-authenticated-user)
-* [Get a GPG key for the authenticated user](/rest/reference/users#get-a-gpg-key-for-the-authenticated-user)
-* [Delete a GPG key for the authenticated user](/rest/reference/users#delete-a-gpg-key-for-the-authenticated-user)
-* [List gpg keys for a user](/rest/reference/users#list-gpg-keys-for-a-user)
-
-##### User Public Keys
-
-* [List public SSH keys for the authenticated user](/rest/reference/users#list-public-ssh-keys-for-the-authenticated-user)
-* [Create a public SSH key for the authenticated user](/rest/reference/users#create-a-public-ssh-key-for-the-authenticated-user)
-* [Get a public SSH key for the authenticated user](/rest/reference/users#get-a-public-ssh-key-for-the-authenticated-user)
-* [Delete a public SSH key for the authenticated user](/rest/reference/users#delete-a-public-ssh-key-for-the-authenticated-user)
-* [List public keys for a user](/rest/reference/users#list-public-keys-for-a-user)
-
-##### Users
-
-* [Get the authenticated user](/rest/reference/users#get-the-authenticated-user)
-* [List app installations accessible to the user access token](/rest/reference/apps#list-app-installations-accessible-to-the-user-access-token)
-{% if currentVersion == "free-pro-team@latest" %}
-* [List subscriptions for the authenticated user](/rest/reference/apps#list-subscriptions-for-the-authenticated-user)
-{% endif %}
-* [List users](/rest/reference/users#list-users)
-* [Get a user](/rest/reference/users#get-a-user)
-
-{% if currentVersion == "free-pro-team@latest" %}
-##### Workflow Runs
-
-* [List workflow runs for a repository](/rest/reference/actions#list-workflow-runs-for-a-repository)
-* [Get a workflow run](/rest/reference/actions#get-a-workflow-run)
-* [Cancel a workflow run](/rest/reference/actions#cancel-a-workflow-run)
-* [Download workflow run logs](/rest/reference/actions#download-workflow-run-logs)
-* [Delete workflow run logs](/rest/reference/actions#delete-workflow-run-logs)
-* [Re run a workflow](/rest/reference/actions#re-run-a-workflow)
-* [List workflow runs](/rest/reference/actions#list-workflow-runs)
-* [Get workflow run usage](/rest/reference/actions#get-workflow-run-usage)
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" %}
-##### Workflows
-
-* [List repository workflows](/rest/reference/actions#list-repository-workflows)
-* [Get a workflow](/rest/reference/actions#get-a-workflow)
-* [Get workflow usage](/rest/reference/actions#get-workflow-usage)
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" or currentVersion == "github-ae@next" %}
-
-### Дополнительная литература
-
-- "[About authentication to {% data variables.product.prodname_dotcom %}](/github/authenticating-to-github/about-authentication-to-github#githubs-token-formats)"
-
-{% endif %}
+{% ifversion fpt or ghec %}
+#### Синхронизация команды организации
+
+* [Список групп IdP для команды](/rest/teams#list-idp-groups-for-a-team)
+* [Создание или обновление групповых подключений IdP](/rest/teams#create-or-update-idp-group-connections)
+* [Список групп IdP для организации](/rest/teams#list-idp-groups-for-an-organization) {% endif %}
+
+#### Команды организации
+
+* [Список команд](/rest/teams#list-teams)
+* [Создание команды](/rest/teams#create-a-team)
+* [Получение команды по имени](/rest/teams#get-a-team-by-name)
+* [Обновление команды](/rest/teams#update-a-team)
+* [Удаление команды](/rest/teams#delete-a-team) {% ifversion fpt or ghec %}
+* [Список ожидающих приглашений в команду](/rest/teams#list-pending-team-invitations) {% endif %}
+* [Список членов команды](/rest/teams#list-team-members)
+* [Получение членства в команде для пользователя](/rest/teams#get-team-membership-for-a-user)
+* [Добавление или обновление членства в команде для пользователя](/rest/teams#add-or-update-team-membership-for-a-user)
+* [Удаление членства в команде для пользователя](/rest/teams#remove-team-membership-for-a-user)
+* [Список дочерних команд](/rest/teams#list-child-teams)
+* [Список команд для пользователя, прошедшего проверку подлинности](/rest/teams#list-teams-for-the-authenticated-user)
+
+#### Организации
+
+* [Список организаций](/rest/orgs#list-organizations)
+* [Добавление организации](/rest/orgs#get-an-organization)
+* [Обновление организации](/rest/orgs#update-an-organization)
+* [Список членства в организациях для пользователя, прошедшего проверку подлинности](/rest/orgs#list-organization-memberships-for-the-authenticated-user)
+* [Получение членства в организации для пользователя, прошедшего проверку подлинности](/rest/orgs#get-an-organization-membership-for-the-authenticated-user)
+* [Обновление членства в организации для пользователя, прошедшего проверку подлинности](/rest/orgs#update-an-organization-membership-for-the-authenticated-user)
+* [Список организаций для пользователя, прошедшего проверку подлинности](/rest/orgs#list-organizations-for-the-authenticated-user)
+* [Список организаций для пользователя](/rest/orgs#list-organizations-for-a-user)
+
+{% ifversion fpt or ghec %}
+#### Авторизация учетных данных организаций
+
+* [Список авторизаций системы единого входа SAML для организации](/rest/orgs#list-saml-sso-authorizations-for-an-organization)
+* [Удаление авторизации системы единого входа SAML для организации](/rest/orgs#remove-a-saml-sso-authorization-for-an-organization) {% endif %}
+
+{% ifversion fpt or ghec %}
+#### Организации Scim
+
+* [Список подготовленных удостоверений SCIM](/rest/scim#list-scim-provisioned-identities)
+* [Подготовка к работе и приглашение пользователя SCIM](/rest/scim#provision-and-invite-a-scim-user)
+* [Получение информации о подготовке к работе SCIM для пользователя](/rest/scim#get-scim-provisioning-information-for-a-user)
+* [Настройка информации SCIM для подготовленного к работе пользователя](/rest/scim#set-scim-information-for-a-provisioned-user)
+* [Обновление атрибута пользователя SCIM](/rest/scim#update-an-attribute-for-a-scim-user)
+* [Удаление пользователя SCIM из организации](/rest/scim#delete-a-scim-user-from-an-organization) {% endif %}
+
+{% ifversion fpt or ghec %}
+#### Импорт источников
+
+* [Получение сведений о состоянии импорта](/rest/migrations#get-an-import-status)
+* [Запуск импорта](/rest/migrations#start-an-import)
+* [Обновление импорта](/rest/migrations#update-an-import)
+* [Отмена импорта](/rest/migrations#cancel-an-import)
+* [Получение авторов фиксации](/rest/migrations#get-commit-authors)
+* [Сопоставление автора фиксации](/rest/migrations#map-a-commit-author)
+* [Получение больших файлов](/rest/migrations#get-large-files)
+* [Обновление настроек Git LFS](/rest/migrations#update-git-lfs-preference) {% endif %}
+
+#### Участники совместной работы проекта
+
+* [Список участников совместной работы проекта](/rest/projects#list-project-collaborators)
+* [Добавление участника совместной работы проекта](/rest/projects#add-project-collaborator)
+* [Удалить участника совместной работы проекта](/rest/projects#remove-project-collaborator)
+* [Получить разрешение проекта для пользователя](/rest/projects#get-project-permission-for-a-user)
+
+#### Проекты
+
+* [Список проектов организации](/rest/projects#list-organization-projects)
+* [Создание проекта организации](/rest/projects#create-an-organization-project)
+* [Получение проекта](/rest/projects#get-a-project)
+* [Обновление проекта](/rest/projects#update-a-project)
+* [Удаление проекта](/rest/projects#delete-a-project)
+* [Список столбцов проекта](/rest/projects#list-project-columns)
+* [Создание столбца проекта](/rest/projects#create-a-project-column)
+* [Получение столбца проекта](/rest/projects#get-a-project-column)
+* [Обновление столбца проекта](/rest/projects#update-a-project-column)
+* [Удаление столбца проекта](/rest/projects#delete-a-project-column)
+* [Список карточек проекта](/rest/projects#list-project-cards)
+* [Создание карточки проекта](/rest/projects#create-a-project-card)
+* [Перемещение столбца проекта](/rest/projects#move-a-project-column)
+* [Получение карточки проекта](/rest/projects#get-a-project-card)
+* [Обновление карточки проекта](/rest/projects#update-a-project-card)
+* [Удаление карточки проекта](/rest/projects#delete-a-project-card)
+* [Перемещение карточки проекта](/rest/projects#move-a-project-card)
+* [Список проектов репозитория](/rest/projects#list-repository-projects)
+* [Создание проекта репозитория](/rest/projects#create-a-repository-project)
+
+#### Комментарии к вытягиванию
+
+* [Список комментариев к проверке в запросе на вытягивание](/rest/pulls#list-review-comments-on-a-pull-request)
+* [Создание комментария к проверке для запроса на вытягивание](/rest/pulls#create-a-review-comment-for-a-pull-request)
+* [Список комментариев к проверке в репозитории](/rest/pulls#list-review-comments-in-a-repository)
+* [Получение комментария к проверке для запроса на вытягивание](/rest/pulls#get-a-review-comment-for-a-pull-request)
+* [Обновление комментария к проверке для запроса на вытягивание](/rest/pulls#update-a-review-comment-for-a-pull-request)
+* [Удаление комментария к проверке для запроса на вытягивание](/rest/pulls#delete-a-review-comment-for-a-pull-request)
+
+#### События проверки запроса на вытягивание
+
+* [Закрытие проверки для запроса на вытягивание](/rest/pulls#dismiss-a-review-for-a-pull-request)
+* [Отправка проверки для запроса на вытягивание](/rest/pulls#submit-a-review-for-a-pull-request)
+
+#### Запросы на проверку запроса на вытягивание
+
+* [Список запрашиваемых рецензентов для запроса на вытягивание](/rest/pulls#list-requested-reviewers-for-a-pull-request)
+* [Запрашивание у рецензентов запроса на вытягивание](/rest/pulls#request-reviewers-for-a-pull-request)
+* [Удаление запрашиваемых рецензентов из запроса на вытягивание](/rest/pulls#remove-requested-reviewers-from-a-pull-request)
+
+#### Проверки запросов на вытягивание
+
+* [Список проверок для запроса на вытягивание](/rest/pulls#list-reviews-for-a-pull-request)
+* [Создание проверки для запроса на вытягивание](/rest/pulls#create-a-review-for-a-pull-request)
+* [Получение проверки для запроса на вытягивание](/rest/pulls#get-a-review-for-a-pull-request)
+* [Обновление проверки для запроса на вытягивание](/rest/pulls#update-a-review-for-a-pull-request)
+* [Список комментариев для проверки запроса на вытягивание](/rest/pulls#list-comments-for-a-pull-request-review)
+
+#### Запросы данных
+
+* [Список запросов на вытягивание](/rest/pulls#list-pull-requests)
+* [Создание запроса на включение изменений](/rest/pulls#create-a-pull-request)
+* [Получение запроса на вытягивание](/rest/pulls#get-a-pull-request)
+* [Обновление запроса на вытягивание](/rest/pulls#update-a-pull-request)
+* [Список фиксаций в запросе на вытягивание](/rest/pulls#list-commits-on-a-pull-request)
+* [Список файлов запросов на вытягивание](/rest/pulls#list-pull-requests-files)
+* [Проверка объединения запроса на вытягивание](/rest/pulls#check-if-a-pull-request-has-been-merged)
+* [Объединение запроса на вытягивание (кнопка "Объединить")](/rest/pulls#merge-a-pull-request)
+
+#### Реакции
+
+* [Удаление реакции](/rest/reactions)
+* [Список реакций на комментарий фиксации](/rest/reactions#list-reactions-for-a-commit-comment)
+* [Создание реакции на комментарий фиксации](/rest/reactions#create-reaction-for-a-commit-comment)
+* [Список реакций на проблему](/rest/reactions#list-reactions-for-an-issue)
+* [Создание реакции на проблему](/rest/reactions#create-reaction-for-an-issue)
+* [Список реакций на комментарий к проблеме](/rest/reactions#list-reactions-for-an-issue-comment)
+* [Создание реакции на комментарий к проблеме](/rest/reactions#create-reaction-for-an-issue-comment)
+* [Список реакций на комментарий к проверке запроса на вытягивание](/rest/reactions#list-reactions-for-a-pull-request-review-comment)
+* [Создание реакции на комментарий к проверке запроса на вытягивание](/rest/reactions#create-reaction-for-a-pull-request-review-comment)
+* [Список реакций на комментарий в групповом обсуждении](/rest/reactions#list-reactions-for-a-team-discussion-comment)
+* [Создание реакции на комментарий в групповом обсуждении](/rest/reactions#create-reaction-for-a-team-discussion-comment)
+* [Список реакций для группового обсуждения](/rest/reactions#list-reactions-for-a-team-discussion)
+* [Создание реакции для группового обсуждения](/rest/reactions#create-reaction-for-a-team-discussion)
+* [Удаление реакции на комментарий фиксации](/rest/reactions#delete-a-commit-comment-reaction)
+* [Удаление реакции на проблему](/rest/reactions#delete-an-issue-reaction)
+* [Удаление реакции на комментарий к фиксации](/rest/reactions#delete-an-issue-comment-reaction)
+* [Удаление реакции на комментарий к запросу на вытягивание](/rest/reactions#delete-a-pull-request-comment-reaction)
+* [Удаление реакции на групповое обсуждение](/rest/reactions#delete-team-discussion-reaction)
+* [Удаление реакции на комментарий в групповом обсуждении](/rest/reactions#delete-team-discussion-comment-reaction)
+
+#### Репозитории
+
+* [Список репозиториев организации](/rest/repos#list-organization-repositories)
+* [Создание репозитория для пользователя, прошедшего проверку подлинности](/rest/repos#create-a-repository-for-the-authenticated-user)
+* [Получение репозитория](/rest/repos#get-a-repository)
+* [Обновление репозитория](/rest/repos#update-a-repository)
+* [Удаление репозитория](/rest/repos#delete-a-repository)
+* [Сравнение двух фиксаций](/rest/commits#compare-two-commits)
+* [Список участников репозитория](/rest/repos#list-repository-contributors)
+* [Список вилок](/rest/repos#list-forks)
+* [Создание вилки](/rest/repos#create-a-fork)
+* [Список языков репозитория](/rest/repos#list-repository-languages)
+* [Список меток репозитория](/rest/repos#list-repository-tags)
+* [Список команд репозитория](/rest/repos#list-repository-teams)
+* [Перенос репозитория](/rest/repos#transfer-a-repository)
+* [Список общедоступных репозиториев](/rest/repos#list-public-repositories)
+* [Список репозиториев для пользователя, прошедшего проверку подлинности](/rest/repos#list-repositories-for-the-authenticated-user)
+* [Список репозиториев для пользователя](/rest/repos#list-repositories-for-a-user)
+* [Создание репозитория с использованием шаблона репозитория](/rest/repos#create-repository-using-a-repository-template)
+
+#### Деятельность репозитория
+
+* [Список звездочетов](/rest/activity#list-stargazers)
+* [Список наблюдателей](/rest/activity#list-watchers)
+* [Список репозиториев, отмеченных пользователем](/rest/activity#list-repositories-starred-by-a-user)
+* [Проверка того, помечен ли репозиторий звездочкой пользователем, прошедшим проверку подлинности](/rest/activity#check-if-a-repository-is-starred-by-the-authenticated-user)
+* [Пометка репозитория звездочкой для пользователя, прошедшего проверку подлинности](/rest/activity#star-a-repository-for-the-authenticated-user)
+* [Снятие пометки звездочкой с репозитория для пользователя, прошедшего проверку подлинности](/rest/activity#unstar-a-repository-for-the-authenticated-user)
+* [Список репозиториев, просмотренных пользователем](/rest/activity#list-repositories-watched-by-a-user)
+
+{% ifversion fpt or ghec %}
+#### Автоматические исправления безопасности репозитория
+
+* [Включение автоматических исправлений безопасности](/rest/repos#enable-automated-security-fixes)
+* [Отключение автоматических исправлений безопасности](/rest/repos#disable-automated-security-fixes) {% endif %}
+
+#### Ветви репозитория
+
+* [Список ветвей](/rest/branches#list-branches)
+* [Получение ветви](/rest/branches#get-a-branch)
+* [Получение защиты ветвей](/rest/branches#get-branch-protection)
+* [Обновление защиты ветвей](/rest/branches#update-branch-protection)
+* [Удаление защиты ветвей](/rest/branches#delete-branch-protection)
+* [Получение защиты ветви администратора](/rest/branches#get-admin-branch-protection)
+* [Настройка защиты ветви администратора](/rest/branches#set-admin-branch-protection)
+* [Удаление защиты ветви администратора](/rest/branches#delete-admin-branch-protection)
+* [Получение защиты проверки запросов на вытягивание](/rest/branches#get-pull-request-review-protection)
+* [Обновление защиты проверки запросов на вытягивание](/rest/branches#update-pull-request-review-protection)
+* [Удаление защиты проверки запросов на вытягивание](/rest/branches#delete-pull-request-review-protection)
+* [Получение защиты сигнатуры фиксации](/rest/branches#get-commit-signature-protection)
+* [Создание защиты сигнатуры фиксации](/rest/branches#create-commit-signature-protection)
+* [Удаление защиты сигнатуры фиксации](/rest/branches#delete-commit-signature-protection)
+* [Получение защиты проверки состояния](/rest/branches#get-status-checks-protection)
+* [Обновление защиты проверки состояния](/rest/branches#update-status-check-protection)
+* [Удаление защиты проверки состояния](/rest/branches#remove-status-check-protection)
+* [Получение всех контекстов проверки состояния](/rest/branches#get-all-status-check-contexts)
+* [Добавление контекстов проверки состояния](/rest/branches#add-status-check-contexts)
+* [Добавление контекстов проверки состояния](/rest/branches#set-status-check-contexts)
+* [Удаление контекстов проверки состояния](/rest/branches#remove-status-check-contexts)
+* [Получение ограничений доступа](/rest/branches#get-access-restrictions)
+* [Удаление ограничений доступа](/rest/branches#delete-access-restrictions)
+* [Список команд с доступом к защищенной ветви](/rest/repos#list-teams-with-access-to-the-protected-branch)
+* [Добавление ограничений доступа для команды](/rest/branches#add-team-access-restrictions)
+* [Настройка ограничения доступа для команды](/rest/branches#set-team-access-restrictions)
+* [Удаление ограничения доступа для команды](/rest/branches#remove-team-access-restrictions)
+* [Список пользовательских ограничений защищенной ветви](/rest/repos#list-users-with-access-to-the-protected-branch)
+* [Добавление ограничений доступа пользователя](/rest/branches#add-user-access-restrictions)
+* [Настройка ограничений доступа пользователя](/rest/branches#set-user-access-restrictions)
+* [Удаление ограничений доступа пользователя](/rest/branches#remove-user-access-restrictions)
+* [Слияние ветви](/rest/branches#merge-a-branch)
+
+#### Участники совместной работы репозитория
+
+* [Список участников совместной работы репозитория](/rest/collaborators#list-repository-collaborators)
+* [Проверка того, является ли пользователь участником совместной работы репозитория](/rest/collaborators#check-if-a-user-is-a-repository-collaborator)
+* [Добавление участника совместной работы репозитория](/rest/collaborators#add-a-repository-collaborator)
+* [Удаление участника совместной работы репозитория](/rest/collaborators#remove-a-repository-collaborator)
+* [Получение разрешений репозитория для пользователя](/rest/collaborators#get-repository-permissions-for-a-user)
+
+#### Комментарии фиксации репозитория
+
+* [Список комментариев фиксации для репозитория](/rest/commits#list-commit-comments-for-a-repository)
+* [Получение комментария фиксации](/rest/commits#get-a-commit-comment)
+* [Обновление комментария фиксации](/rest/commits#update-a-commit-comment)
+* [Удаление комментария фиксации](/rest/commits#delete-a-commit-comment)
+* [Список комментариев фиксации](/rest/commits#list-commit-comments)
+* [Создание комментария фиксации](/rest/commits#create-a-commit-comment)
+
+#### Фиксации репозитория
+
+* [Вывод списка фиксаций](/rest/commits#list-commits)
+* [Получение фиксации](/rest/commits#get-a-commit)
+* [Список ветвей для головной фиксации](/rest/commits#list-branches-for-head-commit)
+* [Список запросов на вытягивание, связанных с фиксацией](/rest/repos#list-pull-requests-associated-with-commit)
+
+#### Сообщество репозитория
+
+* [Получение правил поведения для репозитория](/rest/codes-of-conduct#get-the-code-of-conduct-for-a-repository) {% ifversion fpt or ghec %}
+* [Получение метрик профиля сообщества](/rest/metrics#get-community-profile-metrics) {% endif %}
+
+#### Содержимое репозитория
+
+* [Скачивание архива репозитория](/rest/repos#download-a-repository-archive)
+* [Получение содержимого репозитория](/rest/repos#get-repository-content)
+* [Создание или обновление содержимого файла](/rest/repos#create-or-update-file-contents)
+* [Удаление файла](/rest/repos#delete-a-file)
+* [Получение README репозитория](/rest/repos#get-a-repository-readme)
+* [Получение лицензии на репозиторий](/rest/licenses#get-the-license-for-a-repository)
+
+#### Сообщения о событиях репозитория
+
+* [Создание события отправки репозитория](/rest/repos#create-a-repository-dispatch-event)
+
+#### Перехватчики репозитория
+
+* [Список веб-перехватчиков репозитория](/rest/webhooks#list-repository-webhooks)
+* [Создание веб-перехватчика репозитория](/rest/webhooks#create-a-repository-webhook)
+* [Получение веб-перехватчика репозитория](/rest/webhooks#get-a-repository-webhook)
+* [Обновление веб-перехватчика репозитория](/rest/webhooks#update-a-repository-webhook)
+* [Удаление веб-перехватчика репозитория](/rest/webhooks#delete-a-repository-webhook)
+* [Проверка связи с веб-перехватчиком репозитория](/rest/webhooks#ping-a-repository-webhook)
+* [Тестирование отправки веб-перехватчика-репозитория](/rest/repos#test-the-push-repository-webhook)
+
+#### Приглашения репозитория
+
+* [Список приглашений репозитория](/rest/collaborators#list-repository-invitations)
+* [Обновление приглашений репозитория](/rest/collaborators#update-a-repository-invitation)
+* [Удаление приглашения репозитория](/rest/collaborators#delete-a-repository-invitation)
+* [Список приглашений в репозиторий для пользователя, прошедшего проверку подлинности](/rest/collaborators#list-repository-invitations-for-the-authenticated-user)
+* [Принятие приглашения в репозиторий](/rest/collaborators#accept-a-repository-invitation)
+* [Отклонение приглашения в репозиторий](/rest/collaborators#decline-a-repository-invitation)
+
+#### Ключи репозитория
+
+* [Список ключей развертывания](/rest/deployments#list-deploy-keys)
+* [Создание ключа развертывания](/rest/deployments#create-a-deploy-key)
+* [Получение ключа развертывания](/rest/deployments#get-a-deploy-key)
+* [Удаление ключа развертывания](/rest/deployments#delete-a-deploy-key)
+
+#### Страницы репозитория
+
+* [Получение сайта GitHub Pages](/rest/pages#get-a-github-pages-site)
+* [Создание сайта GitHub Pages](/rest/pages#create-a-github-pages-site)
+* [Обновление информации о сайте GitHub Pages](/rest/pages#update-information-about-a-github-pages-site)
+* [Удаление сайта GitHub Pages](/rest/pages#delete-a-github-pages-site)
+* [Список сборок GitHub Pages](/rest/pages#list-github-pages-builds)
+* [Запрос сборки GitHub Pages](/rest/pages#request-a-github-pages-build)
+* [Получение сборки GitHub Pages](/rest/pages#get-github-pages-build)
+* [Получение последней сборки страниц](/rest/pages#get-latest-pages-build)
+
+{% ifversion ghes %}
+#### Перехватчики предварительного получения репозитория
+
+* [Список перехватчиков предварительного получения для репозитория](/enterprise/user/rest/enterprise-admin#list-pre-receive-hooks-for-a-repository)
+* [Получение перехватчика предварительного получения для репозитория](/enterprise/user/rest/enterprise-admin#get-a-pre-receive-hook-for-a-repository)
+* [Обновление принудительного использования перехватчика предварительного получения для репозитория](/enterprise/user/rest/enterprise-admin#update-pre-receive-hook-enforcement-for-a-repository)
+* [Удаление принудительного использования перехватчика предварительного получения для репозитория](/enterprise/user/rest/enterprise-admin#remove-pre-receive-hook-enforcement-for-a-repository) {% endif %}
+
+#### Выпуски репозитория
+
+* [Вывод списка выпусков](/rest/repos#list-releases)
+* [Создание выпуска](/rest/repos#create-a-release)
+* [Получение выпуска](/rest/repos#get-a-release)
+* [Обновление выпуска](/rest/repos#update-a-release)
+* [Удаление выпуска](/rest/repos#delete-a-release)
+* [Список ресурсов выпуска](/rest/repos#list-release-assets)
+* [Получение ресурса выпуска](/rest/repos#get-a-release-asset)
+* [Обновление ресурса выпуска](/rest/repos#update-a-release-asset)
+* [Удаление ресурса выпуска](/rest/repos#delete-a-release-asset)
+* [Получение последней версии](/rest/repos#get-the-latest-release)
+* [Получение выпуска по имени метки](/rest/repos#get-a-release-by-tag-name)
+
+#### Статистика репозитория
+
+* [Получение еженедельной активности фиксации](/rest/metrics#get-the-weekly-commit-activity)
+* [Получение активности фиксации за последний год](/rest/metrics#get-the-last-year-of-commit-activity)
+* [Получение всех действий по фиксации участников](/rest/metrics#get-all-contributor-commit-activity)
+* [Получение еженедельного количества фиксаций](/rest/metrics#get-the-weekly-commit-count)
+* [Получение почасового количества фиксаций за каждый день](/rest/metrics#get-the-hourly-commit-count-for-each-day)
+
+{% ifversion fpt or ghec %}
+#### Оповещения об уязвимостях репозитория
+
+* [Включение оповещений об уязвимостях](/rest/repos#enable-vulnerability-alerts)
+* [Отключение оповещений об уязвимостях](/rest/repos#disable-vulnerability-alerts) {% endif %}
+
+#### Root
+
+* [Корневая конечная точка](/rest#root-endpoint)
+* [Эмодзи](/rest/emojis#emojis)
+* [Получение сведений о состоянии ограничения скорости для пользователя, прошедшего проверку подлинности](/rest/rate-limit#get-rate-limit-status-for-the-authenticated-user)
+
+#### Поиск
+
+* [Поиск по коду](/rest/search#search-code)
+* [Поиск фиксаций](/rest/search#search-commits)
+* [Поиск меток](/rest/search#search-labels)
+* [Поиск репозиториев](/rest/search#search-repositories)
+* [Поиск тем](/rest/search#search-topics)
+* [Поиск пользователей](/rest/search#search-users)
+
+#### Состояния
+
+* [Получение сведений о комбинированном состоянии для конкретной ссылки](/rest/commits#get-the-combined-status-for-a-specific-reference)
+* [Список состояний фиксации для справки](/rest/commits#list-commit-statuses-for-a-reference)
+* [Создание состояния фиксации](/rest/commits#create-a-commit-status)
+
+#### Обсуждения в команде
+
+* [Список обсуждений](/rest/teams#list-discussions)
+* [Создание обсуждения](/rest/teams#create-a-discussion)
+* [Получение обсуждения](/rest/teams#get-a-discussion)
+* [Обновление обсуждения](/rest/teams#update-a-discussion)
+* [Удаление обсуждения](/rest/teams#delete-a-discussion)
+* [Список комментариев к обсуждениям](/rest/teams#list-discussion-comments)
+* [Создание комментария к обсуждению](/rest/teams#create-a-discussion-comment)
+* [Получение комментария к обсуждению](/rest/teams#get-a-discussion-comment)
+* [Обновление комментария к обсуждению](/rest/teams#update-a-discussion-comment)
+* [Удаление комментария к обсуждению](/rest/teams#delete-a-discussion-comment)
+
+#### Разделы
+
+* [Получение всех тем репозитория](/rest/repos#get-all-repository-topics)
+* [Замена всех тем репозитория](/rest/repos#replace-all-repository-topics)
+
+{% ifversion fpt or ghec %}
+#### Трафик
+
+* [Получение клонов репозитория](/rest/metrics#get-repository-clones)
+* [Получение лучших путей перехода](/rest/metrics#get-top-referral-paths)
+* [Получение лучших источников перехода](/rest/metrics#get-top-referral-sources)
+* [Получение просмотров страницы](/rest/metrics#get-page-views) {% endif %}
+
+{% ifversion fpt or ghec %}
+#### Блокировка пользователей
+
+* [Список пользователей, заблокированных пользователем, прошедшим проверку подлинности](/rest/users#list-users-blocked-by-the-authenticated-user)
+* [Проверка того, не заблокирован ли пользователь другим пользователем, прошедшим проверку подлинности](/rest/users#check-if-a-user-is-blocked-by-the-authenticated-user)
+* [Список пользователей, заблокированных организацией](/rest/orgs#list-users-blocked-by-an-organization)
+* [Проверка, не заблокирован ли пользователь организацией](/rest/orgs#check-if-a-user-is-blocked-by-an-organization)
+* [Блокировка пользователя в организации](/rest/orgs#block-a-user-from-an-organization)
+* [Разблокировка пользователя в организации](/rest/orgs#unblock-a-user-from-an-organization)
+* [Блокировка пользователя](/rest/users#block-a-user)
+* [Разблокировка пользователя](/rest/users#unblock-a-user) {% endif %}
+
+{% ifversion fpt or ghes or ghec %}
+#### Электронные письма для пользователей
+
+{% ifversion fpt or ghec %}
+* [Настройка видимости основного адреса электронной почты для пользователя, прошедшего проверку подлинности](/rest/users#set-primary-email-visibility-for-the-authenticated-user) {% endif %}
+* [Список адресов электронной почты для пользователя, прошедшего проверку подлинности](/rest/users#list-email-addresses-for-the-authenticated-user)
+* [Добавление адресов электронной почты](/rest/users#add-an-email-address-for-the-authenticated-user)
+* [Удаление адресов электронной почты](/rest/users#delete-an-email-address-for-the-authenticated-user)
+* [Список общедоступных адресов электронной почты для пользователя, прошедшего проверку подлинности](/rest/users#list-public-email-addresses-for-the-authenticated-user) {% endif %}
+
+#### Подписчики пользователя
+
+* [Список подписчиков пользователя](/rest/users#list-followers-of-a-user)
+* [Список людей, на которых подписан пользователь](/rest/users#list-the-people-a-user-follows)
+* [Проверка того, подписан ли на человека пользователь, прошедший проверку подлинности](/rest/users#check-if-a-person-is-followed-by-the-authenticated-user)
+* [Подписка на пользователя](/rest/users#follow-a-user)
+* [Отмена подписки на пользователя](/rest/users#unfollow-a-user)
+* [Проверка того, подписан ли пользователь на другого пользователя](/rest/users#check-if-a-user-follows-another-user)
+
+#### Ключи GPG пользователя
+
+* [Список ключей GPG для пользователя, прошедшего проверку подлинности](/rest/users#list-gpg-keys-for-the-authenticated-user)
+* [Создание ключа GPG для пользователя, прошедшего проверку подлинности](/rest/users#create-a-gpg-key-for-the-authenticated-user)
+* [Получение ключа GPG для пользователя, прошедшего проверку подлинности](/rest/users#get-a-gpg-key-for-the-authenticated-user)
+* [Удаление ключа GPG для пользователя, прошедшего проверку подлинности](/rest/users#delete-a-gpg-key-for-the-authenticated-user)
+* [Список ключей GPG для пользователя](/rest/users#list-gpg-keys-for-a-user)
+
+#### Открытые ключи пользователя
+
+* [Список открытых ключей SSH для пользователя, прошедшего проверку подлинности](/rest/users#list-public-ssh-keys-for-the-authenticated-user)
+* [Создание открытых ключей SSH для пользователя, прошедшего проверку подлинности](/rest/users#create-a-public-ssh-key-for-the-authenticated-user)
+* [Получение открытых ключей SSH для пользователя, прошедшего проверку подлинности](/rest/users#get-a-public-ssh-key-for-the-authenticated-user)
+* [Удаление открытых ключей SSH для пользователя, прошедшего проверку подлинности](/rest/users#delete-a-public-ssh-key-for-the-authenticated-user)
+* [Список открытых ключей для пользователя](/rest/users#list-public-keys-for-a-user)
+
+#### Пользователи
+
+* [Получение пользователя, прошедшего проверку подлинности](/rest/users#get-the-authenticated-user)
+* [Список установок приложений, доступных для маркера доступа пользователя](/rest/apps#list-app-installations-accessible-to-the-user-access-token) {% ifversion fpt or ghec %}
+* [Список подписок для пользователя, прошедшего проверку подлинности](/rest/apps#list-subscriptions-for-the-authenticated-user) {% endif %}
+* [Список пользователей](/rest/users#list-users)
+* [Получение пользователя](/rest/users#get-a-user)
+
+{% ifversion fpt or ghec %}
+#### Выполнение рабочего процесса
+
+* [Список выполнений рабочего процесса для репозитория](/rest/actions#list-workflow-runs-for-a-repository)
+* [Получение выполнения рабочего процесса](/rest/actions#get-a-workflow-run)
+* [Отмена выполнения рабочего процесса](/rest/actions#cancel-a-workflow-run)
+* [Скачивание журналов выполнения рабочего процесса](/rest/actions#download-workflow-run-logs)
+* [Удаление журналов выполнения рабочего процесса](/rest/actions#delete-workflow-run-logs)
+* [Повторное выполнение рабочего процесса](/rest/actions#re-run-a-workflow)
+* [Список выполнений рабочего процесса](/rest/actions#list-workflow-runs)
+* [Получение данных об использовании выполнения рабочего процесса](/rest/actions#get-workflow-run-usage) {% endif %}
+
+{% ifversion fpt or ghec %}
+#### Рабочие процессы
+
+* [Список рабочих процессов репозитория](/rest/actions#list-repository-workflows)
+* [Получение рабочего процесса](/rest/actions#get-a-workflow)
+* [Получение использования рабочего процесса](/rest/actions#get-workflow-usage) {% endif %}
+
+## Дополнительные материалы
+
+- [Сведения о проверке подлинности для {% data variables.product.prodname_dotcom %}](/github/authenticating-to-github/about-authentication-to-github#githubs-token-formats)
+

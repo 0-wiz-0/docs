@@ -1,46 +1,53 @@
 ---
-title: About GitHub Campus Program
-intro: '{% data variables.product.prodname_campus_program %} offers {% data variables.product.prodname_ghe_cloud %} and {% data variables.product.prodname_ghe_server %} free-of-charge for schools that want to make the most of {% data variables.product.prodname_dotcom %} for their community.'
+title: Сведения о программе GitHub Campus
+intro: '{% data variables.product.prodname_campus_program %} предлагает {% data variables.product.prodname_ghe_cloud %} и {% data variables.product.prodname_ghe_server %} бесплатно для школ, которые хотят использовать {% data variables.product.prodname_dotcom %} по максимуму для своего сообщества.'
 redirect_from:
   - /education/teach-and-learn-with-github-education/about-github-education
   - /github/teaching-and-learning-with-github-education/about-github-education
   - /articles/about-github-education
   - /education/explore-the-benefits-of-teaching-and-learning-with-github-education/about-github-education
   - /education/explore-the-benefits-of-teaching-and-learning-with-github-education/about-github-campus-program
+  - /education/explore-the-benefits-of-teaching-and-learning-with-github-education/use-github-at-your-educational-institution/about-campus-advisors
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: GitHub Campus Program
+ms.openlocfilehash: d2bf65abaef79aba1ed237278da528caae831256
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147573975'
 ---
+{% data variables.product.prodname_campus_program %} — это пакет прав доступа премиум-класса к {% data variables.product.prodname_dotcom %} для учебных заведений, которые присваивают степени, выдают дипломы или сертификаты. {% data variables.product.prodname_campus_program %} includes:
 
-{% data variables.product.prodname_campus_program %} is a package of premium {% data variables.product.prodname_dotcom %} access for teaching-focused institutions that grant degrees, diplomas, or certificates. {% data variables.product.prodname_campus_program %} includes:
+- Отсутствие доступа к {% data variables.product.prodname_ghe_cloud %} и {% data variables.product.prodname_ghe_server %} для всех технических и академических отделов
+- 50 000 минут {% data variables.product.prodname_actions %} и 50 ГБ хранилища {% data variables.product.prodname_registry %}
+- Обучение преподавателей работе с ветвью master в Git и {% data variables.product.prodname_dotcom %}
+- Эксклюзивный доступ к новым функциям, GitHub swag для образовательных учреждений и бесплатные средства разработчика от партнеров {% data variables.product.prodname_dotcom %}
+- Автоматический доступ к функциям уровня "Премиум" {% data variables.product.prodname_education %}, таким как {% data variables.product.prodname_student_pack %}
 
-- No-cost access to {% data variables.product.prodname_ghe_cloud %} and {% data variables.product.prodname_ghe_server %} for all of your technical and academic departments
-- 50,000 {% data variables.product.prodname_actions %} minutes and 50 GB {% data variables.product.prodname_registry %} storage
-- Teacher training to master Git and {% data variables.product.prodname_dotcom %} with our [Campus Advisor program](/education/explore-the-benefits-of-teaching-and-learning-with-github-education/about-campus-advisors)
-- Exclusive access to new features, GitHub Education-specific swag, and free developer tools from {% data variables.product.prodname_dotcom %} partners
-- Automated access to premium {% data variables.product.prodname_education %} features, like the {% data variables.product.prodname_student_pack %}
+Чтобы узнать, как GitHub используется преподавателями, см. статью [Истории GitHub Education](https://education.github.com/stories).
 
-To read about how GitHub is used by educators, see [GitHub Education stories.](https://education.github.com/stories)
+## Условия использования {% data variables.product.prodname_campus_program %}
 
-### {% data variables.product.prodname_campus_program %} terms and conditions
+- Лицензия бесплатна в течение одного года и будет автоматически продлеваться бесплатно каждые 2 года. Вы можете использовать бесплатную лицензию до тех пор, пока продолжаете работать в соответствии с условиями соглашения. Присоединиться может любое учебное заведение, которое соглашается с [условиями программы](https://education.github.com/schools/terms).
 
-- The license is free for one year and will automatically renew for free every 2 years. You may continue on the free license so long as you continue to operate within the terms of the agreement. Any school that can agree to the [terms of the program](https://education.github.com/schools/terms) is welcome to join.
+- Обратите внимание, что лицензии предназначены для всего учебного заведения. Внутренние ИТ-отделы, академические исследовательские группы, участники совместной работы, учащиеся и другие некоммерческие отделы имеют право использовать лицензии до тех пор, пока они не получают прибыль от его использования. Исследовательские группы с внешним финансированием, размещенные в университете, не вправе использовать бесплатные лицензии.
 
-- Please note that the licenses are for use by the whole school. Internal IT departments, academic research groups, collaborators, students, and other non-academic departments are eligible to use the licenses so long as they are not making a profit from its use. Externally funded research groups that are housed at the university may not use the free licenses.
+- Вам необходимо предоставить {% data variables.product.prodname_dotcom %} всем техническим и академическим отделам, а логотип вашего учебного заведения будет предоставлен на веб-сайте GitHub Education как партнер {% data variables.product.prodname_campus_program %}.
 
-- You must offer {% data variables.product.prodname_dotcom %} to all of your technical and academic departments and your school’s logo will be shared on the GitHub Education website as a {% data variables.product.prodname_campus_program %} Partner.
-
-- New organizations in your enterprise are automatically added to your enterprise account. To add organizations that existed before your school joined the {% data variables.product.prodname_campus_program %}, please contact [GitHub Education Support](https://support.github.com/contact/education). For more information about administrating your enterprise, see "[Setting up and managing your enterprise](/github/setting-up-and-managing-your-enterprise)." New organizations in your enterprise are automatically added to your enterprise account. To add organizations that existed before your school joined the {% data variables.product.prodname_campus_program %}, please contact GitHub Education Support.
+- Новые организации в вашей организации будут автоматически добавлены в вашу корпоративную учетную запись. Чтобы добавить организации, которые существовали до того, как ваше учебное заведение присоединилось к {% data variables.product.prodname_campus_program %}, обратитесь в [службу поддержки GitHub Education](https://support.github.com/contact/education). Дополнительные сведения об администрирование предприятия см. в [документации для администраторов предприятия](/admin). Новые организации в вашей организации будут автоматически добавлены в вашу корпоративную учетную запись. Чтобы добавить организации, которые существовали до того, как ваше учебное заведение присоединилось к {% data variables.product.prodname_campus_program %}, обратитесь в службу поддержки GitHub Education. 
 
 
-To read more about {% data variables.product.prodname_dotcom %}'s privacy practices, see ["Global Privacy Practices"](/github/site-policy/global-privacy-practices)
+Дополнительные сведения о рекомендациях по соблюдению конфиденциальности {% data variables.product.prodname_dotcom %} см. в статье [Глобальные рекомендации по соблюдению конфиденциальности](/github/site-policy/global-privacy-practices).
 
-### {% data variables.product.prodname_campus_program %} Application Eligibility
+## Соответствие требованиям заявки {% data variables.product.prodname_campus_program %}
 
-- Often times, a campus CTO/CIO, Dean, Department Chair, or Technology Officer signs the terms of the program on behalf of the campus.
+- Зачастую условия программы от имени кампуса подписывает технический директор, директор по ИТ кампуса, декан, руководитель отдела или технический специалист.
 
-- If your school does not issue email addresses, {% data variables.product.prodname_dotcom %} will reach out to your account administrators with an alternative option to allow you to distribute the student developer pack to your students.
+- Если учебное заведение не выдает адреса электронной почты, {% data variables.product.prodname_dotcom %} обращается к администраторам учетных записей с помощью альтернативного варианта, чтобы разрешить вам распространять Student Developer Pack среди ваших учащихся.
 
-For more information, see the [official {% data variables.product.prodname_campus_program %}](https://education.github.com/schools) page.
+Дополнительные сведения см. на [официальной странице {% data variables.product.prodname_campus_program %}](https://education.github.com/schools).
 
-If you're a student or academic faculty and your school isn't partnered with {% data variables.product.prodname_dotcom %} as a {% data variables.product.prodname_campus_program %} school, then you can still individually apply for discounts to use {% data variables.product.prodname_dotcom %}. To apply for the Student Developer Pack, [see the application form](https://education.github.com/pack/join).
+Если вы являетесь учащимся или сотрудником факультета, и ваше учебное заведение не имеет партнерских отношений с {% data variables.product.prodname_dotcom %} в качестве учебного заведения {% data variables.product.prodname_campus_program %}, вы все равно можете отдельно подать заявку на получение скидок на использование {% data variables.product.prodname_dotcom %}. Сведения о подаче заявки на Student Developer Pack [см. в форме приложения](https://education.github.com/pack/join).
 

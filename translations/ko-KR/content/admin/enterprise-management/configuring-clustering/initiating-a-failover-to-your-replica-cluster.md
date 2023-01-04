@@ -1,36 +1,42 @@
 ---
-title: Initiating a failover to your replica cluster
-intro: 'If your {% data variables.product.prodname_ghe_server %} cluster fails, you can fail over to the passive replica .'
+title: 복제본 클러스터로 장애 조치(failover) 시작
+intro: '{% data variables.product.prodname_ghe_server %} 클러스터가 실패하면 수동 복제본에 대한 장애 조치(failover)를 할 수 있습니다.'
 redirect_from:
   - /enterprise/admin/enterprise-management/initiating-a-failover-to-your-replica-cluster
   - /admin/enterprise-management/initiating-a-failover-to-your-replica-cluster
 versions:
-  enterprise-server: '>2.21'
+  ghes: '*'
 type: how_to
 topics:
   - Clustering
   - Enterprise
   - High availability
   - Infrastructure
+shortTitle: Initiate a failover to replica
+ms.openlocfilehash: 14889e5d861475bc2d887062fb12450194cd6505
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145120612'
 ---
+## 복제본 클러스터로 장애 조치(failover) 정보
 
-### About failover to your replica cluster
+기본 데이터 센터에서 오류가 발생할 경우 활성 클러스터의 각 노드에 대해 수동 복제본 노드를 구성하는 경우 보조 데이터 센터의 복제본 노드로 장애 조치(failover)할 수 있습니다.
 
-In the event of a failure at your primary datacenter, you can fail over to the replica nodes in the secondary datacenter if you configure a passive replica node for each node in your active cluster.
+장애 조치(failover)에 필요한 시간은 복제본 클러스터를 수동으로 승격하고 트래픽을 리디렉션하는 데 걸리는 시간에 따라 달라집니다.
 
-The time required to fail over depends on how long it takes to manually promote the replica cluster and redirect traffic.
+복제본 클러스터를 승격해도 기존 클러스터에 대한 복제가 자동으로 설정되지는 않습니다. 복제본 클러스터를 승격한 후 새 활성 클러스터에서 복제를 다시 구성할 수 있습니다. 자세한 내용은 “[클러스터에 대한 고가용성 구성”](/enterprise/admin/enterprise-management/configuring-high-availability-replication-for-a-cluster#reconfiguring-high-availability-replication-after-a-failover)을 참조하세요.
 
-Promoting a replica cluster does not automatically set up replication for the existing cluster. After promoting a replica cluster, you can reconfigure replication from the new active cluster. For more information, see "[Configuring high availability for a cluster](/enterprise/admin/enterprise-management/configuring-high-availability-replication-for-a-cluster#reconfiguring-high-availability-replication-after-a-failover)."
+## 필수 조건
 
-### 빌드전 요구 사양
+수동 복제본 노드로 장애 조치(failover)하려면 클러스터에 대한 고가용성을 구성해야 합니다. 자세한 내용은 “[클러스터에 대한 고가용성 구성”](/enterprise/admin/enterprise-management/configuring-high-availability-replication-for-a-cluster)을 참조하세요.
 
-To fail over to passive replica nodes, you must have configured high availability for your cluster. For more information, see "[Configuring high availability for a cluster](/enterprise/admin/enterprise-management/configuring-high-availability-replication-for-a-cluster)."
+## 복제본 클러스터로 장애 조치(failover) 시작
 
-### Initiating a failover to your replica cluster
+1. 클러스터에 대한 보조 데이터 센터의 수동 노드에 SSH로 연결합니다. 자세한 내용은 “[관리 셸(SSH) 액세스](/enterprise/admin/configuration/accessing-the-administrative-shell-ssh#enabling-access-to-the-administrative-shell-via-ssh)”를 참조하세요.
 
-1. SSH into any passive node in the secondary datacenter for your cluster. For more information, see "[Accessing the administrative shell (SSH)](/enterprise/admin/configuration/accessing-the-administrative-shell-ssh#enabling-access-to-the-administrative-shell-via-ssh)."
-
-2. Initialize the failover to the secondary cluster and configure it to act as the active nodes.
+2. 보조 클러스터로 장애 조치(failover)를 초기화하고 활성 노드로 작동하도록 구성합니다.
 
     ```shell
   ghe-cluster-failover
@@ -38,6 +44,6 @@ To fail over to passive replica nodes, you must have configured high availabilit
 
 {% data reusables.enterprise_clustering.configuration-finished %}
 
-3. Update the DNS record to point to the IP address of the load balancer for your passive cluster. Traffic is directed to the replica after the TTL period elapses.
+3. 수동 클러스터에 대한 부하 분산 장치의 IP 주소를 가리키도록 DNS 레코드를 업데이트합니다. 트래픽은 TTL 기간이 경과한 후 복제본으로 전달됩니다.
 
-After {% data variables.product.prodname_ghe_server %} returns you to the prompt and your DNS updates have propagated, you've finished failing over. Users can access {% data variables.product.prodname_ghe_server %} using the usual hostname for your cluster.
+{% data variables.product.prodname_ghe_server %}에서 프롬프트를 표시하고 DNS 업데이트가 전파되면 장애 조치(failover)가 완료됩니다. 사용자는 클러스터의 일반적인 호스트 이름을 사용하여 {% data variables.product.prodname_ghe_server %}에 액세스할 수 있습니다.

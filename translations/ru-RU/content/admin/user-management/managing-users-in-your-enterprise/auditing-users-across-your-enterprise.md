@@ -1,14 +1,14 @@
 ---
-title: Auditing users across your enterprise
-intro: 'The audit log dashboard shows site administrators the actions performed by all users and organizations across your enterprise within the past 90 days, including details such as who performed the action, what the action was, and when the action was performed.'
+title: Аудит пользователей на вашем предприятии
+intro: 'На панели мониторинга журнала аудита представлены действия, выполненные всеми пользователями и организациями в течение текущего месяца и предыдущих шести месяцев. В журнале аудита указывает, кто выполнил действие, что это было за действие и когда оно было выполнено.'
 redirect_from:
-  - /enterprise/admin/guides/user-management/auditing-users-across-an-organization/
+  - /enterprise/admin/guides/user-management/auditing-users-across-an-organization
   - /enterprise/admin/user-management/auditing-users-across-your-instance
   - /admin/user-management/auditing-users-across-your-instance
   - /admin/user-management/auditing-users-across-your-enterprise
 versions:
-  enterprise-server: '*'
-  github-ae: '*'
+  ghes: '*'
+  ghae: '*'
 type: how_to
 topics:
   - Auditing
@@ -16,104 +16,108 @@ topics:
   - Organizations
   - Security
   - User account
+shortTitle: Audit users
+ms.openlocfilehash: 18ea00b69f452ff496670fbd31e41bb8038cc46d
+ms.sourcegitcommit: 1309b46201604c190c63bfee47dce559003899bf
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '146331691'
 ---
+## Доступ к журналу аудита
 
-### Accessing the audit log
+Панель мониторинга журнала аудита позволяет наглядно отобразить данные аудита на предприятии.
 
-The audit log dashboard gives you a visual display of audit data across your enterprise.
+![Панель мониторинга журнала аудита для всего экземпляра](/assets/images/enterprise/site-admin-settings/audit-log-dashboard-admin-center.png)
 
-![Instance wide audit log dashboard](/assets/images/enterprise/site-admin-settings/audit-log-dashboard-admin-center.png)
+{% data reusables.enterprise-accounts.access-enterprise %} {% data reusables.enterprise-accounts.settings-tab %} {% data reusables.enterprise-accounts.audit-log-tab %}
 
-{% data reusables.enterprise-accounts.access-enterprise %}
-{% data reusables.enterprise-accounts.settings-tab %}
-{% data reusables.enterprise-accounts.audit-log-tab %}
+Можно перемещаться по карте и изменять масштаб, чтобы видеть события по всему миру. Наведите указатель мыши на страну, чтобы получить быстрый подсчет событий в этой стране.
 
-Within the map, you can pan and zoom to see events around the world. Hover over a country to see a quick count of events from that country.
+## Поиск событий на вашем предприятии
 
-### Searching for events across your enterprise
+В журнале аудита перечислены следующие сведения о действиях, выполненных на вашем предприятии:
 
-The audit log lists the following information about actions made within your enterprise:
-
-* [The repository](#search-based-on-the-repository) an action was performed in
-* [The user](#search-based-on-the-user) who performed the action
-* [Which organization](#search-based-on-the-organization) an action pertained to
-* [The action](#search-based-on-the-action-performed) that was performed
-* [Which country](#search-based-on-the-location) the action took place in
-* [The date and time](#search-based-on-the-time-of-action) the action occurred
+* [Репозиторий](#search-based-on-the-repository), в котором было выполнено действие.
+* [Пользователь](#search-based-on-the-user), выполнивший действие.
+* [Организация](#search-based-on-the-organization), по отношению к которой выполняется действие.
+* [Действие](#search-based-on-the-action-performed), которое было выполнено.
+* [Страна](#search-based-on-the-location), в которой было выполнено действие.
+* [Дата и время](#search-based-on-the-time-of-action), когда произошло действие.
 
 {% warning %}
 
-**Замечания:**
+**Примечания.**
 
-- While you can't use text to search for audit entries, you can construct search queries using a variety of filters. {% data variables.product.product_name %} supports many operators for searching across {% data variables.product.product_name %}. For more information, see "[About searching on {% data variables.product.prodname_dotcom %}](/github/searching-for-information-on-github/about-searching-on-github)."
-- To search for events older than 90 days, use the `created` qualifier.
+- Хотя вы не можете использовать текст для поиска записей аудита, вы можете создавать поисковые запросы, используя различные фильтры. {% data variables.product.product_name %} поддерживает множество операторов для поиска по {% data variables.product.product_name %}. Дополнительные сведения см. в разделе [Поиск в {% data variables.product.prodname_dotcom %}](/github/searching-for-information-on-github/about-searching-on-github).
+- Записи аудита доступны за текущий месяц и за каждый день предыдущих шести месяцев.
 
 {% endwarning %}
 
-#### Search based on the repository
+### Поиск по репозиторию
 
-The `repo` qualifier limits actions to a specific repository owned by your organization. Например:
+Квалификатор `repo` ограничивает действия по определенному репозиторию, принадлежащему организации. Пример:
 
-* `repo:my-org/our-repo` finds all events that occurred for the `our-repo` repository in the `my-org` organization.
-* `repo:my-org/our-repo repo:my-org/another-repo` finds all events that occurred for both the `our-repo` and `another-repo` repositories in the `my-org` organization.
-* `-repo:my-org/not-this-repo` excludes all events that occurred for the `not-this-repo` repository in the `my-org` organization.
+* `repo:my-org/our-repo` находит все произошедшие события для репозитория `our-repo` в организации `my-org`.
+* `repo:my-org/our-repo repo:my-org/another-repo` находит все произошедшие события для репозиториев `our-repo` и `another-repo` в организации `my-org`.
+* `-repo:my-org/not-this-repo` исключает все произошедшие события для репозитория `not-this-repo` в организации `my-org`.
 
-You must include your organization's name within the `repo` qualifier; searching for just `repo:our-repo` will not work.
+Вы должны включить название своей организации в квалификатор `repo`; поиск только для `repo:our-repo` осуществляться не будет.
 
-#### Search based on the user
+### Поиск по пользователю
 
-The `actor` qualifier scopes events based on the member of your organization that performed the action. Например:
+Квалификатор `actor` определяет область событий на основе участника вашей организации, выполнившего действие. Пример:
 
-* `actor:octocat` finds all events performed by `octocat`.
-* `actor:octocat actor:hubot` finds all events performed by both `octocat` and `hubot`.
-* `-actor:hubot` excludes all events performed by `hubot`.
+* `actor:octocat` находит все события, выполненные пользователем `octocat`.
+* `actor:octocat actor:hubot` находит все события, выполненные пользователями `octocat` и `hubot`.
+* `-actor:hubot` исключает все события, выполненные пользователем `hubot`.
 
-You can only use a {% data variables.product.product_name %} username, not an individual's real name.
+Можно использовать только имя пользователя {% data variables.product.product_name %}, а не настоящее имя человека.
 
-#### Search based on the organization
+### Поиск по организации
 
-The `org` qualifier limits actions to a specific organization. Например:
+Квалификатор `org` ограничивает действия определенной организацией. Пример:
 
-* `org:my-org` finds all events that occurred for the `my-org` organization.
-* `org:my-org action:team` finds all team events performed within the `my-org` organization.
-* `-org:my-org` excludes all events that occurred for the `my-org` organization.
+* `org:my-org` находит все события, произошедшие в организации `my-org`.
+* `org:my-org action:team` находит все события команды, выполненные в организации `my-org`.
+* `-org:my-org` исключает все события, произошедшие в организации `my-org`.
 
-#### Search based on the action performed
+### Поиск с учетом выполненного действия
 
-The `action` qualifier searches for specific events, grouped within categories. For information on the events associated with these categories, see "[Audited actions](/admin/user-management/audited-actions)".
+Квалификатор `action` выполняет поиск определенных событий, сгруппированных по категориям. Сведения о событиях, связанных с этими категориями, см. в статье [События журнала аудита для предприятия](/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/audit-log-events-for-your-enterprise).
 
-| Category name | Description                                                                     |
-| ------------- | ------------------------------------------------------------------------------- |
-| `перехватчик` | Contains all activities related to webhooks.                                    |
-| `org`         | Contains all activities related organization membership                         |
-| `repo`        | Contains all activities related to the repositories owned by your organization. |
-| `команда`     | Contains all activities related to teams in your organization.                  |
+| Имя категории | Описание
+|------------------|-------------------
+| `hook` | Содержит все действия, связанные с веб-перехватчиками.
+| `org` | Содержит все действия, связанные с членством в организации
+| `repo` | Содержит все действия, связанные с репозиториями, принадлежащими организации.
+| `team` | Содержит все действия, связанные с командами в организации.
 
-You can search for specific sets of actions using these terms. Например:
+Вы можете искать конкретные наборы действий с помощью этих терминов. Пример:
 
-* `action:team` finds all events grouped within the team category.
-* `-action:billing` excludes all events in the billing category.
+* `action:team` находит все события, сгруппированные в категории команды.
+* `-action:billing` исключает все события в категории выставления счетов.
 
-Each category has a set of associated events that you can filter on. Например:
+Каждая категория содержит набор связанных событий, которые вы можете фильтровать. Пример:
 
-* `action:team.create` finds all events where a team was created.
-* `-action:billing.change_email` excludes all events where the billing email was changed.
+* `action:team.create` находит все события, в которых создавалась команда.
+* `-action:billing.change_email` исключает все события, связанные с изменением адреса электронной почты для выставления счетов.
 
-#### Search based on the location
+### Поиск по расположению
 
-The `country` qualifier filters actions by the originating country.
-- You can use a country's two-letter short code or its full name.
-- Countries with spaces in their name must be wrapped in quotation marks. Например:
-  * `country:de` finds all events that occurred in Germany.
-  * `country:Mexico` finds all events that occurred in Mexico.
-  * `country:"United States"` all finds events that occurred in the United States.
+Квалификатор `country` фильтрует действия по стране происхождения.
+- Можно использовать двухбуквенный короткий код страны или ее полное название.
+- Страны с пробелами в названии должны быть заключены в кавычки. Пример:
+  * `country:de` находит все события, произошедшие в Германии.
+  * `country:Mexico` находит все события, произошедшие в Мексике.
+  * `country:"United States"` находит события, произошедшие в США.
 
-#### Search based on the time of action
+### Поиск по времени действия
 
-The `created` qualifier filters actions by the time they occurred.
-- Define dates using the format of `YYYY-MM-DD`--that's year, followed by month, followed by day.
-- Dates support [greater than, less than, and range qualifiers](/enterprise/{{ currentVersion }}/user/articles/search-syntax). Например:
-  * `created:2014-07-08` finds all events that occurred on July 8th, 2014.
-  * `created:>=2014-07-01` finds all events that occurred on or after July 8th, 2014.
-  * `created:<=2014-07-01` finds all events that occurred on or before July 8th, 2014.
-  * `created:2014-07-01..2014-07-31` finds all events that occurred in the month of July 2014.
+Квалификатор `created` фильтрует действия по времени, когда они случились.
+- Определите даты с помощью формата `YYYY-MM-DD` — год, за которым следует месяц, а в конце указан день.
+- Даты поддерживают [квалификаторы "больше чем", "меньше чем" и квалификаторы диапазона](/enterprise/user/articles/search-syntax). Пример:
+  * `created:2014-07-08` находит все события, произошедшие 8 июля 2014 г.
+  * `created:>=2014-07-01` находит все события, произошедшие после 8 июля 2014 г.
+  * `created:<=2014-07-01` находит все события, произошедшие до 8 июля 2014 г.
+  * `created:2014-07-01..2014-07-31` находит все события, произошедшие в июле 2014 г.

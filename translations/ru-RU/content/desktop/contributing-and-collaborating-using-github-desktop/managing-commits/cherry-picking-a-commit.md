@@ -1,24 +1,30 @@
 ---
-title: Cherry-picking a commit
-intro: You can pick a specific commit on one branch and copy the commit to another branch.
+title: Отбор изменений в фиксации
+intro: Вы можете выбрать определенную фиксацию в одной ветви и скопировать фиксацию в другую ветвь.
 versions:
-  free-pro-team: '*'
+  fpt: '*'
 redirect_from:
   - /desktop/contributing-and-collaborating-using-github-desktop/cherry-picking-a-commit
+ms.openlocfilehash: 6dad1615b9a8c224c3648be60759b5bb6ccf0d62
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145092305'
 ---
+## Сведения об отборе изменений Git
 
-### About Git cherry-pick
+Вы можете отобрать изменения в фиксации на одной ветви, чтобы создать на другой ветви копию фиксации с теми же изменениями. Если вы зафиксировали изменения в неправильной ветви или хотите внести те же изменения в другую ветвь, то можете отобрать изменения в фиксации и применить их к другой ветви. Отбор также можно использовать для применения определенных изменений, прежде чем вы будете готовы к созданию или слиянию запроса на вытягивание. Например, если вы зафиксируете исправление ошибки в функциональной ветви, можно отобрать изменения в этой фиксации и применить их к другим ветвям вашего проекта.
 
-You can cherry-pick a commit on one branch to create a copy of the commit with the same changes on another branch. If you commit changes to the wrong branch or want to make the same changes to another branch, you can cherry-pick the commit to apply the changes to another branch. You can also use cherry-picking to apply specific changes before you are ready to create or merge a pull request. For example, if you commit a bug fix to a feature branch, you can cherry-pick the commit with the bug fix to other branches of your project.
+Отбор изменений также можно использовать при совместной работе с командой. Некоторые проекты внедряют вклады путем отбора изменений в фиксациях. Дополнительные сведения см. в разделе [Распределение Git — управление проектом](https://git-scm.com/book/en/v2/Distributed-Git-Maintaining-a-Project#_rebase_cherry_pick) документации Git.
 
-You can also use cherry-picking when collaborating with a team. Some projects incorporate contributions by cherry-picking commits. For more information, see [Distributed Git - Maintaining a Project](https://git-scm.com/book/en/v2/Distributed-Git-Maintaining-a-Project#_rebase_cherry_pick) in the Git documentation.
-
-### Cherry-picking a commit
+## Отбор изменений в фиксации
 
 {% data reusables.desktop.current-branch-menu %}
-2. In the list of branches, click the branch that has the commit that you want to cherry-pick.
+2. В списке ветвей щелкните ветвь с фиксацией, в которой нужно отобрать изменения.
 {% data reusables.desktop.history-tab %}
-4. Drag the commit that you want to cherry-pick to the {% octicon "git-branch" aria-label="The branch icon" %} **Current Branch** menu and drop the commit on the branch that you want to copy the commit to. ![Dragging a commit to another branch in the Current Branch menu](/assets/images/help/desktop/cherry-picking.png)
+4. Перетащите фиксацию, в которой нужно отобрать изменения, в меню {% octicon "git-branch" aria-label="The branch icon" %} **Текущая ветвь** до ветви, в которую вы хотите скопировать фиксацию.
+  ![Перетаскивание фиксации в другую ветвь в меню "Текущая ветвь"](/assets/images/help/desktop/cherry-picking.png)
 
-### Дополнительная литература
-- [git-cherry-pick](https://git-scm.com/docs/git-cherry-pick) in the Git documentation
+## Дополнительные материалы
+- [git-cherry-pick](https://git-scm.com/docs/git-cherry-pick) в документации Git

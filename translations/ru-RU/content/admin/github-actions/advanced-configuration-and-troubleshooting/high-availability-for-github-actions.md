@@ -1,8 +1,8 @@
 ---
-title: High availability for GitHub Actions
-intro: 'There are some special considerations for administering {% data variables.product.prodname_actions %} in a high availability configuration.'
+title: Высокий уровень доступности для GitHub Actions
+intro: 'Доступны специальные рекомендации по администрированию {% data variables.product.prodname_actions %} в конфигурации с высоким уровнем доступности.'
 versions:
-  enterprise-server: '>=3.0'
+  ghes: '*'
 type: reference
 topics:
   - Actions
@@ -12,27 +12,33 @@ topics:
   - Storage
 redirect_from:
   - /admin/github-actions/high-availability-for-github-actions
+shortTitle: HA for GitHub Actions
+ms.openlocfilehash: c8b71ddb651baa0757100c356ce3f9edb0e1edee
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145112704'
 ---
-
-### Replication or redundancy of your {% data variables.product.prodname_actions %} data
+## Репликация или избыточность данных {% data variables.product.prodname_actions %}
 
 {% data reusables.actions.enterprise-storage-ha-backups %}
 
-We strongly recommend that you configure your {% data variables.product.prodname_actions %} external storage to use data redundancy or replication. For more information, refer to your storage provider's documentation:
+Настоятельно рекомендуется настроить внешнее хранилище {% data variables.product.prodname_actions %} для использования избыточности или репликации данных. Дополнительные сведения см. в документации поставщика хранилища:
 
-* [Azure Storage redundancy documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy)
-* [Amazon S3 replication documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html)
+* [Документация по избыточности службы хранилища Azure](https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy)
+* [Документация по репликации Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html)
 
-### High availability replicas
+## Реплики высокого уровня доступности
 
-#### Promoting a replica
+### Продвижение реплики
 
-When enabling a high availability configuration, any replicas are automatically configured to use the {% data variables.product.prodname_actions %} external storage configuration. If you need to initiate a failover to promote a replica, no extra configuration changes are required for {% data variables.product.prodname_actions %}.
+При включении конфигурации высокого уровня доступности все реплики автоматически настраиваются на использования конфигурации внешнего хранилища {% data variables.product.prodname_actions %}. Если необходимо инициировать отработку отказа для повышения уровня реплики, для {% data variables.product.prodname_actions %} не требуются дополнительные изменения конфигурации.
 
-For more information, see "[Initiating a failover to your replica appliance](/admin/enterprise-management/initiating-a-failover-to-your-replica-appliance)."
+Дополнительные сведения см. в разделе [Инициирование отработки отказа на устройстве реплики](/admin/enterprise-management/initiating-a-failover-to-your-replica-appliance).
 
-#### Removing a high availability replica
+### Удаление реплики с высоким уровнем доступности
 
-Avoid letting multiple instances to write to the same {% data variables.product.prodname_actions %} external storage. This could occur when using the `ghe-repl-teardown` command to stop and permanently remove a {% data variables.product.prodname_actions %}-enabled replica. This is because the replica will be converted into a standalone {% data variables.product.prodname_ghe_server %}, and after the teardown it will still use the same external storage configuration as the primary.
+Воздерживайтесь от разрешения нескольким экземплярам совершать записи в одно и то же внешнее хранилище {% data variables.product.prodname_actions %}. Это может произойти при использовании команды `ghe-repl-teardown` для остановки и окончательного удаления реплики, включенной {% data variables.product.prodname_actions %}. Это связано с тем, что реплика будет преобразована в автономный {% data variables.product.prodname_ghe_server %}, а после удаления она будет по-прежнему использовать ту же конфигурацию внешнего хранилища, что и основной.
 
-To help avoid this issue, we recommend either decommissioning the replica server or updating its {% data variables.product.prodname_actions %} configuration with different external storage.
+Чтобы устранить эту проблему, рекомендуется либо отказаться от сервера-реплики, либо обновить его конфигурацию {% data variables.product.prodname_actions %} с другим внешним хранилищем.

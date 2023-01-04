@@ -1,26 +1,25 @@
----
 date: '2021-01-12'
 release_candidate: true
 deprecated: true
-intro: Release candidate versions should be tested on non-production environments. For more information about the Release Candidate Program, see the [GitHub Blog](https://github.blog/2020-12-03-improving-the-ghes-release-process-release-candidates/) or "[About upgrades to new releases](/admin/overview/about-upgrades-to-new-releases)".
+intro: "Release Candidate-Versionen sollten in Umgebungen getestet werden, in denen keine Produktion stattfindet. Weitere Informationen zum Release Candidate-Programm findest du im [GitHub-Blog](https://github.blog/2020-12-03-improving-the-ghes-release-process-release-candidates/) oder unter „[Informationen zu Upgrades auf neue Releases](/admin/overview/about-upgrades-to-new-releases)“."
 sections:
   bugs:
-    - The format of several log files have changed, including the addition of a PID for different log types. This does not affect how GitHub Enterprise Support uses support bundles to troubleshoot issues.
-    - A PATCH request to the webhook configuration API no longer erases the webhook secret.
+    - "Das Format mehrerer Protokolldateien wurde geändert, und es wurde eine PID für verschiedene Protokolltypen hinzugefügt. Dies hat keine Auswirkungen darauf, wie der GitHub Enterprise-Support Supportbundles zum Behandeln von Problemen verwendet."
+    - Durch eine PATCH-Anforderung an die Webhook-Konfigurations-API wird das Webhookgeheimnis nicht mehr gelöscht.
   known_issues:
-    - On a freshly set up {% data variables.product.prodname_ghe_server %} without any users, an attacker could create the first admin user.
-    - Release Candidate 1 does not support Cluster mode.
-    - Custom firewall rules are not maintained during an upgrade.
-    - Git LFS tracked files [uploaded through the web interface](https://github.blog/2016-02-18-upload-files-to-your-repositories/) are incorrectly added directly to the repository.
-    - When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results.
-    - Following an unsuccessful attempt to set up Actions, if you then disable Actions you will not be able to create the first user and use the appliance
-    - The "Mandatory message viewed" audit log event is not being saved
-    - '`ghe-config-apply` must be run on a replica during first setup before `ghe-repl-setup` can be run to start replication.'
-    - Backup-utils can trigger unnecessary emails to administrators
-    - Incorrect Packages settings are being displayed in the Organization member view page
-    - After removing oneself as an Enterprise Owner, you are redirected to a 404 page. The operation is successful.
-    - '`ghe-config-apply` occassionally fails with `ERROR: Failure waiting for nomad jobs to apply` until the Nomad job queue is cleared. This currently requires as admin to delete `/etc/nomad-jobs/queue`.'
-    - When configuring a multiple replica node, the status of the replica can be incorrectly synchronized.
-    - Customers attempting to restore a 3.0 backup to a new instance should not pre-configure the instance, as it may lead to a bad state for user logins. We recommend restoring to a fresh, unconfigured instance.
-    - GitHub Enterprise Server 3.0 release candidates are not yet available in the Azure marketplace. To test release candidates in staging environments, start a 2.21 or 2.22 instance, and then upgrade it with the Azure upgrade package on the download page.
-    - The image and upgrade package download size has increased. Customers on slow internet connections may find the packages take longer to download.
+    - "Auf einer neu eingerichteten {% data variables.product.prodname_ghe_server %}-Instanz ohne Benutzer*innen könnten Angreifer*innen den ersten Administratorbenutzer erstellen."
+    - Release Candidate 1 unterstützt den Clustermodus nicht.
+    - Benutzerdefinierte Firewallregeln werden während eines Upgrades nicht aufrechterhalten.
+    - "Nachverfolgte Git LFS-Dateien, [die über die Webschnittstelle hochgeladen wurden,](https://github.blog/2016-02-18-upload-files-to-your-repositories/) werden dem Repository fälschlicherweise direkt hinzugefügt."
+    - "Wenn die Option zum Durchsuchen von GitHub.com bei GitHub Connect aktiviert ist, sind Issues in privaten und internen Repositorys nicht in den GitHub.com-Suchergebnissen enthalten."
+    - "Wenn du GitHub Actions nach einem gescheiterten Einrichtungsversuch deaktiviert hast, kannst du den ersten Benutzer nicht erstellen und die Appliance nicht verwenden."
+    - Das Überwachungsprotokollereignis „Obligatorische Nachricht wurde angezeigt“ wurde nicht gespeichert.
+    - '`ghe-config-apply` muss während des ersten Setups auf einem Replikat ausgeführt werden, bevor `ghe-repl-setup` ausgeführt werden kann, um die Replikation zu starten.'
+    - Backup-utils kann das Senden nicht notwendiger E-Mails an Administrator*innen auslösen.
+    - Auf der Ansichtsseite für Mitglieder der Organisation werden falsche Einstellungen für Packages angezeigt.
+    - "Nachdem du dich als Unternehmensbesitzer gelöscht hast, wirst du zu einer 404-Seite weitergeleitet. Der Vorgang wird erfolgreich ausgeführt."
+    - '`ghe-config-apply` schlägt gelegentlich mit „FEHLER: Fehler beim Warten auf die Anwendung von Nomad-Aufträgen“ fehl, bis die Nomad-Jobwarteschläge geleert wird. Derzeit werden Administratorberechtigungen benötigt, um `/etc/nomad-jobs/queue` zu löschen.'
+    - Beim Konfigurieren eines Knotens mit mehreren Replikaten kann der Status der Replikats falsch synchronisiert werden.
+    - "Kunden, die eine 3.0-Sicherung auf einer neuen Instanz wiederherstellen möchten, sollten die Instanz nicht vorher konfigurieren, da dies für Benutzeranmeldungen zu einem ungültigen Zustand führen kann. Es wird empfohlen, eine neue, nicht konfigurierte Instanz wiederherzustellen."
+    - "Release Candidates von GitHub Enterprise Server 3.0 sind noch nicht im Azure-Marketplace verfügbar. Um diese Release Candidates in Stagingumgebungen zu testen, starte eine 2.21- oder 2.22-Instanz, und führe dann ein Upgrade mit dem Azure-Upgradepaket auf der Downloadseite durch."
+    - Die Größe des Images und des Uploadpakets hat sich erhöht. Der Download der Pakete kann bei Kunden mit langsamer Internetverbindung länger dauern.

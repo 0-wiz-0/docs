@@ -1,84 +1,101 @@
 ---
-title: Use autograding
-intro: You can automatically provide feedback on code submissions from your students by configuring tests to run in the assignment repository.
-miniTocMaxHeadingLevel: 4
+title: Использование автоматической проверки
+intro: 'Вы можете автоматически оставить отзыв об отправке кода учащимися, настроив тесты для выполнения в репозитории назначений.'
+miniTocMaxHeadingLevel: 3
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+permissions: 'Organization owners who are admins for a classroom can set up and use autograding on assignments in a classroom. {% data reusables.classroom.classroom-admins-link %}'
 redirect_from:
   - /education/manage-coursework-with-github-classroom/adding-tests-for-auto-grading
   - /education/manage-coursework-with-github-classroom/reviewing-auto-graded-work-teachers
   - /education/manage-coursework-with-github-classroom/use-autograding
+ms.openlocfilehash: b3e9b44da93d799972b93a9f6e822b767099fdba
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145112147'
 ---
-
-### About autograding
+## Сведения об автоматической проверке
 
 {% data reusables.classroom.about-autograding %}
 
-After a student accepts an assignment, on every push to the assignment repository, {% data variables.product.prodname_actions %} runs the commands for your autograding test in a Linux environment containing the student's newest code. {% data variables.product.prodname_classroom %} creates the necessary workflows for {% data variables.product.prodname_actions %}. You don't need experience with {% data variables.product.prodname_actions %} to use autograding.
+После того как учащийся примет задание, при каждой отправке в репозиторий заданий {% data variables.product.prodname_actions %} выполняет команды для теста для автоматической проверки в среде Linux, содержащей новейший код учащегося. {% data variables.product.prodname_classroom %} создает необходимые рабочие процессы для {% data variables.product.prodname_actions %}. Для использования автоматической проверки опыт работы с {% data variables.product.prodname_actions %} не требуется.
 
-You can use a testing framework, run a custom command, write input/output tests, or combine different testing methods. The Linux environment for autograding contains many popular software tools. For more information, see the details for the latest version of Ubuntu in "[Specifications for  {% data variables.product.company_short %}-hosted runners](/actions/reference/specifications-for-github-hosted-runners#supported-software)."
+Вы можете использовать платформу тестирования, выполнить пользовательскую команду, записать тесты входных или выходных данных или объединить различные методы тестирования. Среда Linux для автоматической проверки содержит множество популярных программных средств. Дополнительную информацию можно найти в сведениях для последней версии Ubuntu в статье [Спецификации для средств выполнения тестов в среде {% data variables.product.company_short %}](/actions/reference/specifications-for-github-hosted-runners#supported-software).
 
-You can see an overview of which students are passing autograding tests by navigating to the assignment in {% data variables.product.prodname_classroom %}. A green checkmark means that all tests are passing for the student, and a red X means that some or all tests are failing for the student. If you award points for one or more tests, then a bubble shows the score for the tests out of the maximum possible score for the assignment.
+Общие сведения о том, какие учащиеся проходят тесты автоматической проверки, можно найти в задании в {% data variables.product.prodname_classroom %}. Зеленая галочка означает, что все тесты проходят для учащегося, а красный крестик означает, что некоторые или все тесты завершаются неудачей. Если вы присваиваете баллы за один или несколько тестов, то пузырьке будет показана оценка по результатам тестов и максимально возможная оценка за задание.
 
-![Overview for an assignment with autograding results](/assets/images/help/classroom/autograding-hero.png)
+![Общие сведения о задании с результатами автоматической проверки](/assets/images/help/classroom/assignment-individual-hero.png)
 
-### Grading methods
+## Методы проверки
 
-There are two grading methods: input/output tests and run command tests.
+Существует два метода проверки: тесты входных и выходных данных и выполнение команд.
 
-#### Input/output test
+### Тест входных и выходных данных
 
-An input/output test optionally runs a setup command, then provides standard input to a test command. {% data variables.product.prodname_classroom %} evaluates the test command's output against an expected result.
+При необходимости тест входных и выходных данных выполняет команду настройки, а затем предоставляет стандартные входные данные для команды теста. {% data variables.product.prodname_classroom %} оценивает выходные данные команды теста, сверяя с ожидаемым результатом.
 
-| Setting             | Description                                                                                                                    |
-|:------------------- |:------------------------------------------------------------------------------------------------------------------------------ |
-| **Test name**       | The name of the test, to identify the test in logs                                                                             |
-| **Setup command**   | _Optional_. A command to run before tests, such as compilation or installation                                                 |
-| **Run command**     | The command to run the test and generate standard output for evaluation                                                        |
-| **Inputs**          | Standard input for run command                                                                                                 |
-| **Expected output** | The output that you want to see as standard output from the run command                                                        |
-| **Comparison**      | The type of comparison between the run command's output and the expected output<br/><br/><ul><li>**Included**: Passes when the expected output appears<br/>anywhere in the standard output from the run command</li><li>**Exact**: Passes when the expected output is completely identical<br/>to the standard output from the run command</li><li>**Regex**: Passes if the regular expression in expected<br/>output matches against the standard output from the run command</li></ul> |
-| **Timeout**         | In minutes, how long a test should run before resulting in failure                                                             |
-| **Points**          | _Optional_. The number of points the test is worth toward a total score                                                        |
+| Параметр | Описание |
+| :- | :- |
+| **Имя теста** | Имя теста, которым он обозначен в журналах. |
+| **Команда настройки** | _Необязательно_. Команда, выполняемая перед тестами, например компиляция или установка. |
+| **Команда выполнения** | Команда для выполнения теста и создания стандартных выходных данных, которые будут оценены. |
+| **Входные данные** | Стандартные входные данные для команды выполнения. |
+| **Ожидаемые выходные данные** | Выходные данные, которые ожидаются в стандартных выходных данных команды выполнения. |
+| **Сравнение** | Тип сравнения выходных данных команды выполнения и ожидаемых выходных данных<br/><br/><ul><li>**Включено** — тест считается пройденным, если ожидаемые выходные данные<br/>есть в любой части стандартных выходных данных команды выполнения.</li><li>**Точно** — тест считается пройденным, если ожидаемые выходные данные полностью идентичны<br/>стандартным выходным данным команды выполнения.</li><li>**Регулярное выражение** — тест считается пройденным, если регулярное выражение<br/>в ожидаемых выходных данных совпадает со стандартными выходными данными команды выполнения.</li></ul> |
+| **Timeout** | Значение в минутах длительности выполнения теста, прежде чем он будет завершен со сбоем. |
+| **Точки** | _Необязательно_. Количество баллов, которые присуждаются за тест, в составе общей оценки. |
 
-#### Run command test
+### Тест команды выполнения
 
-A run command test runs a setup command, then runs a test command. {% data variables.product.prodname_classroom %} checks the exit status of the test command. An exit code of `0` results in success, and any other exit code results in failure.
+При выполнении теста команды выполнения запускается команда настройки, а затем команда теста. {% data variables.product.prodname_classroom %} проверяет выходное состояние команды теста. Код выхода `0` приводит к успешному выполнению, а любой другой код выхода приводит к сбою.
 
-{% data variables.product.prodname_classroom %} provides presets for language-specific run command tests for a variety of programming languages. For example, the **Run node** test prefills the setup command with `npm install` and the test command with `npm test`.
+{% data variables.product.prodname_classroom %} содержит предустановки для тестов команд выполнения на разных языках программирования. Например, тест **Запуска узла** указывает в команде настройки `npm install`, а в команде теста `npm test`.
 
-| Setting           | Description                                                                    |
-|:----------------- |:------------------------------------------------------------------------------ |
-| **Test name**     | The name of the test, to identify the test in logs                             |
-| **Setup command** | _Optional_. A command to run before tests, such as compilation or installation |
-| **Run command**   | The command to run the test and generate an exit code for evaluation           |
-| **Timeout**       | In minutes, how long a test should run before resulting in failure             |
-| **Points**        | _Optional_. The number of points the test is worth toward a total score        |
+| Параметр | Описание |
+| :- | :- |
+| **Имя теста** | Имя теста, которым он обозначен в журналах. |
+| **Команда настройки** | _Необязательно_. Команда, выполняемая перед тестами, например компиляция или установка. |
+| **Команда выполнения** | Команда для выполнения теста и создания кода выхода для оценки. |
+| **Timeout** | Значение в минутах длительности выполнения теста, прежде чем он будет завершен со сбоем. |
+| **Точки** | _Необязательно_. Количество баллов, которые присуждаются за тест, в составе общей оценки. |
 
-### Configuring autograding tests for an assignment
+## Настройка тестов для автоматической проверки задания
 
-You can add autograding tests during the creation of a new assignment. {% data reusables.classroom.for-more-information-about-assignment-creation %}
+Вы можете добавить тесты для автоматической проверки во время создания нового задания. {% data reusables.classroom.for-more-information-about-assignment-creation %}
 
-You can add, edit, or delete autograding tests for an existing assignment. If you change the autograding tests for an existing assignment, existing assignment repositories will not be affected. A student or team must accept the assignment and create a new assignment repository to use the new tests.
+Вы можете добавлять, изменять или удалять тесты для автоматической проверки для существующего задания. Все изменения, внесенные через пользовательский интерфейс Classroom, будут отправлены в существующие репозитории учащихся, поэтому будьте внимательны при редактировании тестов.
 
-{% data reusables.classroom.sign-into-github-classroom %}
-{% data reusables.classroom.click-classroom-in-list %}
-{% data reusables.classroom.assignments-click-pencil %}
-1. In the left sidebar, click **Grading and feedback**. !["Grading and feedback" to the left of assignment's basics](/assets/images/help/classroom/assignments-click-grading-and-feedback.png)
-1. Add, edit, or delete an autograding test.
-    - To add a test, under "Add autograding tests", select the **Add test** drop-down menu, then click the grading method you want to use. ![Using the "Add test" drop-down menu to click a grading method](/assets/images/help/classroom/autograding-click-grading-method.png) Configure the test, then click **Save test case**. !["Save test case" button for an autograding test](/assets/images/help/classroom/assignments-click-save-test-case-button.png)
-    - To edit a test, to the right of the test name, click {% octicon "pencil" aria-label="The pencil icon" %}. ![Pencil icon for editing an autograding test](/assets/images/help/classroom/autograding-click-pencil.png) Configure the test, then click **Save test case**. !["Save test case" button for an autograding test](/assets/images/help/classroom/assignments-click-save-test-case-button.png)
-    - To delete a test, to the right of the test name, click {% octicon "trash" aria-label="The trash icon" %}. ![Trash icon for deleting an autograding test](/assets/images/help/classroom/autograding-click-trash.png)
-1. At the bottom of the page, click **Update assignment**. !["Update assignment" button at the bottom of the page](/assets/images/help/classroom/assignments-click-update-assignment.png)
+{% data reusables.classroom.sign-into-github-classroom %} {% data reusables.classroom.click-classroom-in-list %} {% data reusables.classroom.assignments-click-pencil %}
+1. На левой боковой панели щелкните **Оценки и обратная связь**.
+  ![Пункт "Оценки и обратная связь" слева от основных сведений о задании](/assets/images/help/classroom/assignments-click-grading-and-feedback.png)
+1. Добавление, изменение или удаление теста для автоматической проверки.
+    - Чтобы добавить тест, в разделе "Добавить тесты с автоматической проверкой" выберите раскрывающееся меню **Добавить тест**, а затем метод оценки, который хотите использовать.
+       ![В раскрывающемся меню "Добавить тест" выберите метод оценки](/assets/images/help/classroom/autograding-click-grading-method.png) Настройте тест, а затем нажмите кнопку **Сохранить тестовый случай**.
+       ![Кнопка "Сохранить тестовый случай" для теста для автоматической проверки](/assets/images/help/classroom/assignments-click-save-test-case-button.png)
+    - Чтобы изменить тест, справа от имени теста щелкните {% octicon "pencil" aria-label="The pencil icon" %}.
+        ![Значок карандаша для редактирования теста для автоматической проверки](/assets/images/help/classroom/autograding-click-pencil.png) Настройте тест, а затем нажмите кнопку **Сохранить тестовый случай**.
+       ![Кнопка "Сохранить тестовый случай" для теста для автоматической проверки](/assets/images/help/classroom/assignments-click-save-test-case-button.png)
+    - Чтобы удалить тест, справа от имени теста щелкните {% octicon "trash" aria-label="The trash icon" %}.
+        ![Значок корзины для удаления теста для автоматической проверки](/assets/images/help/classroom/autograding-click-trash.png)
+1. В нижней части страницы нажмите кнопку **Обновить задание**.
+  ![Кнопка "Обновить задание" в нижней части страницы.](/assets/images/help/classroom/assignments-click-update-assignment.png)
 
-### Viewing logs from autograding tests
+## Просмотр и скачивание результатов тестов для автоматической проверки
 
-{% data reusables.classroom.sign-into-github-classroom %}
-{% data reusables.classroom.click-classroom-in-list %}
-{% data reusables.classroom.click-assignment-in-list %}
-1. To the right of a submission, click **View test**. !["View test" button for an assignment submission](/assets/images/help/classroom/assignments-click-view-test.png)
-1. Review the test output. For more information, see "[Using workflow run logs](/actions/managing-workflow-runs/using-workflow-run-logs)."
+### Скачивание результатов автоматической проверки
 
-### Дополнительная литература
+Вы также можете загрузить CSV-файл оценок учащихся, выставленных функцией автоматической проверки, с помощью кнопки "Загрузить". При этом будет создан и скачан CSV-файл, содержащий ссылку на репозиторий учащегося, дескриптор {% data variables.product.prodname_dotcom %} учащегося, идентификатор в списке, метка времени отправки и оценка функции автоматической проверки.
 
-- [{% data variables.product.prodname_actions %} documentation](/actions)
+![Кнопка "Загрузить" с выделенным значением "Загрузить выделенные оценки" и дополнительным параметром "Скачать репозитории"](/assets/images/help/classroom/download-grades.png)
+
+### Просмотр отдельных журналов
+{% data reusables.classroom.sign-into-github-classroom %} {% data reusables.classroom.click-classroom-in-list %} {% data reusables.classroom.click-assignment-in-list %}
+1. Справа от задания нажмите кнопку **Просмотреть тест**.
+  ![Кнопка "Просмотреть тест" для отправки задания](/assets/images/help/classroom/assignments-click-view-test.png)
+1. Просмотрите выходные данные теста. Дополнительные сведения см. в разделе «[Использование журналов выполнения рабочего процесса](/actions/managing-workflow-runs/using-workflow-run-logs)».
+
+## Дополнительные материалы
+
+- [Документация {% data variables.product.prodname_actions %}](/actions)

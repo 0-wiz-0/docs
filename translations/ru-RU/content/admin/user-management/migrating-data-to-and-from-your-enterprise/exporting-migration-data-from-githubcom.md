@@ -1,6 +1,6 @@
 ---
-title: Exporting migration data from GitHub.com
-intro: 'You can export migration data from an organization on {% data variables.product.prodname_dotcom_the_website %} by using the API to select repositories to migrate, then generating a migration archive that you can import into a {% data variables.product.prodname_ghe_server %} instance.'
+title: Экспорт данных миграции из GitHub.com
+intro: 'Данные миграции можно экспортировать из организации на {% data variables.product.prodname_dotcom_the_website %}. Для этого выберите нужные репозитории с помощью API, а затем создайте архив миграции, который можно импортировать в экземпляр {% data variables.product.prodname_ghe_server %}.'
 redirect_from:
   - /enterprise/admin/guides/migrations/exporting-migration-data-from-github-com
   - /enterprise/admin/migrations/exporting-migration-data-from-githubcom
@@ -11,81 +11,88 @@ redirect_from:
   - /enterprise/admin/user-management/exporting-migration-data-from-githubcom
   - /admin/user-management/exporting-migration-data-from-githubcom
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - API
   - Enterprise
   - Migration
+shortTitle: Export data from GitHub.com
+ms.openlocfilehash: f39ec628f3b1b59767b30ef35689a63f3e57da4f
+ms.sourcegitcommit: 5f40f9341dd1e953f4be8d1642f219e628e00cc8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/04/2022
+ms.locfileid: '148008958'
 ---
+## Подготовка исходной организации к {% data variables.product.prodname_dotcom %}
 
-### Preparing the source organization on {% data variables.product.prodname_dotcom %}
+1. Убедитесь, что у вас есть [разрешения владельца](/articles/permission-levels-for-an-organization/) в репозиториях исходной организации.
 
-1. Ensure that you have [owner permissions](/articles/permission-levels-for-an-organization/) on the source organization's repositories.
-
-2. {% data reusables.enterprise_migrations.token-generation %} on {% data variables.product.prodname_dotcom_the_website %}.
+2. {% data reusables.enterprise_migrations.token-generation %} в {% data variables.product.prodname_dotcom_the_website %}.
 
 {% data reusables.enterprise_migrations.make-a-list %}
 
-### Exporting the organization's repositories
+## Экспорт репозиториев организации
 
 {% data reusables.enterprise_migrations.fork-persistence %}
 
-To export repository data from {% data variables.product.prodname_dotcom_the_website %}, use <a href="/rest/reference/migrations" class="dotcom-only">the Migrations API</a>.
+Чтобы экспортировать данные репозитория из {% data variables.product.prodname_dotcom_the_website %}, используйте [API миграций](/free-pro-team@latest/rest/migrations).
 
-The Migrations API is currently in a preview period, which means that the endpoints and parameters may change in the future. To access the Migrations API, you must provide a custom [media type](/rest/overview/media-types) in the `Accept` header: `application/vnd.github.wyandotte-preview+json`. The examples below include the custom media type.
-
-### Generating a migration archive
+API миграций в настоящее время доступен в предварительной версии. Это означает, что конечные точки и параметры могут быть изменены в будущем.
+## Создание архива миграции
 
 {% data reusables.enterprise_migrations.locking-repositories %}
 
-1. Notify members of your organization that you'll be performing a migration. The export can take several minutes, depending on the number of repositories being exported. The full migration including import may take several hours so we recommend doing a trial run in order to determine how long the full process will take. For more information, see "[About Migrations](/enterprise/admin/migrations/about-migrations#types-of-migrations)."
+1. Уведомите членов вашей организации о том, что вы планируете выполнять миграцию. Экспорт может занять несколько минут в зависимости от количества экспортируемых репозиториев. Полная миграция, включая импорт, может занять несколько часов, поэтому рекомендуется выполнить пробный запуск, чтобы определить, сколько времени займет весь процесс. Дополнительные сведения см. в статье об [Сведения о миграции](/enterprise/admin/migrations/about-migrations#types-of-migrations).
 
-2. Start a migration by sending a `POST` request to <a href="/rest/reference/migrations#start-an-organization-migration" class="dotcom-only">the migration endpoint</a>. You'll need:
-    * Your access token for authentication.
-    * A [list of the repositories](/rest/reference/repos#list-organization-repositories) you want to migrate:
+2. Запустите миграцию, отправив запрос `POST` к [конечной точке миграции](/free-pro-team@latest/rest/migrations#start-an-organization-migration). Что вам понадобится:
+    * Маркер доступа для проверки подлинности
+    * [Список репозиториев](/free-pro-team@latest/rest/repos#list-organization-repositories), которые требуется перенести:
       ```shell
-      curl -H "Authorization: token <em>GITHUB_ACCESS_TOKEN</em>" -X POST \
-      -H "Accept: application/vnd.github.wyandotte-preview+json" \
-      -d'{"lock_repositories":true,"repositories":["<em>orgname</em>/<em>reponame</em>", "<em>orgname</em>/<em>reponame</em>"]}' \
-      https://api.github.com/orgs/<em>orgname</em>/migrations
+      curl -H "Authorization: Bearer GITHUB_ACCESS_TOKEN" \
+      -X POST \
+      -H "Accept: application/vnd.github+json" \
+      -d'{"lock_repositories":true,"repositories":["ORG_NAME</em>/REPO_NAME", "ORG_NAME/REPO_NAME"]}' \
+      https://api.github.com/orgs/ORG_NAME/migrations
       ```
-    *  If you want to lock the repositories before migrating them, make sure `lock_repositories` is set to `true`. This is highly recommended.
-    * You can exclude file attachments by passing `exclude_attachments: true` to the endpoint. {% data reusables.enterprise_migrations.exclude-file-attachments %} The final archive size must be less than 20 GB.
+    *  Если вы хотите заблокировать репозитории перед их переносом, убедитесь, что для параметра `lock_repositories` задано значение `true`. Настоятельно рекомендуется сделать это.
+    * Вы можете исключить вложения файлов, передав `exclude_attachments: true` в конечную точку. {% data reusables.enterprise_migrations.exclude-file-attachments %} Окончательный размер архива должен быть меньше 20 ГБ.
 
-  This request returns a unique `id` which represents your migration. You'll need it for subsequent calls to the Migrations API.
+  Этот запрос возвращает уникальный объект `id`, представляющий миграцию. Он потребуется для последующих вызовов API миграций.
 
-3. Send a `GET` request to <a href="/rest/reference/migrations#get-an-organization-migration-status" class="dotcom-only">the migration status endpoint</a> to fetch the status of a migration. You'll need:
-    * Your access token for authentication.
-    * The unique `id` of the migration:
+3. Отправьте запрос `GET` в [конечную точку статуса миграции](/free-pro-team@latest/rest/migrations#get-an-organization-migration-status), чтобы получить статус миграции. Что вам понадобится:
+    * Маркер доступа для проверки подлинности
+    * Уникальный `id` миграции:
       ```shell
-      curl -H "Authorization: token <em>GITHUB_ACCESS_TOKEN</em>" \
-      -H "Accept: application/vnd.github.wyandotte-preview+json" \
-      https://api.github.com/orgs/<em>orgname</em>/migrations/<em>id</em>
+      curl -H "Authorization: Bearer GITHUB_ACCESS_TOKEN" \
+      -H "Accept: application/vnd.github+json" \
+      https://api.github.com/orgs/ORG_NAME/migrations/ID
       ```
 
-  A migration can be in one of the following states:
-    * `pending`, which means the migration hasn't started yet.
-    * `exporting`, which means the migration is in progress.
-    * `exported`, which means the migration finished successfully.
-    * `failed`, which means the migration failed.
+  Миграция может находиться в одном из указанных ниже состояний.
+    * `pending` — это означает, что миграция еще не запущена.
+    * `exporting` — это означает, что миграция находится в процессе выполнения.
+    * `exported` — это означает, что миграция успешно завершена.
+    * `failed` — это означает, что миграция завершилась сбоем.
 
-4. After your migration has exported, download the migration archive by sending a `GET` request to <a href="/rest/reference/migrations#download-an-organization-migration-archive" class="dotcom-only">the migration download endpoint</a>. You'll need:
-    * Your access token for authentication.
-    * The unique `id` of the migration:
+4. После экспорта миграции скачайте архив миграции, отправив запрос `GET` к [конечной точке загрузки миграции](/free-pro-team@latest/rest/migrations#download-an-organization-migration-archive). Что вам понадобится:
+    * Маркер доступа для проверки подлинности
+    * Уникальный `id` миграции:
       ```shell
-      curl -H "Accept: application/vnd.github.wyandotte-preview+json" \
-      -u <em>GITHUB_USERNAME</em>:<em>GITHUB_ACCESS_TOKEN</em> \
+      curl -H "Authorization: Bearer GITHUB_ACCESS_TOKEN" \
+      -H "Accept: application/vnd.github+json" \
       -L -o migration_archive.tar.gz \
-      https://api.github.com/orgs/<em>orgname</em>/migrations/<em>id</em>/archive
+      https://api.github.com/orgs/ORG_NAME/migrations/ID/archive
       ```
 
-5. The migration archive is automatically deleted after seven days. If you would prefer to delete it sooner, you can send a `DELETE` request to <a href="/rest/reference/migrations#delete-an-organization-migration-archive" class="dotcom-only">the migration archive delete endpoint</a>. You'll need:
-    * Your access token for authentication.
-    * The unique `id` of the migration:
+5. Архив миграции автоматически удаляется через семь дней. Если вы предпочитаете удалить его раньше, можно отправить запрос `DELETE` в [конечную точку удаления архива миграции](/free-pro-team@latest/rest/migrations#delete-an-organization-migration-archive). Что вам понадобится:
+    * Маркер доступа для проверки подлинности
+    * Уникальный `id` миграции:
       ```shell
-      curl -H "Authorization: token <em>GITHUB_ACCESS_TOKEN</em>" -X DELETE \
-      -H "Accept: application/vnd.github.wyandotte-preview+json" \
-      https://api.github.com/orgs/<em>orgname</em>/migrations/<em>id</em>/archive
+      curl -H "Authorization: Bearer GITHUB_ACCESS_TOKEN" \
+      -X DELETE \
+      -H "Accept: application/vnd.github+json" \
+      https://api.github.com/orgs/ORG_NAME/migrations/ID/archive
       ```
 {% data reusables.enterprise_migrations.ready-to-import-migrations %}

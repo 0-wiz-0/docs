@@ -1,18 +1,18 @@
----
 date: '2021-05-25'
 sections:
   security_fixes:
-    - '**MEDIUM:** Under certain circumstances, users who were removed from a team or organization could retain write access to branches they had existing pull requests opened for.'
-    - Packages have been updated to the latest security versions.
+    - '**СРЕДНИЙ.** В некоторых обстоятельствах пользователи, удаленные из команды или организации, могут сохранить доступ для записи к ветвям, для которых открыты существующие запросы на вытягивание.'
+    - Пакеты обновлены до последних версий систем безопасности.
   bugs:
-    - Normal replication delays in MSSQL generated warnings.
-    - An IP address added by an admin using the "Create Whitelist Entry" button could still be locked out.
-    - '`spokesd` created excessive log entries including the phrase "fixing placement skipped".'
+    - Из-за обычных задержек репликации в MSSQL возникают предупреждения.
+    - "IP-адрес, добавленный администратором, использующий кнопку \"Создать запись в списке разрешений\", по-прежнему можно заблокировать."
+    - '`spokesd` создал лишние записи в журнале, в том числе фразу "fixing placement skipped".'
   changes:
-    - Check annotations older than 4 months will be archived.
+    - "Проверьте аннотации, которые созданы более 4 месяцев назад, будут перемещены в архив."
   known_issues:
-    - On a freshly set up GitHub Enterprise Server without any users, an attacker could create the first admin user.
-    - Custom firewall rules are not maintained during an upgrade.
-    - Git LFS tracked files [uploaded through the web interface](https://github.com/blog/2105-upload-files-to-your-repositories) are incorrectly added directly to the repository.
-    - Issues cannot be closed if they contain a permalink to a blob in the same repository where the file path is longer than 255 characters.
-    - When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results.
+    - "Злоумышленник мог создать первого пользователя с правами администратора на новом, только что настроенном сервере, не имеющем пользователей."
+    - Пользовательские правила брандмауэра не сохраняются в процессе обновления.
+    - "Отслеживаемые файлы Git LFS, [отправленные через веб-интерфейс](https://github.com/blog/2105-upload-files-to-your-repositories), ошибочно добавлялись напрямую в репозиторий."
+    - "Проблемы нельзя закрыть, если они содержат постоянную ссылку на большой двоичный объект в том же репозитории, где путь файла содержит более 255 символов."
+    - "Когда в GitHub Connect включен параметр \"Пользователи могут выполнять поиск на GitHub.com\", результаты поиска на GitHub.com не включают проблемы в частных и внутренних репозиториях."
+    - "Если узел реплики находится в автономном режиме в конфигурации высокой доступности, {% data variables.product.product_name %} по-прежнему может маршрутизировать запросы {% data variables.product.prodname_pages %} на узел в автономном режиме, снижая доступность {% data variables.product.prodname_pages %} для пользователей."

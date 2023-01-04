@@ -2,24 +2,30 @@
 title: 排查 SSL 错误
 intro: 如果您的设备遇到 SSL 问题，可以采取相应措施加以解决。
 redirect_from:
-  - /enterprise/admin/articles/troubleshooting-ssl-errors/
-  - /enterprise/admin/categories/dns-ssl-and-subdomain-configuration/
-  - /enterprise/admin/installation/troubleshooting-ssl-errors
-  - /enterprise/admin/configuration/troubleshooting-ssl-errors
-  - /admin/configuration/troubleshooting-ssl-errors
+- /enterprise/admin/articles/troubleshooting-ssl-errors
+- /enterprise/admin/categories/dns-ssl-and-subdomain-configuration
+- /enterprise/admin/installation/troubleshooting-ssl-errors
+- /enterprise/admin/configuration/troubleshooting-ssl-errors
+- /admin/configuration/troubleshooting-ssl-errors
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
-  - Enterprise
-  - Errors
-  - Infrastructure
-  - Networking
-  - Security
-  - Troubleshooting
+- Enterprise
+- Errors
+- Infrastructure
+- Networking
+- Security
+- Troubleshooting
+shortTitle: Troubleshoot SSL errors
+ms.openlocfilehash: cfe73a647b539fa8c9c2aef54f8bc51f2b1becae
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145100061"
 ---
-
-### 将密码从密钥文件中移除
+## <a name="removing-the-passphrase-from-your-key-file"></a>将密码从密钥文件中移除
 
 如果您的 Linux 机器上安装了 OpenSSL，可以移除密码。
 
@@ -34,23 +40,23 @@ topics:
 
 运行此命令时系统会提示您输入密钥的密码。
 
-关于 OpenSSL 的更多信息，请参阅 [OpenSSL 的文档](https://www.openssl.org/docs/)。
+有关 OpenSSL 的详细信息，请参阅 [OpenSSL 文档](https://www.openssl.org/docs/)。
 
-### 将 SSL 证书或密钥转换为 PEM 格式
+## <a name="converting-your-ssl-certificate-or-key-into-pem-format"></a>将 SSL 证书或密钥转换为 PEM 格式
 
-如果安装了 OpenSSL，您可以使用 `openssl` 命令将密钥转换为 PEM 格式。 例如，您可以将密钥从 DER 格式转换为 PEM 格式。
+如果安装了 OpenSSL，可以使用 `openssl` 命令将密钥转换为 PEM 格式。 例如，您可以将密钥从 DER 格式转换为 PEM 格式。
 
 ```shell
 $ openssl rsa -in yourdomain.der -inform DER -out yourdomain.key -outform PEM
 ```
 
-否则，可以使用 SSL Converter 工具将证书转换为 PEM 格式。 更多信息请参阅 [SSL Converter 工具文档](https://www.sslshopper.com/ssl-converter.html)。
+否则，可以使用 SSL Converter 工具将证书转换为 PEM 格式。 有关详细信息，请参阅 [SSL 转换器工具的文档](https://www.sslshopper.com/ssl-converter.html)。
 
-### 上传密钥后安装无响应
+## <a name="unresponsive-installation-after-uploading-a-key"></a>上传密钥后安装无响应
 
-如果上传 SSL 密钥后 {% data variables.product.product_location %} 无响应，请[联系 {% data variables.product.prodname_enterprise %} Support](https://enterprise.github.com/support) 并提供具体的详细信息，并附上您的 SSL 证书的副本。
+如果上传 SSL 密钥后 {% data variables.product.product_location %} 无响应，请[联系 {% data variables.product.prodname_enterprise %} 支持部门](https://enterprise.github.com/support)，并提供具体详细信息，附上 SSL 证书的副本。
 
-### 证书有效性错误
+## <a name="certificate-validity-errors"></a>证书有效性错误
 
 如果 Web 浏览器和命令行 Git 等客户端无法验证 SSL 证书的有效性，则会显示错误消息。 这种情况通常发生在自签名证书以及由不被客户端承认的中间根证书颁发的“链式根”证书上。
 
@@ -60,9 +66,9 @@ $ openssl rsa -in yourdomain.der -inform DER -out yourdomain.key -outform PEM
 $ cat yourdomain.com.crt bundle-certificates.crt > yourdomain.combined.crt
 ```
 
-您可以从证书颁发机构或 SSL 供应商处下载证书包（例如 `bundle-certificates.crt`）。
+可从证书颁发机构或 SSL 供应商处下载证书包（例如 `bundle-certificates.crt`）。
 
-### 安装自签名或不受信任的证书颁发机构 (CA) 根证书
+## <a name="installing-self-signed-or-untrusted-certificate-authority-ca-root-certificates"></a>安装自签名或不受信任的证书颁发机构 (CA) 根证书
 
 如果您的 {% data variables.product.prodname_ghe_server %} 设备与网络中使用自签名或不受信证书的其他机器进行交互，您需要将签名 CA 的根证书导入到系统范围的证书库中，以通过 HTTPS 访问这些系统。
 
@@ -79,3 +85,7 @@ $ cat yourdomain.com.crt bundle-certificates.crt > yourdomain.combined.crt
   ```shell
   $ ghe-ssl-ca-certificate-install -c rootCA.crt
   ```
+
+## <a name="updating-an-ssl-certificate"></a>更新 SSL 证书
+
+可使用 `ghe-ssl-certificate-setup` 命令行实用工具生成新的自签名证书或更新 {% data variables.product.product_location %} 的现有 SSL 证书。 有关详细信息，请参阅“[命令行实用工具](/admin/configuration/configuring-your-enterprise/command-line-utilities#ghe-ssl-ca-certificate-setup)”。

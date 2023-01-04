@@ -1,3 +1,13 @@
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" %}
-1. In the left sidebar, click **Pages**. ![Page tab in the left-hand sidebar](/assets/images/help/pages/pages-tab.png)
-{% endif %}
+---
+ms.openlocfilehash: 3c76af709ce01925719105ff361642b29d73b89c
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: "145121528"
+---
+{% ifversion fpt or ghes > 3.4 or ghec or ghae-issue-5658 %}
+1. В разделе «Код и автоматизация» на боковой панели щелкните **Страницы {% octicon "browser" aria-label="Значок браузера" %}** .
+{% else %}
+1. На левой боковой панели нажмите **Страницы**.
+   ![Вкладка «Страница» на боковой панели слева ](/assets/images/help/pages/pages-tab.png) {% endif %}

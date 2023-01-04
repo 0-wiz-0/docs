@@ -1,25 +1,31 @@
 ---
 title: Errores de solución de problemas de SSL
-intro: 'Si te encuentras con problemas de SSL en tu aparato, puedes tomar medidas para resolverlos.'
+intro: Si te encuentras con problemas de SSL en tu aparato, puedes tomar medidas para resolverlos.
 redirect_from:
-  - /enterprise/admin/articles/troubleshooting-ssl-errors/
-  - /enterprise/admin/categories/dns-ssl-and-subdomain-configuration/
-  - /enterprise/admin/installation/troubleshooting-ssl-errors
-  - /enterprise/admin/configuration/troubleshooting-ssl-errors
-  - /admin/configuration/troubleshooting-ssl-errors
+- /enterprise/admin/articles/troubleshooting-ssl-errors
+- /enterprise/admin/categories/dns-ssl-and-subdomain-configuration
+- /enterprise/admin/installation/troubleshooting-ssl-errors
+- /enterprise/admin/configuration/troubleshooting-ssl-errors
+- /admin/configuration/troubleshooting-ssl-errors
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
-  - Enterprise
-  - Errors
-  - Infrastructure
-  - Networking
-  - Security
-  - Troubleshooting
+- Enterprise
+- Errors
+- Infrastructure
+- Networking
+- Security
+- Troubleshooting
+shortTitle: Troubleshoot SSL errors
+ms.openlocfilehash: cfe73a647b539fa8c9c2aef54f8bc51f2b1becae
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145120674"
 ---
-
-### Eliminar la contraseña de un archivo clave
+## <a name="removing-the-passphrase-from-your-key-file"></a>Eliminar la contraseña de un archivo clave
 
 Si tienes una máquina linux con OpenSSL instalado, puedes eliminar tu contraseña.
 
@@ -34,23 +40,23 @@ Si tienes una máquina linux con OpenSSL instalado, puedes eliminar tu contrase�
 
 Se te pedirá la contraseña de la clave cuando ejecutes este comando.
 
-Para más información sobre OpenSSL, consulta la documentación de OpenSSL [](https://www.openssl.org/docs/).
+Para más información sobre OpenSSL, vea la [documentación de OpenSSL](https://www.openssl.org/docs/).
 
-### Convertir tu certificado SSL o tu clave a un formato PEM
+## <a name="converting-your-ssl-certificate-or-key-into-pem-format"></a>Convertir tu certificado SSL o tu clave a un formato PEM
 
-Si tienes instalado OpenSSL, puedes convertir tu clave en formato PEM usando el comando `openssl`. Por ejemplo, puedes convertir una clave de formato DER a formato PEM.
+Si tiene instalado OpenSSL, puede convertir la clave a formato PEM mediante el comando `openssl`. Por ejemplo, puedes convertir una clave de formato DER a formato PEM.
 
 ```shell
 $ openssl rsa -in yourdomain.der -inform DER -out yourdomain.key -outform PEM
 ```
 
-De lo contrario, puedes utilizar la herramienta SSL Converter para convertir tu certificado a formato PEM. Para obtener más información, consulta la [Documentación de la herramienta SSL Converter](https://www.sslshopper.com/ssl-converter.html).
+De lo contrario, puedes utilizar la herramienta SSL Converter para convertir tu certificado a formato PEM. Para más información, vea la [documentación de la herramienta SSL Converter](https://www.sslshopper.com/ssl-converter.html).
 
-### Instalación sin respuesta después de cargar una clave
+## <a name="unresponsive-installation-after-uploading-a-key"></a>Instalación sin respuesta después de cargar una clave
 
-Si {% data variables.product.product_location %} no tiene respuesta después de cargar una clave SSL, contacta [al {% data variables.product.prodname_enterprise %} Soporte](https://enterprise.github.com/support) con detalles específicos, incluida una copia de tu certificado SSL.
+Si {% data variables.product.product_location_enterprise %} no responde después de cargar una clave SSL, [póngase en contacto con el soporte de {% data variables.product.prodname_enterprise %}](https://enterprise.github.com/support) con detalles específicos, incluida una copia del certificado SSL.
 
-### Errores de validez de certificado
+## <a name="certificate-validity-errors"></a>Errores de validez de certificado
 
 Los clientes como navegadores web y líneas de comando Git mostrarán un mensaje de error si no pueden verificar la validez de un certificado SSL. Esto sucede con frecuencia con los certificados autofirmados y los certificados de "raíz encadenada" emitidos por un certificado raíz intermedio que no es reconocido por el cliente.
 
@@ -60,9 +66,9 @@ Si estás usando un certificado firmado por una autoridad de certificación (CA)
 $ cat yourdomain.com.crt bundle-certificates.crt > yourdomain.combined.crt
 ```
 
-Deberías poder descargar un paquete de certificado (por ejemplo, `bundle-certificates.crt`) desde tu proveedor de SSL o de la autoridad de certificación.
+Debería poder descargar un paquete de certificado (por ejemplo, `bundle-certificates.crt`) desde el proveedor de SSL o la autoridad de certificación.
 
-### Instalar certificados raíz de autoridad de certificación (CA) autofirmados o que no son de confianza
+## <a name="installing-self-signed-or-untrusted-certificate-authority-ca-root-certificates"></a>Instalar certificados raíz de autoridad de certificación (CA) autofirmados o que no son de confianza
 
 Si tu aparato {% data variables.product.prodname_ghe_server %} interactúa con otras máquinas en tu red que utilizan un certificado autofirmado o que no es de confianza, deberás importar el certificado raíz de la CA firmante en el almacenamiento de certificado de todo el sistema para poder acceder a estos sistemas por HTTPS.
 
@@ -79,3 +85,7 @@ Si tu aparato {% data variables.product.prodname_ghe_server %} interactúa con o
   ```shell
   $ ghe-ssl-ca-certificate-install -c rootCA.crt
   ```
+
+## <a name="updating-an-ssl-certificate"></a>Actualizar un certificado SSL
+
+Puede generar un certificado autofirmado nuevo o actualizar un certificado SSL existente para {% data variables.product.product_location %} con la utilidad de línea de comandos `ghe-ssl-certificate-setup`. Para más información, vea "[Utilidades de línea de comandos](/admin/configuration/configuring-your-enterprise/command-line-utilities#ghe-ssl-ca-certificate-setup)".

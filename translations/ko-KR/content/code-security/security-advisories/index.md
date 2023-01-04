@@ -1,27 +1,26 @@
 ---
-title: Managing security advisories for vulnerabilities in your project
+title: 보안 권고 작업
 shortTitle: Security advisories
-intro: 'Discuss, fix, and disclose security vulnerabilities in your repositories using security advisories.'
-redirect_from:
-  - /articles/managing-security-vulnerabilities-in-your-project
-  - /github/managing-security-vulnerabilities/managing-security-vulnerabilities-in-your-project
+intro: '{% data variables.product.prodname_dotcom %},{% ifversion fpt or ghec %}에서 보안 권고를 사용하는 방법을 알아봅니다. 기존 전역 권고에 기여하거나 리포지토리에 대한 보안 권고를 만들거나{% endif %} 리포지토리 유지 관리자와 보안 연구원 간의 협업을 개선하는 방법을 알아봅니다.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
+  ghes: '*'
+  ghae: '*'
 topics:
   - Security advisories
   - Vulnerabilities
   - Repositories
   - CVEs
 children:
-  - /about-coordinated-disclosure-of-security-vulnerabilities
-  - /about-github-security-advisories
-  - /permission-levels-for-security-advisories
-  - /creating-a-security-advisory
-  - /adding-a-collaborator-to-a-security-advisory
-  - /removing-a-collaborator-from-a-security-advisory
-  - /collaborating-in-a-temporary-private-fork-to-resolve-a-security-vulnerability
-  - /publishing-a-security-advisory
-  - /editing-a-security-advisory
-  - /withdrawing-a-security-advisory
+  - /global-security-advisories
+  - /repository-security-advisories
+  - /guidance-on-reporting-and-writing
+ms.openlocfilehash: a42c57006a05bd1fffc09c8241d22eddc67ed8f1
+ms.sourcegitcommit: 27882d9b3f19979c817c25952a2fb4dc4c6f0a65
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 10/27/2022
+ms.locfileid: '148114146'
 ---
 

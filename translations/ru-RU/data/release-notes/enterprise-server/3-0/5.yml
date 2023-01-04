@@ -1,27 +1,28 @@
----
-date: '2021-04-14'
-intro: 'The minimum infrastructure requirements have increased for {% data variables.product.prodname_ghe_server %} 3.0+. For more information, see "[About minimum requirements for GitHub Enterprise Server 3.0 and later](/admin/enterprise-management/upgrading-github-enterprise-server#about-minimum-requirements-for-github-enterprise-server-30-and-later)."'
+date: '14.04.2021'
+intro: "Повышены минимальные требования для инфраструктуры для версий {% data variables.product.prodname_ghe_server %} 3.0 и более поздних. Дополнительные сведения см. в разделе [Минимальные требования для GitHub Enterprise Server 3.0 и более поздних версий](/admin/enterprise-management/upgrading-github-enterprise-server#about-minimum-requirements-for-github-enterprise-server-30-and-later)."
 sections:
   security_fixes:
-    - Packages have been updated to the latest security versions.
+    - В пакетах обновлены системы безопасности до последних версий.
   bugs:
-    - Some logs were not included in the log forwarding configuration.
-    - 'A warning message `jq: error (at <stdin>:0): Cannot index number with string "settings"` could occur during replica promotion.'
-    - Continuously restoring backups to a cluster could fail due to MySQL replicas failing to connect to the primary.
-    - Pages were not getting published when using custom CA certificate.
-    - Packages related subdomains were not showing up in the "Test domain settings" prompt for subdomain isolation.
-    - The `X-GitHub-Enterprise-Host` header sent with webhooks included a random string, rather than the hostname of the GitHub Enterprise Server instance that sent the HTTP POST payload.
-    - Upgrading from 2.22.x to 3.0.x would fail if GitHub Actions had previously been enabled, but disabled before the upgrade.
-    - Visiting the `/settings/emails` page would store state that could cause improper redirects when logging out and logging back in.
-    - GitHub integration apps were not able to notify teams when mentioned directly via an at-mention in an issue comment.
-    - reStructuredText (RST) rendering in the web UI would fail and instead displayed raw RST markup text.
-    - Email notifications for Secret Scanning alerts were not sent to authorized users when the Dependency Graph was not fully enabled.
-    - When ghe-migrator encountered import errors, it would sometimes abort the entire process, and the logs did not include enough context.
-    - Jupyter notebooks with non-ASCII characters could fail to render.
+    - Некоторые журналы не были включены в конфигурацию пересылки журналов.
+    - 'При повышении уровня реплики может отображаться предупреждение jq: error (at <stdin>:0): Не удалось индексировать номер со строкой "settings".'
+    - "Непрерывное восстановление резервных копий в кластере может завершиться сбоем из-за того, что репликам MySQL не удается подключиться к первичной реплике."
+    - Страницы не публиковались при использовании пользовательского сертификата ЦС.
+    - "Поддомены, связанные с пакетами, не отображались в подсказке \"Параметры тестового домена\" для изоляции поддоменов."
+    - "Заголовок X-GitHub-Enterprise-Host, отправляемый с веб-перехватчиками, включал случайную строку, а не имя узла экземпляра GitHub Enterprise Server, который отправил полезные данные HTTP POST."
+    - "Обновление с версии 2.22.x до 3.0.x завершалось ошибкой, если функция GitHub Actions была ранее включена, но ее отключили перед обновлением."
+    - "При переходе на страницу /settings/emails сохраняется состояние, и из-за этого возможно некорректное перенаправление при выходе и повторном входе в систему."
+    - Приложениям для интеграции с GitHub не удалось уведомить команды при прямом упоминании через at-mention в комментарии к проблеме.
+    - "В reStructuredText (RST), выполняющем отрисовку в веб-интерфейсе, возникает ошибка, и вместо этого отображается текст с разметкой RST."
+    - "Уведомления по электронной почте, содержащие предупреждения о сканировании секретов, не отправлялись авторизованным пользователям, когда график зависимостей не был полностью включен."
+    - "Иногда, когда ghe-migrator обнаруживает ошибки импорта, прерывается процесс, и журналы не получают достаточного контекста."
+    - "Записные книжки Jupyter с символами, отличными от ASCII, могли не отрисовываться."
   known_issues:
-    - On a freshly set up GitHub Enterprise Server without any users, an attacker could create the first admin user.
-    - Custom firewall rules are not maintained during an upgrade.
-    - Git LFS tracked files [uploaded through the web interface](https://github.com/blog/2105-upload-files-to-your-repositories) are incorrectly added directly to the repository.
-    - Issues cannot be closed if they contain a permalink to a blob in the same repository where the file path is longer than 255 characters.
-    - When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results.
-    - When deleting a branch after merging a pull request, an error message appears although the branch deletion succeeds.
+    - "Злоумышленник мог создать первого пользователя с правами администратора на новом, только что настроенном сервере, не имеющем пользователей."
+    - Пользовательские правила брандмауэра не сохраняются в процессе обновления.
+    - "Отслеживаемые файлы Git LFS, [отправленные через веб-интерфейс](https://github.com/blog/2105-upload-files-to-your-repositories), ошибочно добавлялись напрямую в репозиторий."
+    - "Проблемы нельзя закрыть, если они содержат постоянную ссылку на большой двоичный объект в том же репозитории, где путь файла содержит более 255 символов."
+    - "Когда в GitHub Connect включен параметр Users can search GitHub.com (Пользователи могут выполнять поиск на GitHub.com), результаты поиска на GitHub.com не включают в себя проблемы в частных и внутренних репозиториях."
+    - "При удалении ветви после слияния запроса на вытягивание отображается сообщение об ошибке, хотя удаление ветви выполнено успешно."
+    - "Когда узел реплики в конфигурации с высокой доступностью отключен, {% data variables.product.product_name %} все равно может маршрутизировать на него запросы {% data variables.product.prodname_pages %}, уменьшая доступность {% data variables.product.prodname_pages %} для пользователей."
+    - "Ограничения ресурсов, относящиеся к обработке перехватчиков перед получением, могут приводить к сбою некоторых из них."

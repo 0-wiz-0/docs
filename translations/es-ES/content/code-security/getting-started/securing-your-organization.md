@@ -1,112 +1,136 @@
 ---
-title: Asegurar tu organización
+title: Protección de la organización
 intro: 'Puedes utilizar varias características de {% data variables.product.prodname_dotcom %} para ayudar a mantener tu organización segura.'
 permissions: Organization owners can configure organization security settings.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.0'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Organizations
   - Dependencies
   - Vulnerabilities
   - Advanced Security
+shortTitle: Secure your organization
+ms.openlocfilehash: 7a3565884793e6d10a6d9c5ddd08286b3601c415
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148106393'
 ---
+## Introducción
+Esta guía te muestra cómo configurar las características de seguridad para una organización. Las necesidades de seguridad de tu organización son únicas y puede que no necesites habilitar cada una de las características de seguridad. Para más información, vea "[Características de seguridad de {% data variables.product.prodname_dotcom %}](/code-security/getting-started/github-security-features)".
 
-### Introducción
-Esta guía te muestra cómo configurar las características de seguridad para una organización. Las necesidades de seguridad de tu organización son únicas y puede que no necesites habilitar cada una de las características de seguridad. Para obtener más información, consulta la sección "[Características de seguridad de {% data variables.product.prodname_dotcom %}](/code-security/getting-started/github-security-features)".
+{% data reusables.advanced-security.security-feature-availability %}
 
-Algunas características de seguridad solo se encuentran disponibles {% if currentVersion == "free-pro-team@latest" %}para repositorios públicos y para repositorios privados que pertenezcan a organizaciones con {% else %}si tienes {% endif %}una licencia de {% data variables.product.prodname_advanced_security %}. {% data reusables.advanced-security.more-info-ghas %}
+## Administrar el acceso a tu organización
 
-### Administrar el acceso a tu organización
+Puedes utilizar roles para controlar qué acciones pueden tomar las personas en tu organización. {% ifversion security-managers %}Por ejemplo, puedes asignar el rol de administrador de seguridad a un equipo para proporcionarles la capacidad de administrar la configuración de seguridad en toda la organización, así como el acceso de lectura a todos los repositorios.{% endif %} Para más información, consulta "[Roles en una organización](/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization)".
 
-Puedes utilizar niveles de permisos para controlar las acciones que las personas pueden tomar en tu organización. Para obtener más información, consulta ´la sección "[Niveles de permisos para una organización](/organizations/managing-peoples-access-to-your-organization-with-roles/permission-levels-for-an-organization)".
+{% ifversion fpt or ghes or ghec %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" or currentVersion == "github-ae@next" %}
+## Crear una política de seguridad predeterminada
 
-### Crear una política de seguridad predeterminada
-
-Puedes crear una política de seguridad predeterminada que se mostrará en cualquier repositorio público de tu organización que no tenga su propia política de seguridad. Para obtener más información, consulta "[Crear un archivo de salud predeterminado para la comunidad](/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)."
-
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %}
-### Administrar las {% data variables.product.prodname_dependabot_alerts %} y la gráfica de dependencias
-
-Predeterminadamente, {% data variables.product.prodname_dotcom %} detecta vulnerabilidades en repositorios públicos y genera {% data variables.product.prodname_dependabot_alerts %} y una gráfica de dependencias. Puedes habilitar o inhabilitar las {% data variables.product.prodname_dependabot_alerts %} y la gráfica de dependencias para todos los repositorios que pertenezcan a tu organización.
-
-1. Haz clic en tu foto de perfil y luego en **Organizaciones**.
-2. Haz clic en **Configuración** junto a tu organización.
-3. Haz clic en **Análisis & seguridad**.
-4. Haz clic en **Habilitar todo** o en **Inhabilitar todo** junto a la característica que quieras administrar.
-5. Opcionalmente, selecciona **Habilitar automáticamente para los repositorios nuevos**.
-
-Para obtener más información, consulta las secciones "[Acerca de las alertas para las dependencias vulnerables](/code-security/supply-chain-security/about-alerts-for-vulnerable-dependencies)," "[Explorar las dependencias de un repositorio](/code-security/supply-chain-security/exploring-the-dependencies-of-a-repository#enabling-and-disabling-the-dependency-graph-for-a-private-repository)," y "[Administrar la configuración de seguridad y análisis para tu organización](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)".
+Puedes crear una política de seguridad predeterminada que se mostrará en cualquier repositorio público de tu organización que no tenga su propia política de seguridad. Para más información, vea "[Creación de un archivo de estado de la comunidad predeterminado](/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)".
 
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" %}
+## Administrar las {% data variables.product.prodname_dependabot_alerts %} y la gráfica de dependencias
 
-### Administrar la revisión de dependencias
+{% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom %} detecta vulnerabilidades en repositorios públicos y muestra la gráfica de dependencias. Puedes habilitar las {% data variables.product.prodname_dependabot_alerts %} para todos los repositorios públicos que pertenezcan a tu organización. Puedes habilitar o inhabilitar las {% data variables.product.prodname_dependabot_alerts %} y la gráfica de dependencias para todos los repositorios privados que pertenezcan a tu organización.
 
-La revisión de dependencias te permite visualizar los cambios a las dependencias en las solicitudes de cambios antes de que se fusionen con tus repositorios. La revisión de dependencias se encuentra disponible en todos los repositorios públicos y en aquellos que pertenecen a organizaciones con una licencia de {% data variables.product.prodname_advanced_security %} y que tengan habilitada la gráfica de dependencias. Para obtener más información, consulta la sección "[Acerca de la revisión de dependencias](/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review)".
-
+1. Haga clic en la foto del perfil y después en **Organizaciones**.
+2. Haga clic en **Configuración** junto a la organización.
+3. Haga clic en **Seguridad y análisis**.
+4. Haga clic en **Habilitar todo** o **Deshabilitar todo** junto a la característica que quiera administrar.
+5. Opcionalmente, seleccione **Habilitar automáticamente para los nuevos repositorios**.
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-### Administrar las {% data variables.product.prodname_dependabot_security_updates %}
+{% data reusables.dependabot.dependabot-alerts-beta %} {% data reusables.dependabot.dependabot-alerts-dependency-graph-enterprise %}
+
+Para más información, vea "[Acerca de {% data variables.product.prodname_dependabot_alerts %}](/code-security/supply-chain-security/about-alerts-for-vulnerable-dependencies)", "[Exploración de las dependencias de un repositorio](/code-security/supply-chain-security/exploring-the-dependencies-of-a-repository#enabling-and-disabling-the-dependency-graph-for-a-private-repository)" y "[Administración de la configuración de seguridad y análisis de la organización](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)".
+
+## Administrar la revisión de dependencias
+
+La revisión de dependencias es una característica de {% data variables.product.prodname_advanced_security %} que te permite visualizar los cambios en las dependencias de las solicitudes de cambios antes de que se fusionen en tus repositorios. Para más información, vea "[Acerca de la revisión de dependencias](/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review)".
+
+{% ifversion fpt or ghec %}La revisión de dependencias ya se habilitó en todos los repositorios públicos. {% ifversion fpt %}Las organizaciones que utilizan {% data variables.product.prodname_ghe_cloud %} con {% data variables.product.prodname_advanced_security %} pueden habilitar la revisión de dependencias para repositorios internos y privados adicionalmente. Para más información, vea la [documentación de {% data variables.product.prodname_ghe_cloud %}](/enterprise-cloud@latest/code-security/getting-started/securing-your-organization#managing-dependency-review). {% endif %}{% endif %}{% ifversion ghec %}En el caso de los repositorios internos y privados que pertenezcan a una organización, puedes habilitar la revisión de dependencias si habilitas la gráfica de dependencias y después la {% data variables.product.prodname_advanced_security %} (ver a continuación). {% elsif ghes or ghae %}La revisión de dependencias está disponible cuando se habilita la gráfica de dependencias de {% data variables.location.product_location %} y, también, la {% data variables.product.prodname_advanced_security %} de la organización (consulta a continuación).{% endif %}
+
+{% ifversion fpt or ghec or ghes %}
+## Administrar las {% data variables.product.prodname_dependabot_security_updates %}
 
 En el caso de cualquier repositorio que utilice las {% data variables.product.prodname_dependabot_alerts %}, puedes habilitar las {% data variables.product.prodname_dependabot_security_updates %} para levantar solicitudes de cambio con actualizaciones de seguridad cuando se detectan las vulnerabilidades. También puedes habilitar o inhabilitar las {% data variables.product.prodname_dependabot_security_updates %} para todos los repositorios a lo largo de tu organización.
 
-1. Haz clic en tu foto de perfil y luego en **Organizaciones**.
-2. Haz clic en **Configuración** junto a tu organización.
-3. Haz clic en **Análisis & seguridad**.
-4. Haz clic en **Habilitar todas** or en **Inhabilitar todas** junto a {% data variables.product.prodname_dependabot_security_updates %}.
-5. Opcionalmente, selecciona **Habilitar automáticamente para los repositorios nuevos**.
+1. Haga clic en la foto del perfil y después en **Organizaciones**.
+2. Haga clic en **Configuración** junto a la organización.
+3. Haga clic en **Seguridad y análisis**.
+4. Haga clic en **Habilitar todo** o **Deshabilitar todo** junto a {% data variables.product.prodname_dependabot_security_updates %}.
+5. Opcionalmente, seleccione **Habilitar automáticamente para los nuevos repositorios**. 
 
-Para obtener más información, consulta las secciones "[Acerca de {% data variables.product.prodname_dependabot_security_updates %}](/code-security/supply-chain-security/about-dependabot-security-updates)" y "[Administrar la configuración de análisis y seguridad para tu organización](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)".
+Para más información, vea "[Acerca de {% data variables.product.prodname_dependabot_security_updates %}](/code-security/supply-chain-security/about-dependabot-security-updates)" y "[Administración de la configuración de seguridad y análisis para la organización](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)".
 
-### Administrar las {% data variables.product.prodname_dependabot_version_updates %}
+## Administrar las {% data variables.product.prodname_dependabot_version_updates %}
 
-Puedes habilitar el {% data variables.product.prodname_dependabot %} para levantar automáticamente las solicitudes de cambios para mantener tus dependencias actualizadas. Para obtener más información, consulta la sección "[Acerca de las {% data variables.product.prodname_dependabot_version_updates %}](/code-security/supply-chain-security/about-dependabot-version-updates)".
+Puedes habilitar el {% data variables.product.prodname_dependabot %} para levantar automáticamente las solicitudes de cambios para mantener tus dependencias actualizadas. Para más información, vea "[Acerca de {% data variables.product.prodname_dependabot_version_updates %}](/code-security/supply-chain-security/about-dependabot-version-updates)".
 
-Para habilitar las {% data variables.product.prodname_dependabot_version_updates %}, debes crear un archivo de configuración *dependabot.yml*. Para obtener más información, consulta la sección "[Habilitar e inhabilitar las actualizaciones de versión](/code-security/supply-chain-security/enabling-and-disabling-version-updates)".
-
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}
-### Admnistrar la {% data variables.product.prodname_GH_advanced_security %}
-
-Si tu organización cuenta con una licencia de {% data variables.product.prodname_advanced_security %}, puedes habilitar o inhabilitar las características de la {% data variables.product.prodname_advanced_security %}.
-
-1. Haz clic en tu foto de perfil y luego en **Organizaciones**.
-2. Haz clic en **Configuración** junto a tu organización.
-3. Haz clic en **Análisis & seguridad**.
-4. Haz clic en **Habilitar todas** or en **Inhabilitar todas** junto a {% data variables.product.prodname_GH_advanced_security %}.
-5. Opcionalmente, selecciona **Habilitar automáticamente para los repositorios privados nuevos**.
-
-Para obtener más información, consulta la sección "[Acerca de {% data variables.product.prodname_GH_advanced_security %}](/github/getting-started-with-github/about-github-advanced-security)" y "[Administrar la configuración de análisis y seguridad para tu organización](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)".
-
-### Configurar el {% data variables.product.prodname_secret_scanning %}
-{% data variables.product.prodname_secret_scanning_caps %} se encuentra disponible {% if currentVersion == "free-pro-team@latest" %}para todos los repositorios públicos, y en los repositorios privados que pertenezcan a las organizaciónes con {% else %}si tienes {% endif %}una licencia de {% data variables.product.prodname_advanced_security %}.
-
-Puedes habilitar o inhabilitar el {% data variables.product.prodname_secret_scanning %} para todos los repositorios a lo largo de tu organización que tengan habilitada la {% data variables.product.prodname_advanced_security %}.
-
-1. Haz clic en tu foto de perfil y luego en **Organizaciones**.
-2. Haz clic en **Configuración** junto a tu organización.
-3. Haz clic en **Análisis & seguridad**.
-4. Haz clic en **Habilitar todo** o en **Inhabilitar todo** junto a {% data variables.product.prodname_secret_scanning_caps %} (solo para repositorios de la {% data variables.product.prodname_GH_advanced_security %}).
-5. Opcionalmente, selecciona **Habilitar automáticamente para los repositorios privados que se agregan a la {% data variables.product.prodname_advanced_security %}**.
-
-Para obtener más información, consulta la sección "[Administrar la configuración de seguridad y análisis para tu organización](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)".
+Para habilitar {% data variables.product.prodname_dependabot_version_updates %}, debe crear un archivo de configuración *dependabot.yml*. Para más información, vea "[Configuración de las actualizaciones de la versión de {% data variables.product.prodname_dependabot %}](/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/enabling-and-disabling-dependabot-version-updates)".
 
 {% endif %}
 
-### Pasos siguientes
-{% if currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@next" %}Puedes visualizar, filtrar y clasificar las alertas de seguridad para los repositorios que pertenecen a tu organización en el resumen de seguridad. Para obtener más información, consulta la sección "[Explorar las alertas de seguridad](/code-security/security-overview/exploring-security-alerts)".{% endif %}
+{% ifversion ghes or ghae or ghec %}
+## Admnistrar la {% data variables.product.prodname_GH_advanced_security %}
 
-Puedes ver y administrar las alertas de las características de seguridad para abordar dependencias y vulnerabilidades en tu código. Para obtener más información, consulta las secciones {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %} "[Visualizar y actualziar las dependencias vulnerables de tu repositorio](/code-security/supply-chain-security/viewing-and-updating-vulnerable-dependencies-in-your-repository),"{% endif %} {% if currentVersion == "free-pro-team@latest" %}"[Administrar las solicitudes de cambio para las actualizaciones de las dependencias](/code-security/supply-chain-security/managing-pull-requests-for-dependency-updates)," {% endif %}"[Administrar el {% data variables.product.prodname_code_scanning %} para tu repositorio](/code-security/secure-coding/managing-code-scanning-alerts-for-your-repository)," y "[Administrar las alertas de {% data variables.product.prodname_secret_scanning %}](/code-security/secret-security/managing-alerts-from-secret-scanning)".
-
-{% if currentVersion == "free-pro-team@latest" %}Si tienes una vulnerabilidad de seguridad, puedes crear una asesoría de seguridad para debatir y resolver dicha vulnerabilidad en privado. Para obtener más información, consulta las secciones "[Acerca de {% data variables.product.prodname_security_advisories %}](/code-security/security-advisories/about-github-security-advisories)" y "[Crear una asesoría de seguridad](/code-security/security-advisories/creating-a-security-advisory)".
+{% ifversion ghes or ghec %} Si la {% ifversion ghec %}organización es propiedad de una empresa que{% else %}empresa{% endif %} tiene una licencia de {% data variables.product.prodname_advanced_security %}, puede habilitar o deshabilitar características de{% data variables.product.prodname_advanced_security %}.
+{% elsif ghae %} Puede habilitar o deshabilitar características de {% data variables.product.prodname_advanced_security %}.
 {% endif %}
+
+1. Haga clic en la foto del perfil y después en **Organizaciones**.
+2. Haga clic en **Configuración** junto a la organización.
+3. Haga clic en **Seguridad y análisis**.
+4. Haga clic en **Habilitar todo** o **Deshabilitar todo** junto a {% data variables.product.prodname_GH_advanced_security %}.
+5. Opcionalmente, seleccione **Habilitar automáticamente para los nuevos repositorios privados**. 
+
+Para más información, vea "[Acerca de {% data variables.product.prodname_GH_advanced_security %}](/github/getting-started-with-github/about-github-advanced-security)" y "[Administración de la configuración de seguridad y análisis para la organización](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)".
+{% endif %}
+## Configurar el {% data variables.product.prodname_secret_scanning %}
+
+Las {% data variables.product.prodname_secret_scanning_caps %} son una característica de la {% data variables.product.prodname_advanced_security %} que escanea los repositorios en busca de secretos que se hayan almacenado de forma no segura.
+
+{% ifversion fpt or ghec %}Las {% data variables.product.prodname_secret_scanning_caps %} ya se encuentran habilitadas en todos los repositorios públicos. Las organizaciones que usan {% data variables.product.prodname_ghe_cloud %} con {% data variables.product.prodname_advanced_security %} además pueden habilitar {% data variables.product.prodname_secret_scanning %} para repositorios privados e internos.{% endif %} {% ifversion fpt %}Para más información, vea la [documentación de {% data variables.product.prodname_ghe_cloud %}](/enterprise-cloud@latest/code-security/getting-started/securing-your-organization#configuring-secret-scanning). {% endif %}
+
+{% ifversion ghes or ghae %}Las {% data variables.product.prodname_secret_scanning_caps %} se encuentran disponibles si tu empresa utiliza la {% data variables.product.prodname_advanced_security %}.{% endif %}
+
+{% ifversion not fpt %} Puede habilitar o deshabilitar {% data variables.product.prodname_secret_scanning %} para todos los repositorios de la organización que tengan {% data variables.product.prodname_advanced_security %} habilitado.
+
+1. Haga clic en la foto del perfil y después en **Organizaciones**.
+2. Haga clic en **Configuración** junto a la organización.
+3. Haga clic en **Seguridad y análisis**.
+4. Haga clic en **Habilitar todo** o **Deshabilitar todo** junto a {% data variables.product.prodname_secret_scanning_caps %} ({% data variables.product.prodname_GH_advanced_security %} repositories only).
+5. Opcionalmente, seleccione **Habilitar automáticamente para los repositorios privados agregados a {% data variables.product.prodname_advanced_security %}** . 
+
+Para más información, vea "[Administración de la configuración de seguridad y análisis para la organización](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)".
+{% endif %}
+
+## Configuración de {% data variables.product.prodname_code_scanning %}
+
+El {% data variables.product.prodname_code_scanning_capc %} es una característica de {% data variables.product.prodname_advanced_security %} que analiza el código en busca de vulnerabilidades y errores.
+
+{% ifversion fpt or ghec %}El {% data variables.product.prodname_code_scanning_capc %} se encuentra disponible para todos los repositorios públicos. Las organizaciones que utilizan {% data variables.product.prodname_ghe_cloud %} con {% data variables.product.prodname_advanced_security %} pueden utilizar adicionalmente el {% data variables.product.prodname_code_scanning %} para los repositorios privados e internos.{% else %}{% data variables.product.prodname_code_scanning_capc %} está disponible si tu empres autiliza {% data variables.product.prodname_advanced_security %}.{% endif %}
+
+El {% data variables.product.prodname_code_scanning_capc %} se configura a nivel de repositorio. Para más información, vea "[Configuración de {% data variables.product.prodname_code_scanning %} para un repositorio](/code-security/secure-coding/setting-up-code-scanning-for-a-repository)".
+
+## Pasos siguientes
+Puedes ver y administrar las alertas de las características de seguridad para abordar dependencias y vulnerabilidades en tu código. Para obtener más información, consulta {% ifversion fpt or ghes or ghec %} "[Visualización y actualización de {% data variables.product.prodname_dependabot_alerts %}](/code-security/dependabot/dependabot-alerts/viewing-and-updating-dependabot-alerts)",{% endif %} {% ifversion fpt or ghec or ghes %}"[Administración de solicitudes de incorporación de cambios para actualizaciones de dependencias](/code-security/supply-chain-security/managing-pull-requests-for-dependency-updates)", {% endif %}"[Administración de {% data variables.product.prodname_code_scanning %} para el repositorio](/code-security/secure-coding/managing-code-scanning-alerts-for-your-repository)" y "[Administración de alertas de {% data variables.product.prodname_secret_scanning %}](/code-security/secret-security/managing-alerts-from-secret-scanning)".
+
+{% ifversion fpt or ghec %}Si tienes una vulnerabilidad de seguridad, puedes crear una asesoría de seguridad para debatir y resolver dicha vulnerabilidad en privado. Para más información, vea "[Acerca de {% data variables.product.prodname_security_advisories %}](/code-security/security-advisories/about-github-security-advisories)" y "[Creación de un aviso de seguridad](/code-security/security-advisories/creating-a-security-advisory)".
+{% endif %}
+
+{% ifversion ghes or ghec or ghae %}Tú puedes{% elsif fpt %}Las organizaciones que utilizan pueden{% data variables.product.prodname_ghe_cloud %}{% endif %} visualizar, filtrar y ordenar las alertas de seguridad de los repositorios {% ifversion ghes or ghec or ghae %}de tu{% elsif fpt %}de su{% endif %} organización en la información general sobre seguridad. Para obtener más información, consulta {% ifversion ghes or ghec or ghae %} "[Acerca de la información general sobre seguridad](/code-security/security-overview/about-the-security-overview)."{% elsif fpt %} "[Acerca de la información general sobre seguridad](/enterprise-cloud@latest/code-security/security-overview/about-the-security-overview)" en la documentación de {% data variables.product.prodname_ghe_cloud %}.{% endif %}
+
+{% ifversion ghec %}
+## Información adicional
+
+"[Acceso a los informes de cumplimiento de la organización](/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/accessing-compliance-reports-for-your-organization)" {% endif %}

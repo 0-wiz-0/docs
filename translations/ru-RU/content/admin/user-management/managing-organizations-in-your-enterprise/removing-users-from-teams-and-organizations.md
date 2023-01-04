@@ -1,49 +1,60 @@
 ---
-title: Removing users from teams and organizations
-intro: 'If a member of your organization no longer requires access to certain repositories, you can remove them from the team that allows that access. If a member of your organization no longer requires access to any repositories owned by the organization, you can remove them from the organization.'
+title: Удаление пользователей из команд и организаций
+intro: 'Если участнику вашей организации больше не требуется доступ к определенным репозиториям, их можно удалить из команды, которая разрешает доступ. Если участнику организации больше не требуется доступ к репозиториям, принадлежащим организации, можно удалить их из организации.'
 redirect_from:
   - /enterprise/admin/user-management/removing-users-from-teams-and-organizations
   - /admin/user-management/removing-users-from-teams-and-organizations
 versions:
-  enterprise-server: '*'
+  ghes: '*'
+  ghae: '*'
 type: how_to
 topics:
   - Access management
   - Accounts
   - Enterprise
   - Teams
+shortTitle: Remove user membership
+ms.openlocfilehash: 575cc032786b2bbbf264104002f503b5061df8e6
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145116296'
 ---
-
-Only owners or team admins can remove organization members. When a user is removed from a team or organization, their issues, pull requests, and comments in the organization's repositories remain intact and are still attributed to the user.
-
-{% warning %}
-
-**Warning**: When you remove a user from an organization, they will lose access to any private forks they have of your organization's **private repositories**. They may still have local copies of those forks. However, they will be unable to sync them with your organization's repositories. You are responsible for ensuring that people who have lost access to a repository delete any confidential information or intellectual property. If the user removed from your organization was an organization member, their access to private forks of organization repositories can be restored if the user is [reinstated as an organization member](/articles/reinstating-a-former-member-of-your-organization) within three months of being removed from an organization.
-
-{% endwarning %}
-
-### Removing a team member
+Удалять членов организации могут только владельцы или администраторы команды. Когда пользователь удаляется из команды или организации, их проблемы, запросы на вытягивание и комментарии в репозиториях организации остаются неизменными и по-прежнему приписываются пользователю.
 
 {% warning %}
 
-**Note:** {% data reusables.enterprise_management_console.badge_indicator %}
-
-To remove an existing member of a team synced to an LDAP group, contact your LDAP administrator.
+**Предупреждение.** При удалении из организации пользователь потеряет доступ к частным вилкам, которые у него есть в **частных репозиториях** организации. У него по-прежнему могут быть локальные копии этих вилок. Однако он не сможет синхронизировать их с репозиториями организации. Вы несете ответственность за то, чтобы пользователи, которые потеряли доступ к репозиторию, удалили любую конфиденциальную информацию или интеллектуальную собственность. Если пользователь, удаленный из организации, был членом организации, его доступ к частным вилкам репозиториев организации можно восстановить при условии, что пользователь [восстановлен в качестве члена организации](/articles/reinstating-a-former-member-of-your-organization) в течение трех месяцев после удаления из организации.
 
 {% endwarning %}
 
-{% data reusables.profile.access_org %}
-{% data reusables.user_settings.access_org %}
-{% data reusables.organizations.specific_team %}
-4. Select the person or people you'd like to remove. ![Check box next to organization member](/assets/images/help/teams/team-member-check-box.png)
-5. Above the list of team members, use the drop-down menu and click **Remove from team**. ![Drop-down menu with option to change role](/assets/images/help/teams/bulk-edit-drop-down.png)
+## Удаление члена команды
 
-### Removing a user from an organization
+{% ifversion ghes %}
 
-{% data reusables.profile.access_org %}
-{% data reusables.user_settings.access_org %}
-{% data reusables.organizations.people %}
-4. Next to the name of the users you want to remove from the organization, click the check box. ![Remove user checkbox](/assets/images/help/organizations/Organization-remove-user.png)
-5. At the top of the page, under the organization name, click **Remove from organization**. ![Remove from organization button](/assets/images/help/organizations/Organization-remove-from-organization-button.png)
+{% warning %}
+
+**Примечание.** {% data reusables.enterprise_management_console.badge_indicator %}
+
+Чтобы удалить существующего члена команды, синхронизированной с группой LDAP, обратитесь к администратору LDAP.
+
+{% endwarning %}
+
+{% endif %}
+
+{% data reusables.profile.access_org %} {% data reusables.user-settings.access_org %} {% data reusables.organizations.specific_team %}
+4. Выберите одного или нескольких пользователей, которых нужно удалить.
+![Флажок рядом с членом организации](/assets/images/help/teams/team-member-check-box.png)
+5. Над списком членов группы используйте раскрывающееся меню и нажмите щелкните **Удалить из команды**.
+![Раскрывающееся меню с параметром для изменения роли](/assets/images/help/teams/bulk-edit-drop-down.png)
+
+## Удаление пользователя из организации
+
+{% data reusables.profile.access_org %} {% data reusables.user-settings.access_org %} {% data reusables.organizations.people %}
+4. Рядом с именами пользователей, которых вы хотите удалить из организации, установите флажок.
+![Флажок удаления пользователя](/assets/images/help/organizations/Organization-remove-user.png)
+5. В верхней части страницы под именем организации нажмите кнопку **Удалить из организации**.
+![Кнопка "Удалить из организации"](/assets/images/help/organizations/Organization-remove-from-organization-button.png)
 
 {% data reusables.organizations.data_saved_for_reinstating_a_former_org_member %}

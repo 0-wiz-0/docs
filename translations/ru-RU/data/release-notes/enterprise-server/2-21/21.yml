@@ -1,15 +1,15 @@
----
 date: '2021-05-13'
 sections:
   security_fixes:
-    - Packages have been updated to the latest security versions.
+    - Пакеты обновлены до последних версий систем безопасности.
   bugs:
-    - Orchestrator auto failover could be enabled during the phase of config apply.
-    - Users with maintainer permissions to a repository were shown an e-mail verification warning instead of a successful page build on the repository Pages settings page.
+    - Автоматическую отработку отказа оркестратора можно включить на этапе применения конфигурации.
+    - Пользователи с разрешениями ответственного за обслуживание для репозитория видят предупреждение о проверке электронной почты вместо успешной сборки страницы на странице параметров Pages репозитория.
   known_issues:
-    - On a freshly set up GitHub Enterprise Server without any users, an attacker could create the first admin user.
-    - Custom firewall rules are not maintained during an upgrade.
-    - Git LFS tracked files [uploaded through the web interface](https://github.com/blog/2105-upload-files-to-your-repositories) are incorrectly added directly to the repository.
-    - Issues cannot be closed if they contain a permalink to a blob in the same repository where the file path is longer than 255 characters.
-    - When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results.
-    - Security alerts are not reported when pushing to a repository on the command line.
+    - "Злоумышленник мог создать первого пользователя с правами администратора на новом, только что настроенном сервере, не имеющем пользователей."
+    - Пользовательские правила брандмауэра не сохраняются в процессе обновления.
+    - "Отслеживаемые файлы Git LFS, [отправленные через веб-интерфейс](https://github.com/blog/2105-upload-files-to-your-repositories), ошибочно добавлялись напрямую в репозиторий."
+    - "Проблемы нельзя закрыть, если они содержат постоянную ссылку на большой двоичный объект в том же репозитории, где путь файла содержит более 255 символов."
+    - "Когда в GitHub Connect включен параметр \"Пользователи могут выполнять поиск на GitHub.com\", результаты поиска на GitHub.com не включают проблемы в частных и внутренних репозиториях."
+    - Пакеты обновлены до последних версий систем безопасности.
+    - 'Если узел реплики находится в автономном режиме в конфигурации высокой доступности, {% data variables.product.product_name %} по-прежнему может маршрутизировать запросы {% data variables.product.prodname_pages %} на узел в автономном режиме, снижая доступность {% data variables.product.prodname_pages %} для пользователей.'

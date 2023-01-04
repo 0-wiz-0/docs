@@ -1,82 +1,89 @@
 ---
-title: Handling new purchases and free trials
-intro: 'When a customer purchases a paid plan, free trial, or the free version of your {% data variables.product.prodname_marketplace %} app, you''ll receive the [`marketplace_purchase` event](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events) webhook with the `purchased` action, which kicks off the purchasing flow.'
+title: Обработка новых покупок и бесплатных пробных версий
+intro: 'Когда клиент приобретает платный план, бесплатную пробную версию или бесплатную версию приложения {% data variables.product.prodname_marketplace %}, вы получите веб-перехватчик [`marketplace_purchase` события](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events) с действием `purchased`, которое запускает поток приобретения.'
 redirect_from:
-  - /apps/marketplace/administering-listing-plans-and-user-accounts/supporting-purchase-plans-for-github-apps/
-  - /apps/marketplace/administering-listing-plans-and-user-accounts/supporting-purchase-plans-for-oauth-apps/
-  - /apps/marketplace/integrating-with-the-github-marketplace-api/handling-new-purchases-and-free-trials/
+  - /apps/marketplace/administering-listing-plans-and-user-accounts/supporting-purchase-plans-for-github-apps
+  - /apps/marketplace/administering-listing-plans-and-user-accounts/supporting-purchase-plans-for-oauth-apps
+  - /apps/marketplace/integrating-with-the-github-marketplace-api/handling-new-purchases-and-free-trials
   - /marketplace/integrating-with-the-github-marketplace-api/handling-new-purchases-and-free-trials
   - /developers/github-marketplace/handling-new-purchases-and-free-trials
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+shortTitle: New purchases & free trials
+ms.openlocfilehash: b0c1cf055d912cd83e2167bfcbd0136a2644b1aa
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145089626'
 ---
-
 {% warning %}
 
-If you offer a {% data variables.product.prodname_github_app %} in {% data variables.product.prodname_marketplace %}, your app must identify users following the OAuth authorization flow. You don't need to set up a separate {% data variables.product.prodname_oauth_app %} to support this flow. See "[Identifying and authorizing users for {% data variables.product.prodname_github_apps %}](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/)" for more information.
+Если вы предлагаете {% data variables.product.prodname_github_app %} в {% data variables.product.prodname_marketplace %}, приложение должно идентифицировать пользователей в соответствии с процессом авторизации OAuth. Для поддержки этого процесса настраивать отдельное {% data variables.product.prodname_oauth_app %} не нужно. Дополнительные сведения см. в разделе [Определение и авторизация пользователей для {% data variables.product.prodname_github_apps %}](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/).
 
 {% endwarning %}
 
-### Step 1. Initial purchase and webhook event
+## Шаг 1. Начальная покупка и событие веб-перехватчика
 
-Before a customer purchases your {% data variables.product.prodname_marketplace %} app, they select a [listing plan](/marketplace/selling-your-app/github-marketplace-pricing-plans/). They also choose whether to purchase the app from their personal account or an organization account.
+Прежде чем приобретать ваше приложение {% data variables.product.prodname_marketplace %}, клиент выбирает [план профиля](/marketplace/selling-your-app/github-marketplace-pricing-plans/). Он также выбирает, должно ли приложение приобретаться из личной учетной записи или учетной записи организации.
 
-The customer completes the purchase by clicking **Complete order and begin installation**.
+Чтобы завершить покупку, клиент нажимает кнопку **Оформить заказ и начать установку**.
 
-{% data variables.product.product_name %} then sends the [`marketplace_purchase`](/webhooks/event-payloads/#marketplace_purchase) webhook with the `purchased` action to your app.
+Затем {% data variables.product.product_name %} отправляет в ваше приложение веб-перехватчик [`marketplace_purchase`](/webhooks/event-payloads/#marketplace_purchase) с действием `purchased`.
 
-Read the `effective_date` and `marketplace_purchase` object from the `marketplace_purchase` webhook to determine which plan the customer purchased, when the billing cycle starts, and when the next billing cycle begins.
+Чтобы определить, какой план приобрел клиент и когда начинается выставление счетов, в том числе его следующий период, прочитайте объекты `effective_date` и `marketplace_purchase` из веб-перехватчика `marketplace_purchase`.
 
-If your app offers a free trial, read the `marketplace_purchase[on_free_trial]` attribute from the webhook. If the value is `true`, your app will need to track the free trial start date (`effective_date`) and the date the free trial ends (`free_trial_ends_on`). Use the `free_trial_ends_on` date to display the remaining days left in a free trial in your app's UI. You can do this in either a banner or in your [billing UI](/marketplace/selling-your-app/billing-customers-in-github-marketplace/#providing-billing-services-in-your-apps-ui). To learn how to handle cancellations before a free trial ends, see "[Handling plan cancellations](/developers/github-marketplace/handling-plan-cancellations)." See "[Handling plan changes](/developers/github-marketplace/handling-plan-changes)" to find out how to transition a free trial to a paid plan when a free trial expires.
+Если предлагается бесплатная пробная версия приложения, прочитайте атрибут `marketplace_purchase[on_free_trial]` веб-перехватчика. Если значение равно `true`, приложение должно отслеживать дату начала (`effective_date`) и окончания (`free_trial_ends_on`) бесплатного пробного периода. Используйте дату `free_trial_ends_on` для отображения количества дней до конца бесплатного пробного периода в пользовательском интерфейсе приложения. Это можно делать в баннере или в [пользовательском интерфейсе выставления счетов](/marketplace/selling-your-app/billing-customers-in-github-marketplace/#providing-billing-services-in-your-apps-ui). Сведения об обработке досрочной отмены бесплатного пробного периода см. в разделе [Обработка отмены плана](/developers/github-marketplace/handling-plan-cancellations). Чтобы узнать, как перейти на платный план по завершении бесплатного пробного периода, см. раздел [Обработка изменений плана](/developers/github-marketplace/handling-plan-changes).
 
-See "[{% data variables.product.prodname_marketplace %} webhook events](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/)" for an example of the `marketplace_purchase` event payload.
+Пример полезных данных `marketplace_purchase` см. в разделе [{% data variables.product.prodname_marketplace %}](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/).
 
-### Step 2. Установка
+## Шаг 2. Установка
 
-If your app is a {% data variables.product.prodname_github_app %}, {% data variables.product.product_name %} prompts the customer to select which repositories the app can access when they purchase it. {% data variables.product.product_name %} then installs the app on the account the customer selected  and grants access to the selected repositories.
+Если у вас {% data variables.product.prodname_github_app %}, при его приобретении {% data variables.product.product_name %} предлагает клиенту выбрать репозитории, к которым приложение будет иметь доступ. Затем {% data variables.product.product_name %} устанавливает приложение в выбранной клиентом учетной записи и предоставляет доступ к выбранным репозиториям.
 
-At this point, if you specified a **Setup URL** in your {% data variables.product.prodname_github_app %} settings, {% data variables.product.product_name %} will redirect the customer to that URL. If you do not specify a setup URL, you will not be able to handle purchases of your {% data variables.product.prodname_github_app %}.
-
-{% note %}
-
-**Note:** The **Setup URL** is described as optional in {% data variables.product.prodname_github_app %} settings, but it is a required field if you want to offer your app in {% data variables.product.prodname_marketplace %}.
-
-{% endnote %}
-
-If your app is an {% data variables.product.prodname_oauth_app %}, {% data variables.product.product_name %} does not install it anywhere. Instead, {% data variables.product.product_name %} redirects the customer to the **Installation URL** you specified in your [{% data variables.product.prodname_marketplace %} listing](/marketplace/listing-on-github-marketplace/writing-github-marketplace-listing-descriptions/#listing-urls).
-
-When a customer purchases an {% data variables.product.prodname_oauth_app %}, {% data variables.product.product_name %} redirects the customer to the URL you choose (either Setup URL or Installation URL) and the URL includes the customer's selected pricing plan as a query parameter: `marketplace_listing_plan_id`.
-
-### Step 3. Authorization
-
-When a customer purchases your app, you must send the customer through the OAuth authorization flow:
-
-* If your app is a {% data variables.product.prodname_github_app %}, begin the authorization flow as soon as {% data variables.product.product_name %} redirects the customer to the **Setup URL**. Follow the steps in "[Identifying and authorizing users for {% data variables.product.prodname_github_apps %}](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/)."
-
-* If your app is an {% data variables.product.prodname_oauth_app %}, begin the authorization flow as soon as {% data variables.product.product_name %} redirects the customer to the **Installation URL**. Follow the steps in "[Authorizing {% data variables.product.prodname_oauth_apps %}](/apps/building-oauth-apps/authorizing-oauth-apps/)."
-
-For either type of app, the first step is to redirect the customer to https://github.com/login/oauth/authorize.
-
-After the customer completes the authorization, your app receives an OAuth access token for the customer. You'll need this token for the next step.
+На этом этапе, если в параметрах {% data variables.product.prodname_github_app %} указан **URL-адрес настройки**, {% data variables.product.product_name %} перенаправит клиента на него. Если URL-адрес настройки не указан, вы не сможете обрабатывать покупки {% data variables.product.prodname_github_app %}.
 
 {% note %}
 
-**Note:** When authorizing a customer on a free trial, grant them the same access they would have on the paid plan.  You'll move them to the paid plan after the trial period ends.
+**Примечание**. **URL-адрес настройки** описывается как необязательный в параметрах {% data variables.product.prodname_github_app %}, но это обязательное поле, если вы хотите предлагать приложение в {% data variables.product.prodname_marketplace %}.
 
 {% endnote %}
 
-### Step 4. Provisioning customer accounts
+Если у вас {% data variables.product.prodname_oauth_app %}, {% data variables.product.product_name %} не устанавливает его нигде. Вместо этого {% data variables.product.product_name %} перенаправляет клиента на **URL-адрес установки**, указанный в [профиле в {% data variables.product.prodname_marketplace %}](/marketplace/listing-on-github-marketplace/writing-github-marketplace-listing-descriptions/#listing-urls).
 
-Your app must provision a customer account for all new purchases. Using the access token you received for the customer in [Step 3. Authorization](#step-3-authorization), call the "[List subscriptions for the authenticated user](/rest/reference/apps#list-subscriptions-for-the-authenticated-user)" endpoint. The response will include the customer's `account` information and show whether they are on a free trial (`on_free_trial`). Use this information to complete setup and provisioning.
+Когда клиент приобретает {% data variables.product.prodname_oauth_app %}, {% data variables.product.product_name %} перенаправляет его на выбранный вами URL-адрес (настройки или установки), в который выбранный клиентом ценовой план включен в качестве параметра запроса: `marketplace_listing_plan_id`.
+
+## Шаг 3. Авторизация
+
+Когда клиент приобретает ваше приложение, необходимо провести клиента через процесс авторизации OAuth.
+
+* Если у вас {% data variables.product.prodname_github_app %}, начните процесс авторизации сразу после того, как {% data variables.product.product_name %} перенаправит клиента на **URL-адрес настройки**. Выполните инструкции из раздела [Определение и авторизация пользователей для {% data variables.product.prodname_github_apps %}](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/).
+
+* Если у вас {% data variables.product.prodname_oauth_app %}, начните процесс авторизации сразу после того, как {% data variables.product.product_name %} перенаправит клиента на **URL-адрес установки**. Выполните инструкции из раздела [Авторизация {% data variables.product.prodname_oauth_apps %}](/apps/building-oauth-apps/authorizing-oauth-apps/).
+
+Для любого типа приложения первым шагом является перенаправление клиента на страницу [https://github.com/login/oauth/authorize](https://github.com/login/oauth/authorize).
+
+После того как клиент завершит авторизацию, приложение получит маркер доступа OAuth для него. Он потребуется для выполнения следующего шага.
+
+{% note %}
+
+**Примечание**. При авторизации клиента в бесплатной пробной версии предоставьте ему тот же уровень доступа, который был бы у него в платном плане.  Вы переведете его на платный план после окончания пробного периода.
+
+{% endnote %}
+
+## Шаг 4. Подготовка учетных записей клиентов
+
+Для каждой новой покупки в приложении должна подготавливаться учетная запись клиента. Используя маркер доступа, полученный для клиента на шаге 3 [Авторизация](#step-3-authorization), вызовите конечную точку [получения списка подписок для пользователя, прошедшего проверку подлинности](/rest/reference/apps#list-subscriptions-for-the-authenticated-user). Ответ будет содержать сведения об учетной записи (`account`) клиента и о том, использует ли он бесплатную пробную версию (`on_free_trial`). Используйте эти сведения для завершения настройки и подготовки.
 
 {% data reusables.marketplace.marketplace-double-purchases %}
 
-If the purchase is for an organization and per-user, you can prompt the customer to choose which organization members will have access to the purchased app.
+Если покупка предназначена для организации и оплачивается по модели "на пользователя", вы можете предложить клиенту выбрать сотрудников организации, у которых будет доступ к приобретенному приложению.
 
-You can customize the way that organization members receive access to your app. Here are a few suggestions:
+Вы можете настроить способ получения сотрудниками организации доступа к приложению. Вот несколько рекомендаций:
 
-**Flat-rate pricing:** If the purchase is made for an organization using flat-rate pricing, your app can [get all the organization’s members](/rest/reference/orgs#list-organization-members) via the API and prompt the organization admin to choose which members will have paid users on the integrator side.
+**Фиксированные расценки**. Если покупка совершается для организации с использованием фиксированных расценок, ваше приложение может [получить список всех сотрудников организации](/rest/reference/orgs#list-organization-members) через API и предложить администратору организации выбрать тех из них, для кого будут оплачиваться учетные записи на стороне интегратора.
 
-**Per-unit pricing:** One method of provisioning per-unit seats is to allow users to occupy a seat as they log in to the app. Once the customer hits the seat count threshold, your app can alert the user that they need to upgrade through {% data variables.product.prodname_marketplace %}.
+**Расценки за единицу**. Один из способов подготовки рабочих мест с оплатой за единицу — разрешить пользователям занимать рабочие места при входе в приложение. Когда клиент достигнет максимального числа рабочих мест, ваше приложение может предупредить его о необходимости повысить уровень через {% data variables.product.prodname_marketplace %}.

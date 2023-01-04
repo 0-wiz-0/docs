@@ -1,33 +1,38 @@
 ---
-title: About GitHub Education for educators and researchers
-intro: '{% data variables.product.prodname_education %} offers a variety of tools to help educators and researchers work more effectively inside and outside of the classroom.'
+title: Сведения о GitHub Education для преподавателей и исследователей
+intro: '{% data variables.product.prodname_education %} предлагает разнообразные инструменты, которые помогают преподавателям и исследователям эффективнее работать как в аудитории, так и за ее пределами.'
 redirect_from:
-  - /education/teach-and-learn-with-github-education/about-github-education-for-educators-and-researchers
-  - /github/teaching-and-learning-with-github-education/about-github-education-for-educators-and-researchers
-  - /articles/about-github-education-for-educators-and-researchers
-  - /education/explore-the-benefits-of-teaching-and-learning-with-github-education/about-github-education-for-educators-and-researchers
+- /education/teach-and-learn-with-github-education/about-github-education-for-educators-and-researchers
+- /github/teaching-and-learning-with-github-education/about-github-education-for-educators-and-researchers
+- /articles/about-github-education-for-educators-and-researchers
+- /education/explore-the-benefits-of-teaching-and-learning-with-github-education/about-github-education-for-educators-and-researchers
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: Educators & researchers
+ms.openlocfilehash: 3519a2b504f557afb51fc0e44b89a716f8fedfae
+ms.sourcegitcommit: da73949b8f8bd71d40247f1f9c49f8f4c362ecd0
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 07/28/2022
+ms.locfileid: "147432123"
 ---
-
 {% data reusables.education.about-github-education-link %}
 
-### {% data variables.product.prodname_education %} for educators
+## <a name="-data-variablesproductprodname_education--for-educators"></a>{% data variables.product.prodname_education %} for educators
 
-With {% data variables.product.prodname_education %}'s tools and services for educators of all levels, you can:
-  - Use [{% data variables.product.prodname_classroom %}](https://classroom.github.com) to distribute code, give students feedback, and collect assignments on {% data variables.product.prodname_dotcom %}.
-  - Join our [{% data variables.product.prodname_education_community %}](https://education.github.com/forum) to discuss current trends in technology education with your peers from around the world.
-  - Access and adapt our [open source lesson plans](https://education.github.community/t/open-source-lesson-plans/1591) for teaching Git and {% data variables.product.prodname_dotcom %}.
-  - [Request a {% data variables.product.prodname_dotcom %} swag bag](https://education.github.community/t/get-a-github-swag-bag-for-your-classroom/33) with educational materials and goodies for your students.
+С помощью инструментов и служб {% data variables.product.prodname_education %} для преподавателей всех уровней можно выполнить следующие действия:
+  - Используйте [{% data variables.product.prodname_classroom %}](https://classroom.github.com) для распространения кода, предоставления учащимся обратной связи и сбора назначений в {% data variables.product.prodname_dotcom %}.
+  - Присоединяйтесь к нашему [{% data variables.product.prodname_education_community %}](https://github.com/orgs/community/discussions/categories/github-education), чтобы обсудить текущие тенденции в области обучения технологиями со своими коллегами по всему миру.
+  - [Запросите контейнер данных {% data variables.product.prodname_dotcom %}](https://github.com/orgs/community/discussions/13) с учебными материалами и товарами для учащихся.
   {% data reusables.education.apply-for-team %}
 
-### {% data variables.product.prodname_education %} for researchers
+## <a name="-data-variablesproductprodname_education--for-researchers"></a>{% data variables.product.prodname_education %} for researchers
 
-With {% data variables.product.prodname_education %}'s tools and services for researchers, you can:
-  - Collaborate with others on your research work around the world on {% data variables.product.prodname_dotcom %}.
-  - [Learn](https://education.github.com/stories) how academic institutions around the world are using {% data variables.product.prodname_dotcom %} for their research.
+С помощью инструментов и служб {% data variables.product.prodname_education %} для исследователей можно выполнить следующие действия:
+  - Совместная работа с другими пользователями по всему миру над {% data variables.product.prodname_dotcom %}.
+  - [Узнайте](https://education.github.com/stories), как образовательные учреждения по всему миру используют {% data variables.product.prodname_dotcom %} для своих исследований.
   {% data reusables.education.apply-for-team %}
 
-### Дополнительная литература
+## <a name="further-reading"></a>Дополнительные материалы
 
-- "[About {% data variables.product.prodname_education %} for students](/articles/about-github-education-for-students)"
+- [Сведения о {% data variables.product.prodname_education %} для учащихся](/articles/about-github-education-for-students)

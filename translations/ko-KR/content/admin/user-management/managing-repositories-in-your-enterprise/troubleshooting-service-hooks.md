@@ -1,42 +1,53 @@
 ---
-title: Troubleshooting service hooks
-intro: 'If payloads aren''t being delivered, check for these common problems.'
+title: 서비스 후크 문제 해결
+intro: 페이로드가 배달되지 않는 경우 이러한 일반적인 문제를 확인합니다.
 redirect_from:
-  - /enterprise/admin/articles/troubleshooting-service-hooks/
+  - /enterprise/admin/articles/troubleshooting-service-hooks
   - /enterprise/admin/developer-workflow/troubleshooting-service-hooks
   - /enterprise/admin/user-management/troubleshooting-service-hooks
   - /admin/user-management/troubleshooting-service-hooks
 versions:
-  enterprise-server: '*'
-  github-ae: '*'
+  ghes: '*'
+  ghae: '*'
 topics:
   - Enterprise
+shortTitle: Troubleshoot service hooks
+ms.openlocfilehash: 224a0071d87407f9f6bb15ababbdb0c7171f8799
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145116279'
 ---
+## 배달에 대한 정보 가져오기
 
-### Getting information on deliveries
-
-You can find information for the last response of all service hooks deliveries on any repository.
-
-{% data reusables.enterprise_site_admin_settings.access-settings %}
-2. Browse to the repository you're investigating.
-3. Click on the **Hooks** link in the navigation sidebar. ![Hooks Sidebar](/assets/images/enterprise/settings/Enterprise-Hooks-Sidebar.png)
-4. Click on the **Latest Delivery** link under the service hook having problems. ![Hook Details](/assets/images/enterprise/settings/Enterprise-Hooks-Details.png)
-5. Under **Remote Calls**, you'll see the headers that were used when POSTing to the remote server along with the response that the remote server sent back to your installation.
-
-### Viewing the payload
+모든 리포지토리에서 모든 서비스 후크 배달의 마지막 응답에 대한 정보를 찾을 수 있습니다.
 
 {% data reusables.enterprise_site_admin_settings.access-settings %}
-2. Browse to the repository you're investigating.
-3. Click on the **Hooks** link in the navigation sidebar. ![Hooks Sidebar](/assets/images/enterprise/settings/Enterprise-Hooks-Sidebar.png)
-4. Click on the **Latest Delivery** link under the service hook having problems.
-5. Click **Delivery**. ![Viewing the payload](/assets/images/enterprise/settings/Enterprise-Hooks-Payload.png)
+2. 조사 중인 리포지토리를 찾습니다.
+3. 탐색 사이드바에서 **후크** 링크를 클릭합니다.
+  ![후크 사이드바](/assets/images/enterprise/settings/Enterprise-Hooks-Sidebar.png)
+4. 문제가 있는 서비스 후크 아래에서 **최신 배달** 링크를 클릭합니다.
+  ![후크 세부 정보](/assets/images/enterprise/settings/Enterprise-Hooks-Details.png)
+5. **원격 호출** 아래에 원격 서버가 설치로 다시 보낸 응답과 함께 원격 서버에 POSTing할 때 사용된 헤더가 표시됩니다.
 
-### Viewing past deliveries
-
-Deliveries are stored for 15 days.
+## 페이로드 보기
 
 {% data reusables.enterprise_site_admin_settings.access-settings %}
-2. Browse to the repository you're investigating.
-3. Click on the **Hooks** link in the navigation sidebar. ![Hooks Sidebar](/assets/images/enterprise/settings/Enterprise-Hooks-Sidebar.png)
-4. Click on the **Latest Delivery** link under the service hook having problems.
-5. To view other deliveries to that specific hook, click **More for this Hook ID**: ![Viewing more deliveries](/assets/images/enterprise/settings/Enterprise-Hooks-More-Deliveries.png)
+2. 조사 중인 리포지토리를 찾습니다.
+3. 탐색 사이드바에서 **후크** 링크를 클릭합니다.
+  ![후크 사이드바](/assets/images/enterprise/settings/Enterprise-Hooks-Sidebar.png)
+4. 문제가 있는 서비스 후크 아래에서 **최신 배달** 링크를 클릭합니다.
+5. **배달** 을 클릭합니다.
+  ![페이로드 보기](/assets/images/enterprise/settings/Enterprise-Hooks-Payload.png)
+
+## 과거 배달 보기
+
+배달은 15일 동안 저장됩니다.
+
+{% data reusables.enterprise_site_admin_settings.access-settings %}
+2. 조사 중인 리포지토리를 찾습니다.
+3. 탐색 사이드바에서 **후크** 링크를 클릭합니다.
+  ![후크 사이드바](/assets/images/enterprise/settings/Enterprise-Hooks-Sidebar.png)
+4. 문제가 있는 서비스 후크 아래에서 **최신 배달** 링크를 클릭합니다.
+5. 해당 특정 후크에 대한 다른 배달을 보려면 **이 후크 ID에 대해 자세히** 를 클릭합니다. ![더 많은 배달 보기](/assets/images/enterprise/settings/Enterprise-Hooks-More-Deliveries.png)

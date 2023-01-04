@@ -1,19 +1,23 @@
 ---
 title: Reacciones
+intro: The Reactions API enables you to create, list and delete the reactions on comments.
 redirect_from:
-  - /v3/reactions
+- /v3/reactions
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - API
+- API
+miniTocMaxHeadingLevel: 3
+ms.openlocfilehash: 558c977aa6de245a9828b07b428687335029f394
+ms.sourcegitcommit: ea9a577cff7ec16ded25ed57417c83ec04816428
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 04/07/2022
+ms.locfileid: "141520831"
 ---
-
-### Tipos de reacción
-
-Cuando creas una reacción, los valores permitidos para el parámetro `content` son los siguientes (con el emoji correspondiente como referencia):
-
-{% data reusables.repositories.reaction_list %}
-
-{% include rest_operations_at_current_path %}
+<!--
+  Operations are automatically generated. Markdown for this page is located in data/reusables/rest-reference/reactions
+-->

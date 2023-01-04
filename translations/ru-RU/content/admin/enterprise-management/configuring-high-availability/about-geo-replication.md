@@ -1,35 +1,42 @@
 ---
-title: About geo-replication
-intro: 'Geo-replication on {% data variables.product.prodname_ghe_server %} uses multiple active replicas to fulfill requests from geographically distributed data centers.'
+title: Сведения о георепликации
+intro: 'Георепликация на {% data variables.product.prodname_ghe_server %} использует несколько активных реплик для выполнения запросов из географически распределенных центров обработки данных.'
 redirect_from:
   - /enterprise/admin/installation/about-geo-replication
   - /enterprise/admin/enterprise-management/about-geo-replication
   - /admin/enterprise-management/about-geo-replication
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: overview
 topics:
   - Enterprise
   - High availability
+ms.openlocfilehash: d24b222ee411d6e8d06366dd78da6b0001280c4d
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148109004'
 ---
+Несколько активных реплик могут обеспечить сокращенное расстояние до ближайшей реплики. Например, организация с офисами в Сан-Франциско, Нью-Йорке и Лондоне может запустить основное устройство в центре обработки данных недалеко от Нью-Йорка и две реплики в центрах обработки данных недалеко от Сан-Франциско и Лондона. С помощью DNS с поддержкой геолокации пользователей можно направлять на ближайший сервер, доступный и быстрее получать доступ к данным репозитория. Назначение устройства недалеко от Нью-Йорка в качестве основного устройства помогает снизить задержку между узлами, по сравнению с устройством, расположенным неподалеку от Сан-Франциско, в качестве основного, которое имеет более высокую задержку при передаче данных до Лондона.
 
-Multiple active replicas can provide a shorter distance to the nearest replica. For example, an organization with offices in San Francisco, New York, and London could run the primary appliance in a datacenter near New York and two replicas in datacenters near San Francisco and London. Using geolocation-aware DNS, users can be directed to the closest server available and access repository data faster. Designating the appliance near New York as the primary helps reduce the latency between the hosts, compared to the appliance near San Francisco being the primary which has a higher latency to London.
+Запросы активных прокси-серверов реплики, которые оно не может обрабатывать самостоятельно в основном экземпляре. Реплики работают как точка присутствия, которая завершает все SSL-подключения. Трафик между узлами отправляется через зашифрованное VPN-соединение, аналогично конфигурации высокого уровня доступности с двумя узлами без георепликации.
 
-The active replica proxies requests that it can't process itself to the primary instance. The replicas function as a point of presence terminating all SSL connections. Traffic between hosts is sent through an encrypted VPN connection, similar to a two-node high availability configuration without geo-replication.
+Запросы Git и конкретные запросы файлового сервера, такие как LFS и отправка файлов, можно обслуживать непосредственно из реплики без загрузки данных с основного сервера. Веб-запросы всегда маршрутизируются в основное устройство, но если реплика ближе к пользователю, запросы выполняются быстрее из-за завершения SSL в ближайшее время.
 
-Git requests and specific file server requests, such as LFS and file uploads, can be served directly from the replica without loading any data from the primary. Web requests are always routed to the primary, but if the replica is closer to the user the requests are faster due to the closer SSL termination.
+Для безупречной работы георепликации требуется Geo DNS, например [служба Amazon Route 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html#routing-policy-geo). Имя узла для экземпляра должно разрешаться в реплику, расположенную ближе всего к расположению пользователя.
 
-Geo DNS, such as [Amazon's Route 53 service](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html#routing-policy-geo), is required for geo-replication to work seamlessly. The hostname for the instance should resolve to the replica that is closest to the user's location.
+## Ограничения
 
-### Ограничения
+Для записи запросов к реплике требуется отправка данных на основное устройство и все реплики. Это означает, что производительность всех операций записи ограничена самой медленной репликой, хотя новые геореплики могут заполнять большую часть своих данных из существующих геореплик, расположенных совместно, а не из основного устройства. Чтобы уменьшить задержку и пропускную способность, вызванную распределенными командами и большими фермами CI, не влияя на пропускную способность записи, можно настроить кэширование репозитория. Дополнительные сведения см. в разделе [Сведения о кэшировании репозитория](/admin/enterprise-management/caching-repositories/about-repository-caching).
 
-Writing requests to the replica requires sending the data to the primary and all replicas. This means that the performance of all writes are limited by the slowest replica, although new geo-replicas can seed the majority of their data from existing co-located geo-replicas, rather than from the primary. Geo-replication will not add capacity to a {% data variables.product.prodname_ghe_server %} instance or solve performance issues related to insufficient CPU or memory resources. If the primary appliance is offline, active replicas will be unable to serve any read or write requests.
+Георепликация не будет добавлять емкость в экземпляр {% data variables.product.prodname_ghe_server %} или устранять проблемы с производительностью, связанные с нехваткой ресурсов ЦП или памяти. Если основное устройство находится в автономном режиме, активные реплики не смогут обслуживать запросы на чтение или запись. 
 
 {% data reusables.enterprise_installation.replica-limit %}
 
-### Monitoring a geo-replication configuration
+## Мониторинг конфигурации георепликации
 
 {% data reusables.enterprise_installation.monitoring-replicas %}
 
-### Дополнительная литература
-- "[Creating geo-replication replicas](/enterprise/{{ currentVersion }}/admin/guides/installation/creating-a-high-availability-replica/#creating-geo-replication-replicas)"
+## Дополнительные материалы
+- [Создание реплик георепликации](/enterprise/admin/guides/installation/creating-a-high-availability-replica/#creating-geo-replication-replicas)

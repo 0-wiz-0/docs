@@ -1,30 +1,37 @@
 ---
-title: Configuring your server to receive payloads
-intro: Learn to set up a server to manage incoming webhook payloads.
+title: 페이로드를 받도록 서버 구성
+intro: 들어오는 웹후크 페이로드를 관리하도록 서버를 설정하는 방법을 알아봅니다.
 redirect_from:
   - /webhooks/configuring
   - /developers/webhooks-and-events/configuring-your-server-to-receive-payloads
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Webhooks
+shortTitle: Configure server for webhooks
+ms.openlocfilehash: c306cadf4dd8d9cd573d694419a51179c8995797
+ms.sourcegitcommit: 6b1c6174d0df40c90edfd7526496baabb1dd159d
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 11/04/2022
+ms.locfileid: '148132984'
 ---
-
-Now that our webhook is ready to deliver messages, we'll set up a basic Sinatra server to handle incoming payloads.
+이제 웹후크가 메시지를 배달할 준비가 되었으므로 들어오는 페이로드를 처리하도록 기본 Sinatra 서버를 설정합니다.
 
 {% note %}
 
-**Note:** You can download the complete source code for this project [from the platform-samples repo][platform samples].
+**참고:** [플랫폼 샘플 리포지토리에서][platform samples] 이 프로젝트에 대한 전체 소스 코드를 다운로드할 수 있습니다.
 
 {% endnote %}
 
-### Writing the server
+## 서버 작성
 
-We want our server to listen to `POST` requests, at `/payload`, because that's where we told GitHub our webhook URL was. Because we're using ngrok to expose our local environment, we don't need to set up a real server somewhere online, and can happily test out our code locally.
+GitHub에 웹후크 URL이었다고 명시한 위치이기 때문에 `/payload` 시 서버에서 `POST` 요청을 수신 대기하기를 원합니다. 를 사용하여 `ngrok` 로컬 환경을 노출하기 때문에 온라인 어딘가에 실제 서버를 설정할 필요가 없으며 코드를 로컬로 테스트할 수 있습니다.
 
-Let's set up a little Sinatra app to do something with the information. Our initial setup might look something like this:
+이러한 정보로 작업을 수행하도록 작은 Sinatra 앱을 설정해 보겠습니다. 최초 설정은 다음과 같습니다.
 
 ``` ruby
 require 'sinatra'
@@ -36,11 +43,11 @@ post '/payload' do
 end
 ```
 
-(If you're unfamiliar with how Sinatra works, we recommend [reading the Sinatra guide][Sinatra].)
+(Sinatra의 작동 방식에 익숙하지 않은 경우 [ 가이드를 읽는 것이][Sinatra] 좋습니다.)
 
-Start this server up.
+이 서버를 시작합니다.
 
-Since we set up our webhook to listen to events dealing with `Issues`, go ahead and create a new issue on the repository you're testing with. Once you create it, switch back to your terminal. You should see something like this in your output:
+`Issues`를 처리하는 이벤트를 수신하도록 웹후크를 설정했으므로 계속 진행하여 테스트 중인 리포지토리에 새 이슈를 만듭니다. 이슈를 만든 후 터미널로 다시 전환합니다. 출력 내용은 다음과 비슷해야 합니다.
 
 ```shell
 $ ~/Developer/platform-samples/hooks/ruby/configuring-your-server $ ruby server.rb
@@ -51,9 +58,9 @@ $ ~/Developer/platform-samples/hooks/ruby/configuring-your-server $ ruby server.
 > I got some JSON: {"action"=>"opened", "issue"=>{"url"=>"...
 ```
 
-Success! You've successfully configured your server to listen to webhooks. Your server can now process this information any way you see fit. For example, if you were setting up a "real" web application, you might want to log some of the JSON output to a database.
+성공했습니다. 웹후크를 수신 대기하도록 서버를 구성했습니다. 이제 서버에서 이 정보를 원하는 방식으로 처리할 수 있습니다. 예를 들어 “실제” 웹 애플리케이션을 설정한 경우 데이터베이스에 JSON 출력의 일부를 기록하려고 할 수 있습니다.
 
-For additional information on working with webhooks for fun and profit, head on over to the [Testing Webhooks](/webhooks/testing) guide.
+재미와 유익을 위해 웹후크를 사용하는 방법에 대한 자세한 내용은 [웹후크 테스트](/webhooks/testing) 가이드를 참조하세요.
 
 [platform samples]: https://github.com/github/platform-samples/tree/master/hooks/ruby/configuring-your-server
 [Sinatra]: http://www.sinatrarb.com/

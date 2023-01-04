@@ -1,1 +1,9 @@
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2. 9" ou currentVersion == "github-ae@latest" %}Se houver uma regra de branch protegido no repositório que exija um histórico de commit linear. você deve permitir merge de combinação por squash, merge de rebase ou ambos. Para obter mais informações, consulte "[Sobre branches protegidos](/github/administering-a-repository/about-protected-branches#require-pull-request-reviews-before-merging)."{% endif %}
+---
+ms.openlocfilehash: a92ce8031a51b896af4fe254a2e9165779ea268b
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145095276"
+---
+Se houver uma regra de branch protegido no seu repositório que exija um histórico de commit linear, você precisará permitir a mesclagem squash, a mesclagem com troca de base ou ambas. Para obter mais informações, confira "[Sobre os branches protegidos](/github/administering-a-repository/about-protected-branches#require-pull-request-reviews-before-merging)".

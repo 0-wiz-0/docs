@@ -1,13 +1,21 @@
 ---
-title: Managing discussions for your community
+title: Управление обсуждениями для сообщества
 shortTitle: Managing discussions
-intro: 'You can enable and configure discussions for your repository, and you can use tools on {% data variables.product.product_name %} to moderate conversations among community members.'
+intro: 'Вы можете включить и настроить {% data variables.product.prodname_discussions %} для репозитория, а также использовать инструменты в {% data variables.product.product_name %} для модерации бесед среди участников сообщества.'
 versions:
-  free-pro-team: '*'
+  feature: discussions
 children:
-  - /managing-discussions-in-your-repository
-  - /managing-categories-for-discussions-in-your-repository
+  - /managing-discussions
+  - /managing-categories-for-discussions
   - /moderating-discussions
+  - /viewing-insights-for-your-discussions
+  - /creating-discussion-category-forms
+  - /syntax-for-discussion-category-forms
+ms.openlocfilehash: e4fb4eef99d40259e09c68056918bf8a56c1bddc
+ms.sourcegitcommit: 6185352bc563024d22dee0b257e2775cadd5b797
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 12/09/2022
+ms.locfileid: '148193579'
 ---
 
-{% data reusables.discussions.beta %}

@@ -1,40 +1,45 @@
 ---
-title: Upgrading a cluster
-intro: 'Use the administrative shell (SSH) to upgrade a {% data variables.product.prodname_ghe_server %} cluster to the latest release.'
+title: Обновление кластера
+intro: 'Используйте административную оболочку (SSH) для обновления кластера {% data variables.product.prodname_ghe_server %} до последней версии выпуска.'
 redirect_from:
   - /enterprise/admin/clustering/upgrading-a-cluster
   - /enterprise/admin/enterprise-management/upgrading-a-cluster
   - /admin/enterprise-management/upgrading-a-cluster
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Clustering
   - Enterprise
   - Upgrades
+ms.openlocfilehash: fb098009acf64e92a3fa41a4be487c5503ec7cf2
+ms.sourcegitcommit: 5f40f9341dd1e953f4be8d1642f219e628e00cc8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/04/2022
+ms.locfileid: '148008877'
 ---
+## Обновление с помощью горячего исправления
+{% data reusables.enterprise_installation.hotpatching-explanation %} Скрипт установки горячего исправления устанавливает исправление на каждом узле в кластере и перезапускает службы в правильной последовательности, чтобы избежать простоя.
 
-### Upgrading with a hotpatch
-{% data reusables.enterprise_installation.hotpatching-explanation %} The hotpatch installation script installs the hotpatch on every node in the cluster and restarts the services in their proper sequence to avoid downtime.
-
-1. Back up your data with [{% data variables.product.prodname_enterprise_backup_utilities %}](https://github.com/github/backup-utils#readme).
-2. From the administrative shell of any node, use the `ghe-cluster-hotpatch` command to install the latest hotpatch. You can provide a URL for a hotpatch, or manually download the hotpatch and specify a local filename.
+1. Создайте резервную копию данных с помощью [{% data variables.product.prodname_enterprise_backup_utilities %}](https://github.com/github/backup-utils#readme).
+2. В административной оболочке любого узла выполните команду `ghe-cluster-hotpatch`, чтобы установить последнюю версию горячего исправления. Вы можете указать URL-адрес для горячего исправления или вручную скачать горячее исправление и указать имя локального файла.
   ```shell
-  $ ghe-cluster-hotpatch https://<em>HOTPATCH-URL/FILENAME</em>.hpkg
+  $ ghe-cluster-hotpatch https://HOTPATCH-URL/FILENAME.hpkg
   ```
 
-### Upgrading with an upgrade package
-Use an upgrade package to upgrade a {% data variables.product.prodname_ghe_server %} cluster to the latest feature release. For example, you can upgrade from `2.11` to `2.13`.
+## Обновление с помощью пакета обновления
+Используйте пакет обновления для обновления кластера {% data variables.product.prodname_ghe_server %} до последней версии компонента. Например, можно выполнить обновление с `2.11` до `2.13`.
 
-#### Preparing to upgrade
+### Подготовка к обновлению
 
-1. Review [Cluster network configuration](/enterprise/admin/guides/clustering/cluster-network-configuration) for the version you are upgrading to, and update your configuration as needed.
-2. Back up your data with [{% data variables.product.prodname_enterprise_backup_utilities %}](https://github.com/github/backup-utils#readme).
-3. Schedule a maintenance window for end users of your {% data variables.product.prodname_ghe_server %} cluster, as it will be unavailable for normal use during the upgrade. Maintenance mode blocks user access and prevents data changes while the cluster upgrade is in progress.
-4. On the [{% data variables.product.prodname_ghe_server %} Download Page](https://enterprise.github.com/download), copy the URL for the upgrade *.pkg* file to the clipboard.
-5. From the administrative shell of any node, use the `ghe-cluster-each` command combined with `curl` to download the release package to each node in a single step. Use the URL you copied in the previous step as an argument.
+1. Просмотрите сведения о [конфигурации сети кластера](/enterprise/admin/guides/clustering/cluster-network-configuration) для обновляемой версии и при необходимости обновите конфигурацию.
+2. Создайте резервную копию данных с помощью [{% data variables.product.prodname_enterprise_backup_utilities %}](https://github.com/github/backup-utils#readme).
+3. Запланируйте период обслуживания для конечных пользователей кластера {% data variables.product.prodname_ghe_server %}, так как он будет недоступен для нормального использования во время обновления. Режим обслуживания блокирует доступ пользователей и предотвращает изменения данных во время обновления кластера.
+4. На [странице скачивания {% data variables.product.prodname_ghe_server %}](https://enterprise.github.com/download) скопируйте URL-адрес для *PKG*-файла обновления в буфер обмена.
+5. В административной оболочке любого узла используйте команду `ghe-cluster-each` вместе с `curl` для скачивания пакета выпуска на каждый узел за один шаг. Используйте URL-адрес, скопированный на предыдущем шаге, в качестве аргумента.
   ```shell
-  $ ghe-cluster-each -- "cd /home/admin && curl -L -O  https://<em>PACKAGE-URL</em>.pkg"
+  $ ghe-cluster-each -- "cd /home/admin && curl -L -O  https://PACKAGE-URL.pkg"
   > ghe-app-node-1:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
   > ghe-app-node-1:                                  Dload  Upload   Total   Spent    Left  Speed
   > 100  496M  100  496M    0     0  24.2M      0  0:00:20  0:00:20 --:--:-- 27.4M
@@ -51,14 +56,15 @@ Use an upgrade package to upgrade a {% data variables.product.prodname_ghe_serve
   > ghe-data-node-3:                                  Dload  Upload   Total   Spent    Left  Speed
   > 100  496M  100  496M    0     0  19.7M      0  0:00:25  0:00:25 --:--:-- 25.5M
   ```
-6. Identify the primary MySQL node, which is defined as `mysql-master = <hostname>` in `cluster.conf`. This node will be upgraded last.
+6. Определите основной узел MySQL, который определен как `mysql-master = <hostname>` в `cluster.conf`. Этот узел будет обновлен последним.
 
-#### Upgrading the cluster nodes
+### Обновление узлов кластера
 
-1. Enable maintenance mode according to your scheduled window by connecting to the administrative shell of any cluster node and running `ghe-cluster-maintenance -s`.
-2. **With the exception of the primary MySQL node**, connect to the administrative shell of each of the {% data variables.product.prodname_ghe_server %} nodes. Run the `ghe-upgrade` command, providing the package file name you downloaded in Step 4 of [Preparing to upgrade](#preparing-to-upgrade):
+1. Включите режим обслуживания в соответствии с запланированным периодом, подключившись к административной оболочке любого узла кластера и выполнив команду `ghe-cluster-maintenance -s`.
+2. Подключитесь к административной оболочке каждого узла {% data variables.product.prodname_ghe_server %}, **за исключением основного узла MySQL**.
+Выполните команду `ghe-upgrade`, указав имя файла пакета, скачанного на шаге 4 [подготовки к обновлению](#preparing-to-upgrade):
   ```shell
-  $ ghe-upgrade <em>PACKAGE-FILENAME</em>.pkg
+  $ ghe-upgrade PACKAGE-FILENAME.pkg
   > *** verifying upgrade package signature...
   >  497MB 0:00:04 [ 117MB/s] [==========================================>] 100%            
   > gpg: Signature made Fri 19 Feb 2016 02:33:50 PM UTC using RSA key ID 0D65D57A
@@ -67,10 +73,10 @@ Use an upgrade package to upgrade a {% data variables.product.prodname_ghe_serve
   > gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
   > gpg: Good signature from "GitHub Enterprise (Upgrade Package Key) > <enterprise@github.com>"
   ```
-3. The upgrade process will reboot the node once it completes. Verify that you can `ping` each node after it reboots.
-4. Connect to the administrative shell of the primary MySQL node. Run the `ghe-upgrade` command, providing the package file name you downloaded in Step 4 of [Preparing to upgrade](#preparing-to-upgrade):
+3. Процесс обновления перезагрузит узел после завершения. Убедитесь, что каждый узел можно `ping` после перезагрузки.
+4. Подключитесь к административной оболочке основного узла MySQL. Выполните команду `ghe-upgrade`, указав имя файла пакета, скачанного на шаге 4 [подготовки к обновлению](#preparing-to-upgrade):
   ```shell
-  $ ghe-upgrade <em>PACKAGE-FILENAME</em>.pkg
+  $ ghe-upgrade PACKAGE-FILENAME.pkg
   > *** verifying upgrade package signature...
   >  497MB 0:00:04 [ 117MB/s] [==========================================>] 100%            
   > gpg: Signature made Fri 19 Feb 2016 02:33:50 PM UTC using RSA key ID 0D65D57A
@@ -79,5 +85,7 @@ Use an upgrade package to upgrade a {% data variables.product.prodname_ghe_serve
   > gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
   > gpg: Good signature from "GitHub Enterprise (Upgrade Package Key) > <enterprise@github.com>"
   ```
-5. The upgrade process will reboot the primary MySQL node once it completes. Verify that you can `ping` each node after it reboots.
-6. Exit maintenance mode from the administrative shell of any node by running `ghe-cluster-maintenance -u`.
+5. После завершения процесса обновления основной узел MySQL будет перезагружен. Убедитесь, что после перезагрузки каждый узел можно `ping`.{% ifversion ghes %}
+6. Подключитесь к административной оболочке основного узла MySQL и выполните команду `ghe-cluster-config-apply`.
+7. По завершении `ghe-cluster-config-apply`, убедитесь, что службы находятся в работоспособном состоянии, выполнив команду`ghe-cluster-status`.{ % endif %}
+8. Выйдите из административной оболочки любого узла, выполнив команду `ghe-cluster-maintenance -u`.

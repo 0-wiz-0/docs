@@ -1,74 +1,81 @@
 ---
-title: Webhook events for the GitHub Marketplace API
-intro: 'A {% data variables.product.prodname_marketplace %} app receives information about changes to a user''s plan from the Marketplace purchase event webhook. A Marketplace purchase event is triggered when a user purchases, cancels, or changes their payment plan.'
+title: GitHub Marketplace API에 대한 웹후크 이벤트
+intro: '{% data variables.product.prodname_marketplace %} 앱은 Marketplace 구매 이벤트 웹후크에서 사용자의 플랜 변경에 대한 정보를 받습니다. Marketplace 구매 이벤트는 사용자가 결제 플랜을 구매, 취소 또는 변경할 때 트리거됩니다.'
 redirect_from:
-  - /apps/marketplace/setting-up-github-marketplace-webhooks/about-webhook-payloads-for-a-github-marketplace-listing/
-  - /apps/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/
+  - /apps/marketplace/setting-up-github-marketplace-webhooks/about-webhook-payloads-for-a-github-marketplace-listing
+  - /apps/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events
   - /marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events
   - /developers/github-marketplace/webhook-events-for-the-github-marketplace-api
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+shortTitle: Webhook events
+ms.openlocfilehash: 31afac532a1b10c462085f0403d4ed210750ca77
+ms.sourcegitcommit: fb740a96852435c748dad95d560327e80b4cef19
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 10/24/2022
+ms.locfileid: '148105678'
 ---
+## {% data variables.product.prodname_marketplace %} 구매 웹후크 페이로드
 
-### {% data variables.product.prodname_marketplace %} purchase webhook payload
+웹후크 `POST` 요청에는 특별한 헤더가 있습니다. 자세한 내용은 “[웹후크 배달 헤더](/webhooks/event-payloads/#delivery-headers)”를 참조하세요. GitHub는 배달 시도가 실패하면 다시 전송하지 않습니다. 앱이 GitHub에서 보낸 모든 웹후크 페이로드를 받을 수 있는지 확인합니다.
 
-Webhooks `POST` requests have special headers. See "[Webhook delivery headers](/webhooks/event-payloads/#delivery-headers)" for more details. GitHub doesn't resend failed delivery attempts. Ensure your app can receive all webhook payloads sent by GitHub.
-
-Cancellations and downgrades take effect on the first day of the next billing cycle. Events for downgrades and cancellations are sent when the new plan takes effect at the beginning of the next billing cycle. Events for new purchases and upgrades begin immediately. Use the `effective_date` in the webhook payload to determine when a change will begin.
+취소 및 다운그레이드는 다음 청구 기간의 첫 날에 적용됩니다. 다운그레이드 및 취소에 대한 이벤트는 새 플랜이 다음 청구 기간의 시작 부분에 적용될 때 전송됩니다. 새 구매 및 업그레이드에 대한 이벤트는 즉시 시작됩니다. 웹후크 페이로드에서 `effective_date`를 사용하여 변경이 시작되는 시점을 확인합니다.
 
 {% data reusables.marketplace.marketplace-malicious-behavior %}
 
-Each `marketplace_purchase` webhook payload will have the following information:
+각 `marketplace_purchase` 웹후크 페이로드에는 다음 정보가 있습니다.
 
 
-| 키                      | 유형    | 설명                                                                                                                                                                                                                                                                                                                                                                                               |
-| ---------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `동작`                   | `문자열` | The action performed to generate the webhook. Can be `purchased`, `cancelled`, `pending_change`, `pending_change_cancelled`, or `changed`. For more information, see the example webhook payloads below. **Note:** The `pending_change` and `pending_change_cancelled` payloads contain the same keys as shown in the [`changed` payload example](#example-webhook-payload-for-a-changed-event). |
-| `effective_date`       | `문자열` | The date the `action` becomes effective.                                                                                                                                                                                                                                                                                                                                                         |
-| `sender`               | `개체`  | The person who took the `action` that triggered the webhook.                                                                                                                                                                                                                                                                                                                                     |
-| `marketplace_purchase` | `개체`  | The {% data variables.product.prodname_marketplace %} purchase information.                                                                                                                                                                                                                                                                                                                      |
+키 | 형식 | 설명
+----|------|-------------
+`action` | `string` | 웹후크를 생성하기 위해 수행된 작업. `purchased`, `cancelled`, `pending_change`, `pending_change_cancelled` 또는 `changed`일 수 있습니다. 자세한 내용은 아래 웹후크 페이로드 예제를 참조하세요. **참고:** `pending_change` 및 `pending_change_cancelled` 페이로드는 [페이로드 예제`changed`](#example-webhook-payload-for-a-changed-event)에 표시된 것과 동일한 키를 포함하고 있습니다.
+`effective_date` | `string` | `action`이 적용되는 날짜
+`sender` | `object` | 웹후크를 트리거한 `action`을 수행한 사람
+`marketplace_purchase` | `object` | {% data variables.product.prodname_marketplace %} 구매 정보
 
-The `marketplace_purchase` object has the following keys:
+`marketplace_purchase` 개체에는 다음 키가 있습니다.
 
-| 키                    | 유형        | 설명                                                                                                                                                                                                                                                                                                                                                        |
-| -------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `계정`                 | `개체`      | The `organization` or `user` account associated with the subscription. Organization accounts will include `organization_billing_email`, which is the organization's administrative email address. To find email addresses for personal accounts, you can use the [Get the authenticated user](/rest/reference/users#get-the-authenticated-user) endpoint. |
-| `billing_cycle`      | `문자열`     | Can be `yearly` or `monthly`. When the `account` owner has a free GitHub plan and has purchased a free {% data variables.product.prodname_marketplace %} plan, `billing_cycle` will be `nil`.                                                                                                                                                             |
-| `unit_count`         | `integer` | Number of units purchased.                                                                                                                                                                                                                                                                                                                                |
-| `on_free_trial`      | `boolean` | `true` when the `account` is on a free trial.                                                                                                                                                                                                                                                                                                             |
-| `free_trial_ends_on` | `문자열`     | The date the free trial will expire.                                                                                                                                                                                                                                                                                                                      |
-| `next_billing_date`  | `문자열`     | The date that the next billing cycle will start. When the `account` owner has a free GitHub.com plan and has purchased a free {% data variables.product.prodname_marketplace %} plan, `next_billing_date` will be `nil`.                                                                                                                                  |
-| `plan`               | `개체`      | The plan purchased by the `user` or `organization`.                                                                                                                                                                                                                                                                                                       |
+키 | 형식 | 설명
+----|------|-------------
+`account` | `object` | 구독과 연결된 `organization` 및 `user` 계정. 조직 계정에는 조직의 관리 메일 주소인 `organization_billing_email`이(가) 포함됩니다. 개인 계정의 메일 주소를 찾으려면 [인증된 사용자 가져오기](/rest/reference/users#get-the-authenticated-user) 엔드포인트를 사용할 수 있습니다.
+`billing_cycle` | `string` | `yearly` 또는 `monthly`일 수 있습니다. `account` 소유자가 무료 GitHub 플랜을 사용 중이고 무료 {% data variables.product.prodname_marketplace %} 플랜을 구입하면 `billing_cycle`은 `nil`입니다.
+`unit_count`  | `integer` | 구매한 단위 수
+`on_free_trial` | `boolean` | `account`가 평가판을 사용 중이면 `true`
+`free_trial_ends_on` | `string` | 평가판이 만료될 날짜
+`next_billing_date` | `string` | 다음 청구 기간이 시작되는 날짜. `account` 소유자가 무료 GitHub.com 플랜을 사용 중이고 무료 {% data variables.product.prodname_marketplace %} 플랜을 구입하면 `next_billing_date`는 `nil`입니다.
+`plan` | `object` | `user` 또는 `organization`이 구매한 플랜
 
-The `plan` object has the following keys:
+`plan` 개체에는 다음 키가 있습니다.
 
-| 키                        | 유형                 | 설명                                                                                                                                    |
-| ------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                     | `integer`          | The unique identifier for this plan.                                                                                                  |
-| `name`                   | `문자열`              | The plan's name.                                                                                                                      |
-| `설명`                     | `문자열`              | This plan's description.                                                                                                              |
-| `monthly_price_in_cents` | `integer`          | The monthly price of this plan in cents (US currency). For example, a listing that costs 10 US dollars per month will be 1000 cents.  |
-| `yearly_price_in_cents`  | `integer`          | The yearly price of this plan in cents (US currency). For example, a listing that costs 100 US dollars per month will be 10000 cents. |
-| `price_model`            | `문자열`              | The pricing model for this listing. Can be one of `flat-rate`, `per-unit`, or `free`.                                                 |
-| `has_free_trial`         | `boolean`          | `true` when this listing offers a free trial.                                                                                         |
-| `unit_name`              | `문자열`              | The name of the unit. If the pricing model is not `per-unit` this will be `nil`.                                                      |
-| `bullet`                 | `array of strings` | The names of the bullets set in the pricing plan.                                                                                     |
+키 | 형식 | 설명
+----|------|-------------
+`id` | `integer` | 플랜의 고유 식별자
+`name` | `string` | 플랜의 이름
+`description` | `string` | 플랜에 대한 설명
+`monthly_price_in_cents` | `integer` | 플랜의 월별 비용(단위: 미국 통화 센트). 예를 들어 매월 10달러의 비용이 드는 목록은 1000센트가 됩니다.
+`yearly_price_in_cents` | `integer` | 플랜의 연간 비용(단위: 미국 통화 센트). 예를 들어 매월 100달러의 비용이 드는 목록은 120000센트가 됩니다.
+`price_model` | `string` | 이 목록의 가격 책정 모델. `FLAT_RATE`, `PER_UNIT` 또는 `FREE` 중 하나일 수 있습니다.
+`has_free_trial` | `boolean` | 목록이 평가판을 제공하는 경우 `true`
+`unit_name` | `string` | 단위의 이름. 가격 책정 모델이 `per-unit`이 아닌 경우에는 `nil`입니다.
+`bullet` | `array of strings` | 가격 책정 플랜에 설정된 글머리 기호의 이름
 
 <br/>
 
-#### Example webhook payload for a `purchased` event
-This example provides the `purchased` event payload.
+### `purchased` 이벤트에 대한 예제 웹후크 페이로드
+이 예제에서는 `purchased` 이벤트 페이로드를 제공합니다.
 
 {{ webhookPayloadsForCurrentVersion.marketplace_purchase.purchased }}
 
-#### Example webhook payload for a `changed` event
+### `changed` 이벤트에 대한 예제 웹후크 페이로드
 
-Changes in a plan include upgrades and downgrades. This example represents the `changed`,`pending_change`, and `pending_change_cancelled` event payloads. The action identifies which of these three events has occurred.
+플랜의 변경 내용에는 업그레이드와 다운그레이드가 포함되어 있습니다. 이 예제는 `changed`, `pending_change` 및 `pending_change_cancelled` 이벤트 페이로드를 나타냅니다. 이 작업은 이 세 가지 이벤트 중 어떤 이벤트가 발생했는지 식별합니다.
 
 {{ webhookPayloadsForCurrentVersion.marketplace_purchase.changed }}
 
-#### Example webhook payload for a `cancelled` event
+### `cancelled` 이벤트에 대한 예제 웹후크 페이로드
 
 {{ webhookPayloadsForCurrentVersion.marketplace_purchase.cancelled }}

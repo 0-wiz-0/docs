@@ -1,19 +1,30 @@
 ---
-title: Configuring automation for project boards
-intro: You can set up automatic workflows to move issues and pull requests to a project board column when a specified event occurs.
+title: '{% data variables.product.prodname_projects_v1 %}에 대한 자동화 구성'
+intro: '지정된 이벤트가 발생할 때 이슈 및 끌어오기 요청을 {% data variables.projects.projects_v1_board %} 열로 이동하도록 자동 워크플로를 설정할 수 있습니다.'
 redirect_from:
   - /github/managing-your-work-on-github/managing-project-boards/configuring-automation-for-project-boards
   - /articles/configuring-automation-for-project-boards
   - /github/managing-your-work-on-github/configuring-automation-for-project-boards
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  feature: projects-v1
 topics:
   - Pull requests
+  - Projects
+  - Issues
+  - Project management
+shortTitle: Configure automation
+type: how_to
+allowTitleToDifferFromFilename: true
+ms.openlocfilehash: faf559c3423178b43f3b524bbf3cdc41acd18a92
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148109699'
 ---
+{% data reusables.projects.project_boards_old %}
 
-{% data reusables.project-management.automate-project-board-permissions %} For more information, see "[About automation for project boards](/articles/about-automation-for-project-boards)."
+{% data reusables.project-management.automate-project-board-permissions %} 자세한 내용은 “[{% data variables.product.prodname_projects_v1 %}에 대한 자동화 정보](/articles/about-automation-for-project-boards)”를 참조하세요.
 
 {% data reusables.project-management.use-automated-template %}
 
@@ -21,16 +32,20 @@ topics:
 
 {% tip %}
 
-**Tip**: To edit columns that already have configured automation, click **Manage** at the bottom of the column.
+**팁**: 자동화를 이미 구성한 열을 편집하려면 열 하단에서 **관리** 를 클릭합니다.
 
 {% endtip %}
 
-1. Navigate to the project board you want to automate.
-2. In the column you want to automate, click {% octicon "kebab-horizontal" aria-label="The horizontal kebab icon" %}. ![Edit icon](/assets/images/help/projects/edit-column-button.png)
-3. Click **Manage automation**. ![Manage automation button](/assets/images/help/projects/manage-automation-button.png)
-4. Using the Preset drop-down menu, select an automation preset. ![Select preset automation from menu](/assets/images/help/projects/select-automation.png)
-5. Select the workflow automations you want to configure for the column. ![List of options for automating the column](/assets/images/help/projects/select-automation-options-existing-column.png)
-6. Click **Update automation**.
+1. 자동화하려는 {% data variables.projects.projects_v1_board %}로 이동합니다.
+2. 자동화할 열에서 {% octicon "kebab-horizontal" aria-label="The horizontal kebab icon" %}을 클릭합니다.
+![편집 아이콘](/assets/images/help/projects/edit-column-button.png)
+3. **자동화 관리** 를 클릭합니다.
+![자동화 관리 단추](/assets/images/help/projects/manage-automation-button.png)
+4. 사전 설정 드롭다운 메뉴를 사용하여 자동화 사전 설정을 선택합니다.
+![메뉴에서 사전 설정 자동화 선택](/assets/images/help/projects/select-automation.png)
+5. 열에 대해 구성하려는 워크플로 자동화를 선택합니다.
+![열 자동화를 위한 옵션 목록](/assets/images/help/projects/select-automation-options-existing-column.png)
+6. **업데이트 자동화** 를 클릭합니다.
 
-### 더 읽을거리
-- "[About automation for project boards](/articles/about-automation-for-project-boards)"
+## 추가 참고 자료
+- “[{% data variables.product.prodname_projects_v1 %}에 대한 자동화 정보](/articles/about-automation-for-project-boards)”

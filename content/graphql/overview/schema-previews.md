@@ -4,9 +4,10 @@ intro: 'You can preview upcoming features and changes to the {% data variables.p
 redirect_from:
   - /v4/previews
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghec: '*'
+  ghes: '*'
+  ghae: '*'
 topics:
   - API
 ---
@@ -22,32 +23,3 @@ To access a schema preview, you'll need to provide a custom [media type](/rest/o
 **Note:** The GraphQL schema members under preview cannot be accessed via the Explorer at this time.
 
 {% endnote %}
-
-{% for preview in graphql.previewsForCurrentVersion %}
-## {{ preview.title }}
-
-{{ preview.description }}
-
-To toggle this preview and access the following schema members, you must provide a custom media type in the `Accept` header:
-
-```
-{{ preview.accept_header }}
-```
-
-Previewed schema members:
-
-{% for schemaMemberPath in preview.toggled_on %}
-- `{{ schemaMemberPath }}`
-{% endfor %}
-
-{% if preview.announcement %}
-**Announced:** [{{ preview.announcement.date }}]({{ preview.announcement.url }})
-{% endif %}
-
-{% if preview.updates %}
-{% for update in preview.updates %}
-**Updated:** [{{ update.date }}]({{ update.url }})
-{% endfor %}
-{% endif %}
-
-{% endfor %}

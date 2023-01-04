@@ -1,59 +1,40 @@
 ---
-title: Apply for an educator or researcher discount
-intro: 'If you''re an educator or a researcher, you can apply to receive {% data variables.product.prodname_team %} for your organization account for free.'
+title: 교육자 또는 연구원 할인 신청
+intro: 교육자 또는 연구원인 경우 조직 계정에 대한 {% data variables.product.prodname_team %}을 무료로 받을 수 있습니다.
 redirect_from:
-  - /education/teach-and-learn-with-github-education/apply-for-an-educator-or-researcher-discount
-  - /github/teaching-and-learning-with-github-education/applying-for-an-educator-or-researcher-discount
-  - /articles/applying-for-a-classroom-discount/
-  - /articles/applying-for-a-discount-for-your-school-club/
-  - /articles/applying-for-an-academic-research-discount/
-  - /articles/applying-for-a-discount-for-your-first-robotics-team/
-  - /articles/applying-for-an-educator-or-researcher-discount
-  - /education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-an-educator-or-researcher-discount
+- /education/teach-and-learn-with-github-education/apply-for-an-educator-or-researcher-discount
+- /github/teaching-and-learning-with-github-education/applying-for-an-educator-or-researcher-discount
+- /articles/applying-for-a-classroom-discount
+- /articles/applying-for-a-discount-for-your-school-club
+- /articles/applying-for-an-academic-research-discount
+- /articles/applying-for-a-discount-for-your-first-robotics-team
+- /articles/applying-for-an-educator-or-researcher-discount
+- /education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-an-educator-or-researcher-discount
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: Apply for a discount
+ms.openlocfilehash: 1cc101b2008846a882c347bb87f1744110849bb3
+ms.sourcegitcommit: dc42bb4a4826b414751ffa9eed38962c3e3fea8e
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145283466"
 ---
-
-### About educator and researcher discounts
+## <a name="about-educator-and-researcher-discounts"></a>교육자 및 연구원 할인 정보
 
 {% data reusables.education.about-github-education-link %}
 
 {% data reusables.education.educator-requirements %}
 
-For more information about user accounts on {% data variables.product.product_name %}, see "[Signing up for a new {% data variables.product.prodname_dotcom %} account](/github/getting-started-with-github/signing-up-for-a-new-github-account)."
+{% data variables.product.product_name %}의 개인 계정에 대한 자세한 내용은 "[새 {% data variables.product.prodname_dotcom %} 계정 등록](/github/getting-started-with-github/signing-up-for-a-new-github-account)"을 참조하세요.
 
-### Applying for an educator or researcher discount
+## <a name="applying-for-an-educator-or-researcher-discount"></a>교육자 또는 연구원 할인 신청
 
-{% data reusables.education.benefits-page %}
-{% data reusables.education.click-get-teacher-benefits %}
-{% data reusables.education.select-email-address %}
-{% data reusables.education.upload-proof-status %}
-{% data reusables.education.school-name %}
-{% data reusables.education.plan-to-use-github %}
-{% data reusables.education.submit-application %}
+{% data reusables.education.benefits-page %} {% data reusables.education.click-get-teacher-benefits %} {% data reusables.education.select-email-address %} {% data reusables.education.upload-proof-status %} {% data reusables.education.school-name %} {% data reusables.education.plan-to-use-github %} {% data reusables.education.submit-application %}
 
-### Upgrading your organization
+## <a name="further-reading"></a>추가 참고 자료
 
-After your request for an educator or researcher discount has been approved, you can upgrade the organizations you use with your learning community to {% data variables.product.prodname_team %}, which allows unlimited users and private repositories with full features, for free. You can upgrade an existing organization or create a new organization to upgrade.
-
-#### Upgrading an existing organization
-
-{% data reusables.education.upgrade-page %}
-{% data reusables.education.upgrade-organization %}
-
-#### Upgrading a new organization
-
-{% data reusables.education.upgrade-page %}
-1. Click {% octicon "plus" aria-label="The plus symbol" %} **Create an organization**. ![Create an organization button](/assets/images/help/education/create-org-button.png)
-3. Read the information, then click **Create organization**. ![Create organization button](/assets/images/help/education/create-organization-button.png)
-4. Under "Choose your plan", click **Choose {% data variables.product.prodname_free_team %}**.
-5. Follow the prompts to create your organization.
-{% data reusables.education.upgrade-page %}
-{% data reusables.education.upgrade-organization %}
-
-### 더 읽을거리
-
-- "[Why wasn't my application for an educator or researcher discount approved?](/articles/why-wasn-t-my-application-for-an-educator-or-researcher-discount-approved)"
+- “[교육자 또는 연구원 할인 신청이 승인되지 않은 이유는 무엇인가요?](/articles/why-wasn-t-my-application-for-an-educator-or-researcher-discount-approved)”
 - [{% data variables.product.prodname_education %}](https://education.github.com)
-- [{% data variables.product.prodname_classroom %} Videos](https://classroom.github.com/videos)
-- [{% data variables.product.prodname_education_community %}](https://education.github.community/)
+- [{% data variables.product.prodname_classroom %} 비디오](https://classroom.github.com/videos)
+- [{% data variables.product.prodname_education_community %}]({% data variables.product.prodname_education_forum_link %})

@@ -1,33 +1,36 @@
 ---
-title: Activating optional features for apps
-intro: 'You can test new optional features for your {% data variables.product.prodname_github_apps %} and {% data variables.product.prodname_oauth_app %}s.'
+title: Aktivieren optionaler Features für Apps
+intro: 'Du kannst neue optionale Features für deine {% data variables.product.prodname_github_apps %} und {% data variables.product.prodname_oauth_apps %} testen.'
 redirect_from:
   - /developers/apps/activating-beta-features-for-apps
   - /developers/apps/activating-optional-features-for-apps
 versions:
-  free-pro-team: '*'
-  github-ae: '*'
-  enterprise-server: '>=2.22'
+  fpt: '*'
+  ghae: '*'
+  ghes: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
+shortTitle: Activate optional features
+ms.openlocfilehash: 918fe1dd7ba466fccc4d54d02fca6b13fe6e4e86
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145089972'
 ---
-
 {% warning %}
 
-**Warning:** {% if currentVersion ver_lt "enterprise-server@3.1" %} Beta {% else %} Optional {% endif %} features are subject to change.
+**Warnung:** Bei optionalen Features sind Änderungen vorbehalten.
 
 {% endwarning %}
 
-### Activating {% if currentVersion ver_lt "enterprise-server@3.1" %} beta {% else %} optional {% endif %} features for {% data variables.product.prodname_github_apps %}
+## Aktivieren optionaler Features für {% data variables.product.prodname_github_apps %}
 
-{% data reusables.user-settings.access_settings %}
-{% data reusables.user-settings.developer_settings %}
-3. Select the {% data variables.product.prodname_github_app %} you want to enable {% if currentVersion ver_lt "enterprise-server@3.1" %} a beta {% else %} an optional {% endif %} feature for.
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.developer_settings %}
+3. Wähle die {% data variables.product.prodname_github_app %} aus, für die du ein optionales Feature aktivieren möchtest.
 {% data reusables.apps.optional_feature_activation %}
 
-### Activating {% if currentVersion ver_lt "enterprise-server@3.1" %} beta {% else %} optional {% endif %} features for {% data variables.product.prodname_oauth_app %}s
+## Aktivieren optionaler Features für {% data variables.product.prodname_oauth_apps %}
 
-{% data reusables.user-settings.access_settings %}
-{% data reusables.user-settings.developer_settings %}
-{% data reusables.user-settings.oauth_apps %}
-{% data reusables.apps.optional_feature_activation %}
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.developer_settings %} {% data reusables.user-settings.oauth_apps %} {% data reusables.apps.optional_feature_activation %}

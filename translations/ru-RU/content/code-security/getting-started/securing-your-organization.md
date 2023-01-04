@@ -1,112 +1,136 @@
 ---
-title: Securing your organization
-intro: 'You can use a number of {% data variables.product.prodname_dotcom %} features to help keep your organization secure.'
+title: Защита вашей организации
+intro: 'Несколько возможностей {% data variables.product.prodname_dotcom %} позволяют поддерживать безопасность организации.'
 permissions: Organization owners can configure organization security settings.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.0'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Organizations
   - Dependencies
   - Vulnerabilities
   - Advanced Security
+shortTitle: Secure your organization
+ms.openlocfilehash: e64af58fa5ea802b92df20751f2648097ebedf62
+ms.sourcegitcommit: e8c012864f13f9146e53fcb0699e2928c949ffa8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/09/2022
+ms.locfileid: '148159032'
 ---
+## Введение
+В этом руководстве показано, как настроить функции безопасности для организации. Потребности в защите у вашей организации уникальны, и включать все функции безопасности может быть необязательно. Дополнительные сведения см. в статье «[Функции безопасности {% data variables.product.prodname_dotcom %}](/code-security/getting-started/github-security-features)».
 
-### Introduction
-This guide shows you how to configure security features for an organization. Your organization's security needs are unique and you may not need to enable every security feature. For more information, see "[{% data variables.product.prodname_dotcom %} security features](/code-security/getting-started/github-security-features)."
+{% data reusables.advanced-security.security-feature-availability %}
 
-Some security features are only available {% if currentVersion == "free-pro-team@latest" %}for public repositories, and for private repositories owned by organizations with {% else %}if you have {% endif %}an {% data variables.product.prodname_advanced_security %} license. {% data reusables.advanced-security.more-info-ghas %}
+## Управление доступом в организации
 
-### Managing access to your organization
+Чтобы настраивать действия, доступные участникам организации, можно использовать роли. {% ifversion security-managers %}Например, можно назначить команде роль диспетчера безопасности, тогда ее участники смогут управлять параметрами безопасности в организации, а также доступом на чтение ко всем репозиториям.{% endif %} Дополнительные сведения см. в статье [Роли в организации](/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization).
 
-You can use permission levels to control what actions people can take in your organization. For more information, see "[Permission levels for an organization](/organizations/managing-peoples-access-to-your-organization-with-roles/permission-levels-for-an-organization)."
+{% ifversion fpt or ghes or ghec %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" or currentVersion == "github-ae@next" %}
+## Создание политики безопасности по умолчанию
 
-### Creating a default security policy
-
-You can create a default security policy that will display in any of your organization's public repositories that do not have their own security policy. For more information, see "[Creating a default community health file](/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)."
-
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %}
-### Managing {% data variables.product.prodname_dependabot_alerts %} and the dependency graph
-
-By default, {% data variables.product.prodname_dotcom %} detects vulnerabilities in public repositories and generates {% data variables.product.prodname_dependabot_alerts %} and a dependency graph. You can enable or disable {% data variables.product.prodname_dependabot_alerts %} and the dependency graph for all repositories owned by your organization.
-
-1. Click your profile photo, then click **Organizations**.
-2. Click **Settings** next to your organization.
-3. Click **Security & analysis**.
-4. Click **Enable all** or **Disable all** next to the feature that you want to manage.
-5. Optionally, select **Automatically enable for new repositories**.
-
-For more information, see "[About alerts for vulnerable dependencies](/code-security/supply-chain-security/about-alerts-for-vulnerable-dependencies)," "[Exploring the dependencies of a repository](/code-security/supply-chain-security/exploring-the-dependencies-of-a-repository#enabling-and-disabling-the-dependency-graph-for-a-private-repository)," and "[Managing security and analysis settings for your organization](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)."
+Вы можете создать политику безопасности по умолчанию, которая будет отображаться во всех общедоступных репозиториях вашей организации, у которых нет собственной политики безопасности. Дополнительные сведения см. в статье "[Создание файла работоспособности сообщества по умолчанию](/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)".
 
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" %}
+## Управление функцией «{% data variables.product.prodname_dependabot_alerts %}» и схемой зависимостей
 
-### Managing dependency review
+{% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom %} обнаруживает уязвимости в общедоступных репозиториях и отображает схему зависимостей. Можно включить или отключить {% data variables.product.prodname_dependabot_alerts %} для всех общедоступных репозиториев, принадлежащих вашей организации. Можно включить или отключить {% data variables.product.prodname_dependabot_alerts %} для всех схем зависимостей для всех частных репозиториев, принадлежащих вашей организации.
 
-Dependency review lets you visualize dependency changes in pull requests before they are merged into your repositories. Dependency review is available in all public repositories and in repositories owned by organizations with an {% data variables.product.prodname_advanced_security %} license that have the dependency graph enabled. For more information, see "[About dependency review](/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review)."
+1. Щелкните фотографию профиля и выберите **Организации**.
+2. Щелкните **Параметры** рядом с названием вашей организации.
+3. Выберите **Безопасность и анализ**.
+4. Задайте параметр **Включить все** или **Отключить все** рядом с функцией, которую нужно настроить.
+5. При необходимости укажите **Автоматически включать для новых репозиториев**.
+{% endif %}
+
+{% data reusables.dependabot.dependabot-alerts-beta %} {% data reusables.dependabot.dependabot-alerts-dependency-graph-enterprise %}
+
+Дополнительные сведения см. в разделе «[Сведения о функции "{% data variables.product.prodname_dependabot_alerts %}»](/code-security/supply-chain-security/about-alerts-for-vulnerable-dependencies)», «[Обзор зависимостей в репозитории](/code-security/supply-chain-security/exploring-the-dependencies-of-a-repository#enabling-and-disabling-the-dependency-graph-for-a-private-repository)» и «[Управление параметрами безопасности и анализа в организации](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)».
+
+## Настройка проверки зависимостей
+
+Проверка зависимостей — это функция {% data variables.product.prodname_advanced_security %}, которая позволяет визуализировать изменения зависимостей в запросах на включение внесенных изменений до их объединения в репозитории. Дополнительные сведения см. в статье "[Сведения о проверке зависимостей](/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review)".
+
+{% ifversion fpt or ghec %} Проверка зависимостей по умолчанию включена для всех общедоступных репозиториев. {% ifversion fpt %}Организации, в которых используется {% data variables.product.prodname_ghe_cloud %} и {% data variables.product.prodname_advanced_security %}, могут дополнительно включить эти функции для частных и внутренних репозиториев. Дополнительные сведения см. в [документации по {% data variables.product.prodname_ghe_cloud %}](/enterprise-cloud@latest/code-security/getting-started/securing-your-organization#managing-dependency-review). {% endif %}{% endif %}{% ifversion ghec %} Для частных и внутренних репозиториев, принадлежащих организации, включить проверку зависимостей можно, включив схему зависимостей и {% data variables.product.prodname_advanced_security %} (см. ниже). {% elsif ghes or ghae %} Проверка зависимостей доступна, если граф зависимостей включен для {% data variables.location.product_location %} и вы включите {% data variables.product.prodname_advanced_security %} для организации (см. ниже). {% endif %}
+
+{% ifversion fpt or ghec or ghes %}
+## Управление функцией "{% data variables.product.prodname_dependabot_security_updates %}"
+
+Для любого репозитория, в котором используются {% data variables.product.prodname_dependabot_alerts %}, можно включить {% data variables.product.prodname_dependabot_security_updates %} для создания запросов на включение внесенных изменений с обновлениями безопасности при обнаружении уязвимостей. Также можно включить или отключить {% data variables.product.prodname_dependabot_security_updates %} для всех репозиториев в организации.
+
+1. Щелкните фотографию профиля и выберите **Организации**.
+2. Щелкните **Параметры** рядом с названием вашей организации.
+3. Выберите **Безопасность и анализ**.
+4. Выберите **Включить все** или **Отключить все** рядом с пунктом «{% data variables.product.prodname_dependabot_security_updates %}».
+5. При необходимости укажите **Автоматически включать для новых репозиториев**. 
+
+Дополнительные сведения см. в разделах «[Сведения о {% data variables.product.prodname_dependabot_security_updates %}](/code-security/supply-chain-security/about-dependabot-security-updates)» и «[Управление параметрами безопасности и анализа для организации](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)."
+
+## Управление функцией «{% data variables.product.prodname_dependabot_version_updates %}»
+
+Можно включить {% data variables.product.prodname_dependabot %} для автоматического создания запросов на включение внесенных изменений, чтобы поддерживать зависимости в актуальном состоянии. Дополнительные сведения см. в разделе [Сведения об {% data variables.product.prodname_dependabot_version_updates %}](/code-security/supply-chain-security/about-dependabot-version-updates).
+
+Чтобы включить {% data variables.product.prodname_dependabot_version_updates %}, необходимо создать файл конфигурации *dependabot.yml*. Дополнительные сведения см. в разделе [Настройка обновлений версий {% data variables.product.prodname_dependabot %}](/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/enabling-and-disabling-dependabot-version-updates).
 
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-### Managing {% data variables.product.prodname_dependabot_security_updates %}
+{% ifversion ghes or ghae or ghec %}
+## Управление функцией «{% data variables.product.prodname_GH_advanced_security %}»
 
-For any repository that uses {% data variables.product.prodname_dependabot_alerts %}, you can enable {% data variables.product.prodname_dependabot_security_updates %} to raise pull requests with security updates when vulnerabilities are detected. You can also enable or disable {% data variables.product.prodname_dependabot_security_updates %} for all repositories across your organization.
-
-1. Click your profile photo, then click **Organizations**.
-2. Click **Settings** next to your organization.
-3. Click **Security & analysis**.
-4. Click **Enable all** or **Disable all** next to {% data variables.product.prodname_dependabot_security_updates %}.
-5. Optionally, select **Automatically enable for new repositories**.
-
-For more information, see "[About {% data variables.product.prodname_dependabot_security_updates %}](/code-security/supply-chain-security/about-dependabot-security-updates)" and "[Managing security and analysis settings for your organization](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)."
-
-### Managing {% data variables.product.prodname_dependabot_version_updates %}
-
-You can enable {% data variables.product.prodname_dependabot %} to automatically raise pull requests to keep your dependencies up-to-date. For more information, see "[About {% data variables.product.prodname_dependabot_version_updates %}](/code-security/supply-chain-security/about-dependabot-version-updates)."
-
-To enable {% data variables.product.prodname_dependabot_version_updates %}, you must create a *dependabot.yml* configuration file. For more information, see "[Enabling and disabling version updates](/code-security/supply-chain-security/enabling-and-disabling-version-updates)."
-
+{% ifversion ghes or ghec %} Если ваша организация {% ifversion ghec %}принадлежит предприятию, которое{% else %}предприятие{% endif %} имеет лицензию {% data variables.product.prodname_advanced_security %}, функции {% data variables.product.prodname_advanced_security %} можно включить или отключить.
+{% elsif ghae %} Можно включить или отключить функции {% data variables.product.prodname_advanced_security %}.
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}
-### Managing {% data variables.product.prodname_GH_advanced_security %}
+1. Щелкните фотографию профиля и выберите **Организации**.
+2. Щелкните **Параметры** рядом с названием вашей организации.
+3. Выберите **Безопасность и анализ**.
+4. Выберите **Включить все** или **Отключить все** рядом с пунктом {% data variables.product.prodname_GH_advanced_security %}.
+5. При необходимости укажите **Автоматически включать для новых частных репозиториев**. 
 
-If your organization has an {% data variables.product.prodname_advanced_security %} license, you can enable or disable {% data variables.product.prodname_advanced_security %} features.
+Дополнительные сведения см. в разделе «[Сведения о {% data variables.product.prodname_GH_advanced_security %}](/github/getting-started-with-github/about-github-advanced-security)» и «[Управление параметрами безопасности и анализа в организации](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)».
+{% endif %}
+## Настройка функции «{% data variables.product.prodname_secret_scanning %}»
 
-1. Click your profile photo, then click **Organizations**.
-2. Click **Settings** next to your organization.
-3. Click **Security & analysis**.
-4. Click **Enable all** or **Disable all** next to {% data variables.product.prodname_GH_advanced_security %}.
-5. Optionally, select **Automatically enable for new private repositories**.
+{% data variables.product.prodname_secret_scanning_caps %} — это функция {% data variables.product.prodname_advanced_security %}, которая просматривает репозитории на наличие секретов, которые хранятся небезопасно.
 
-For more information, see "[About {% data variables.product.prodname_GH_advanced_security %}](/github/getting-started-with-github/about-github-advanced-security)" and "[Managing security and analysis settings for your organization](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)."
+{% ifversion fpt or ghec %}Функция «{% data variables.product.prodname_secret_scanning_caps %}» уже включена для всех общедоступных репозиториев. Организации, в которых используется {% data variables.product.prodname_ghe_cloud %} и {% data variables.product.prodname_advanced_security %}, также могут включить функцию «{% data variables.product.prodname_secret_scanning %}» для частных и внутренних репозиториев.{% endif %} {% ifversion fpt %}Дополнительные сведения см. в [документации по {% data variables.product.prodname_ghe_cloud %}](/enterprise-cloud@latest/code-security/getting-started/securing-your-organization#configuring-secret-scanning). {% endif %}
 
-### Configuring {% data variables.product.prodname_secret_scanning %}
-{% data variables.product.prodname_secret_scanning_caps %} is available {% if currentVersion == "free-pro-team@latest" %}for all public repositories, and for private repositories owned by organizations with {% else %}if you have {% endif %}an {% data variables.product.prodname_advanced_security %} license.
+{% ifversion ghes or ghae %}Функция «{% data variables.product.prodname_secret_scanning_caps %}» доступна, если в организации используется {% data variables.product.prodname_advanced_security %}. {% endif %}
 
-You can enable or disable {% data variables.product.prodname_secret_scanning %} for all repositories across your organization that have {% data variables.product.prodname_advanced_security %} enabled.
+{% ifversion not fpt %} Можно включить или отключить функцию «{% data variables.product.prodname_secret_scanning %}» для всех репозиториев в организации, в которой включена {% data variables.product.prodname_advanced_security %}.
 
-1. Click your profile photo, then click **Organizations**.
-2. Click **Settings** next to your organization.
-3. Click **Security & analysis**.
-4. Click **Enable all** or **Disable all** next to {% data variables.product.prodname_secret_scanning_caps %} ({% data variables.product.prodname_GH_advanced_security %} repositories only).
-5. Optionally, select **Automatically enable for private repositories added to {% data variables.product.prodname_advanced_security %}**.
+1. Щелкните фотографию профиля и выберите **Организации**.
+2. Щелкните **Параметры** рядом с названием вашей организации.
+3. Выберите **Безопасность и анализ**.
+4. Выберите **Включить все** или **Отключить все** рядом с пунктом «{% data variables.product.prodname_secret_scanning_caps %}» (только для репозиториев {% data variables.product.prodname_GH_advanced_security %}).
+5. При необходимости установите флажок **Автоматически включить для частных репозиториев, добавленных в настройках функции «{% data variables.product.prodname_advanced_security %}»** . 
 
-For more information, see "[Managing security and analysis settings for your organization](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)."
-
+Дополнительные сведения см. в разделе [Управление параметрами безопасности и анализа для организации](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization).
 {% endif %}
 
-### Дальнейшие шаги
-{% if currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@next" %}You can view, filter, and sort security alerts for repositories owned by your organization in the security overview. For more information, see "[Exploring security alerts](/code-security/security-overview/exploring-security-alerts)."{% endif %}
+## Настройка функции "{% data variables.product.prodname_code_scanning %}"
 
-You can view and manage alerts from security features to address dependencies and vulnerabilities in your code. For more information, see {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %} "[Viewing and updating vulnerable dependencies in your repository](/code-security/supply-chain-security/viewing-and-updating-vulnerable-dependencies-in-your-repository),"{% endif %} {% if currentVersion == "free-pro-team@latest" %}"[Managing pull requests for dependency updates](/code-security/supply-chain-security/managing-pull-requests-for-dependency-updates)," {% endif %}"[Managing {% data variables.product.prodname_code_scanning %} for your repository](/code-security/secure-coding/managing-code-scanning-alerts-for-your-repository)," and "[Managing alerts from {% data variables.product.prodname_secret_scanning %}](/code-security/secret-security/managing-alerts-from-secret-scanning)."
+{% data variables.product.prodname_code_scanning_capc %} — это функция {% data variables.product.prodname_advanced_security %}, которая проверяет код на наличие уязвимостей и ошибок системы безопасности.
 
-{% if currentVersion == "free-pro-team@latest" %}If you have a security vulnerability, you can create a security advisory to privately discuss and fix the vulnerability. For more information, see "[About {% data variables.product.prodname_security_advisories %}](/code-security/security-advisories/about-github-security-advisories)" and "[Creating a security advisory](/code-security/security-advisories/creating-a-security-advisory)."
+{% ifversion fpt or ghec %}Функция «{% data variables.product.prodname_code_scanning_capc %}» доступна для всех общедоступных репозиториев. Организации, в которых используется {% data variables.product.prodname_ghe_cloud %} и {% data variables.product.prodname_advanced_security %}, также могут использовать функцию «{% data variables.product.prodname_code_scanning %}» для частных и внутренних репозиториев.{% else %}Функция «{% data variables.product.prodname_code_scanning_capc %}» доступна, если в организации используется {% data variables.product.prodname_advanced_security %}.{% endif %}
+
+{% data variables.product.prodname_code_scanning_capc %} настраивается на уровне репозитория. Дополнительные сведения см. в разделе «[Настройка функции "{% data variables.product.prodname_code_scanning %}" для репозитория](/code-security/secure-coding/setting-up-code-scanning-for-a-repository)».
+
+## Дальнейшие действия
+Вы можете просматривать оповещения функций безопасности и управлять ими для обработки зависимостей и уязвимостей в коде. Дополнительные сведения см. в разделе {% ifversion fpt or ghes or ghec %} Просмотр [и обновление {% data variables.product.prodname_dependabot_alerts %}](/code-security/dependabot/dependabot-alerts/viewing-and-updating-dependabot-alerts),{% endif %} {% ifversion fpt or ghec or ghes %}[Управление запросами на вытягивание для обновлений зависимостей](/code-security/supply-chain-security/managing-pull-requests-for-dependency-updates), {% endif %}[Управление {% data variables.product.prodname_code_scanning %} для репозитория](/code-security/secure-coding/managing-code-scanning-alerts-for-your-repository) и [Управление оповещениями из {% data variables.product.prodname_secret_scanning %}](/code-security/secret-security/managing-alerts-from-secret-scanning).
+
+{% ifversion fpt or ghec %}При наличии уязвимости системы безопасности можно создать рекомендации по безопасности, которые позволят в частном порядке обсудить и устранить уязвимость. Дополнительные сведения см. в [разделах Сведения о рекомендациях по безопасности репозитория](/code-security/security-advisories/about-github-security-advisories) и [Создание рекомендаций по безопасности](/code-security/security-advisories/creating-a-security-advisory).
 {% endif %}
+
+{% ifversion ghes or ghec or ghae %}You{% elsif fpt %}Организации, в которых используется{% data variables.product.prodname_ghe_cloud %}{% endif %}, могут просматривать, фильтровать и сортировать оповещения безопасности для репозиториев, которые принадлежат {% ifversion ghes or ghec or ghae %}вашей{% elsif fpt %}их{% endif %} организации, на панели обзора безопасности. Дополнительные сведения см. в разделе{% ifversion ghes or ghec or ghae %} "[Общие сведения о безопасности](/code-security/security-overview/about-the-security-overview)". {% elsif fpt %} [Общие сведения о безопасности](/enterprise-cloud@latest/code-security/security-overview/about-the-security-overview) в документации по {% data variables.product.prodname_ghe_cloud %}. {% endif %}
+
+{% ifversion ghec %}
+## Дополнительные материалы
+
+«[Доступ к отчетам о соответствии требованиям для вашей организации](/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/accessing-compliance-reports-for-your-organization)» {% endif %}

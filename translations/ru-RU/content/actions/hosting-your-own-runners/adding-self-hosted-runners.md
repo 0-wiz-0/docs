@@ -1,86 +1,105 @@
 ---
-title: Adding self-hosted runners
-intro: 'You can add a self-hosted runner to a repository, an organization, or an enterprise.'
+title: Добавление локальных средств выполнения
+intro: 'Вы можете добавить локальное средство выполнения в репозиторий, организацию или предприятие.'
 redirect_from:
   - /github/automating-your-workflow-with-github-actions/adding-self-hosted-runners
   - /actions/automating-your-workflow-with-github-actions/adding-self-hosted-runners
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 type: tutorial
+shortTitle: Add self-hosted runners
+ms.openlocfilehash: c58fbc6ac67fe1466458888eb0c55f58483dac6c
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148109296'
 ---
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}
 
-{% data reusables.actions.ae-self-hosted-runners-notice %}
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
-{% data reusables.actions.ae-beta %}
+Вы можете добавить локальное средство выполнения в репозиторий, организацию или предприятие.
 
-You can add a self-hosted runner to a repository, an organization, or an enterprise.
+Если вы являетесь администратором организации или предприятия, вам может потребоваться добавить свои локальные средства выполнения на уровне организации или предприятия. Такой подход делает средство выполнения доступным для нескольких репозиториев в организации или предприятии, а также позволяет управлять средствами выполнения в одном месте.
 
-If you are an organization or enterprise administrator, you might want to add your self-hosted runners at the organization or enterprise level. This approach makes the runner available to multiple repositories in your organization or enterprise, and also lets you to manage your runners in one place.
+Сведения о поддерживаемых операционных системах для локальных средств выполнения или использовании локальных средств выполнения с прокси-сервером см. в разделе [Сведения о локальных средствах выполнения](/github/automating-your-workflow-with-github-actions/about-self-hosted-runners).
 
-For information on supported operating systems for self-hosted runners, or using self-hosted runners with a proxy server, see "[About self-hosted runners](/github/automating-your-workflow-with-github-actions/about-self-hosted-runners)."
+{% ifversion not ghae %} {% warning %}
 
-{% warning %}
+**Предупреждение.** {% data reusables.actions.self-hosted-runner-security %}
 
-**Warning:** {% data reusables.github-actions.self-hosted-runner-security %}
+Дополнительные сведения см. в статье "[Сведения о локально размещенных средствах выполнения](/github/automating-your-workflow-with-github-actions/about-self-hosted-runners#self-hosted-runner-security-with-public-repositories)."
 
-For more information, see "[About self-hosted runners](/github/automating-your-workflow-with-github-actions/about-self-hosted-runners#self-hosted-runner-security-with-public-repositories)."
+{% endwarning %} {% endif %}
 
-{% endwarning %}
+{% ifversion fpt or ghec or ghes %}
 
-### Adding a self-hosted runner to a repository
+Вы можете настроить автоматизацию для масштабирования количества локальных средств выполнения. Дополнительные сведения см. в разделе [Автомасштабирование с использованием локальных средств выполнения тестов](/actions/hosting-your-own-runners/autoscaling-with-self-hosted-runners).
 
-You can add self-hosted runners to a single repository. To add a self-hosted runner to a user repository, you must be the repository owner. For an organization repository, you must be an organization owner or have admin access to the repository.
-
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.github-actions.settings-sidebar-actions-runners %}
-1. Under
-{% if currentVersion == "free-pro-team@latest" %}"Runners"{% else %}"Self-hosted runners"{% endif %}, click **Add runner**.
-{% data reusables.github-actions.self-hosted-runner-configure %}
-{% data reusables.github-actions.self-hosted-runner-check-installation-success %}
-
-### Adding a self-hosted runner to an organization
-
-You can add self-hosted runners at the organization level, where they can be used to process jobs for multiple repositories in an organization. To add a self-hosted runner to an organization, you must be an organization owner.
-
-{% data reusables.organizations.navigate-to-org %}
-{% data reusables.organizations.org_settings %}
-{% data reusables.github-actions.settings-sidebar-actions-runners %}
-1. Under
-{% if currentVersion == "free-pro-team@latest" %}"Runners"{% else %}"Self-hosted runners"{% endif %}, click **Add runner**.
-{% data reusables.github-actions.self-hosted-runner-configure %}
-{% data reusables.github-actions.self-hosted-runner-check-installation-success %}
-
-{% data reusables.github-actions.self-hosted-runner-public-repo-access %}
-
-### Adding a self-hosted runner to an enterprise
-
-You can add self-hosted runners to an enterprise, where they can be assigned to multiple organizations. The organization admins are then able to control which repositories can use it.
-
-{% if currentVersion == "free-pro-team@latest" %}
-To add a self-hosted runner to an enterprise account, you must be an enterprise owner.
-{% elsif enterpriseServerVersions contains currentVersion and currentVersion ver_gt "enterprise-server@2.21" or currentVersion == "github-ae@latest" %}
-To add a self-hosted runner at the enterprise level of
-{% data variables.product.product_location %}, you must be a site administrator.
 {% endif %}
 
-{% data reusables.enterprise-accounts.access-enterprise %}
-{% data reusables.enterprise-accounts.policies-tab %}
-{% data reusables.enterprise-accounts.actions-tab %}
-{% data reusables.enterprise-accounts.actions-runners-tab %}
-1. Click **Add new**, then click **New runner**. New runners are assigned to the default group. You can modify the runner's group after you've registered the runner. For more information, see "[Managing access to self-hosted runners](/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups#moving-a-self-hosted-runner-to-a-group)."
-{% data reusables.github-actions.self-hosted-runner-configure %}
-{% data reusables.github-actions.self-hosted-runner-check-installation-success %}
+## Предварительные требования
 
-{% data reusables.github-actions.self-hosted-runner-public-repo-access %}
+{% data reusables.actions.self-hosted-runners-prerequisites %}
 
-#### Making enterprise runners available to repositories
+## Добавление локального средства выполнения в репозиторий
 
-By default, runners in an enterprise's "Default" self-hosted runner group are available to all organizations in the enterprise, but are not available to all repositories in each organization.
+Вы можете добавить локальные средства выполнения в один репозиторий. Чтобы добавить локальное средство выполнения в пользовательский репозиторий, необходимо быть владельцем репозитория. Для репозитория организации необходимо быть владельцем организации или иметь доступ администратора к репозиторию. Сведения о том, как добавить локальное средство выполнения с помощью REST API, см. в разделе [Локальные средства выполнения](/rest/reference/actions#self-hosted-runners).
 
-To make an enterprise-level self-hosted runner group available to an organization repository, you might need to change the organization's inherited settings for the runner group to make the runner available to repositories in the organization.
+{% ifversion fpt или ghec или ghes > 3.3 или ghae > 3,3 %} {% данных reusables.repositories.navigate-to-repo %} {% данных reusables.repositories.sidebar-settings %} {% данных reusables.repositories.settings-sidebar-actions-runners %}
+1. Щелкните **Создать локальное средство выполнения**.
+{% data reusables.actions.self-hosted-runner-configure %} {% elsif ghae or ghes < 3.4 %} {% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-settings %} {% data reusables.repositories.settings-sidebar-actions-runners %}
+1. В разделе {% ifversion ghes or ghae or ghec %}"Средства выполнения"{% else %}"Локальные средства выполнения"{% endif %} нажмите **Добавить средство выполнения**.
+{% data reusables.actions.self-hosted-runner-configure %} {% endif %} {% data reusables.actions.self-hosted-runner-check-installation-success %}
 
-For more information on changing runner group access settings, see "[Managing access to self-hosted runners using groups](/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups#changing-the-access-policy-of-a-self-hosted-runner-group)."
+Дополнительные сведения см. в разделе [Мониторинг и устранение неполадок в работе средств выполнения тестов локального размещения](/actions/hosting-your-own-runners/monitoring-and-troubleshooting-self-hosted-runners).
+
+## Добавление локального средства выполнения в организацию
+
+Вы можете добавлять локальные средства выполнения на уровне организации, где их можно использовать для обработки заданий для нескольких репозиториев в организации. Чтобы добавить локальное средство выполнения в организацию, необходимо быть владельцем организации. Сведения о том, как добавить локальное средство выполнения с помощью REST API, см. в разделе [Локальные средства выполнения](/rest/reference/actions#self-hosted-runners).
+
+{% ifversion fpt или ghec или ghes > 3.3 или ghae > 3,3 %} {% данных reusables.organizations.navigate-to-org %} {% данных reusables.organizations.org_settings %} {% данных reusables.organizations.settings-sidebar-actions-runners %} {% ifversion actions-hosted-runners %} 1. Нажмите кнопку **Создать средство выполнения**, а затем выберите **Создать локальное средство выполнения**. {% else %}1. **Щелкните "Создать средство выполнения**.{% endif %} {% data reusables.actions.self-hosted-runner-configure %} {% elsif ghae or ghes < 3.4 %} {% data reusables.organizations.navigate-to-org %} {% data reusables.organizations.org_settings %} {% data reusables.organizations.settings-sidebar-actions-runners %}
+1. В разделе {% ifversion ghes or ghae %}"Средства выполнения" нажмите **Добавить**, затем нажмите **Новое средство выполнения**.{% endif %} {% data reusables.actions.self-hosted-runner-configure %} {% endif %} {% data reusables.actions.self-hosted-runner-check-installation-success %}
+
+Дополнительные сведения см. в разделе [Мониторинг и устранение неполадок в работе средств выполнения тестов локального размещения](/actions/hosting-your-own-runners/monitoring-and-troubleshooting-self-hosted-runners).
+
+{% data reusables.actions.self-hosted-runner-public-repo-access %}
+
+## Добавление локального средства выполнения в предприятие
+
+{% ifversion fpt %}Если вы используете {% data variables.product.prodname_ghe_cloud %}, то{% elsif ghec or ghes or ghae %}Вы{% endif %} можете добавлять локальные средства выполнения в предприятие, где их можно назначать нескольким организациям. Затем администраторы организации могут управлять тем, какие репозитории могут использовать средство выполнения. {% ifversion fpt %}Дополнительные сведения см. в [документации по {% data variables.product.prodname_ghe_cloud %}](/enterprise-cloud@latest/actions/hosting-your-own-runners/adding-self-hosted-runners#adding-a-self-hosted-runner-to-an-enterprise).{% endif %}
+
+{% ifversion ghec or ghes or ghae %} Новые средства выполнения назначаются группе по умолчанию. После регистрации средства выполнения вы можете изменить его группу. Дополнительные сведения см. в разделе [Управление доступом к локальным средствам выполнения](/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups#moving-a-self-hosted-runner-to-a-group).
+
+{% ifversion ghec или ghes > 3.3 или ghae > 3,3 %}
+
+Чтобы добавить локальное средство выполнения в предприятие, необходимо быть владельцем предприятия. Сведения о том, как добавить локальное средство выполнения с помощью REST API, см. в описании корпоративных конечных точек в разделе [REST API {% data variables.product.prodname_actions %}](/rest/reference/actions#self-hosted-runners).
+
+{% endif %}
+
+{% data reusables.actions.self-hosted-runner-add-to-enterprise %}
+
+{% data reusables.actions.self-hosted-runner-check-installation-success %}
+
+Дополнительные сведения см. в разделе [Мониторинг и устранение неполадок в работе средств выполнения тестов локального размещения](/actions/hosting-your-own-runners/monitoring-and-troubleshooting-self-hosted-runners).
+
+{% data reusables.actions.self-hosted-runner-public-repo-access %}
+
+### Обеспечение доступности корпоративных средств выполнения для репозиториев
+
+По умолчанию средства выполнения в группе локальных средств выполнения предприятия по умолчанию доступны для всех организаций предприятия, но не доступны для всех репозиториев в каждой организации.
+
+Чтобы сделать группу локальных средств выполнения корпоративного уровня доступной для репозитория организации, может потребоваться изменить унаследованные параметры организации для группы средств выполнения.
+
+Дополнительные сведения об изменении параметров доступа к группе средств выполнения см. в разделе [Управление доступом к локальным средствам выполнения с помощью групп](/actions/hosting-your-own-runners/managing-access-to-self-hosted-runners-using-groups#changing-the-access-policy-of-a-self-hosted-runner-group).
+{% endif %}
+
+{% ifversion ghec or ghes or ghae %}
+
+## Дополнительные материалы
+
+- [Начало работы с локальными средствами выполнения тестов для вашего предприятия](/admin/github-actions/getting-started-with-github-actions-for-your-enterprise/getting-started-with-self-hosted-runners-for-your-enterprise)
+
+{% endif %}

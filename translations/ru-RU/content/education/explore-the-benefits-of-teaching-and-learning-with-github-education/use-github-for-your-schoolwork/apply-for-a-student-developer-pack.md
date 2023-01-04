@@ -1,55 +1,61 @@
 ---
-title: Apply for a student developer pack
-intro: 'As a student, you can apply for the {% data variables.product.prodname_student_pack %}, which includes offers and benefits from {% data variables.product.prodname_dotcom %} partners.'
+title: Применение к пакету средств разработки для учащихся Student Developer Pack
+intro: Учащийся может подать заявку на {% data variables.product.prodname_student_pack %}, куда входят предложения и преимущества от партнеров {% data variables.product.prodname_dotcom %}.
 redirect_from:
-  - /education/teach-and-learn-with-github-education/apply-for-a-student-developer-pack
-  - /github/teaching-and-learning-with-github-education/applying-for-a-student-developer-pack
-  - /articles/applying-for-a-student-developer-pack
-  - /education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-a-student-developer-pack
+- /education/teach-and-learn-with-github-education/apply-for-a-student-developer-pack
+- /github/teaching-and-learning-with-github-education/applying-for-a-student-developer-pack
+- /articles/applying-for-a-student-developer-pack
+- /education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-a-student-developer-pack
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: Apply for a student pack
+ms.openlocfilehash: 000d8691364c85da6b5f595e5078262b1bb6d22c
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145112259"
 ---
-
 {% data reusables.education.about-github-education-link %}
 
-### Требования
+## <a name="requirements"></a>Требования
 
-To be eligible for the {% data variables.product.prodname_student_pack %}, you must:
-- Be currently enrolled in a degree or diploma granting course of study such as a high school, secondary school, college, university, homeschool, or similar educational institution
-- Have a verifiable school-issued email address or upload documents that prove your current student status
-- Have a [{% data variables.product.prodname_dotcom %} user account](/articles/signing-up-for-a-new-github-account)
-- Be at least 13 years old
+Чтобы иметь право на {% data variables.product.prodname_student_pack %}, вам требуется:
+- Быть зарегистрированным в учебном курсе, по результатам которого присваивается степень или выдается диплом (например, в профтехучилище, колледже, университете, системе домашнего обучения или аналогичном учебном заведении).
+- Иметь действующий адрес электронной почты, выделенный учебным заведением, или отправьте документы, подтверждающие текущее состояние учащегося.
+- Иметь [личную учетную запись {% data variables.product.prodname_dotcom %}](/articles/signing-up-for-a-new-github-account)
+- Быть старше 13 лет
 
-Documents that prove your current student status include a picture of your school ID with current enrollment date, class schedule, transcript, and affiliation or enrollment verification letter.
+Документы, подтверждающие текущий статус учащегося, содержат изображение идентификатора учебного заведения с текущей датой регистрации, расписание занятий, расшифровку и письмо о подтверждении аффилиации или регистрации.
 
-During your tenure as a student, you may be prompted to periodically re-verify your current academic status.
+Пока вы имеете статус учащегося, вы вправе периодически запрашивать повторную проверку текущего академического статуса.
 
 {% note %}
 
-**Note:** You cannot transfer academic discounts from one account to another. If you have more than one account you want to apply the discount to, consider [merging](/articles/merging-multiple-user-accounts) your user accounts and [renaming](/articles/changing-your-github-username) the retained account if desired.
+**Примечание.** Вы не можете переносить академические скидки из одной учетной записи в другую. Если у вас несколько учетных записей, к которым вы хотите применить скидку, при необходимости можно [объединить](/articles/merging-multiple-user-accounts) личные учетные записи и [переименовать](/articles/changing-your-github-username) сохраненную учетную запись.
 
 {% endnote %}
 
-For information about renewing your {% data variables.product.prodname_student_pack %}, see "[Expiration and renewals](/education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-a-student-developer-pack/#expiration-and-renewals)."
+Сведения об обновлении {% data variables.product.prodname_student_pack %} см. в разделе [Срок действия и продление](/education/explore-the-benefits-of-teaching-and-learning-with-github-education/apply-for-a-student-developer-pack/#expiration-and-renewals).
 
-### Applying for a {% data variables.product.prodname_student_pack %}
+## <a name="applying-for-a--data-variablesproductprodname_student_pack-"></a>Подача заявки на {% data variables.product.prodname_student_pack %}
 
 {% data reusables.education.benefits-page %}
-3. Under "Which best describes your academic status?", select **Student**. ![Select academic status](/assets/images/help/education/academic-status-student.png)
-{% data reusables.education.select-email-address %}
-{% data reusables.education.upload-proof-status %}
-{% data reusables.education.school-name %}
-{% data reusables.education.plan-to-use-github %}
-{% data reusables.education.submit-application %}
+3. В разделе "Ваш академический статус" выберите **Учащийся**.
+  ![Выберите академический статус](/assets/images/help/education/academic-status-student.png) {% data reusables.education.select-email-address %} {% data reusables.education.upload-proof-status %} {% data reusables.education.school-name %} {% data reusables.education.plan-to-use-github %} {% data reusables.education.submit-application %}
 
-### Expiration and renewals
+## <a name="expiration-and-renewals"></a>Срок действия и продление
 
-Once your {% data variables.product.prodname_student_pack %} access expires, you may reapply if you're still eligible, although some of our partner offers cannot renew. Most of the timed offers from our partners start once you set them up. For more information, see the [{% data variables.product.prodname_student_pack %}](https://education.github.com/pack) page.
+После истечения срока действия прав доступа к {% data variables.product.prodname_student_pack %} вы можете повторно подать заявку, если вы все еще имеете на это право, хотя для некоторых предложений наших партнеров продление не поддерживается. Большинство предложений наших партнеров с ограниченным сроком действия начинают действовать после их настройки. Чтобы повторно подать заявку, просто вернитесь к https://education.github.com, щелкните свое изображение профиля, а затем нажмите кнопку **Повторно подтвердить свой статус в учебном заведении**.
 
-To see when your free access to the {% data variables.product.prodname_student_pack %} expires, visit your account's [billing settings](https://github.com/settings/billing).
+![Команда в меню для восстановления вашего статуса в учебном заведении](/assets/images/help/education/reverify-academic-affiliation.png)
 
-### Дополнительная литература
+Дополнительные сведения см. на странице [{% data variables.product.prodname_student_pack %}](https://education.github.com/pack).
 
-- "[Why wasn't my application for a {% data variables.product.prodname_student_pack %} approved?](/articles/why-wasn-t-my-application-for-a-student-developer-pack-approved)"
-- "[Signing up for a new {% data variables.product.prodname_dotcom %} account](/articles/signing-up-for-a-new-github-account)"
+Чтобы узнать, когда истекает срок действия бесплатного доступа к {% data variables.product.prodname_student_pack %}, перейдите в раздел [параметров выставления счетов](https://github.com/settings/billing) вашей учетной записи.
+
+## <a name="further-reading"></a>Дополнительные материалы
+
+- [Почему моя заявка на {% data variables.product.prodname_student_pack %} не утверждена?](/articles/why-wasn-t-my-application-for-a-student-developer-pack-approved)
+- [Регистрация для новой учетной записи {% data variables.product.prodname_dotcom %}](/articles/signing-up-for-a-new-github-account)
 - [{% data variables.product.prodname_education %}](https://education.github.com)

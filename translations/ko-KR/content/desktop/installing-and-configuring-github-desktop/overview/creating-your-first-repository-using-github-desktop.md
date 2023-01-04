@@ -1,98 +1,117 @@
 ---
-title: Creating your first repository using GitHub Desktop
+title: GitHub Desktop을 사용하여 첫 번째 리포지토리 만들기
 shortTitle: Creating your first repository
-intro: 'You can use {% data variables.product.prodname_desktop %} to create and manage a Git repository without using the command line.'
+intro: '{% data variables.product.prodname_desktop %}을 사용하여 명령줄을 사용하지 않고 Git 리포지토리를 만들고 관리할 수 있습니다.'
 redirect_from:
   - /desktop/getting-started-with-github-desktop/creating-your-first-repository-using-github-desktop
   - /desktop/installing-and-configuring-github-desktop/creating-your-first-repository-using-github-desktop
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: bdfaa5770faef23d8176b24753e23d6a3d5159a1
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145117327'
 ---
+## 소개
+{% data variables.product.prodname_desktop %}은 명령줄의 텍스트 명령 대신 시각적 인터페이스를 사용하여 {% data variables.product.prodname_dotcom_the_website %} 워크플로를 확장하고 간소화합니다. 이 가이드를 마치면 {% data variables.product.prodname_desktop %}을 사용하여 리포지토리를 만들고, 리포지토리를 변경하고, 변경 내용을 {% data variables.product.product_name %}에 게시합니다.
 
-### Introduction
-{% data variables.product.prodname_desktop %} extends and simplifies your {% data variables.product.prodname_dotcom_the_website %} workflow, using a visual interface instead of text commands on the command line. By the end of this guide, you'll have used {% data variables.product.prodname_desktop %} to create a repository, make changes to the repository, and publish the changes to {% data variables.product.product_name %}.
+{% data variables.product.prodname_desktop %}을 설치하고 {% data variables.product.prodname_dotcom %} 또는 {% data variables.product.prodname_enterprise %}에 로그인한 후 자습서 리포지토리를 만들고 복제할 수 있습니다. 이 자습서에서는 텍스트 편집기 설치, 분기 만들기, 커밋하기, {% data variables.product.prodname_dotcom_the_website %}에 푸시, 끌어오기 요청 열기 등 Git 및 {% data variables.product.prodname_dotcom %}를 사용하는 방법의 기본 사항을 소개합니다. {% data variables.product.prodname_desktop %}에 리포지토리가 아직 없는 경우 이 자습서를 사용할 수 있습니다.
 
-After installing {% data variables.product.prodname_desktop %} and signing into {% data variables.product.prodname_dotcom %} or {% data variables.product.prodname_enterprise %} you can create and clone a tutorial repository. The tutorial will introduce the basics of working with Git and {% data variables.product.prodname_dotcom %}, including installing a text editor, creating a branch, making a commit, pushing to {% data variables.product.prodname_dotcom_the_website %}, and opening a pull request. The tutorial is available if you do not have any repositories on {% data variables.product.prodname_desktop %} yet.
+자습서를 완료하는 것이 좋지만 새 리포지토리를 만들어 {% data variables.product.prodname_desktop %}을 살펴보려는 경우 이 가이드에서는 {% data variables.product.prodname_desktop %}을 사용하여 Git 리포지토리에서 작업하는 방법을 안내합니다.
 
-We recommend completing the tutorial, but if you want to explore {% data variables.product.prodname_desktop %} by creating a new repository, this guide will walk you through using {% data variables.product.prodname_desktop %} to work on a Git repository.
+## 1부: {% data variables.product.prodname_desktop %} 설치 및 계정 인증
+지원되는 모든 운영 체제에 {% data variables.product.prodname_desktop %}을 설치할 수 있습니다. 앱을 설치한 후 자습서 리포지토리를 만들고 복제하려면 {% data variables.product.prodname_dotcom %} 또는 {% data variables.product.prodname_enterprise %}에 로그인하고 계정을 인증해야 합니다.
 
-### Part 1: Installing {% data variables.product.prodname_desktop %} and authenticating your account
-You can install {% data variables.product.prodname_desktop %} on any supported operating system. After you install the app, you will need to sign in and authenticate your account on {% data variables.product.prodname_dotcom %} or {% data variables.product.prodname_enterprise %} before you can create and clone a tutorial repository.
+설치 및 인증에 대한 자세한 내용은 “[{% data variables.product.prodname_desktop %} 설정](/desktop/installing-and-configuring-github-desktop/setting-up-github-desktop)”을 참조하세요.
 
-For more information on installing and authenticating, see "[Setting up {% data variables.product.prodname_desktop %}](/desktop/installing-and-configuring-github-desktop/setting-up-github-desktop)."
+## 2부: 새 리포지토리 만들기
+{% data variables.product.prodname_desktop %}과 연결된 리포지토리가 없는 경우 “이제 시작하겠습니다” 뷰가 표시되어 자습서 리포지토리를 만들고 복제하거나, 인터넷에서 기존 리포지토리를 복제하거나, 새 리포지토리를 만들거나, 하드 드라이브에서 기존 리포지토리를 추가하도록 선택할 수 있습니다.
+  ![이제 시작하겠습니다 화면](/assets/images/help/desktop/lets-get-started.png)
 
-### Part 2: Creating a new repository
-If you do not have any repositories associated with {% data variables.product.prodname_desktop %}, you will see a "Let's get started!" view, where you can choose to create and clone a tutorial repository, clone an existing repository from the Internet, create a new repository, or add an existing repository from your hard drive. ![The Let's get started! screen](/assets/images/help/desktop/lets-get-started.png)
+### 자습서 리포지토리 만들기 및 복제
+{% data variables.product.prodname_desktop %} 사용을 연습하기 위해 첫 번째 프로젝트로 자습서 리포지토리를 만들고 복제하는 것이 좋습니다.
 
-#### Creating and cloning a tutorial repository
-We recommend that you create and clone a tutorial repository as your first project to practice using {% data variables.product.prodname_desktop %}.
+1. **자습서 리포지토리 만들기 및 복제** 를 클릭합니다.
+  ![자습서 리포지토리 만들기 및 복제 단추](/assets/images/help/desktop/getting-started-guide/create-and-clone-a-tutorial-repository.png)
+2. 자습서의 프롬프트에 따라 텍스트 편집기를 설치하고, 분기를 만들고, 파일을 편집하고, 커밋하고, {% data variables.product.prodname_dotcom %}에 게시하고, 끌어오기 요청을 엽니다.
 
-1. Click **Create a tutorial repository and clone it**. ![Create and clone a tutorial repository button](/assets/images/help/desktop/getting-started-guide/create-and-clone-a-tutorial-repository.png)
-2. Follow the prompts in the tutorial to install a text editor, create a branch, edit a file, make a commit, publish to {% data variables.product.prodname_dotcom %}, and open a pull request.
+### 새 리포지토리 만들기
+자습서 리포지토리를 만들고 복제하는 것을 원하지 않는 경우 새 리포지토리를 만들 수 있습니다.
 
-#### Creating a new repository
-If you do not wish to create and clone a tutorial repository, you can create a new repository.
+1. **하드 드라이브에서 새 리포지토리 만들기** 를 클릭합니다. ![새 리포지토리 만들기](/assets/images/help/desktop/getting-started-guide/creating-a-repository.png)
+2. 필드에 정보를 입력하고 원하는 옵션을 선택합니다.
+  ![리포지토리 만들기 옵션](/assets/images/help/desktop/getting-started-guide/create-a-new-repository-options.png)
+   - “이름”은 로컬 및 {% data variables.product.product_name %}에서 리포지토리의 이름을 정의합니다.
+   - “설명”은 리포지토리의 용도에 대한 자세한 정보를 제공하는 데 사용할 수 있는 선택적 필드입니다.
+   - “로컬 경로”는 컴퓨터에서 리포지토리의 위치를 설정합니다. 기본적으로 {% data variables.product.prodname_desktop %}은 문서 폴더 내에 _GitHub_ 폴더를 만들어 리포지토리를 저장하지만 컴퓨터의 모든 위치를 선택할 수 있습니다. 새 리포지토리는 선택한 위치 내의 폴더가 됩니다. 예를 들어 리포지토리의 이름을 `Tutorial`로 지정하면 로컬 경로에 선택한 폴더 내에 _Tutorial_ 이라는 폴더가 생성됩니다. {% data variables.product.prodname_desktop %}은 다음에 새 리포지토리를 만들거나 복제할 때 선택한 위치를 기억합니다.
+   - **README를 사용하여 이 리포지토리를 초기화** 하면 _README.md_ 파일을 사용하여 초기 커밋이 생성됩니다. README는 사람들이 프로젝트의 목적을 이해하는 데 도움이 되므로 README를 선택하고 유용한 정보를 입력하는 것이 좋습니다. 누군가가 {% data variables.product.product_name %}에서 리포지토리를 방문하면 가장 먼저 README에서 프로젝트에 대해 파악할 수 있습니다. 자세한 내용은 “[README 정보](/articles/about-readmes)”를 참조하세요.
+   - **Git 무시** 드롭다운 메뉴를 사용하면 버전 제어에 저장하지 않으려는 로컬 리포지토리의 특정 파일을 무시하는 사용자 지정 파일을 추가할 수 있습니다. 사용할 특정 언어 또는 프레임워크가 있는 경우 사용 가능한 목록에서 옵션을 선택할 수 있습니다. 이제 막 시작하는 경우 이 선택을 건너뛸 수 있습니다. 자세한 내용은 “[파일 무시](/github/getting-started-with-github/ignoring-files)”를 참조하세요.
+   - **라이선스** 드롭다운 메뉴를 사용하면 리포지토리의 _LICENSE_ 파일에 오픈 소스 라이선스를 추가할 수 있습니다. 라이선스를 바로 추가하는 것에 대해 걱정할 필요가 없습니다. 사용 가능한 오픈 소스 라이선스 및 리포지토리에 라이선스를 추가하는 방법에 대한 자세한 내용은 “[리포지토리 라이선스](/articles/licensing-a-repository)”를 참조하세요.
+3. **리포지토리 만들기** 를 클릭합니다.
 
-1. Click **Create a New Repository on your Hard Drive...**. ![Create a new repository](/assets/images/help/desktop/getting-started-guide/creating-a-repository.png)
-2. Fill in the fields and select your preferred options. ![Create a repository options](/assets/images/help/desktop/getting-started-guide/create-a-new-repository-options.png)
-   - "Name" defines the name of your repository both locally and on {% data variables.product.product_name %}.
-   - "Description" is an optional field that you can use to provide more information about the purpose of your repository.
-   - "Local path" sets the location of your repository on your computer. By default, {% data variables.product.prodname_desktop %} creates a _GitHub_ folder inside your _Documents_ folder to store your repositories, but you can choose any location on your computer. Your new repository will be a folder inside the chosen location. For example, if you name your repository `Tutorial`, a folder named _Tutorial_ is created inside the folder you selected for your local path. {% data variables.product.prodname_desktop %} remembers your chosen location the next time you create or clone a new repository.
-   - **Initialize this repository with a README** creates an initial commit with a _README.md_ file. READMEs helps people understand the purpose of your project, so we recommend selecting this and filling it out with helpful information. When someone visits your repository on {% data variables.product.product_name %}, the README is the first thing they'll see as they learn about your project. For more information, see "[About READMEs](/articles/about-readmes)."
-   - The **Git ignore** drop-down menu lets you add a custom file to ignore specific files in your local repository that you don't want to store in version control. If there's a specific language or framework that you'll be using, you can select an option from the available list. If you're just getting started, feel free to skip this selection. For more information, see "[Ignoring files](/github/getting-started-with-github/ignoring-files)."
-   - The **License** drop-down menu lets you add an open-source license to a _LICENSE_ file in your repository. You don't need to worry about adding a license right away. For more information about available open-source licenses and how to add them to your repository, see "[Licensing a repository](/articles/licensing-a-repository)."
-3. Click **Create repository**.
+## 3부: {% data variables.product.prodname_desktop %} 탐색
+화면 상단의 파일 메뉴에서 {% data variables.product.prodname_desktop %}에서 수행할 수 있는 설정 및 작업에 액세스할 수 있습니다. 대부분의 작업에는 보다 효율적으로 작업하는 데 도움이 되는 바로 가기 키가 있습니다. 바로 가기 키의 전체 목록은 “[바로 가기 키](/desktop/getting-started-with-github-desktop/keyboard-shortcuts)”를 참조하세요.
 
-### Part 3: Exploring {% data variables.product.prodname_desktop %}
-In the file menu at the top of the screen, you can access settings and actions that you can perform in {% data variables.product.prodname_desktop %}. Most actions also have keyboard shortcuts to help you work more efficiently. For a full list of keyboard shortcuts, see "[Keyboard shortcuts](/desktop/getting-started-with-github-desktop/keyboard-shortcuts)."
+### {% data variables.product.prodname_desktop %} 메뉴 모음
+{% data variables.product.prodname_desktop %} 앱 상단에 리포지토리의 현재 상태를 보여 주는 표시줄이 나타납니다.
+  - **현재 리포지토리** 에는 작업 중인 리포지토리의 이름이 표시됩니다. {% data variables.product.prodname_desktop %}에서 **현재 리포지토리** 를 클릭하여 다른 리포지토리로 전환할 수 있습니다.
+  - **현재 분기** 는 작업 중인 분기의 이름을 표시합니다. **현재 분기** 를 클릭하여 리포지토리의 모든 분기를 보거나, 다른 분기로 전환하거나, 새 분기를 만들 수 있습니다. 리포지토리에서 끌어오기 요청을 만든 후에는 **현재 분기** 를 클릭하여 요청을 볼 수도 있습니다.
+  - {% data variables.product.product_name %}에 리포지토리를 아직 게시하지 않았으므로 **리포지토리 게시** 가 나타납니다. 이는 다음 단계에서 수행하겠습니다. 표시줄의 이 섹션은 현재 분기 및 리포지토리의 상태에 따라 변경됩니다. 로컬 리포지토리와 원격 리포지토리 간에 데이터를 교환할 수 있는 다양한 컨텍스트 종속 작업을 사용할 수 있습니다.
 
-#### The {% data variables.product.prodname_desktop %} menu bar
-At the top of the {% data variables.product.prodname_desktop %} app, you will see a bar that shows the current state of your repository.
-  - **Current repository** shows the name of the repository you're working on. You can click **Current repository** to switch to a different repository in {% data variables.product.prodname_desktop %}.
-  - **Current branch** shows the name of the branch you're working on. You can click **Current branch** to view all the branches in your repository, switch to a different branch, or create a new branch. Once you create pull requests in your repository, you can also view these by clicking on **Current branch**.
-  - **Publish repository** appears because you haven't published your repository to {% data variables.product.product_name %} yet, which you'll do later in the next step. This section of the bar will change based on the status of your current branch and repository. Different context dependent actions will be available that let you exchange data between your local and remote repositories.
+  ![GitHub Desktop 탐색](/assets/images/help/desktop/getting-started-guide/explore-github-desktop.png)
 
-  ![Explore GitHub Desktop](/assets/images/help/desktop/getting-started-guide/explore-github-desktop.png)
+### 변경 내용 및 기록
+왼쪽 사이드바에서 **변경 내용** 및 **기록** 보기를 찾을 수 있습니다.
+  ![변경 내용 및 기록 탭](/assets/images/help/desktop/changes-and-history.png)
 
-#### Changes and History
-In the left sidebar, you'll find the **Changes** and **History** views. ![The Changes and History tabs](/assets/images/help/desktop/changes-and-history.png)
+  - **변경 내용** 보기에는 현재 분기의 파일에 적용되었지만 로컬 리포지토리에 커밋되지 않은 변경 내용이 표시됩니다. 하단에는 “요약” 및 “설명” 텍스트 상자가 있는 상자와 **분기에 커밋** 단추가 있습니다. 여기서 새 변경 내용을 커밋합니다. **분기에 커밋** 단추는 동적이며 변경 내용을 커밋하는 분기를 표시합니다.
+  ![커밋 영역](/assets/images/help/desktop/getting-started-guide/commit-area.png)
 
-  - The **Changes** view shows changes you've made to files in your current branch but haven't committed to your local repository. At the bottom, there is a box with "Summary" and "Description" text boxes and a **Commit to BRANCH** button. This is where you'll commit new changes. The **Commit to BRANCH** button is dynamic and will display which branch you're committing your changes to. ![Commit area](/assets/images/help/desktop/getting-started-guide/commit-area.png)
+  - **기록** 보기에는 리포지토리의 현재 분기에 대한 이전 커밋이 표시됩니다. 리포지토리를 만들 때 {% data variables.product.prodname_desktop %}에서 만든 “초기 커밋”이 표시됩니다. 커밋 오른쪽에 리포지토리를 만들 때 선택한 옵션에 따라 _.gitattributes_, _.gitignore_, _LICENSE_ 또는 _README_ 파일이 표시됩니다. 각 파일을 클릭하여 해당 커밋의 파일에 대한 변경 내용인 해당 파일에 대한 diff를 볼 수 있습니다. diff는 파일의 전체 내용이 아니라 파일의 변경된 부분만 표시합니다.
+  ![기록 보기](/assets/images/help/desktop/getting-started-guide/history-view.png)
 
-  - The **History** view shows the previous commits on the current branch of your repository. You should see an "Initial commit" that was created by {% data variables.product.prodname_desktop %} when you created your repository. To the right of the commit, depending on the options you selected while creating your repository, you may see _.gitattributes_, _.gitignore_, _LICENSE_, or _README_ files. You can click each file to see a diff for that file, which is the changes made to the file in that commit. The diff only shows the parts of the file that have changed, not the entire contents of the file. ![History view](/assets/images/help/desktop/getting-started-guide/history-view.png)
+## 4부: {% data variables.product.product_name %}에 리포지토리 게시
+새 리포지토리를 만들면 해당 리포지토리는 사용자의 컴퓨터에만 존재하며 해당 사용자만이 이 리포지토리에 액세스할 수 있습니다. 리포지토리를 {% data variables.product.product_name %}에 게시하여 여러 컴퓨터에 걸쳐 동기화된 상태로 유지하고 다른 사용자가 액세스할 수 있도록 할 수 있습니다. 리포지토리를 게시하려면 로컬 변경 내용을 {% data variables.product.product_name %}에 푸시합니다.
 
-### Part 4: Publishing your repository to {% data variables.product.product_name %}
-When you create a new repository, it only exists on your computer and you are the only one who can access the repository. You can publish your repository to {% data variables.product.product_name %} to keep it synchronized across multiple computers and allow other people to access it. To publish your repository, push your local changes to {% data variables.product.product_name %}.
+1. 메뉴 모음에서 **리포지토리 게시** 를 클릭합니다.
+    ![리포지토리 게시](/assets/images/help/desktop/getting-started-guide/publish-repository.png)
+    - {% data variables.product.prodname_desktop %}은 “이름” 및 “설명” 필드에 리포지토리를 만들 때 입력한 정보를 자동으로 입력합니다.
+    - **이 코드를 비공개로 유지** 하면 프로젝트를 볼 수 있는 사용자를 제어할 수 있습니다. 이 옵션을 선택하지 않은 상태로 두면 {% data variables.product.product_name %}의 다른 사용자가 코드를 볼 수 있습니다. 이 옵션을 선택하면 코드가 공개되지 않습니다.
+    - **조직** 드롭다운 메뉴가 있는 경우 {% data variables.product.product_name %}에서 소속 조직에 리포지토리를 게시할 수 있습니다.
 
-1. Click **Publish repository** in the menu bar. ![Publish repository](/assets/images/help/desktop/getting-started-guide/publish-repository.png)
-    - {% data variables.product.prodname_desktop %} automatically fills the "Name" and "Description" fields with the information you entered when you created the repository.
-    - **Keep this code private** lets you control who can view your project. If you leave this option unselected, other users on {% data variables.product.product_name %} will be able to view your code. If you select this option, your code will not be publicly available.
-    - The **Organization** drop-down menu, if present, lets you publish your repository to a specific organization that you belong to on {% data variables.product.product_name %}.
+    ![리포지토리 게시 단계](/assets/images/help/desktop/getting-started-guide/publish-repository-steps.png)
+  2. **리포지토리 게시** 단추를 클릭합니다.
+  3. {% data variables.product.prodname_desktop %}에서 {% data variables.product.prodname_dotcom_the_website %}의 리포지토리에 액세스할 수 있습니다. 파일 메뉴에서 **리포지토리** 를 클릭한 다음 **GitHub 보기** 를 클릭합니다. 이렇게 하면 기본 브라우저의 리포지토리로 바로 이동합니다.
 
-    ![Publish repository steps](/assets/images/help/desktop/getting-started-guide/publish-repository-steps.png)
-  2. Click the **Publish Repository** button.
-  3. You can access the repository on {% data variables.product.prodname_dotcom_the_website %} from within {% data variables.product.prodname_desktop %}. In the file menu, click **Repository**, then click **View on GitHub**. This will take you directly to the repository in your default browser.
+## 5부: 변경 내용 만들기, 커밋, 푸시
+이제 리포지토리를 만들고 게시했으므로 이번에는 프로젝트를 변경하고 리포지토리에 대한 첫 번째 커밋 만들기를 시작해 보겠습니다.
 
-### Part 5: Making, committing, and pushing changes
-Now that you've created and published your repository, you're ready to make changes to your project and start crafting your first commit to your repository.
+1. {% data variables.product.prodname_desktop %}에서 외부 편집기를 시작하려면 **리포지토리** 를 클릭한 다음 **편집기에서 열기** 를 클릭합니다. 자세한 내용은 “[기본 편집기 구성](/desktop/getting-started-with-github-desktop/configuring-a-default-editor)”을 참조하세요.
+  ![편집기에서 열기](/assets/images/help/desktop/getting-started-guide/open-in-editor.png)
 
-1. To launch your external editor from within {% data variables.product.prodname_desktop %}, click **Repository**, then click **Open in <em>EDITOR</em>**. For more information, see "[Configuring a default editor](/desktop/getting-started-with-github-desktop/configuring-a-default-editor)." ![Open in editor](/assets/images/help/desktop/getting-started-guide/open-in-editor.png)
+2. 이전에 만든 _README.md_ 파일을 약간 변경합니다. 프로젝트를 설명하는 정보(예: 역할 및 기능)를 추가할 수 있습니다. 변경 내용에 만족하면 텍스트 편집기에서 저장합니다.
+3. {% data variables.product.prodname_desktop %}에서 **변경 내용** 보기로 이동합니다. 파일 목록에 _README.md_ 가 표시됩니다. _README.md_ 파일 왼쪽에 확인 표시는 파일에 대한 변경 내용이 커밋의 일부임을 나타냅니다. 나중에 여러 파일을 변경할 수 있지만 일부 파일에 대해 변경한 내용만 커밋하려고 합니다. 파일 옆에 있는 확인 표시를 클릭하면 해당 파일이 커밋에 포함되지 않습니다.
+  ![변경 내용 보기](/assets/images/help/desktop/getting-started-guide/viewing-changes.png)
 
-2. Make some changes to the _README.md_ file that you previously created. You can add information that describes your project, like what it does and why it is useful. When you are satisfied with your changes, save them in your text editor.
-3. In {% data variables.product.prodname_desktop %}, navigate to the **Changes** view. In the file list, you should see your _README.md_. The checkmark to the left of the _README.md_ file indicates that the changes you've made to the file will be part of the commit you make. In the future, you might make changes to multiple files but only want to commit the changes you've made to some of the files. If you click the checkmark next to a file, that file will not be included in the commit. ![Viewing changes](/assets/images/help/desktop/getting-started-guide/viewing-changes.png)
+4. **변경 내용** 목록 하단에 커밋 메시지를 입력합니다. 프로필 사진 오른쪽에 커밋에 대한 간단한 설명을 입력합니다. _README.md_ 파일을 변경하기 때문에 “프로젝트의 목적에 대한 정보 추가”는 좋은 커밋 요약이 될 것입니다. 요약에는 커밋의 변경 내용에 대한 더 긴 설명을 입력할 수 있는 “설명” 텍스트 필드가 표시됩니다. 이를 통해 프로젝트 기록을 되돌아보고 변경된 이유를 이해할 수 있습니다. _README.md_ 파일의 기본적인 업데이트를 하고 있으므로 설명을 건너뛸 수 있습니다.
+  ![커밋 메시지](/assets/images/help/desktop/getting-started-guide/commit-message.png)
+5. **분기 이름에 커밋** 을 클릭합니다. 커밋 단추에는 현재 분기가 표시되므로 원하는 분기에 커밋해야 합니다.
+  ![분기에 커밋](/assets/images/help/desktop/getting-started-guide/click-commit-to-master.png):
+6. {% data variables.product.product_name %}에서 원격 리포지토리에 변경 내용을 푸시하려면  **원본 푸시** 를 클릭합니다.
+  ![원본 푸시](/assets/images/help/desktop/getting-started-guide/push-to-origin.png)
+  - **원본 푸시** 단추는 {% data variables.product.product_name %}에 리포지토리를 게시하기 위해 클릭한 단추와 동일합니다. 이 단추는 Git 워크플로에서의 위치에 따라 상황별로 변경됩니다. 이제 `Push origin` 옆에 `1`이 나타나 {% data variables.product.product_name %}까지 푸시되지 않은 커밋이 1개 있음을 나타냅니다.
+  - **푸시 원본** 의 “원본”은 변경 내용을 `origin`이라는 이름의 원격, 이 경우에는 {% data variables.product.prodname_dotcom_the_website %}의 프로젝트의 리포지토리로 푸시하고 있음을 의미합니다. {% data variables.product.product_name %}에 새 커밋을 푸시할 때까지 컴퓨터의 프로젝트 리포지토리와 {% data variables.product.prodname_dotcom_the_website %}의 프로젝트 리포지토리 간에 차이가 있습니다. 이렇게 하면 로컬에서 작업하고 준비가 되면 변경 내용을 {% data variables.product.prodname_dotcom_the_website %}에만 푸시할 수 있습니다.
+7. **변경 내용** 보기 오른쪽 창에 다음에 수행할 수 있는 작업에 대한 제안이 표시됩니다. 브라우저에서 {% data variables.product.product_name %}의 리포지토리를 열려면 **{% data variables.product.product_name %}에서 보기** 를 클릭합니다.
+  ![사용 가능한 작업](/assets/images/help/desktop/available-actions.png)
+8. 브라우저에서 **커밋 2개** 을 클릭합니다. {% data variables.product.product_name %}의 이 리포지토리에 커밋 목록이 표시됩니다. 첫 번째 커밋은 {% data variables.product.prodname_desktop %}에서 방금 만든 커밋입니다.
+  ![커밋 2개 클릭](/assets/images/help/desktop/getting-started-guide/click-two-commits.png)
 
-4. At the bottom of the **Changes** list, enter a commit message. To the right of your profile picture, type a short description of the commit. Since we're changing the _README.md_ file, "Add information about purpose of project" would be a good commit summary. Below the summary, you'll see a "Description" text field where you can type a longer description of the changes in the commit, which is helpful when looking back at the history of a project and understanding why changes were made. Since you're making a basic update of a _README.md_ file, you can skip the description. ![Commit message](/assets/images/help/desktop/getting-started-guide/commit-message.png)
-5. Click **Commit to BRANCH NAME**. The commit button shows your current branch so you can be sure to commit to the branch you want. ![Commit to branch](/assets/images/help/desktop/getting-started-guide/click-commit-to-master.png)
-6. To push your changes to the remote repository on {% data variables.product.product_name %}, click **Push origin**. ![Push origin](/assets/images/help/desktop/getting-started-guide/push-to-origin.png)
-  - The **Push origin** button is the same one that you clicked to publish your repository to {% data variables.product.product_name %}. This button changes contextually based on where you are at in the Git workflow. It should now say `Push origin` with a `1` next to it, indicating that there is one commit that has not been pushed up to {% data variables.product.product_name %}.
-  - The "origin" in **Push origin** means that you are pushing changes to the remote called `origin`, which in this case is your project's repository on {% data variables.product.prodname_dotcom_the_website %}. Until you push any new commits to {% data variables.product.product_name %}, there will be differences between your project's repository on your computer and your project's repository on {% data variables.product.prodname_dotcom_the_website %}. This allows you to work locally and only push your changes to {% data variables.product.prodname_dotcom_the_website %} when you're ready.
-7. In the window to the right of the **Changes** view, you'll see suggestions for actions you can do next. To open the repository on {% data variables.product.product_name %} in your browser, click **View on {% data variables.product.product_name %}**. ![Available actions](/assets/images/help/desktop/available-actions.png)
-8. In your browser, click **2 commits**. You'll see a list of the commits in this repository on {% data variables.product.product_name %}. The first commit should be the commit you just made in {% data variables.product.prodname_desktop %}. ![Click two commits](/assets/images/help/desktop/getting-started-guide/click-two-commits.png)
+## 결론
+이제 리포지토리를 만들고, 리포지토리를 {% data variables.product.product_name %}에 게시하고, 커밋하고, 변경 내용을 {% data variables.product.product_name %}에 푸시했습니다. 만들거나 협업하는 다른 프로젝트에 참여할 때 이 워크플로를 따를 수 있습니다.
 
-### Conclusion
-You've now created a repository, published the repository to {% data variables.product.product_name %}, made a commit, and pushed your changes to {% data variables.product.product_name %}. You can follow this same workflow when contributing to other projects that you create or collaborate on.
-
-### 더 읽을거리
-- "[Getting started with Git](/github/getting-started-with-github/getting-started-with-git)"
-- "[Learning about {% data variables.product.prodname_dotcom %}](/github/getting-started-with-github/learning-about-github)"
-- "[Getting started with {% data variables.product.prodname_dotcom %}](/github/getting-started-with-github)"
+## 추가 참고 자료
+- “[Git 시작](/github/getting-started-with-github/getting-started-with-git)”
+- “[{% data variables.product.prodname_dotcom %}에 대해 알아보기](/github/getting-started-with-github/learning-about-github)”
+- “[{% data variables.product.prodname_dotcom %} 시작](/github/getting-started-with-github)”

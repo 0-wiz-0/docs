@@ -1,27 +1,34 @@
 ---
-title: Troubleshooting OAuth App access token request errors
+title: OAuth 앱 액세스 토큰 요청 오류 문제 해결
 intro: '{% data reusables.shortdesc.troubleshooting_access_token_reques_errors_oauth_apps %}'
 redirect_from:
-  - /apps/building-integrations/managing-oauth-apps/troubleshooting-oauth-app-access-token-request-errors/
+  - /apps/building-integrations/managing-oauth-apps/troubleshooting-oauth-app-access-token-request-errors
   - /apps/managing-oauth-apps/troubleshooting-oauth-app-access-token-request-errors
   - /developers/apps/troubleshooting-oauth-app-access-token-request-errors
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - OAuth Apps
+shortTitle: Troubleshoot token request
+ms.openlocfilehash: 7764d0e1f23a3d2dac841412ea0120487c8f6560
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145089798'
 ---
-
 {% note %}
 
-**Note:** These examples only show JSON responses.
+**참고:** 다음 예제에서는 JSON 응답만 표시합니다.
 
 {% endnote %}
 
-### Incorrect client credentials
+## 잘못된 클라이언트 자격 증명
 
-If the client\_id and or client\_secret you pass are incorrect you will receive this error response.
+전달한 client\_id 및/또는 client\_secret이 올바르지 않으면 이 오류 응답을 받게 됩니다.
 
 ```json
 {
@@ -31,11 +38,11 @@ If the client\_id and or client\_secret you pass are incorrect you will receive 
 }
 ```
 
-To solve this error, make sure you have the correct credentials for your {% data variables.product.prodname_oauth_app %}. Double check the `client_id` and `client_secret` to make sure they are correct and being passed correctly to {% data variables.product.product_name %}.
+이 오류를 해결하려면 {% data variables.product.prodname_oauth_app %}에 대한 올바른 자격 증명이 있는지 확인합니다. `client_id` 및 `client_secret`가 올바른지 다시 확인하고 {% data variables.product.product_name %}에 올바르게 전달되었는지 확인합니다.
 
-### Redirect URI mismatch
+## 리디렉션 URI 불일치
 
-If you provide a `redirect_uri` that doesn't match what you've registered with your {% data variables.product.prodname_oauth_app %}, you'll receive this error message:
+{% data variables.product.prodname_oauth_app %}에 등록한 항목과 일치하지 않는 `redirect_uri`를 제공하면 다음 오류 메시지가 표시됩니다.
 
 ```json
 {
@@ -45,9 +52,9 @@ If you provide a `redirect_uri` that doesn't match what you've registered with y
 }
 ```
 
-To correct this error, either provide a `redirect_uri` that matches what you registered or leave out this parameter to use the default one registered with your application.
+이 오류를 해결하려면 등록한 것과 일치하는 `redirect_uri`를 제공하거나 애플리케이션에 등록된 기본 매개 변수를 사용하도록 이 매개 변수를 그대로 둡니다.
 
-### Bad verification code
+## 잘못된 확인 코드
 
 ```json
 {
@@ -58,7 +65,7 @@ To correct this error, either provide a `redirect_uri` that matches what you reg
 }
 ```
 
-If the verification code you pass is incorrect, expired, or doesn't match what you received in the first request for authorization you will receive this error.
+전달한 확인 코드가 올바르지 않거나 만료되었거나 첫 번째 권한 부여 요청에서 받은 코드와 일치하지 않으면 이 오류가 발생합니다.
 
 ```json
 {
@@ -68,4 +75,4 @@ If the verification code you pass is incorrect, expired, or doesn't match what y
 }
 ```
 
-To solve this error, start the [OAuth authorization process again](/apps/building-oauth-apps/authorizing-oauth-apps/) and get a new code.
+이 오류를 해결하려면 [OAuth 권한 부여 프로세스를 다시](/apps/building-oauth-apps/authorizing-oauth-apps/) 시작하고 새 코드를 가져옵니다.

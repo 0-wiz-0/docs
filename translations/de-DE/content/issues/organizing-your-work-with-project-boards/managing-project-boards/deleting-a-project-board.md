@@ -1,33 +1,39 @@
 ---
-title: Ein Projektboard löschen
-intro: 'Du kannst ein vorhandenes Projektboard löschen, wenn Du nicht mehr auf seine Inhalte zugreifen musst.'
+title: 'Löschen eines {% data variables.product.prodname_project_v1 %}'
+intro: 'Du kannst ein vorhandenes {% data variables.projects.projects_v1_board %} löschen, wenn du keinen Zugriff mehr auf dessen Inhalt benötigst.'
 redirect_from:
   - /github/managing-your-work-on-github/managing-project-boards/deleting-a-project-board
-  - /articles/deleting-a-project/
+  - /articles/deleting-a-project
   - /articles/deleting-a-project-board
   - /github/managing-your-work-on-github/deleting-a-project-board
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  feature: projects-v1
 topics:
   - Pull requests
+allowTitleToDifferFromFilename: true
+ms.openlocfilehash: fb68b796fa41a565ab2e196f878c17c94ec44a06
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148108375'
 ---
+{% data reusables.projects.project_boards_old %}
 
 {% tip %}
 
-**Tipp:** Wenn Du den Zugriff auf ein abgeschlossenes oder nicht benötigtes Projektboard behalten möchtest, ohne den Zugriff auf seine Inhalte zu verlieren, kannst Du [das Projektboard schließen](/articles/closing-a-project-board), anstatt es zu löschen.
+**Tipp**: Wenn du den Zugriff auf ein abgeschlossenes oder nicht benötigtes {% data variables.projects.projects_v1_board %} beibehalten möchtest, ohne den Zugriff auf dessen Inhalt zu verlieren, kannst du [das {% data variables.projects.projects_v1_board %}](/articles/closing-a-project-board) schließen, anstatt es zu löschen.
 
 {% endtip %}
 
-1. Navigiere zu dem Projektboard, das Du löschen möchtest.
-{% data reusables.project-management.click-menu %}
-{% data reusables.project-management.click-edit-sidebar-menu-project-board %}
-4. Klicke auf **Delete project** (Projekt löschen). ![Schaltfläche „Delete project“ (Projekt löschen)](/assets/images/help/projects/delete-project-button.png)
-5. Um zu bestätigen, dass Du das Projektboard löschen möchtest, klicke auf **OK**.
+1. Navigiere zu dem {% data variables.projects.projects_v1_board %}, das du löschen möchtest.
+{% data reusables.project-management.click-menu %} {% data reusables.project-management.click-edit-sidebar-menu-project-board %}
+4. Klicke auf **Projekt löschen**.
+![Schaltfläche „Projekt löschen“](/assets/images/help/projects/delete-project-button.png)
+5. Klicke auf **OK**, um zu bestätigen, dass du das Projektboard löschen möchtest.
 
-### Weiterführende Informationen
+## Weiterführende Themen
 
-- „[Ein Projektboard schließen](/articles/closing-a-project-board)“
-- „[Projektboards in einem Repository deaktivieren](/articles/disabling-project-boards-in-a-repository)“
-- „[Projektboards in Ihrer Organisation deaktivieren](/articles/disabling-project-boards-in-your-organization)“
+- [Schließen eines {% data variables.product.prodname_project_v1 %}](/articles/closing-a-project-board)
+- [Deaktivieren von {% data variables.product.prodname_project_v1_caps %} in einem Repository](/articles/disabling-project-boards-in-a-repository)
+- [Deaktivieren von {% data variables.product.prodname_project_v1_caps %} in deiner Organisation](/articles/disabling-project-boards-in-your-organization)

@@ -1,45 +1,51 @@
 ---
-title: Testing your app
-intro: 'GitHub recommends testing your app with APIs and webhooks before submitting your listing to {% data variables.product.prodname_marketplace %} so you can provide an ideal experience for customers. Before an onboarding expert approves your app, it must adequately handle the billing flows.'
+title: Тестирование приложения
+intro: 'GitHub рекомендует протестировать приложение с помощью API-интерфейсов и веб-перехватчиков перед отправкой списка в {% data variables.product.prodname_marketplace %}, чтобы обеспечить максимально эффективное взаимодействие с клиентами. Прежде чем эксперт по подключению утвердит ваше приложение, он должен соответствующим образом обработать потоки выставления счетов.'
 redirect_from:
-  - /apps/marketplace/testing-apps-apis-and-webhooks/
-  - /apps/marketplace/integrating-with-the-github-marketplace-api/testing-github-marketplace-apps/
+  - /apps/marketplace/testing-apps-apis-and-webhooks
+  - /apps/marketplace/integrating-with-the-github-marketplace-api/testing-github-marketplace-apps
   - /marketplace/integrating-with-the-github-marketplace-api/testing-github-marketplace-apps
   - /developers/github-marketplace/testing-your-app
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+ms.openlocfilehash: c542f5bd46e4555a4459c669e2f9d75e29b63ffe
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145112491'
 ---
+## Тестирование приложений
 
-### Testing apps
+Для имитации каждого потока выставления счетов можно использовать черновик листинга {% data variables.product.prodname_marketplace %}. Листинг в состоянии "Черновик" означает, что он не был отправлен на утверждение. Любые покупки, которые вы делаете с помощью черновика листинга {% data variables.product.prodname_marketplace %}, _не_ создают реальные транзакции, и GitHub не будет выполнять списание с вашей кредитной карты. Обратите внимание, что вы можете сымитировать покупки только для планов, опубликованных в черновике листинга, а не для черновиков плана. Дополнительные сведения см. в разделе [Разработка листинга для приложения](/developers/github-marketplace/drafting-a-listing-for-your-app) и [Использование API {% data variables.product.prodname_marketplace %} в приложении](/developers/github-marketplace/using-the-github-marketplace-api-in-your-app).
 
-You can use a draft {% data variables.product.prodname_marketplace %} listing to simulate each of the billing flows. A listing in the draft state means that it has not been submitted for approval. Any purchases you make using a draft {% data variables.product.prodname_marketplace %} listing will _not_ create real transactions, and GitHub will not charge your credit card. Note that you can only simulate purchases for plans published in the draft listing and not for draft plans. For more information, see "[Drafting a listing for your app](/developers/github-marketplace/drafting-a-listing-for-your-app)" and "[Using the {% data variables.product.prodname_marketplace %} API in your app](/developers/github-marketplace/using-the-github-marketplace-api-in-your-app)."
+### Использование приложения разработки с черновиком листинга для тестирования изменений
 
-#### Using a development app with a draft listing to test changes
+Листинг {% data variables.product.prodname_marketplace %} можно связать только с одной регистрацией приложения, и каждое приложение может получить доступ только к собственному листингу {% data variables.product.prodname_marketplace %}. По этим причинам рекомендуется настроить отдельное приложение разработки с той же конфигурацией, что и в рабочем приложении, и создать _листинг_ {% data variables.product.prodname_marketplace %}, который можно использовать для тестирования. Черновик листинга {% data variables.product.prodname_marketplace %} позволяет проверить изменения без ущерба для работы активных пользователей рабочего приложения. Вам не придется отправлять сведения о листинге {% data variables.product.prodname_marketplace %} приложения разработки, так как вы будете использовать его только для тестирования.
 
-A {% data variables.product.prodname_marketplace %} listing can only be associated with a single app registration, and each app can only access its own {% data variables.product.prodname_marketplace %} listing. For these reasons, we recommend configuring a separate development app, with the same configuration as your production app, and creating a _draft_ {% data variables.product.prodname_marketplace %} listing that you can use for testing. The draft {% data variables.product.prodname_marketplace %} listing allows you to test changes without affecting the active users of your production app. You will never have to submit your development {% data variables.product.prodname_marketplace %} listing, since you will only use it for testing.
+Учитывая, что вы можете создавать черновики листингов {% data variables.product.prodname_marketplace %} для общедоступных приложений, необходимо сделать приложение разработки общедоступным. Общедоступные приложения недоступны для обнаружения за пределами опубликованных листингов {% data variables.product.prodname_marketplace %}, если вы не предоставляете общий доступ к URL-адресу приложения. Описание Marketplace в состоянии "Черновик" отображается только для владельца приложения.
 
-Because you can only create draft {% data variables.product.prodname_marketplace %} listings for public apps, you must make your development app public. Public apps are not discoverable outside of published {% data variables.product.prodname_marketplace %} listings as long as you don't share the app's URL. A Marketplace listing in the draft state is only visible to the app's owner.
-
-Once you have a development app with a draft listing, you can use it to test changes you make to your app while integrating with the {% data variables.product.prodname_marketplace %} API and webhooks.
+Если у вас есть приложение разработки с черновиком листинга, его можно использовать для тестирования изменений, внесенных в приложение при интеграции с API {% data variables.product.prodname_marketplace %} и веб-перехватчиками.
 
 {% warning %}
 
-Do not make test purchases with an app that is live in {% data variables.product.prodname_marketplace %}.
+Не выполняйте тестовые покупки в приложении, которое активно в {% data variables.product.prodname_marketplace %}.
 
 {% endwarning %}
 
-#### Simulating Marketplace purchase events
+### Имитация событий покупки в Marketplace
 
-Your testing scenarios may require setting up listing plans that offer free trials and switching between free and paid subscriptions. Because downgrades and cancellations don't take effect until the next billing cycle, GitHub provides a developer-only feature to "Apply Pending Change" to force `changed` and `cancelled` plan actions to take effect immediately. You can access **Apply Pending Change** for apps with _draft_ Marketplace listings in https://github.com/settings/billing#pending-cycle:
+В сценариях тестирования может потребоваться настройка планов листинга, которые предлагают бесплатные пробные версии и возможность переключаться между бесплатными и платными подписками. Так как понижение уровня и отмена вступают в силу только после следующего цикла выставления счетов, GitHub предоставляет функцию только для разработчиков "Применить ожидающие обработки изменения" для принудительного выполнения действий планирования `changed` и `cancelled`, чтобы они вступали в силу сразу. Вы можете получить доступ к функции **Применить ожидающие обработки изменения** для приложений с _черновиками_ листингов Marketplace в https://github.com/settings/billing#pending-cycle:
 
-![Apply pending change](/assets/images/github-apps/github-apps-apply-pending-changes.png)
+![Применение ожидающих обработки изменений](/assets/images/github-apps/github-apps-apply-pending-changes.png)
 
-### Testing APIs
+## Тестирование API
 
-For most {% data variables.product.prodname_marketplace %} API endpoints, we also provide stubbed API endpoints that return hard-coded, fake data you can use for testing. To receive stubbed data, you must specify stubbed URLs, which include `/stubbed` in the route (for example, `/user/marketplace_purchases/stubbed`). For a list of endpoints that support this stubbed-data approach, see [{% data variables.product.prodname_marketplace %} endpoints](/rest/reference/apps#github-marketplace).
+Для большинства конечных точек API {% data variables.product.prodname_marketplace %} мы также предоставляем конечные точки API с заглушками, которые возвращают жестко закодированные фиктивные данные, которые можно использовать для тестирования. Чтобы получить данные с заглушкой, необходимо указать URL-адреса с заглушкой, которые включают `/stubbed` в маршрут (например, `/user/marketplace_purchases/stubbed`). Список конечных точек, поддерживающих эту методику с использованием данных с заглушками, см. в разделе [Конечные точки {% data variables.product.prodname_marketplace %}](/rest/reference/apps#github-marketplace).
 
-### Testing webhooks
+## Тестирование веб-перехватчиков
 
-GitHub provides tools for testing your deployed payloads. For more information, see "[Testing webhooks](/webhooks/testing/)."
+GitHub предоставляет средства для тестирования развернутых полезных данных. См. дополнительные сведения в разделе [Тестирование веб-перехватчиков](/webhooks/testing/).

@@ -1,5 +1,13 @@
+---
+ms.openlocfilehash: f6974605b7537749751e18d83aec7dc2e862553f
+ms.sourcegitcommit: 5b1461b419dbef60ae9dbdf8e905a4df30fc91b7
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/10/2022
+ms.locfileid: "147877038"
+---
 {% note %}
 
-**Note:** The addresses in the IP allow list of a {% data variables.product.prodname_github_app %} only affect requests made by installations of the {% data variables.product.prodname_github_app %}. The automatic addition of a {% data variables.product.prodname_github_app %}'s IP address to an organization's allow list does not allow access to a {% data variables.product.product_name %} user who connects from that IP address.
+**Hinweis:** Die Adressen in der IP-Zulassungsliste einer {% data variables.product.prodname_github_app %} betreffen nur die Anforderungen von Installationen der {% data variables.product.prodname_github_app %}. Das automatische Hinzufügen der IP-Adresse einer {% data variables.product.prodname_github_app %} zur Liste der zulässigen Benutzer einer Organisation gewährt einem {% data variables.product.product_name %}-Benutzer, der sich von dieser IP-Adresse aus verbindet, keinen Zugriff.
 
 {% endnote %}

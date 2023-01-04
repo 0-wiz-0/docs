@@ -1,3 +1,11 @@
-If you select **Enable IP allow list configuration for installed GitHub Apps** in your allow list settings, then IP addresses from installed {% data variables.product.prodname_github_apps %} are added to your allow list. This happens irrespective of whether your allow list is currently enabled. If you install a {% data variables.product.prodname_github_app %} and then the creator of that application changes the addresses in its allow list, your allow list is automatically updated with those changes.
+---
+ms.openlocfilehash: ce7aa40d4312947c099afb8c1a8b88bacd021847
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/05/2022
+ms.locfileid: "145101624"
+---
+Wenn du in den Einstellungen deiner Positivliste die Option **Konfiguration der IP-Positivliste für installierte GitHub Apps aktivieren** auswählst, werden IP-Adressen von installierten {% data variables.product.prodname_github_apps %} zu deiner Positivliste hinzugefügt. Dies geschieht unabhängig davon, ob deine Positivliste derzeit aktiviert ist. Wenn du eine {% data variables.product.prodname_github_app %} installierst und die Person, die diese App erstellt hat, die Adresse in ihrer Positivliste ändert, wird deine Liste automatisch mit den Änderungen aktualisiert.
 
-You can identify the IP addresses that have been automatically added from {% data variables.product.prodname_github_apps %} by reviewing the description field. The description for these IP addresses is: "Managed by the NAME GitHub App." Unlike addresses you add manually, you cannot edit, delete, or disable IP addresses that are automatically added from {% data variables.product.prodname_github_apps %}.
+Du kannst die IP-Adressen, die automatisch von {% data variables.product.prodname_github_apps %} hinzugefügt wurden, anhand ihrer Beschreibung identifizieren. Die Beschreibung für diese IP-Adressen lautet: „Verwaltet durch die GitHub App NAME“. Im Gegensatz zu manuell hinzugefügten Adressen kannst du IP-Adressen, die automatisch von {% data variables.product.prodname_github_apps %} hinzugefügt werden, nicht bearbeiten, löschen oder deaktivieren.

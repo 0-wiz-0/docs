@@ -1,41 +1,45 @@
 ---
-title: Reordering commits
-intro: "You can use {% data variables.product.prodname_desktop %} to reorder commits in your branch's history."
+title: Изменение порядка фиксаций
+intro: 'Для изменения порядка фиксаций в журнале ветви можно использовать {% data variables.product.prodname_desktop %}.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 5f68af5f2798e6780a91515886130f2b3ca7e6aa
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145117496'
 ---
+## Сведения об изменении порядка фиксации
 
-## About reordering a commit
+Изменение порядка позволяет изменять журнал фиксаций, чтобы обеспечить более значимое развитие фиксаций. {% data variables.product.prodname_desktop %} позволяет перетаскивать фиксации в журнале ветви для изменения их порядка.
 
-Reordering allows you to alter your commit history to provide a more meaningful progression of commits. {% data variables.product.prodname_desktop %} allows you to drag-and-drop commits in your branch's history to reorder them.
-
-## Reordering a commit
+## Изменение порядка фиксации
 
 {% data reusables.desktop.current-branch-menu %}
-2. In the list of branches, click the branch with the commits that you want to reorder.
+2. В списке ветвей щелкните ветвь с фиксациями, порядок которых требуется изменить.
 {% data reusables.desktop.history-tab %}
-4. Drag the commit that you want to reorder and drop it between two adjoining commits.
-  ![reorder drag and drop](/assets/images/help/desktop/reorder-drag-and-drop.png)
-While the application reorders the commits, a **Reorder in process** dialog indicates the progress of the change.
+4. Перетащите фиксацию, порядок которой требуется изменить, и бросьте ее между двумя смежными фиксациями.
+  ![Изменение порядка путем перетаскивания](/assets/images/help/desktop/reorder-drag-and-drop.png) Пока приложение изменяет порядок фиксаций, диалоговое окно **Reorder in process** (Изменение порядка в обработке) указывает на ход выполнения изменения.
 
-## Error messages when reordering commits
+## Сообщения об ошибках при изменении порядка фиксаций
 
-When you reorder commits, you may see one of the following notifications or error messages.
+При изменении порядка фиксаций может появиться одно из следующих уведомлений или сообщений об ошибках.
 
-* A notification states that the requested change to the branch will require a force push to update the remote branch. This is shown when the commits that you reordered were previously pushed to the remote branch. Force pushing alters the commit history of the branch and will affect other collaborators who are working in that branch.  Select **Begin reorder** to start the reorder, and then click **Force push origin** to push your changes.
+* Уведомление указывает, что запрошенное изменение в ветви потребует принудительной отправки для обновления удаленной ветви. Оно отображается, если фиксации, порядок которых был изменен ранее, были отправлены в удаленную ветвь. Принудительная отправка изменяет журнал фиксаций ветви и повлияет на других участников совместной работы, работающих в этой ветви.  Нажмите кнопку **Begin reorder** (Начать изменение порядка), чтобы запустить изменение порядка, а затем нажмите кнопку **Force push origin** (Принудительно отправить origin), чтобы отправить изменения.
 
-  ![reorder force push dialog](/assets/images/help/desktop/reorder-force-push-dialog.png)
+  ![Диалоговое окно принудительной отправки изменения порядка](/assets/images/help/desktop/reorder-force-push-dialog.png)
 
-* An error states that the reorder failed because there is a merge commit among the reordered commits.
+* Ошибка указывает, что сбой изменения порядка произошел из-за фиксации слияния между фиксациями с измененным порядком.
 
-  ![reorder merge commit dialog](/assets/images/help/desktop/reorder-merge-commit-dialog.png)
+  ![Диалоговое окно изменение порядка фиксации слияния](/assets/images/help/desktop/reorder-merge-commit-dialog.png)
 
-* A notification is shown indicating that there are uncommitted changes present on your current branch. Select **Stash Changes and Continue** to store the changes and proceed, or select **Close** to dismiss the message and commit the changes. When there are no longer any uncommitted changes, you can reorder your commits.
+* Отображается уведомление о том, что в текущей ветви присутствуют незафиксированные изменения. Нажмите кнопку **Stash Changes and Continue** (Спрятать изменения и продолжить), чтобы сохранить изменения и продолжить, или нажмите кнопку **Close** (Закрыть), чтобы закрыть сообщение и зафиксировать изменения. Если незафиксированных изменений больше нет, вы можете изменить порядок фиксаций.
 
-  ![reorder stash dialog](/assets/images/help/desktop/reorder-stash-dialog.png)
+  ![Диалоговое окно изменения порядка для спрятанных записей](/assets/images/help/desktop/reorder-stash-dialog.png)
 
-* A message states that there are merge conflicts that you must resolve before the application can continue reordering commits on your branch.
-    1. Click **View conflicts** to see the conflicts.
-    {% data reusables.desktop.resolve-merge-conflicts %}
-
-  ![reorder resolve conflicts message](/assets/images/help/desktop/reorder-resolve-conflicts.png)
+* В сообщении указывается, что существуют конфликты слияния, которые необходимо разрешить, прежде чем приложение сможет продолжить изменение порядка фиксаций в ветви.
+    1. Щелкните **Просмотреть конфликты**, чтобы просмотреть конфликты.
+      ![Сообщение о разрешении конфликтов для изменения порядка](/assets/images/help/desktop/reorder-resolve-conflicts.png) {% data reusables.desktop.resolve-merge-conflicts %}
+   3. После разрешения всех конфликтов можно изменить порядок фиксаций.
+  

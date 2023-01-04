@@ -1,19 +1,30 @@
 ---
-title: Configuring automation for project boards
-intro: You can set up automatic workflows to move issues and pull requests to a project board column when a specified event occurs.
+title: 'Настройка автоматизации для {% data variables.product.prodname_projects_v1 %}'
+intro: 'Можно настроить автоматические рабочие процессы для перемещения проблем и запросов на вытягивание в столбец {% data variables.projects.projects_v1_board %}, когда возникает определенное событие.'
 redirect_from:
   - /github/managing-your-work-on-github/managing-project-boards/configuring-automation-for-project-boards
   - /articles/configuring-automation-for-project-boards
   - /github/managing-your-work-on-github/configuring-automation-for-project-boards
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  feature: projects-v1
 topics:
   - Pull requests
+  - Projects
+  - Issues
+  - Project management
+shortTitle: Configure automation
+type: how_to
+allowTitleToDifferFromFilename: true
+ms.openlocfilehash: faf559c3423178b43f3b524bbf3cdc41acd18a92
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148110082'
 ---
+{% data reusables.projects.project_boards_old %}
 
-{% data reusables.project-management.automate-project-board-permissions %} For more information, see "[About automation for project boards](/articles/about-automation-for-project-boards)."
+{% data reusables.project-management.automate-project-board-permissions %} Дополнительные сведения см. в статье "[Сведения об автоматизации для {% data variables.product.prodname_projects_v1 %}](/articles/about-automation-for-project-boards)".
 
 {% data reusables.project-management.use-automated-template %}
 
@@ -21,16 +32,20 @@ topics:
 
 {% tip %}
 
-**Tip**: To edit columns that already have configured automation, click **Manage** at the bottom of the column.
+**Совет**. Чтобы изменить столбцы, для которых уже настроена автоматизация, щелкните **Управление** внизу столбца.
 
 {% endtip %}
 
-1. Navigate to the project board you want to automate.
-2. In the column you want to automate, click {% octicon "kebab-horizontal" aria-label="The horizontal kebab icon" %}. ![Edit icon](/assets/images/help/projects/edit-column-button.png)
-3. Click **Manage automation**. ![Manage automation button](/assets/images/help/projects/manage-automation-button.png)
-4. Using the Preset drop-down menu, select an automation preset. ![Select preset automation from menu](/assets/images/help/projects/select-automation.png)
-5. Select the workflow automations you want to configure for the column. ![List of options for automating the column](/assets/images/help/projects/select-automation-options-existing-column.png)
-6. Click **Update automation**.
+1. Перейдите к {% data variables.projects.projects_v1_board %}, который необходимо автоматизировать.
+2. В столбце, который нужно автоматизировать, щелкните {% octicon "kebab-horizontal" aria-label="The horizontal kebab icon" %}.
+![Значок "Изменить"](/assets/images/help/projects/edit-column-button.png)
+3. Нажмите кнопку **Управление автоматизацией**.
+![Кнопка "Управление автоматизацией"](/assets/images/help/projects/manage-automation-button.png)
+4. В раскрывающемся меню предустановок выберите предустановку автоматизации.
+![Выбор предустановки автоматизации в меню](/assets/images/help/projects/select-automation.png)
+5. Выберите операции автоматизации рабочих процессов, которые необходимо настроить для столбца.
+![Список параметров для автоматизации столбца](/assets/images/help/projects/select-automation-options-existing-column.png)
+6. Нажмите кнопку **Обновить автоматизацию**.
 
-### Дополнительная литература
-- "[About automation for project boards](/articles/about-automation-for-project-boards)"
+## Дополнительные материалы
+- "[Сведения об автоматизации для {% data variables.product.prodname_projects_v1 %}](/articles/about-automation-for-project-boards)"

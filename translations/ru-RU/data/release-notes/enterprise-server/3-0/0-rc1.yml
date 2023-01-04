@@ -1,26 +1,25 @@
----
-date: '2021-01-12'
+date: '12.01.2021'
 release_candidate: true
 deprecated: true
-intro: Release candidate versions should be tested on non-production environments. For more information about the Release Candidate Program, see the [GitHub Blog](https://github.blog/2020-12-03-improving-the-ghes-release-process-release-candidates/) or "[About upgrades to new releases](/admin/overview/about-upgrades-to-new-releases)".
+intro: "Версии релиз-кандидата следует тестирование в нерабочих средах. Дополнительные сведения о программе релиз-кандидатов см. в [блоге GitHub](https://github.blog/2020-12-03-improving-the-ghes-release-process-release-candidates/) или \"[Обновления новых выпусков](/admin/overview/about-upgrades-to-new-releases)\"."
 sections:
   bugs:
-    - The format of several log files have changed, including the addition of a PID for different log types. This does not affect how GitHub Enterprise Support uses support bundles to troubleshoot issues.
-    - A PATCH request to the webhook configuration API no longer erases the webhook secret.
+    - "Формат нескольких файлов журнала изменился, в том числе добавлен PID для различных типов журнала. Это не влияет на то, как служба поддержки GitHub Enterprise использует пакеты поддержки для устранения неполадок."
+    - Запрос PATCH к API конфигурации веб-перехватчика больше не уничтожает секрет веб-перехватчика.
   known_issues:
-    - On a freshly set up {% data variables.product.prodname_ghe_server %} without any users, an attacker could create the first admin user.
-    - Release Candidate 1 does not support Cluster mode.
-    - Custom firewall rules are not maintained during an upgrade.
-    - Git LFS tracked files [uploaded through the web interface](https://github.blog/2016-02-18-upload-files-to-your-repositories/) are incorrectly added directly to the repository.
-    - When "Users can search GitHub.com" is enabled with GitHub Connect, issues in private and internal repositories are not included in GitHub.com search results.
-    - Following an unsuccessful attempt to set up Actions, if you then disable Actions you will not be able to create the first user and use the appliance
-    - The "Mandatory message viewed" audit log event is not being saved
-    - '`ghe-config-apply` must be run on a replica during first setup before `ghe-repl-setup` can be run to start replication.'
-    - Backup-utils can trigger unnecessary emails to administrators
-    - Incorrect Packages settings are being displayed in the Organization member view page
-    - After removing oneself as an Enterprise Owner, you are redirected to a 404 page. The operation is successful.
-    - '`ghe-config-apply` occassionally fails with `ERROR: Failure waiting for nomad jobs to apply` until the Nomad job queue is cleared. This currently requires as admin to delete `/etc/nomad-jobs/queue`.'
-    - When configuring a multiple replica node, the status of the replica can be incorrectly synchronized.
-    - Customers attempting to restore a 3.0 backup to a new instance should not pre-configure the instance, as it may lead to a bad state for user logins. We recommend restoring to a fresh, unconfigured instance.
-    - GitHub Enterprise Server 3.0 release candidates are not yet available in the Azure marketplace. To test release candidates in staging environments, start a 2.21 or 2.22 instance, and then upgrade it with the Azure upgrade package on the download page.
-    - The image and upgrade package download size has increased. Customers on slow internet connections may find the packages take longer to download.
+    - "Злоумышленник мог создать первого пользователя с правами администратора на новом, только что настроенном сервере {% data variables.product.prodname_ghe_server %}, не имеющем пользователей."
+    - Релиз-кандидат 1 не поддерживает режим кластеров.
+    - Пользовательские правила брандмауэра не сохраняются в процессе обновления.
+    - "Отслеживаемые файлы Git LFS, [отправленные через веб-интерфейс](https://github.blog/2016-02-18-upload-files-to-your-repositories/), ошибочно добавлялись напрямую в репозиторий."
+    - "Когда в GitHub Connect включен параметр \"Пользователи могут выполнять поиск на GitHub.com\", результаты поиска на GitHub.com не включают проблемы в частных и внутренних репозиториях."
+    - "Если после неуспешной попытки настроить Actions вы отключаете Actions, вы не сможете создать первого пользователя и использовать устройство"
+    - "Событие журнала аудита \"Просмотренное обязательное сообщение\" не сохраняется"
+    - '`ghe-config-apply` необходимо запустить в реплике во время первоначальной настройки до того, как будет выполнен `ghe-repl-setup`, чтобы запустить репликацию.'
+    - Из-за утилит резервного копирования администраторам могут рассылаться ненужные сообщения электронной почты
+    - На странице просмотра участника организации отображаются некорректные параметры пакетов
+    - "После того, как вы удалите себя из списка владельцев предприятия, вы будете перенаправлены на страницу 404. Операция успешно выполнена."
+    - '`ghe-config-apply` периодически завершается ошибкой с сообщением `ОШИБКА: сбой в процессе ожидания применения заданий Nomad` до очистки очереди задания Nomad. В настоящее время для этого требуется, чтобы администратор удалил `/etc/nomad-jobs/queue`.'
+    - "При настройке нескольких узлов реплики, синхронизация статуса реплики может быть некорректной."
+    - "Заказчикам, которые пытаются восстановить резервную копию версии 3.0 в новый экземпляр, не требуется предварительно настраивать экземпляр, поскольку это может стать причиной ошибок при входе пользователей. Рекомендуется выполнить восстановление до нового экземпляра без настроек."
+    - "Релиз-кандидаты GitHub Enterprise Server 3.0 пока недоступны в Azure Marketplace. Чтобы протестировать релиз-кандидаты в промежуточных средах, запустите экземпляр версии 2.21 или 2.22, а затем обновите его с использованием пакета обновлений Azure на странице загрузок."
+    - "Размер образа и пакета обновлений при загрузке увеличился. Заказчики, у который медленное интернет-соединение, могут наблюдать снижение скорости загрузки пакетов."

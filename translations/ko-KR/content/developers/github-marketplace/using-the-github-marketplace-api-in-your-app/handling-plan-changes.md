@@ -1,65 +1,71 @@
 ---
-title: Handling plan changes
-intro: 'Upgrading or downgrading a {% data variables.product.prodname_marketplace %} app triggers the [`marketplace_purchase` event](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) webhook with the `changed` action, which kicks off the upgrade or downgrade flow.'
+title: 플랜 변경 처리
+intro: '{% data variables.product.prodname_marketplace %} 앱을 업그레이드 또는 다운그레이드하면 업그레이드 또는 다운그레이드 흐름이 시작되는 `changed` 작업으로 [`marketplace_purchase` 이벤트](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) 웹후크가 트리거됩니다.'
 redirect_from:
-  - /apps/marketplace/administering-listing-plans-and-user-accounts/upgrading-or-downgrading-plans/
-  - /apps/marketplace/integrating-with-the-github-marketplace-api/upgrading-and-downgrading-plans/
+  - /apps/marketplace/administering-listing-plans-and-user-accounts/upgrading-or-downgrading-plans
+  - /apps/marketplace/integrating-with-the-github-marketplace-api/upgrading-and-downgrading-plans
   - /marketplace/integrating-with-the-github-marketplace-api/upgrading-and-downgrading-plans
   - /developers/github-marketplace/handling-plan-changes
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+ms.openlocfilehash: fd5cc838c01130ab9e8a1f7c040b254655cbaef0
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145135862'
 ---
+청구와 관련된 업그레이드 및 다운그레이드에 대한 자세한 내용은 “[{% data variables.product.prodname_marketplace %} API와 통합](/marketplace/integrating-with-the-github-marketplace-api/)”을 참조하세요.
 
-For more information about upgrading and downgrading as it relates to billing, see "[Integrating with the {% data variables.product.prodname_marketplace %} API](/marketplace/integrating-with-the-github-marketplace-api/)."
+## 1단계. 가격 책정 플랜 변경 이벤트
 
-### Step 1. Pricing plan change event
+고객이 {% data variables.product.prodname_marketplace %} 주문을 다음과 같이 변경하면 GitHub가 `changed` 작업과 함께 `marketplace_purchase` 웹후크를 앱에 보냅니다.
+* 더 비싼 가격 책정 플랜으로 업그레이드하거나 더 저렴한 플랜으로 다운그레이드합니다.
+* 기존 플랜에 사용자를 추가하거나 제거합니다.
+* 청구 기간을 변경합니다.
 
-GitHub send the `marketplace_purchase` webhook with the `changed` action to your app, when a customer makes any of these changes to their {% data variables.product.prodname_marketplace %} order:
-* Upgrades to a more expensive pricing plan or downgrades to a lower priced plan.
-* Adds or removes seats to their existing plan.
-* Changes the billing cycle.
+변경 내용이 적용되면 GitHub가 웹후크를 보냅니다. 예를 들어 고객이 플랜을 다운그레이드하면 GitHub는 고객의 청구 기간이 끝날 때 웹후크를 보냅니다. GitHub는 고객이 새 서비스에 바로 액세스할 수 있도록 플랜을 업그레이드할 때 즉시 앱에 웹후크를 보냅니다. 월별에서 연간으로 청구 기간을 전환하면 업그레이드로 간주됩니다. 업그레이드 또는 다운그레이드로 간주되는 작업에 대한 자세한 내용은 “[{% data variables.product.prodname_marketplace %}에서 고객에게 청구](/marketplace/selling-your-app/billing-customers-in-github-marketplace/)”를 참조하세요.
 
-GitHub will send the webhook when the change takes effect. For example, when a customer downgrades a plan, GitHub sends the webhook at the end of the customer's billing cycle. GitHub sends a webhook to your app immediately when a customer upgrades their plan to allow them access to the new service right away. If a customer switches from a monthly to a yearly billing cycle, it's considered an upgrade. See "[Billing customers in {% data variables.product.prodname_marketplace %}](/marketplace/selling-your-app/billing-customers-in-github-marketplace/)" to learn more about what actions are considered an upgrade or downgrade.
+`marketplace_purchase` 웹후크에서 `effective_date`, `marketplace_purchase` 및 `previous_marketplace_purchase`를 읽어 플랜의 시작 날짜를 업데이트하고 고객의 청구 기간 및 가격 책정 플랜을 변경합니다. `marketplace_purchase` 이벤트 페이로드의 예는 “[{% data variables.product.prodname_marketplace %} 웹후크 이벤트](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/)”를 참조하세요.
 
-Read the `effective_date`, `marketplace_purchase`, and `previous_marketplace_purchase` from the `marketplace_purchase` webhook to update the plan's start date and make changes to the customer's billing cycle and pricing plan. See "[{% data variables.product.prodname_marketplace %} webhook events](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/)" for an example of the `marketplace_purchase` event payload.
+앱에서 평가판을 제공하는 경우 평가판 만료 시 `changed` 작업과 함께 `marketplace_purchase` 웹 후크를 받습니다. 고객의 평가판이 만료되면 평가판 플랜의 유료 버전으로 고객을 업그레이드합니다.
 
-If your app offers free trials, you'll receive the `marketplace_purchase` webhook with the `changed` action when the free trial expires. If the customer's free trial expires, upgrade the customer to the paid version of the free-trial plan.
+## 2단계. 고객 계정 업데이트
 
-### Step 2. Updating customer accounts
+고객이 {% data variables.product.prodname_marketplace %} 주문에 대해 변경한 청구 기간 및 가격 책정 플랜 변경 내용을 반영하도록 고객의 계정 정보를 업데이트해야 합니다. `changed` 작업 웹후크를 받으면 Marketplace 앱의 웹 사이트 또는 앱의 UI에 가격 책정 플랜, `seat_count`(단위당 가격 책정 플랜) 및 청구 기간으로 업그레이드를 표시합니다.
 
-You'll need to update the customer's account information to reflect the billing cycle and pricing plan changes the customer made to their {% data variables.product.prodname_marketplace %} order. Display upgrades to the pricing plan, `seat_count` (for per-unit pricing plans), and billing cycle on your Marketplace app's website or your app's UI when you receive the `changed` action webhook.
+고객이 플랜을 다운그레이드하면 고객이 플랜 제한을 초과했는지 여부를 검토하고 UI를 통해 또는 전화 또는 메일로 연락하여 고객과 소통하는 것이 좋습니다.
 
-When a customer downgrades a plan, it's recommended to review whether a customer has exceeded their plan limits and engage with them directly in your UI or by reaching out to them by phone or email.
-
-To encourage people to upgrade you can display an upgrade URL in your app's UI. See "[About upgrade URLs](#about-upgrade-urls)" for more details.
+업그레이드를 권장하기 위해 앱의 UI에 업그레이드 URL을 표시할 수 있습니다. 자세한 내용은 “[업그레이드 URL 정보](#about-upgrade-urls)”를 참조하세요.
 
 {% note %}
 
-**Note:** We recommend performing a periodic synchronization using `GET /marketplace_listing/plans/:id/accounts` to ensure your app has the correct plan, billing cycle information, and unit count (for per-unit pricing) for each account.
+**참고:** 앱에 각 계정에 대한 올바른 플랜, 청구 기간 정보 및 단위 수(단위당 가격 책정)가 있는지 확인하기 위해 `GET /marketplace_listing/plans/:id/accounts`를 사용하여 주기적인 동기화를 수행하는 것이 좋습니다.
 
 {% endnote %}
 
-### Failed upgrade payments
+## 업그레이드 결제 실패
 
 {% data reusables.marketplace.marketplace-failed-purchase-event %}
 
-### About upgrade URLs
+## 업그레이드 URL 정보
 
-You can redirect users from your app's UI to upgrade on GitHub using an upgrade URL:
+업그레이드 URL을 사용하여 GitHub에서 업그레이드하도록 앱의 UI에서 사용자를 리디렉션할 수 있습니다.
 
-```
+```text
 https://www.github.com/marketplace/<LISTING_NAME>/upgrade/<LISTING_PLAN_NUMBER>/<CUSTOMER_ACCOUNT_ID>
 ```
 
-For example, if you notice that a customer is on a 5 person plan and needs to move to a 10 person plan, you could display a button in your app's UI that says "Here's how to upgrade" or show a banner with a link to the upgrade URL. The upgrade URL takes the customer to your listing plan's upgrade confirmation page.
+예를 들어 고객이 5인 플랜을 사용 중인데 10인 플랜으로 이전해야 하는 경우 앱의 UI에 “업그레이드 방법”이라는 단추를 표시하거나 업그레이드 URL에 대한 링크가 있는 배너를 표시할 수 있습니다. 업그레이드 URL은 고객을 목록 플랜의 업그레이드 확인 페이지로 연결합니다.
 
-Use the `LISTING_PLAN_NUMBER` for the plan the customer would like to purchase. When you create new pricing plans they receive a `LISTING_PLAN_NUMBER`, which is unique to each plan across your listing, and a `LISTING_PLAN_ID`, which is unique to each plan in the {% data variables.product.prodname_marketplace %}. You can find these numbers when you [List plans](/rest/reference/apps#list-plans), which identifies your listing's pricing plans. Use the `LISTING_PLAN_ID` and the "[List accounts for a plan](/rest/reference/apps#list-accounts-for-a-plan)" endpoint to get the `CUSTOMER_ACCOUNT_ID`.
+고객이 구매하려는 플랜에 `LISTING_PLAN_NUMBER`를 사용합니다. 새 가격 책정 플랜을 만들면 목의 각 플랜에 고유한 `LISTING_PLAN_NUMBER` 및 {% data variables.product.prodname_marketplace %}에서 각 플랜에 고유한 `LISTING_PLAN_ID`가 받습니다. 목록의 가격 책정 플랜을 식별하는 [목록 플랜](/rest/reference/apps#list-plans)에서 이러한 숫자를 찾을 수 있습니다. `LISTING_PLAN_ID` 및 “[플랜에 대한 계정 나열](/rest/reference/apps#list-accounts-for-a-plan)” 엔드포인트를 사용하여 `CUSTOMER_ACCOUNT_ID`를 가져옵니다.
 
 
 {% note %}
 
-**Note:** If your customer upgrades to additional units (such as seats), you can still send them to the appropriate plan for their purchase, but we are unable to support `unit_count` parameters at this time.
+**참고:** 고객이 추가 단위(예: 사용자)로 업그레이드하는 경우에도 고객을 구매에 적합한 플랜으로 보낼 수 있지만 현재는 `unit_count` 매개 변수를 지원할 수 없습니다.
 
 {% endnote %}

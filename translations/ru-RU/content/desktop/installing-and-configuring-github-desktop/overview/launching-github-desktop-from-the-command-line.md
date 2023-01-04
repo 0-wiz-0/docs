@@ -1,28 +1,34 @@
 ---
-title: Launching GitHub Desktop from the command line
+title: Запуск GitHub Desktop из командной строки
 shortTitle: Launching from the command line
-intro: You can launch GitHub Desktop from the command line.
+intro: Можно запустить GitHub Desktop из командной строки
 redirect_from:
   - /desktop/getting-started-with-github-desktop/launching-github-desktop-from-the-command-line
   - /desktop/installing-and-configuring-github-desktop/launching-github-desktop-from-the-command-line
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 5d9851cc8596299b9d3c4f6ec4d2c72e7d4a2b49
+ms.sourcegitcommit: 5f40f9341dd1e953f4be8d1642f219e628e00cc8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/04/2022
+ms.locfileid: '148009062'
 ---
-
 {% mac %}
 
-1. In the menu bar, select the **{% data variables.product.prodname_desktop %}** menu, then click **Install Command Line Tool**. ![Install Command Line Tool option in the {% data variables.product.prodname_desktop %} drop-down menu](/assets/images/help/desktop/mac-install-command-line-tool.png)
-2. Open Terminal.
+1. В строке меню выберите меню **{% data variables.product.prodname_desktop %}** и нажмите кнопку **Установить программу командной строки**.
+![Параметр "Установить программу командной строки" в раскрывающемся меню {% data variables.product.prodname_desktop %}](/assets/images/help/desktop/mac-install-command-line-tool.png)
+2. Откройте терминал.
 3. {% data reusables.desktop.launch-desktop-from-command-line %}
 
   ```shell
-  $ github <em>/path/to/repo</em>
+  $ github /PATH/TO/REPO
   ```
 
-  You can also change to your repository path and then type `github .` to open that repository.
+  Вы также можете изменить путь к репозиторию, а затем ввести `github .`, чтобы открыть этот репозиторий.
 
   ```shell
-  $ cd <em>/path/to/repo</em>
+  $ cd /PATH/TO/REPO
   [repo]$ github .
   ```
 
@@ -30,17 +36,17 @@ versions:
 
 {% windows %}
 
-1. Open a command prompt.
+1. Откройте командную строку.
 2. {% data reusables.desktop.launch-desktop-from-command-line %}
 
   ```shell
-  C:\Users\octocat> github <em>path\to\repo</em>
+  C:\Users\octocat> github PATH\TO\REPO
   ```
 
- You can also change to your repository path and then type `github .` to open that repository.
+ Вы также можете изменить путь к репозиторию, а затем ввести `github .`, чтобы открыть этот репозиторий.
 
   ```shell
-  C:\Users\octocat> cd <em>repo\myrepo</em>
+  C:\Users\octocat> cd REPO\MY-REPO
   C:\Users\octocat\repo\myrepo> github .
   ```
 

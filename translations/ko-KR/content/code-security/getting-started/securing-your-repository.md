@@ -1,124 +1,138 @@
 ---
-title: Securing your repository
-intro: 'You can use a number of {% data variables.product.prodname_dotcom %} features to help keep your repository secure.'
+title: 리포지토리 보안 유지
+intro: '여러 {% data variables.product.prodname_dotcom %} 기능을 사용하여 리포지토리를 안전하게 유지할 수 있습니다.'
 permissions: Repository administrators and organization owners can configure repository security settings.
 redirect_from:
   - /github/administering-a-repository/about-securing-your-repository
   - /github/code-security/getting-started/about-securing-your-repository
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.0'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Repositories
   - Dependencies
   - Vulnerabilities
   - Advanced Security
+shortTitle: Secure your repository
+ms.openlocfilehash: adab3ab8944ebd4945d30d7e886d91f0a31ca545
+ms.sourcegitcommit: b617c4a7a1e4bf2de3987a86e0eb217d7031490f
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 11/11/2022
+ms.locfileid: '148161185'
 ---
+## 소개
+이 가이드에서는 리포지토리에 대한 보안 기능을 구성하는 방법을 보여 줍니다. 리포지토리에 대한 보안 설정을 구성하려면 리포지토리 관리자 또는 조직 소유자여야 합니다.
 
-### Introduction
-This guide shows you how to configure security features for a repository. You must be a repository administrator or organization owner to configure security settings for a repository.
+보안 요구 사항은 리포지토리에 고유하므로 리포지토리에 대해 모든 기능을 사용하도록 설정할 필요는 없을 수도 있습니다. 자세한 내용은 “[{% data variables.product.prodname_dotcom %} 보안 기능](/code-security/getting-started/github-security-features)”을 참조하세요.
 
-Your security needs are unique to your repository, so you may not need to enable every feature for your repository. For more information, see "[{% data variables.product.prodname_dotcom %} security features](/code-security/getting-started/github-security-features)."
+{% data reusables.advanced-security.security-feature-availability %}
 
-Some security features are only available {% if currentVersion == "free-pro-team@latest" %}for public repositories, and for private repositories owned by organizations with {% else %}if you have {% endif %}an {% data variables.product.prodname_advanced_security %} license. {% data reusables.advanced-security.more-info-ghas %}
+## 리포지토리에 대한 액세스 관리
 
-### Managing access to your repository
+리포지토리를 보호하는 첫 번째 단계는 코드를 보고 수정할 수 있는 사용자를 설정하는 것입니다. 자세한 내용은 “[리포지토리 설정 관리](/github/administering-a-repository/managing-repository-settings)”를 참조하세요.
 
-The first step to securing a repository is to set up who can see and modify your code. For more information, see "[Managing repository settings](/github/administering-a-repository/managing-repository-settings)."
+리포지토리의 기본 페이지에서 **{% octicon "gear" aria-label="The Settings gear" %} 설정** 을 클릭한 다음 아래로 스크롤하여 “위험 영역”으로 이동합니다.
 
-From the main page of your repository, click **{% octicon "gear" aria-label="The Settings gear" %}Settings**, then scroll down to the "Danger Zone."
+- 리포지토리를 볼 수 있는 사용자를 변경하려면 **표시 여부 변경** 을 클릭합니다. 자세한 내용은 "[리포지토리 표시 유형 설정"을 참조하세요](/github/administering-a-repository/setting-repository-visibility). {% ifversion fpt or ghec or ghes > 3.3 or ghae > 3.3 %}
+- 리포지토리에 액세스하고 권한을 조정할 수 있는 사용자를 변경하려면 **액세스 관리** 를 클릭합니다. 자세한 내용은 “[리포지토리에 액세스할 수 있는 팀 및 사용자 관리](/github/administering-a-repository/managing-teams-and-people-with-access-to-your-repository)”를 참조하세요.{% endif %}
 
-- To change who can view your repository, click **Change visibility**. For more information, see "[Setting repository visibility](/github/administering-a-repository/setting-repository-visibility)."{% if currentVersion == "free-pro-team@latest" %}
-- To change who can access your repository and adjust permissions, click **Manage access**. For more information, see"[Managing teams and people with access to your repository](/github/administering-a-repository/managing-teams-and-people-with-access-to-your-repository)."{% endif %}
+## 보안 정책 만들기
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" or currentVersion == 'github-ae@next' %}
-### Setting a security policy
+1. 리포지토리의 기본 페이지에서 **{% octicon "shield" aria-label="The shield symbol" %} 보안** 을 클릭합니다.
+2. **보안 정책** 을 클릭합니다.
+3. **설치 시작** 을 클릭합니다.
+4. 지원되는 프로젝트 버전 및 취약성 보고 방법에 대한 정보를 추가합니다.
 
-1. From the main page of your repository, click **{% octicon "shield" aria-label="The shield symbol" %} Security**.
-2. Click **Security policy**.
-3. Click **Start setup**.
-4. Add information about supported versions of your project and how to report vulnerabilities.
+자세한 내용은 “[리포지토리에 보안 정책 추가](/code-security/getting-started/adding-a-security-policy-to-your-repository)”를 참조하세요.
 
-For more information, see "[Adding a security policy to your repository](/code-security/getting-started/adding-a-security-policy-to-your-repository)."
+## 종속성 그래프 관리
+
+{% ifversion fpt or ghec %} 종속성 그래프는 모든 퍼블릭 리포지토리에 대해 자동으로 생성되며 프라이빗 리포지토리에 대해 사용하도록 선택할 수 있습니다. 리포지토리의 매니페스트 및 잠금 파일을 해석하여 종속성을 식별합니다.
+
+1. 리포지토리의 기본 페이지에서 **{% octicon "gear" aria-label="The Settings gear" %} 설정** 을 클릭합니다.
+2. **보안 및 분석** 을 클릭합니다.
+3. 종속성 그래프 옆에 있는 **사용** 또는 **사용 안 함** 을 클릭합니다.
+{% endif %}
+
+{% data reusables.dependabot.dependabot-alerts-dependency-graph-enterprise %}
+
+자세한 내용은 “[리포지토리의 종속성 탐색](/code-security/supply-chain-security/exploring-the-dependencies-of-a-repository#enabling-and-disabling-the-dependency-graph-for-a-private-repository)”을 참조하세요.
+
+## {% data variables.product.prodname_dependabot_alerts %} 관리
+
+{% data variables.product.prodname_dependabot_alerts %}는 {% data variables.product.prodname_dotcom %}가 취약성이 있는 종속성 그래프의 종속성을 식별할 때 생성됩니다. {% ifversion fpt or ghec %}모든 리포지토리에 대해 {% data variables.product.prodname_dependabot_alerts %}를 사용하도록 설정할 수 있습니다.{% endif %}
+
+{% ifversion fpt or ghec %}
+1. 프로필 사진을 클릭한 다음 **설정** 을 클릭합니다.
+2. **보안 및 분석** 을 클릭합니다.
+3. {% data variables.product.prodname_dependabot_alerts %} 옆에 있는 **모두 사용** 을 클릭합니다.
+{% endif %}
+
+{% data reusables.dependabot.dependabot-alerts-beta %} {% data reusables.dependabot.dependabot-alerts-dependency-graph-enterprise %}
+
+자세한 내용은 “[{% data variables.product.prodname_dependabot_alerts %} 정보](/code-security/supply-chain-security/about-alerts-for-vulnerable-dependencies){% ifversion fpt or ghec %}” 및 “[개인 계정에 대한 보안 및 분석 설정 관리](/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-personal-account-settings/managing-security-and-analysis-settings-for-your-personal-account){% endif %}”를 참조하세요.
+
+## 종속성 검토 관리
+
+종속성 검토를 사용하면 끌어오기 요청이 리포지토리에 병합되기 전에 종속성 변경을 시각화할 수 있습니다. 자세한 내용은 “[종속성 검토 정보](/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review)”를 참조하세요.
+
+종속성 검토는 {% data variables.product.prodname_GH_advanced_security %} 기능입니다. {% ifversion fpt or ghec %}모든 퍼블릭 리포지토리에 대해 종속성 검토가 이미 사용되고 있습니다. {% ifversion fpt %} {% data variables.product.prodname_advanced_security %}와 함께 {% data variables.product.prodname_ghe_cloud %}를 사용하는 조직은 프라이빗 및 내부 리포지토리에 대한 종속성 검토를 추가로 사용할 수 있습니다. 자세한 내용은 [{% data variables.product.prodname_ghe_cloud %} 설명서](/enterprise-cloud@latest/code-security/getting-started/securing-your-repository#managing-dependency-review)를 참조하세요. {% endif %} {% endif %} {% ifversion ghec or ghes or ghae %} {% ifversion ghec %}프라이빗 또는 내부 {% endif %}리포지토리에 대한 종속성 검토를 사용하도록 설정하려면 종속성 그래프를 사용하도록 설정하고 {% data variables.product.prodname_GH_advanced_security %}를 사용하도록 설정합니다. 
+
+1. 리포지토리의 기본 페이지에서 **{% octicon "gear" aria-label="The Settings gear" %} 설정** 을 클릭합니다.
+2. **보안 및 분석** 을 클릭합니다.
+3. {% ifversion ghec %}아직 종속성 그래프를 사용하도록 설정하지 않은 경우 **사용** 을 클릭합니다.{% elsif ghes or ghae %}종속성 그래프가 엔터프라이즈에 대해 구성되어 있는지 확인합니다.{% endif %}
+4. 아직 {% data variables.product.prodname_GH_advanced_security %}를 사용하도록 설정하지 않은 경우 **사용** 을 클릭합니다.
 
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %}
-### Managing the dependency graph
+{% ifversion fpt or ghec or ghes %}
 
-The dependency graph is automatically generated for {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %} all public repositories and you can choose to enable it for private repositories.{% else %} all repositories.{% endif %}
+## {% data variables.product.prodname_dependabot_security_updates %} 관리
 
-1. From the main page of your repository, click **{% octicon "gear" aria-label="The Settings gear" %} Settings**.
-2. Click **Security & analysis**.
-3. Next to Dependency graph, click **Enable** or **Disable**.
+{% data variables.product.prodname_dependabot_alerts %}를 사용하는 리포지토리의 경우 취약성이 감지되면 {% data variables.product.prodname_dependabot_security_updates %}를 사용하여 보안 업데이트로 끌어오기 요청을 발생하도록 설정할 수 있습니다.
 
-For more information, see "[Exploring the dependencies of a repository](/code-security/supply-chain-security/exploring-the-dependencies-of-a-repository#enabling-and-disabling-the-dependency-graph-for-a-private-repository)."
+1. 리포지토리의 기본 페이지에서 **{% octicon "gear" aria-label="The Settings gear" %} 설정** 을 클릭합니다.
+2. **보안 및 분석** 을 클릭합니다.
+3. {% data variables.product.prodname_dependabot_security_updates %} 옆에 있는 **사용** 을 클릭합니다.
+
+자세한 내용은 “[{% data variables.product.prodname_dependabot_security_updates %} 정보](/code-security/supply-chain-security/about-dependabot-security-updates)” 및 “[{% data variables.product.prodname_dependabot_security_updates %} 구성](/code-security/supply-chain-security/configuring-dependabot-security-updates)”을 참조하세요.
+
+## {% data variables.product.prodname_dependabot_version_updates %} 관리
+
+{% data variables.product.prodname_dependabot %}를 사용하여 자동으로 끌어오기 요청을 발생시켜 종속성을 최신 상태로 유지할 수 있습니다. 자세한 내용은 “[{% data variables.product.prodname_dependabot_version_updates %} 정보](/code-security/supply-chain-security/about-dependabot-version-updates)”를 참조하세요.
+
+{% ifversion dependabot-settings-update-37 %}
+1. 리포지토리의 기본 페이지에서 **{% octicon "gear" aria-label="The Settings gear" %} 설정** 을 클릭합니다.
+2. **보안 및 분석** 을 클릭합니다.
+3. {% data variables.product.prodname_dependabot_version_updates %} 옆에 있는 **사용** 을 클릭하여 기본 *dependabot.yml* 구성 파일을 만듭니다.
+4. 종속성을 지정하여 파일을 업데이트하고 리포지토리에 커밋합니다. 자세한 내용은 "[Dependabot 버전 업데이트 구성](/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates#enabling-dependabot-version-updates)"을 참조하세요.
+
+{% else %} {% data variables.product.prodname_dependabot_version_updates %}를 사용하려면 *dependabot.yml* 구성 파일을 만들어야 합니다. 자세한 내용은 “[{% data variables.product.prodname_dependabot %} 버전 업데이트 구성](/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/enabling-and-disabling-dependabot-version-updates)”을 참조하세요.
+{% endif %}
 
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %}
-### Managing {% data variables.product.prodname_dependabot_alerts %}
+## {% data variables.product.prodname_code_scanning %} 구성
 
-By default, {% data variables.product.prodname_dotcom %} detects vulnerabilities in public repositories and generates {% data variables.product.prodname_dependabot_alerts %}. {% data variables.product.prodname_dependabot_alerts %} can also be enabled for private repositories.
+{% data variables.code-scanning.codeql_workflow %} 또는 타사 도구를 사용하여 리포지토리에 저장된 코드의 취약성 및 오류를 자동으로 식별하도록 {% data variables.product.prodname_code_scanning %}를 설정할 수 있습니다. 자세한 내용은 “[리포지토리에 대한 {% data variables.product.prodname_code_scanning %} 설정](/code-security/secure-coding/setting-up-code-scanning-for-a-repository)”을 참조하세요.
 
-1. Click your profile photo, then click **Settings**.
-2. Click **Security & analysis**.
-3. Click **Enable all** next to {% data variables.product.prodname_dependabot_alerts %}.
+{% data variables.product.prodname_code_scanning_capc %}는 모든 퍼블릭 리포지토리에 대해 {% ifversion fpt or ghec %}사용할 수 있으며, 엔터프라이즈에서 {% endif %}{% data variables.product.prodname_GH_advanced_security %}를 사용하는 경우 {% else %}조직 소유 리포지토리에 대한 라이선스가 있는 엔터프라이즈의 일부인 프라이빗 리포지토리에서 사용할 수 있습니다.
 
-For more information, see "[About alerts for vulnerable dependencies](/code-security/supply-chain-security/about-alerts-for-vulnerable-dependencies){% if currentVersion == "free-pro-team@latest" %}" and "[Managing security and analysis settings for your user account](/github/setting-up-and-managing-your-github-user-account/managing-security-and-analysis-settings-for-your-user-account){% endif %}."
+## {% data variables.product.prodname_secret_scanning %} 구성
 
-{% endif %}
+{% data variables.product.prodname_secret_scanning_caps %}는 모든 퍼블릭 리포지토리에 대해 {% ifversion fpt or ghec %}사용할 수 있으며, 엔터프라이즈에서 {% endif %}{% data variables.product.prodname_GH_advanced_security %}를 사용하는 경우 {% else %}조직 소유 리포지토리에 대한 라이선스가 있는 엔터프라이즈의 일부인 프라이빗 리포지토리에서 사용할 수 있습니다. {% ifversion fpt %}자세한 내용은 [{% data variables.product.prodname_ghe_cloud %} 설명서](/enterprise-cloud@latest/code-security/getting-started/securing-your-repository#configuring-secret-scanning)를 참조하세요.{% else %} 조직의 설정에 따라 리포지토리에 이미 {% data variables.product.prodname_secret_scanning_caps %}를 사용하도록 설정했을 수 있습니다.
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" %}
-### Managing dependency review
+1. 리포지토리의 기본 페이지에서 **{% octicon "gear" aria-label="The Settings gear" %} 설정** 을 클릭합니다.
+2. **보안 및 분석** 을 클릭합니다.
+3. 아직 {% data variables.product.prodname_GH_advanced_security %}를 사용하도록 설정하지 않은 경우 **사용** 을 클릭합니다.
+4. {% data variables.product.prodname_secret_scanning_caps %} 옆에 있는 **사용** 을 클릭합니다. {% endif %}
 
-Dependency review lets you visualize dependency changes in pull requests before they are merged into your repository. Dependency review is available in all public repositories and in repositories owned by organizations with an {% data variables.product.prodname_advanced_security %} license that have the dependency graph enabled. For more information, see "[About dependency review](/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review)."
+## 다음 단계
+보안 기능의 경고를 보고 관리하여 코드의 종속성과 취약성을 해결할 수 있습니다. 자세한 내용은 참조 {% ifversion fpt or ghes or ghec %} "[보기 및 업데이트 {% 데이터 variables.product.prodname_dependabot_alerts %}](/code-security/dependabot/dependabot-alerts/viewing-and-updating-dependabot-alerts),"{% endif %} {% ifversion fpt or ghec or ghes %}}"[종속성 업데이트에 대한 끌어오기 요청 관리](/code-security/supply-chain-security/managing-pull-requests-for-dependency-updates)", {% endif %}"[리포지토리에 대한 {% data variables.product.prodname_code_scanning %} 관리](/code-security/secure-coding/managing-code-scanning-alerts-for-your-repository)" 및 "[{% data variables.product.prodname_secret_scanning %}에서 경고 관리](/code-security/secret-security/managing-alerts-from-secret-scanning)."
 
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" %}
-
-### Managing {% data variables.product.prodname_dependabot_security_updates %}
-
-For any repository that uses {% data variables.product.prodname_dependabot_alerts %}, you can enable {% data variables.product.prodname_dependabot_security_updates %} to raise pull requests with security updates when vulnerabilities are detected.
-
-1. From the main page of your repository, click **{% octicon "gear" aria-label="The Settings gear" %}Settings**.
-2. Click **Security & analysis**.
-3. Next to {% data variables.product.prodname_dependabot_security_updates %}, click **Enable**.
-
-For more information, see "[About {% data variables.product.prodname_dependabot_security_updates %}](/code-security/supply-chain-security/about-dependabot-security-updates)" and "[Configuring {% data variables.product.prodname_dependabot_security_updates %}](/code-security/supply-chain-security/configuring-dependabot-security-updates)."
-
-### Managing {% data variables.product.prodname_dependabot_version_updates %}
-
-You can enable {% data variables.product.prodname_dependabot %} to automatically raise pull requests to keep your dependencies up-to-date. For more information, see "[About {% data variables.product.prodname_dependabot_version_updates %}](/code-security/supply-chain-security/about-dependabot-version-updates)."
-
-To enable {% data variables.product.prodname_dependabot_version_updates %}, you must create a *dependabot.yml* configuration file. For more information, see "[Enabling and disabling version updates](/code-security/supply-chain-security/enabling-and-disabling-version-updates)."
-
-{% endif %}
-
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}
-### Configuring {% data variables.product.prodname_code_scanning %}
-
-{% data variables.product.prodname_code_scanning_capc %} is available {% if currentVersion == "free-pro-team@latest" %}for all public repositories, and for private repositories owned by organizations with {% else %} for organization-owned repositories if you have {% endif %}an {% data variables.product.prodname_advanced_security %} license.
-
-You can set up {% data variables.product.prodname_code_scanning %} to automatically identify vulnerabilities and errors in the code stored in your repository by using a {% data variables.product.prodname_codeql_workflow %} or third-party tool. For more information, see "[Setting up {% data variables.product.prodname_code_scanning %} for a repository](/code-security/secure-coding/setting-up-code-scanning-for-a-repository)."
-
-### Configuring {% data variables.product.prodname_secret_scanning %}
-{% data variables.product.prodname_secret_scanning_caps %} is available {% if currentVersion == "free-pro-team@latest" %}for all public repositories, and for private repositories owned by organizations with {% else %} for organization-owned repositories if you have {% endif %}an {% data variables.product.prodname_advanced_security %} license.
-
-{% data variables.product.prodname_secret_scanning_caps %} may be enabled for your repository by default depending upon your organization's settings.
-
-1. From the main page of your repository, click **{% octicon "gear" aria-label="The Settings gear" %}Settings**.
-2. Click **Security & analysis**.
-3. If {% data variables.product.prodname_GH_advanced_security %} is not already enabled, click **Enable**.
-4. Next to {% data variables.product.prodname_secret_scanning_caps %}, click **Enable**.
-
-{% endif %}
-
-### 다음 단계
-You can view and manage alerts from security features to address dependencies and vulnerabilities in your code. For more information, see {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %} "[Viewing and updating vulnerable dependencies in your repository](/code-security/supply-chain-security/viewing-and-updating-vulnerable-dependencies-in-your-repository),"{% endif %} {% if currentVersion == "free-pro-team@latest" %}"[Managing pull requests for dependency updates](/code-security/supply-chain-security/managing-pull-requests-for-dependency-updates)," {% endif %}"[Managing {% data variables.product.prodname_code_scanning %} for your repository](/code-security/secure-coding/managing-code-scanning-alerts-for-your-repository)," and "[Managing alerts from {% data variables.product.prodname_secret_scanning %}](/code-security/secret-security/managing-alerts-from-secret-scanning)."
-
-{% if currentVersion == "free-pro-team@latest" %}If you have a security vulnerability, you can create a security advisory to privately discuss and fix the vulnerability. For more information, see "[About {% data variables.product.prodname_security_advisories %}](/code-security/security-advisories/about-github-security-advisories)" and "[Creating a security advisory](/code-security/security-advisories/creating-a-security-advisory)."
+{% ifversion fpt or ghec %}보안 취약성이 있는 경우 보안 공지를 만들어서 비공개로 취약성에 대해 논의하고 이를 수정할 수 있습니다. 자세한 내용은 "[리포지토리 보안 권고 정보](/code-security/security-advisories/about-github-security-advisories)" 및 "[보안 공지 만들기"를](/code-security/security-advisories/creating-a-security-advisory) 참조하세요.
 {% endif %}

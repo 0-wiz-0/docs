@@ -1,55 +1,70 @@
 ---
-title: Accessing the management console
+title: 관리 콘솔에 액세스
 intro: '{% data reusables.enterprise_site_admin_settings.about-the-management-console %}'
 redirect_from:
-  - /enterprise/admin/articles/about-the-management-console/
-  - /enterprise/admin/articles/management-console-for-emergency-recovery/
-  - /enterprise/admin/articles/web-based-management-console/
-  - /enterprise/admin/categories/management-console/
-  - /enterprise/admin/articles/accessing-the-management-console/
-  - /enterprise/admin/guides/installation/web-based-management-console/
+  - /enterprise/admin/articles/about-the-management-console
+  - /enterprise/admin/articles/management-console-for-emergency-recovery
+  - /enterprise/admin/articles/web-based-management-console
+  - /enterprise/admin/categories/management-console
+  - /enterprise/admin/articles/accessing-the-management-console
+  - /enterprise/admin/guides/installation/web-based-management-console
   - /enterprise/admin/installation/accessing-the-management-console
   - /enterprise/admin/configuration/accessing-the-management-console
   - /admin/configuration/accessing-the-management-console
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Enterprise
   - Fundamentals
+shortTitle: Access the management console
+ms.openlocfilehash: 60cd45e9e33dfbd037c831b96bed806dddcf6a21
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148107127'
 ---
+## {% data variables.enterprise.management_console %} 정보
 
-### About the {% data variables.enterprise.management_console %}
+기본 관리 작업에 {% data variables.enterprise.management_console %}을 사용합니다.
+- **초기 설정**: 브라우저에서 {% data variables.location.product_location %}의 IP 주소를 방문하여 {% data variables.location.product_location %}을(를) 처음 시작할 때 초기 설정 프로세스를 안내합니다.
+- **{% data variables.enterprise.management_console %}에 대한 인증 정책 구성**: 로그인 시도에 대한 속도 제한 및 누군가가 속도 제한을 초과하는 경우 잠금 기간을 설정합니다. 
+- **인스턴스에 대한 기본 설정 구성**: 설정 페이지에서 DNS, 호스트 이름, SSL, 사용자 인증, 메일, 모니터링 서비스 및 로그 전달을 구성합니다.
+- **유지 관리 기간 예약**: {% data variables.enterprise.management_console %} 또는 관리 셸을 사용하여 유지 관리를 수행하는 동안 {% data variables.location.product_location %}을(를) 오프라인으로 전환합니다.
+- **문제 해결**: 지원 번들을 생성하거나 개략적인 수준의 진단 정보를 봅니다.
+- **라이선스 관리**: {% data variables.product.prodname_enterprise %} 라이선스를 보거나 업데이트합니다.
 
-Use the {% data variables.enterprise.management_console %} for basic administrative activities:
-- **Initial setup**: Walk through the initial setup process when first launching {% data variables.product.product_location %} by visiting {% data variables.product.product_location %}'s IP address in your browser.
-- **Configuring basic settings for your instance**: Configure DNS, hostname, SSL, user authentication, email, monitoring services, and log forwarding on the Settings page.
-- **Scheduling maintenance windows**: Take {% data variables.product.product_location %} offline while performing maintenance using the {% data variables.enterprise.management_console %} or administrative shell.
-- **Troubleshooting**: Generate a support bundle or view high level diagnostic information.
-- **License management**: View or update your {% data variables.product.prodname_enterprise %} license.
+인스턴스가 유지 관리 모드에 있거나 중요한 애플리케이션 오류 또는 호스트 이름 또는 SSL 잘못된 구성이 있는 경우에도 {% data variables.location.product_location %}의 IP 주소를 사용하여 항상 {% data variables.enterprise.management_console %}에 도달할 수 있습니다.
 
-You can always reach the {% data variables.enterprise.management_console %} using {% data variables.product.product_location %}'s IP address, even when the instance is in maintenance mode, or there is a critical application failure or hostname or SSL misconfiguration.
+{% data variables.enterprise.management_console %}에 액세스하려면 {% data variables.location.product_location %}을(를) 처음 설정하는 동안 설정된 관리자 암호를 사용해야 합니다. 또한 포트 8443에서 가상 머신 호스트에 연결할 수 있어야 합니다. {% data variables.enterprise.management_console %}에 도달하는 데 문제가 있는 경우 중간 방화벽 및 보안 그룹 구성을 확인하세요. 
 
-To access the {% data variables.enterprise.management_console %}, you must use the administrator password established during initial setup of {% data variables.product.product_location %}. You must also be able to connect to the virtual machine host on port 8443. If you're having trouble reaching the {% data variables.enterprise.management_console %}, please check intermediate firewall and security group configurations.
+{% data variables.enterprise.management_console %} 암호 해시가 `/data/user/common/secrets.conf`에 저장되고 해당 파일이 주 어플라이언스에서 모든 고가용성 복제본으로 자동으로 동기화됩니다. 기본 암호를 변경하면 고가용성 복제본에 자동으로 복제됩니다. 고가용성 방법에 대한 자세한 내용은 “[고가용성 구성 정보](/admin/enterprise-management/configuring-high-availability/about-high-availability-configuration)”를 참조하세요.
 
-### Accessing the {% data variables.enterprise.management_console %} as a site administrator
+## 사이트 관리자 권한으로 {% data variables.enterprise.management_console %}에 액세스
 
-The first time that you access the {% data variables.enterprise.management_console %} as a site administrator, you must upload your {% data variables.product.prodname_enterprise %} license file to authenticate into the app. For more information, see "[Managing your {% data variables.product.prodname_enterprise %} license](/enterprise/{{ currentVersion }}/admin/guides/installation/managing-your-github-enterprise-license)."
+사이트 관리자 권한으로 {% data variables.enterprise.management_console %}에 처음 액세스할 때는 {% data variables.product.prodname_enterprise %} 라이선스 파일을 업로드하여 앱에 인증해야 합니다. 자세한 내용은 “[{% data variables.product.prodname_enterprise %}에 대한 라이선스 관리](/billing/managing-your-license-for-github-enterprise)”를 참조하세요.
 
-{% data reusables.enterprise_site_admin_settings.access-settings %}
-{% data reusables.enterprise_site_admin_settings.management-console %}
-{% data reusables.enterprise_management_console.type-management-console-password %}
+{% data reusables.enterprise_site_admin_settings.access-settings %} {% data reusables.enterprise_site_admin_settings.management-console %} {% data reusables.enterprise_management_console.type-management-console-password %}
 
-### Accessing the {% data variables.enterprise.management_console %} as an unauthenticated user
+## 인증되지 않은 사용자로 {% data variables.enterprise.management_console %}에 액세스
 
-1. Visit this URL in your browser, replacing `hostname` with your actual {% data variables.product.prodname_ghe_server %} hostname or IP address:
+1. 브라우저에서 이 URL을 방문하여 `hostname`을 실제 {% data variables.product.prodname_ghe_server %} 호스트 이름 또는 IP 주소로 바꿉니다.
   ```shell
   http(s)://HOSTNAME/setup
   ```
 {% data reusables.enterprise_management_console.type-management-console-password %}
 
-### Unlocking the {% data variables.enterprise.management_console %} after failed login attempts
+## 실패한 로그인 시도 후 {% data variables.enterprise.management_console %}의 잠금 해제
 
-The {% data variables.enterprise.management_console %} locks after ten failed login attempts are made in the span of ten minutes. You must wait for the login screen to automatically unlock before attempting to log in again. The login screen automatically unlocks as soon as the previous ten minute period contains fewer than ten failed login attempts. The counter resets after a successful login occurs.
+{% data variables.enterprise.management_console %}은(는) 인증 정책에 의해 구성된 실패한 로그인 시도 횟수 {% ifversion enterprise-authentication-rate-limits %}후에 잠급니다. 자세한 내용은 "[인증 정책 속도 제한 구성"을 참조하세요](/admin/configuration/configuring-your-enterprise/configuring-rate-limits#configuring-authentication-policy-rate-limits). {% else %}10분 동안 10번의 로그인 시도가 실패했습니다. 다시 로그인을 시도하기 전에 로그인 화면이 자동으로 잠금 해제되기를 기다려야 합니다. 이전 10분 동안 실패한 로그인 시도가 10회 미만이면 즉시 로그인 화면이 자동으로 잠금 해제됩니다. 성공적으로 로그인한 후 카운터가 다시 설정됩니다. {% endif %}
 
-To immediately unlock the {% data variables.enterprise.management_console %}, use the `ghe-reactivate-admin-login` command via the administrative shell. For more information, see "[Command line utilities](/enterprise/{{ currentVersion }}/admin/guides/installation/command-line-utilities#ghe-reactivate-admin-login)" and "[Accessing the administrative shell (SSH)](/enterprise/{{ currentVersion }}/admin/guides/installation/accessing-the-administrative-shell-ssh/)."
+{% data reusables.enterprise_management_console.unlocking-management-console-with-shell %}
+
+## {% data variables.enterprise.management_console %}에 대한 연결 실패 문제 해결
+
+{% data variables.location.product_location %}에서 {% data variables.enterprise.management_console %}에 연결할 수 없는 경우 다음 정보를 검토하여 문제를 해결할 수 있습니다.
+
+### 오류: 부하 분산 장치를 통한 연결에 대해 “세션이 만료됨”
+
+부하 분산 장치를 통해 {% data variables.location.product_location %}에 액세스하고 세션이 만료되었다는 메시지와 함께 {% data variables.enterprise.management_console %}에 대한 연결이 실패하는 경우 부하 분산 장치를 다시 구성해야 할 수 있습니다. 자세한 내용은 “[부하 분산 장치에서 {% data variables.product.product_name %} 사용](/admin/configuration/configuring-network-settings/using-github-enterprise-server-with-a-load-balancer#error-your-session-has-expired-for-connections-to-the-management-console)”을 참조하세요.
