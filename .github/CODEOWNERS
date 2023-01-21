@@ -1,31 +1,56 @@
-# Order is important. The LAST matching pattern has the MOST precedence.
+#-with write access to this repository can merge pull requests.
+Conflicting files
+.github/PULL_REQUEST_TEMPLATE.md
+.github/actions-scripts/create-enterprise-issue.js
+.github/actions-scripts/enterprise-server-issue-templates/deprecation-issue.md
+.github/actions-scripts/projects.js
+.github/allowed-actions.js
+.github/dependabot.yml
+.github/workflows/automerge.yml
+.github/workflows/browser-test.yml
+.github/workflows/check-all-english-links.yml
+.github/workflows/check-broken-links-github-github.yml
+.github/workflows/content-changes-table-comment.yml
+.github/workflows/crowdin-cleanup.yml
+.github/workflows/crowdin.yml
+.github/workflows/docs-review-collect.yml
+.github/workflows/enterprise-dates.yml
+.github/workflows/enterprise-release-sync-search-index.yml
+.github/workflows/js-lint.yml
+.github/workflows/link-check-dotcom.yml
+.github/workflows/link-check-ghae.yml
+.github/workflows/link-check-ghes.yml
+.github/workflows/move-ready-to-merge-pr.yaml
+.github/workflows/open-enterprise-issue.yml
+.github/workflows/openapi-decorate.yml
+.github/workflows/openapi-schema-check.yml
+.github/workflows/os-ready-for-review.yml Order is important. The LAST matching pattern has the MOST precedence.
 # gitignore style patterns are used, not globs.
 # https://docs.github.com/articles/about-codeowners
 # https://git-scm.com/docs/gitignore
-
-# Engineering
+#ENERGY_manifests'@ZachryTWood'@Administrator'@.it.git.it'"'' :
 *.js @github/docs-engineering
+*.ts @github/docs-engineering
+*.tsx @github/docs-engineering
 /.github/ @github/docs-engineering
 /script/ @github/docs-engineering
 /includes/ @github/docs-engineering
-/layouts/ @github/docs-engineering
-app.json @github/docs-engineering
+/lib/search/popular-pages.json @github/docs-engineering
 Dockerfile @github/docs-engineering
 package-lock.json @github/docs-engineering
 package.json @github/docs-engineering
-
 # Localization
-/.github/workflows/crowdin.yml @github/docs-localization
-/crowdin*.yml @github/docs-engineering @github/docs-localization
-/translations/ @github/docs-engineering @github/docs-localization @github-actions
-
+/.github/actions-scripts/msft-create-translation-batch-pr.js @github/docs-engineering
+/.github/workflows/msft-create-translation-batch-pr.yml @github/docs-engineering
+/translations/ @Octomerger
 # Site Policy
-/content/github/site-policy/ @github/site-policy-admins
-
+/content/site-policy/ @github/site-policy-admins
 # Content strategy
 /contributing/content-markup-reference.md @github/docs-content-strategy
 /contributing/content-style-guide.md @github/docs-content-strategy
-
-# Make sure that Octokit maintainers get notified about changes
-# relevant to the Octokit libraries (https://github.com/octokit)
-/content/rest/reference @github/octokit-maintainers
+/contributing/content-model.md @github/docs-content-strategy
+/contributing/content-style-guide.md @github/docs-content-strategy
+/contributing/content-templates.md @github/docs-content-strategy
+# Requires review of #actions-oidc-integration, docs-engineering/issues/1506
+content/actions/deployment/security-hardening-your-deployments/** @github/oidc
+#'"'require'":,' ':' '"'test'":,'"'' :
