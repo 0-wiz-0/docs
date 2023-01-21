@@ -1,5 +1,13 @@
+---
+ms.openlocfilehash: 225a7dce2ad1fd3e5ad15c0c7324407e8376916d
+ms.sourcegitcommit: 5b1461b419dbef60ae9dbdf8e905a4df30fc91b7
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/10/2022
+ms.locfileid: "147878731"
+---
 {% warning %}
 
-**Note:** The {% data variables.product.prodname_registry %} Docker registry {% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %} will offer improved container support in a future {% data variables.product.product_name %} release.{% elsif currentVersion == "free-pro-team@latest" %} now offers improved container support. For more information, see "[About GitHub Container Registry](/packages/guides/about-github-container-registry)." To learn how to migrate your existing Docker images and any workflows using them, see "[Migrating to {% data variables.product.prodname_github_container_registry %} for Docker images](/packages/guides/migrating-to-github-container-registry-for-docker-images)" and "[Container guides for {% data variables.product.prodname_registry %}](/packages/guides/container-guides-for-github-packages)."{% endif %}
+**참고**: {% data variables.product.prodname_registry %} Docker 레지스트리 {% ifversion ghes or ghae %}는 개선된 컨테이너 지원을 제공하는 {% data variables.product.prodname_container_registry %}로 향후 {% data variables.product.product_name %} 릴리스에서 대체될 예정입니다. {% elsif fpt %}는 개선된 컨테이너 지원을 제공하는 {% data variables.product.prodname_container_registry %}로 대체되었습니다. {% endif %} {% ifversion fpt or ghec %} 자세한 내용은 “[Docker 레지스트리에서 {% data variables.product.prodname_container_registry %}로 마이그레이션](/packages/working-with-a-github-packages-registry/migrating-to-the-container-registry-from-the-docker-registry)”을 참조하세요. {% endif %}
 
 {% endwarning %}

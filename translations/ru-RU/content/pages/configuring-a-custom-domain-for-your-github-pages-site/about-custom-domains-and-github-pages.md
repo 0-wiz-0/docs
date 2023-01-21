@@ -1,68 +1,76 @@
 ---
-title: About custom domains and GitHub Pages
-intro: '{% data variables.product.prodname_pages %} supports using custom domains, or changing the root of your site''s URL from the default, like `octocat.github.io`, to any domain you own.'
+title: Сведения о личных доменах и страницах GitHub
+intro: '{% data variables.product.prodname_pages %} поддерживает использование личных доменов или изменение корня URL-адреса вашего сайта с URL-адреса сайта по умолчанию (например, `octocat.github.io`) на адрес любого домена, которым вы владеете.'
 redirect_from:
-  - /articles/about-custom-domains-for-github-pages-sites/
-  - /articles/about-supported-custom-domains/
-  - /articles/custom-domain-redirects-for-your-github-pages-site/
+  - /articles/about-custom-domains-for-github-pages-sites
+  - /articles/about-supported-custom-domains
+  - /articles/custom-domain-redirects-for-your-github-pages-site
   - /articles/about-custom-domains-and-github-pages
   - /github/working-with-github-pages/about-custom-domains-and-github-pages
 product: '{% data reusables.gated-features.pages %}'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
-  - pages
+  - Pages
+shortTitle: Custom domains in GitHub Pages
+ms.openlocfilehash: 4b71f14d364aabc0358e44a1651c872ca909c136
+ms.sourcegitcommit: d697e0ea10dc076fd62ce73c28a2b59771174ce8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/20/2022
+ms.locfileid: '148099231'
 ---
+## Поддерживаемые личные домены
 
-### Supported custom domains
+{% data variables.product.prodname_pages %} работает с двумя типами доменов: поддоменами и вершинными доменами. Список неподдерживаемых личных доменов см. в разделе [Устранение неполадок личных доменов и {% data variables.product.prodname_pages %}](/articles/troubleshooting-custom-domains-and-github-pages/#custom-domain-names-that-are-unsupported).
 
-{% data variables.product.prodname_pages %} works with two types of domains: subdomains and apex domains. For a list of unsupported custom domains, see "[Troubleshooting custom domains and {% data variables.product.prodname_pages %}](/articles/troubleshooting-custom-domains-and-github-pages/#custom-domain-names-that-are-unsupported)."
+| Поддерживаемые типы личных доменов | Пример |
+|---|---|
+| Поддомен `www` | `www.example.com` |
+| Личный поддомен | `blog.example.com` |
+| Верхний домен        | `example.com` |
 
-| Supported custom domain type | Пример             |
-| ---------------------------- | ------------------ |
-| `www` subdomain              | `www.example.com`  |
-| Custom subdomain             | `blog.example.com` |
-| Apex domain                  | `example.com`      |
+Вы можете настроить для своего сайта конфигурации из вершинных доменов и поддоменов `www`, как вместе, так и по отдельности. Дополнительные сведения о вершинных доменах см. в разделе [Использование вершинного домена для сайта {% data variables.product.prodname_pages %}](#using-an-apex-domain-for-your-github-pages-site).
 
-You can set up either or both of apex and `www` subdomain configurations for your site. For more information on apex domains, see "[Using an apex domain for your {% data variables.product.prodname_pages %} site](#using-an-apex-domain-for-your-github-pages-site)."
+Рекомендуется всегда использовать поддомен `www`, даже если вы также используете вершинный домен. Когда вы создаете новый сайт с вершинным доменом, мы автоматически пытаемся защитить поддомен `www` для использования при обслуживании содержимого сайта, но вам нужно внести изменения DNS для использования поддомена `www`. Если вы настраиваете поддомен `www`, мы автоматически пытаемся защитить соответствующий вершинный домен. Дополнительные сведения см. в разделе [Управление личным доменом для сайта {% data variables.product.prodname_pages %}](/articles/managing-a-custom-domain-for-your-github-pages-site).
 
-We recommend always using a `www` subdomain, even if you also use an apex domain. When you create a new site with an apex domain, we automatically attempt to secure the `www` subdomain for use when serving your site's content. If you configure a `www` subdomain, we automatically attempt to secure the associated apex domain. For more information, see "[Managing a custom domain for your {% data variables.product.prodname_pages %} site](/articles/managing-a-custom-domain-for-your-github-pages-site)."
+После настройки личного домена для сайта пользователя или организации этот личный домен заменит часть `<user>.github.io` или `<organization>.github.io` URL-адреса для всех принадлежащих учетной записи сайтов проектов, для которых не настроен личный домен. Например, если для сайта пользователя настроен личный домен `www.octocat.com`, и у вас есть сайт проекта без настроенного личного домена, опубликованный из репозитория с именем `octo-project`, сайт {% data variables.product.prodname_pages %} для этого репозитория будет доступен по адресу `www.octocat.com/octo-project`.
+Дополнительные сведения о каждом типе сайтов и обработке личных доменов см. в разделе "[Типы данных {% variables.product.prodname_pages %} сайтов](/pages/getting-started-with-github-pages/about-github-pages#types-of-github-pages-sites)".
 
-After you configure a custom domain for a user or organization site, the custom domain will replace the `<user>.github.io` or `<organization>.github.io` portion of the URL for any project sites owned by the account that do not have a custom domain configured. For example, if the custom domain for your user site is `www.octocat.com`, and you have a project site with no custom domain configured that is published from a repository called `octo-project`, the {% data variables.product.prodname_pages %} site for that repository will be available at `www.octocat.com/octo-project`.
+## Использование поддомена для сайта {% data variables.product.prodname_pages %}
 
-### Using a subdomain for your {% data variables.product.prodname_pages %} site
+Поддомен является частью URL-адреса перед корневым доменом. Поддомен можно настроить как `www` или как отдельный раздел сайта, например `blog.example.com`.
 
-A subdomain is the part of a URL before the root domain. You can configure your subdomain as `www` or as a distinct section of your site, like `blog.example.com`.
+Поддомены настраиваются с записью `CNAME` через поставщика DNS. Дополнительные сведения см. в разделе [Управление личным доменом для сайта {% data variables.product.prodname_pages %}](/articles/managing-a-custom-domain-for-your-github-pages-site#configuring-a-subdomain).
 
-Subdomains are configured with a `CNAME` record through your DNS provider. For more information, see "[Managing a custom domain for your {% data variables.product.prodname_pages %} site](/articles/managing-a-custom-domain-for-your-github-pages-site#configuring-a-subdomain)."
+### Поддомены `www`
 
-#### `www` subdomains
+Поддомен `www` является наиболее часто используемым типом поддомена. Например, `www.example.com` включает поддомен `www`.
 
-A `www` subdomain is the most commonly used type of subdomain. For example, `www.example.com` includes a `www` subdomain.
+Поддомены `www` являются наиболее стабильным типом личного домена, так как поддомены `www` не затрагиваются изменениями IP-адресов серверов {% data variables.product.product_name %}.
 
-`www` subdomains are the most stable type of custom domain because `www` subdomains are not affected by changes to the IP addresses of {% data variables.product.product_name %}'s servers.
+### Пользовательские поддомены
 
-#### Custom subdomains
+Личный поддомен — это тип поддомена, который не использует стандартный вариант `www`. Личные поддомены в основном используются, если требуется два отдельных раздела сайта. Например, вы можете создать сайт с именем `blog.example.com` и настроить этот раздел независимо от `www.example.com`.
 
-A custom subdomain is a type of subdomain that doesn't use the standard `www` variant. Custom subdomains are mostly used when you want two distinct sections of your site. For example, you can create a site called `blog.example.com` and customize that section independently from `www.example.com`.
+## Использование вершинного домена для сайта {% data variables.product.prodname_pages %}
 
-### Using an apex domain for your {% data variables.product.prodname_pages %} site
+Вершинный домен — это личный домен, который не содержит поддомен, такой как `example.com`. Вершинные домены также называются базовыми, минимальными, "голыми", корневыми вершинными зонными вершинными доменами.
 
-An apex domain is a custom domain that does not contain a subdomain, such as `example.com`. Apex domains are also known as base, bare, naked, root apex, or zone apex domains.
+Вершинный домен настраивается с помощью записи `A`, `ALIAS` или `ANAME` через поставщика DNS. Дополнительные сведения см. в разделе [Управление личным доменом для сайта {% data variables.product.prodname_pages %}](/articles/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain).
 
-An apex domain is configured with an `A`, `ALIAS`, or `ANAME` record through your DNS provider. For more information, see "[Managing a custom domain for your {% data variables.product.prodname_pages %} site](/articles/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain)."
+{% data reusables.pages.www-and-apex-domain-recommendation %} Дополнительные сведения см. в разделе [Управление личным доменом для сайта {% data variables.product.prodname_pages %}](/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site/#configuring-a-subdomain).
 
-{% data reusables.pages.www-and-apex-domain-recommendation %} For more information, see "[Managing a custom domain for your {% data variables.product.prodname_pages %} site](/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site/#configuring-a-subdomain)."
+## Обеспечение безопасности личного домена для сайта {% data variables.product.prodname_pages %}
 
-### Updating custom domains when your {% data variables.product.prodname_pages %} site is disabled
+{% data reusables.pages.secure-your-domain %} Дополнительные сведения см. в разделах [Проверка личного домена для {% data variables.product.prodname_pages %}](/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages) и [Управление личным доменом для сайта {% data variables.product.prodname_pages %}](/articles/managing-a-custom-domain-for-your-github-pages-site).
 
-If your {% data variables.product.prodname_pages %} site is disabled but has a custom domain set up, you should immediately update or remove your DNS records with your DNS provider to avoid the risk of a domain takeover. Having a custom domain configured with your DNS provider while your site is disabled could result in someone else hosting a site on one of your subdomains. For more information, see "[Managing a custom domain for your {% data variables.product.prodname_pages %} site](/articles/managing-a-custom-domain-for-your-github-pages-site)."
+Существует несколько причин, по которым ваш сайт может быть автоматически отключен.
 
-There are a couple of reasons your site might be automatically disabled.
+- Если вы понижаете уровень с {% data variables.product.prodname_pro %} на {% data variables.product.prodname_free_user %}, публикация всех сайтов {% data variables.product.prodname_pages %}, опубликованных к этому времени из частных репозиториев в вашей учетной записи, будет отменена. Дополнительные сведения см. в разделе [Понижение уровня плана выставления счетов {% data variables.product.prodname_dotcom %}](/articles/downgrading-your-github-billing-plan).
+- При переносе частного репозитория в личную учетную запись, использующую {% data variables.product.prodname_free_user %}, этот репозиторий потеряет доступ к компоненту {% data variables.product.prodname_pages %}, а публикация опубликованного сайта {% data variables.product.prodname_pages %} будет отменена. Дополнительные сведения см. в разделе [Перенос репозитория](/articles/transferring-a-repository).
 
-- If you downgrade from {% data variables.product.prodname_pro %} to {% data variables.product.prodname_free_user %}, any {% data variables.product.prodname_pages %} sites that are currently published from private repositories in your account will be unpublished. For more information, see "[Downgrading your {% data variables.product.prodname_dotcom %} billing plan](/articles/downgrading-your-github-billing-plan)."
-- If you transfer a private repository to a personal account that is using {% data variables.product.prodname_free_user %}, the repository will lose access to the {% data variables.product.prodname_pages %} feature, and the currently published {% data variables.product.prodname_pages %} site will be unpublished. For more information, see "[Transferring a repository](/articles/transferring-a-repository)."
+## Дополнительные материалы
 
-### Дополнительная литература
-
-- "[Troubleshooting custom domains and {% data variables.product.prodname_pages %}](/articles/troubleshooting-custom-domains-and-github-pages)"
+- [Устранение неполадок личных доменов и {% data variables.product.prodname_pages %}](/articles/troubleshooting-custom-domains-and-github-pages)

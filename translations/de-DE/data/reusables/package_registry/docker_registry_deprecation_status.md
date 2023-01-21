@@ -1,5 +1,13 @@
+---
+ms.openlocfilehash: 225a7dce2ad1fd3e5ad15c0c7324407e8376916d
+ms.sourcegitcommit: 5b1461b419dbef60ae9dbdf8e905a4df30fc91b7
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/10/2022
+ms.locfileid: "147876973"
+---
 {% warning %}
 
-**Note:** The {% data variables.product.prodname_registry %} Docker registry {% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %} will offer improved container support in a future {% data variables.product.product_name %} release.{% elsif currentVersion == "free-pro-team@latest" %} now offers improved container support. For more information, see "[About GitHub Container Registry](/packages/guides/about-github-container-registry)." To learn how to migrate your existing Docker images and any workflows using them, see "[Migrating to {% data variables.product.prodname_github_container_registry %} for Docker images](/packages/guides/migrating-to-github-container-registry-for-docker-images)" and "[Container guides for {% data variables.product.prodname_registry %}](/packages/guides/container-guides-for-github-packages)."{% endif %}
+**Hinweis:** Die {% data variables.product.prodname_registry %}-Docker-Registry {% ifversion ghes or ghae %} wird in einer zukünftigen {% data variables.product.product_name %}-Version durch die {% data variables.product.prodname_container_registry %} ersetzt, die eine verbesserte Containerunterstützung bietet.{% elsif fpt %} wird durch die {% data variables.product.prodname_container_registry %} ersetzt, die eine verbesserte Containerunterstützung bietet. {% endif %} {% ifversion fpt or ghec %} Weitere Informationen findest du unter [Migrieren von der Docker-Registrierung zu {% data variables.product.prodname_container_registry %}](/packages/working-with-a-github-packages-registry/migrating-to-the-container-registry-from-the-docker-registry). {% endif %}
 
 {% endwarning %}

@@ -1,9 +1,17 @@
+---
+ms.openlocfilehash: 02e080d26aded3b22b6a9819208eb1908aae7cf0
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145122490"
+---
 Las organizaciones incluyen:
-{% if currentVersion == "free-pro-team@latest" %}- Una opción gratuita, {% data variables.product.prodname_free_team %}, con colaboradores ilimitados en repositorios públicos ilimitados con todas las características y en repositorios privados ilimitados con características limitadas.
-- La opción para mejorar a {% data variables.product.prodname_team %} o {% data variables.product.prodname_ghe_cloud %} para obtener características adicionales, incluyendo administración y autenticación sofisticada para los usuarios, y opciones de soporte escaladas. {% data reusables.gated-features.more-info %}{% endif %}
-- Membresía ilimitada con una variedad de roles que permiten [diferentes niveles de acceso a la organización y sus datos](/articles/permission-levels-for-an-organization)
-- La capacidad de otorgarles a los miembros [un rango de permisos de acceso a los repositorios de la organización](/articles/repository-permission-levels-for-an-organization)
-- [Los elementos anidados que reflejan la estructura de tu grupo o compañía](/articles/about-teams) con permisos de acceso y menciones en cascada{% if currentVersion != "github-ae@latest" %}
-- La posibilidad de que los propietarios de la organización vean el [estado de autenticación de dos factores(2FA)](/articles/about-two-factor-authentication) de los miembros
-- La opción de [requerir que todos los miembros de la organización utilicen autenticación bifactorial](/articles/requiring-two-factor-authentication-in-your-organization){% endif %}
-{% if currentVersion == "free-pro-team@latest" %}- La opción para comprar una licencia de {% data variables.product.prodname_GH_advanced_security %} y utilizar las características en repositorios privados. {% data reusables.advanced-security.more-info-ghas %}{% endif %}
+- Pertenencia ilimitada con diversos roles que conceden [distintos niveles de acceso a la organización y sus datos](/articles/permission-levels-for-an-organization)
+- Capacidad de conceder a los miembros [una serie de permisos de acceso a los repositorios de la organización](/articles/repository-permission-levels-for-an-organization)
+- [Equipos anidados que reflejan la estructura de la empresa o del grupo](/articles/about-teams) con menciones y permisos de acceso en cascada{% ifversion not ghae %}
+- Capacidad de que los propietarios de la organización vean el [estado de la autenticación en dos fases (2FA)](/articles/about-two-factor-authentication) de los miembros
+- Opción de [exigir a todos los miembros de la organización que usen la autenticación en dos fases](/articles/requiring-two-factor-authentication-in-your-organization){% endif %}{% ifversion fpt%}
+- Capacidad de [crear y administrar aulas con GitHub Classroom](/education/manage-coursework-with-github-classroom/teach-with-github-classroom/manage-classrooms){% endif %}
+
+{% data reusables.organizations.organization-plans %}

@@ -1,26 +1,26 @@
 ---
-title: Managing security advisories for vulnerabilities in your project
+title: Arbeiten mit Sicherheitsempfehlungen
 shortTitle: Security advisories
-intro: 'Discuss, fix, and disclose security vulnerabilities in your repositories using security advisories.'
-redirect_from:
-  - /articles/managing-security-vulnerabilities-in-your-project
-  - /github/managing-security-vulnerabilities/managing-security-vulnerabilities-in-your-project
+intro: 'Hier erfährst du, wie du mit Sicherheitsempfehlungen in {% data variables.product.prodname_dotcom %} arbeitest,{% ifversion fpt or ghec %} unabhängig davon, ob du zu einer bestehenden globalen Empfehlung beitragen oder selbst eine Sicherheitsempfehlung für ein Repository erstellen möchtest,{% endif %} um die Zusammenarbeit zwischen Repositoryverwalter*innen und Sicherheitsforscher*innen zu verbessern.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
+  ghes: '*'
+  ghae: '*'
 topics:
-  - sicherheit
+  - Security advisories
+  - Vulnerabilities
+  - Repositories
+  - CVEs
+children:
+  - /global-security-advisories
+  - /repository-security-advisories
+  - /guidance-on-reporting-and-writing
+ms.openlocfilehash: a42c57006a05bd1fffc09c8241d22eddc67ed8f1
+ms.sourcegitcommit: 27882d9b3f19979c817c25952a2fb4dc4c6f0a65
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 10/27/2022
+ms.locfileid: '148114054'
 ---
 
-### Inhaltsverzeichnis
-
-{% link_in_list /adding-a-security-policy-to-your-repository %}
-{% link_in_list /about-coordinated-disclosure-of-security-vulnerabilities %}
-{% link_in_list /about-github-security-advisories %}
-{% link_in_list /permission-levels-for-security-advisories %}
-{% link_in_list /creating-a-security-advisory %}
-{% link_in_list /adding-a-collaborator-to-a-security-advisory %}
-{% link_in_list /removing-a-collaborator-from-a-security-advisory %}
-{% link_in_list /collaborating-in-a-temporary-private-fork-to-resolve-a-security-vulnerability %}
-{% link_in_list /publishing-a-security-advisory %}
-{% link_in_list /editing-a-security-advisory %}
-{% link_in_list /withdrawing-a-security-advisory %}

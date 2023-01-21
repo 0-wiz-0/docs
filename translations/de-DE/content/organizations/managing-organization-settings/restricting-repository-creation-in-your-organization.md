@@ -1,35 +1,48 @@
 ---
-title: Repository-Erstellung in Deiner Organisation einschränken
-intro: 'Zum Schutz Deiner Organisationsdaten kannst Du die Berechtigungen für die Erstellung von Repositorys innerhalb Deiner Organisation konfigurieren.'
+title: Repository-Erstellung in Ihrer Organisation einschränken
+intro: Zum Schutz Deiner Organisationsdaten kannst du die Berechtigungen für die Erstellung von Repositorys innerhalb Deiner Organisation konfigurieren.
 redirect_from:
   - /articles/restricting-repository-creation-in-your-organization
   - /github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - organisationen
-  - teams
+  - Organizations
+  - Teams
+shortTitle: Restrict repository creation
+ms.openlocfilehash: da5d32962c52b752dff9dd9012f8cc8e5494d8c6
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145068319'
 ---
+Du kannst wählen, ob Mitglieder in Deiner Organisation Repositorys erstellen können. {% ifversion ghec or ghes or ghae %}Wenn du Mitgliedern das Erstellen von Repositorys gestatten möchtest, kannst du auswählen, welche Typen von Repositorys die Mitglieder erstellen können.{% elsif fpt %}Wenn du Mitgliedern das Erstellen von Repositorys gestatten möchtest, kannst du auswählen, ob Mitglieder öffentliche und private Repositorys oder nur öffentliche Repositorys erstellen können.{% endif %} Organisationsbesitzer können immer jeden Repositorytyp erstellen.
 
-Du kannst wählen, ob Mitglieder in Deiner Organisation Repositorys erstellen können. If you allow members to create repositories, you can choose which types of repositories members can create.{% if currentVersion == "free-pro-team@latest" %} To allow members to create private repositories only, your organization must use {% data variables.product.prodname_ghe_cloud %}.{% endif %} For more information, see "[About repository visibility](/github/creating-cloning-and-archiving-repositories/about-repository-visibility)."
+{% ifversion fpt %} Organisationen, die {% data variables.product.prodname_ghe_cloud %} verwenden, können Mitglieder auf das Erstellen privater Repositorys beschränken. Weitere Informationen findest du unter [Dokumentation zu {% data variables.product.prodname_ghe_cloud %}](/enterprise-cloud@latest/organizations/managing-organization-settings/restricting-repository-creation-in-your-organization).
+{% endif %}
 
-Organisationsinhaber können immer jede Art von Repository erstellen.
-
-{% if currentVersion == "free-pro-team@latest" %}Enterprise owners{% else %}Site administrators{% endif %} can restrict the options you have available for your organization's repository creation policy. For more information, see {% if currentVersion == "free-pro-team@latest" %}"[Enforcing repository management policies in your enterprise account](/github/setting-up-and-managing-your-enterprise/enforcing-repository-management-policies-in-your-enterprise-account)."{% else %}"[Restricting repository creation in your enterprise](/admin/policies/enforcing-repository-management-policies-in-your-enterprise#setting-a-policy-for-repository-creation)."{% endif %}
+{% ifversion ghec or ghae or ghes %} Unternehmensbesitzer können die Optionen einschränken, die dir für die Richtlinien zur Repositoryerstellung deiner Organisation zur Verfügung stehen. Weitere Informationen findest du unter [Erzwingen von Repositoryverwaltungsrichtlinien in deinem Unternehmen](/admin/policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise#enforcing-a-policy-for-repository-creation).
+{% endif %}
 
 {% warning %}
 
-**Warning**: This setting only restricts the visibility options available when repositories are created and does not restrict the ability to change repository visibility at a later time. For more information about restricting changes to existing repositories' visibilities, see "[Restricting repository visibility changes in your organization](/organizations/managing-organization-settings/restricting-repository-visibility-changes-in-your-organization)."
+**Warnung:** Diese Einstellung schränkt nur die Sichtbarkeitsoptionen ein, die bei der Erstellung von Repositorys verfügbar sind, sie schränkt aber nicht die Möglichkeit ein, die Sichtbarkeit des Repositorys zu einem späteren Zeitpunkt zu ändern. Weitere Informationen zum Einschränken von Änderungen an der Sichtbarkeit vorhandener Repositorys findest du unter [Einschränken von Änderungen der Sichtbarkeit von Repositorys in deiner Organisation](/organizations/managing-organization-settings/restricting-repository-visibility-changes-in-your-organization).
 
 {% endwarning %}
 
-{% data reusables.organizations.internal-repos-enterprise %}
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.organizations.member-privileges %}
+5. Wähle unter „Repositoryerstellung“ mindestens eine Optionen aus.
 
-{% data reusables.profile.access_profile %}
-{% data reusables.profile.access_org %}
-{% data reusables.organizations.org_settings %}
-{% data reusables.organizations.member-privileges %}
-5. Under "Repository creation", select one or more options. ![Optionen für die Repository-Erstellung](/assets/images/help/organizations/repo-creation-perms-radio-buttons.png)
-6. Klicke auf **Save** (Speichern).
+   {%- ifversion ghes or ghec or ghae %} ![Optionen für die Repositoryerstellung](/assets/images/help/organizations/repo-creation-perms-radio-buttons.png) {%- elsif fpt %} ![Optionen für die Repositoryerstellung](/assets/images/help/organizations/repo-creation-perms-radio-buttons-fpt.png) {%- endif %}
+   
+   {% ifversion fpt or ghec %} {% note %}
+
+   **Hinweis:** Um Mitglieder nur auf das Erstellen privater Repositorys einzuschränken, muss deine Organisation {% data variables.product.prodname_ghe_cloud %} verwenden. {% data reusables.enterprise.link-to-ghec-trial %}
+
+   {% endnote %} {%- endif %}
+
+6. Klicken Sie auf **Speichern**.

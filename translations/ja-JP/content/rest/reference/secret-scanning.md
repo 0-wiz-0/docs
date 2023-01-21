@@ -1,12 +1,19 @@
 ---
-title: Secret scanning
+title: シークレット スキャン
+intro: Use the secret scanning API to retrieve and update secret alerts from a repository.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.1'
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
+  ghae: '*'
+miniTocMaxHeadingLevel: 3
+ms.openlocfilehash: 4fc4515c4b8024d7c6f600f334dbdbd45c2e051f
+ms.sourcegitcommit: ea9a577cff7ec16ded25ed57417c83ec04816428
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 04/07/2022
+ms.locfileid: "141525714"
 ---
-
-{% data reusables.secret-scanning.api-beta %}
-
-{% data variables.product.prodname_secret_scanning %} API を使用すると、プライベートリポジトリからシークレットコードスキャンアラートを取得して更新することができます。 プライベートリポジトリのシークレットスキャンに関する詳しい情報については、「[リポジトリを保護する](/github/administering-a-repository/securing-your-repository)」を参照してください。
-
-{% include rest_operations_at_current_path %}
+<!--
+  Operations are automatically generated. Markdown for this page is located in data/reusables/rest-reference/secret-scanning
+-->

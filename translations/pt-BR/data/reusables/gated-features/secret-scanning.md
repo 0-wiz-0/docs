@@ -1,7 +1,15 @@
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %}
-{% data variables.product.prodname_secret_scanning_caps %} está disponível {% if currentVersion == "free-pro-team@latest" %}em repositórios públicos, e em repositórios privados pertencentes a organizações com {% else %}se você tiver {% endif %}uma licença de {% data variables.product.prodname_advanced_security %}. {% data reusables.advanced-security.more-info-ghas %}
-{% endif %}
+---
+ms.openlocfilehash: 3e32ef8b3fc53f1818f1d09b8461aa00e50f200c
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: "145093467"
+---
+<!--This reusable describes the GHAS secret scanning feature. For a reusable that also covers the free secret scanning for public repositories on GitHub.com, use `secret-scanning-partner.md`  -->
 
-{% if currentVersion == "github-ae@latest" %}
-{% data variables.product.prodname_secret_scanning_caps %} is available as part of {% data variables.product.prodname_GH_advanced_security %}, which is free during the beta release.
-{% endif %}
+{%- ifversion ghec or ghes %} A {% data variables.product.prodname_secret_scanning_GHAS_caps %} está disponível para os repositórios pertencentes à organização no {% data variables.product.product_name %} se a sua empresa tem uma licença do {% data variables.product.prodname_GH_advanced_security %}.
+
+{%- elsif ghae %} A {% data variables.product.prodname_secret_scanning_caps %} está disponível para os repositórios pertencentes à organização no {% data variables.product.product_name %}. Esse é um recurso do {% data variables.product.prodname_GH_advanced_security %} (gratuito durante a versão beta).
+
+{%- endif %} {% ifversion not ghae %}Para obter mais informações, confira "[Produtos do GitHub](/articles/githubs-products)".{% endif %}

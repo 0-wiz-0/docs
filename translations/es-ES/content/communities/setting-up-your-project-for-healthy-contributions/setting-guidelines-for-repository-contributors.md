@@ -2,18 +2,26 @@
 title: Configurar pautas para los colaboradores de repositorios
 intro: Puedes crear pautas para comunicar cómo pueden contribuir las personas a tu proyecto.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 redirect_from:
-  - /articles/how-do-i-set-up-guidelines-for-contributors/
+  - /articles/how-do-i-set-up-guidelines-for-contributors
   - /articles/setting-guidelines-for-repository-contributors
   - /github/building-a-strong-community/setting-guidelines-for-repository-contributors
 topics:
-  - comunidad
+  - Community
+shortTitle: Contributor guidelines
+ms.openlocfilehash: b418c5a3d10f8b8f7572f33b17a9ebfbb3de27d3
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147578792'
 ---
-
-Para ayudar a los colaboradores de tu proyecto a realizar un buen trabajo, puedes agregar un archivo con las pautas de colaboración a la raíz del repositorio de tu proyecto, carpeta `docs`, o `.github`. Cuando alguien abre una solicitud de extracción o crea una propuesta, verán un enlace a ese archivo.
+## Acerca de los lineamientos de contribución
+Para ayudar a los colaboradores de su proyecto a realizar un buen trabajo, puede agregar un archivo con las pautas de contribución a la raíz del repositorio del proyecto, `docs` o la carpeta `.github`. Cuando alguien abre una solicitud de extracción o crea una propuesta, verán un enlace a ese archivo. El vínculo a las pautas de contribución también aparece en la página `contribute` del repositorio. Para obtener un ejemplo de una página `contribute`, vea [github/docs/contribute](https://github.com/github/docs/contribute). 
 
 ![contributing-guidelines](/assets/images/help/pull_requests/contributing-guidelines.png)
 
@@ -23,42 +31,41 @@ Para los colaboradores, las pautas los ayudan a verificar que están presentando
 
 Tanto para los propietarios como para los colaboradores, las pautas de contribución ahorran tiempo y evitan inconvenientes generados por solicitudes de extracción o propuestas creadas de manera incorrecta que deben ser rechazadas o se deben volver a presentar.
 
-{% if currentVersion == "free-pro-team@latest" or enterpriseServerVersions contains currentVersion %}
+{% ifversion fpt or ghes or ghec %}
 
-Puedes crear lineamientos de colaboración predeterminados para tu cuenta de organización{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.19" %} o de usuario{% endif %}. Para obtener más información, consulta "[Crear un archivo de salud predeterminado para la comunidad](//communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)."
+Puedes crear pautas de contribución predeterminadas para tu organización{% ifversion fpt or ghes or ghec %} o cuenta personal{% endif %}. Para más información, vea "[Creación de un archivo de estado de la comunidad predeterminado](//communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)".
 
 {% endif %}
 
 {% tip %}
 
-**Sugerencia:** los mantenedores de repositorios pueden establecer pautas específicas para las propuestas al crear una plantilla de propuesta o de solicitud de extracción para el repositorio. Para obtener más información, consulta "[Acerca de las plantillas de propuestas y solicitudes de extracción](/articles/about-issue-and-pull-request-templates)".
+**Sugerencia**: los mantenedores de repositorios pueden establecer pautas específicas para las incidencias creando una plantilla de incidencia o de solicitud de incorporación de cambios para el repositorio. Para más información, vea "[Acerca de las plantillas de incidencias y solicitudes de incorporación de cambios](/articles/about-issue-and-pull-request-templates)".
 
 {% endtip %}
 
-### Agregar un archivo *CONTRIBUTING*
+## Agregar un archivo *CONTRIBUTING*
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.files.add-file %}
-3. Decide si almacenar tus pautas de contribución en la raíz de tu repositorio, el directorio `docs`, o el directorio `.github`. Después, en el campo nombre de archivo, escribe el nombre y la extensión del archivo. Los nombres de archivos de las pautas de contribución no distinguen entre mayúsculas y minúsculas y pueden tener una extensión *.md* o *.txt*. ![Nombre del nuevo archivo](/assets/images/help/repository/new-file-name.png)
-    - Para hacer visibles tus pautas de contribución en el directorio raíz del repositorio, escribe *CONTRIBUTING*.
-    - Para hacer visibles tus pautas de contribución en el directorio `docs` del repositorio, escribe *docs/* para crear el nuevo directorio, y luego *CONTRIBUTING*.
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.files.add-file %}
+3. Decida si quiere almacenar las pautas de contribución en la raíz del repositorio, en `docs` o en el directorio `.github`. Después, en el campo nombre de archivo, escribe el nombre y la extensión del archivo. Los nombres de archivo de los lineamientos de contribución no distinguen entre mayúsculas y minúsculas. Los archivos se interpretan en formato de texto rico si la extensión de archivo se encuentra en un formato compatible. Para obtener más información, vea "[Trabajar con archivos que no son de código](/repositories/working-with-files/using-files/working-with-non-code-files#rendering-differences-in-prose-documents)".
+  ![Nuevo nombre de archivo](/assets/images/help/repository/new-file-name.png)
+    - Para hacer visibles sus pautas de contribución en el directorio raíz del repositorio, escriba *CONTRIBUTING*.
+    - Para hacer visible sus pautas de contribución en el directorio `docs` del repositorio, escriba *docs/* para crear el directorio y luego *CONTRIBUTING*.
+    - Si un repositorio contiene más de un archivo *CONTRIBUTING*, el archivo que se muestra en los vínculos se elige de las ubicaciones en el siguiente orden: el directorio `.github`, luego el directorio raíz del repositorio y finalmente el directorio `docs`.
 4. En el nuevo archivo, agrega las pautas de contribución. Pueden incluir:
     - Pasos para crear buenas propuestas o solicitudes de extracción.
     - Enlaces a la documentación externa, listas de correos o un código de conducta.
     - Expectativas de comportamiento y de la comunidad.
-{% data reusables.files.write_commit_message %}
-{% data reusables.files.choose_commit_branch %}
-{% data reusables.files.propose_new_file %}
+{% data reusables.files.write_commit_message %} {% data reusables.files.choose_commit_branch %} {% data reusables.files.propose_new_file %}
 
-### Ejemplos de pautas de contribución
+## Ejemplos de pautas de contribución
 
 Si estás confundido, aquí hay algunos buenos ejemplos de pautas de contribución:
 
-- Pautas de contribución del Editor Atom [](https://github.com/atom/atom/blob/master/CONTRIBUTING.md).
-- Pautas de contribución de Ruby on Rails [](https://github.com/rails/rails/blob/master/CONTRIBUTING.md).
-- Pautas de contribución de Open Government [](https://github.com/opengovernment/opengovernment/blob/master/CONTRIBUTING.md).
+- [Pautas de contribución](https://github.com/atom/atom/blob/master/CONTRIBUTING.md) del editor Atom.
+- [Pautas de contribución](https://github.com/rails/rails/blob/main/CONTRIBUTING.md) de Ruby on Rails.
+- [Pautas de contribución](https://github.com/opengovernment/opengovernment/blob/master/CONTRIBUTING.md) de Open Government.
 
-### Leer más
-- La sección de las Open Source Guides llamada "[Starting an Open Source Project](https://opensource.guide/starting-a-project/)"{% if currentVersion == "free-pro-team@latest" %}
-- [{% data variables.product.prodname_learning %}]({% data variables.product.prodname_learning_link %}){% endif %}{% if currentVersion == "free-pro-team@latest" or enterpriseServerVersions contains currentVersion %}
+## Información adicional
+- La sección de Guías de código abierto "[Iniciar un proyecto de código abierto](https://opensource.guide/starting-a-project/)"{% ifversion fpt or ghec %}
+- [{% data variables.product.prodname_learning %}]({% data variables.product.prodname_learning_link %}){% endif %}{% ifversion fpt or ghes or ghec %}
 - "[Agregar una licencia a un repositorio](/articles/adding-a-license-to-a-repository)"{% endif %}

@@ -1,48 +1,60 @@
 ---
-title: Collaborating with maintainers using discussions
+title: Совместная работа с координаторами с помощью обсуждений
 shortTitle: Collaborating with maintainers
-intro: You can contribute to the goals, plans, health, and community for a project on {% data variables.product.product_name %} by communicating with the maintainers of the project in a discussion.
-permissions: People with read permissions to a repository can start and participate in discussions in the repository.
+intro: 'Вы можете вносить свой вклад в цели, планы, работоспособность и сообщество для проекта в {% data variables.product.product_name %} путем взаимодействия с ответственными за проект в рамках обсуждения.'
+permissions: 'People with read access to a repository can start and participate in discussions and polls in the repository. People with read access to the source repository for organization discussions can start and participate in discussions and polls in the organization. {% data reusables.enterprise-accounts.emu-permission-interact %}'
 versions:
-  free-pro-team: '*'
+  feature: discussions
+ms.openlocfilehash: f090088d55e946e67c1f0b5d790deca9fd794a90
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147410254'
 ---
+## О совместной работе с координаторами с помощью {% data variables.product.prodname_discussions %}
 
-{% data reusables.discussions.beta %}
+{% data reusables.discussions.about-discussions %} Если вы используете проект или участвуете в работе над ним, можно начать обсуждение, чтобы делать предположения и работать с координаторами и участниками сообщества в отношении ваших планов, вопросов, идей и отзывов. Дополнительные сведения см. в разделе [Сведения об обсуждениях](/discussions/collaborating-with-your-community-using-discussions/about-discussions).
 
-### About collaboration with maintainers using discussions
+{% data reusables.discussions.about-categories-and-formats %} {% data reusables.discussions.about-announcement-format %} 
 
-{% data reusables.discussions.about-discussions %} If you use or contribute to a project, you can start a discussion to make suggestions and engage with maintainers and community members about your plans, questions, ideas, and feedback. For more information, see "[‎About discussions](/discussions/collaborating-with-your-community-using-discussions/about-discussions)."
+Администраторы репозитория и ответственные за проект могут удалить обсуждение в этом репозитории. Точно так же администраторы и ответственные исходного репозитория для обсуждений организации могут удалить обсуждение в этой организации. Дополнительные сведения см. в разделе [Управление обсуждениями](/discussions/managing-discussions-for-your-community/managing-discussions#deleting-a-discussion).
 
-{% data reusables.discussions.about-categories-and-formats %} Repository administrators and project maintainers can delete a discussion. For more information, see "[Managing discussions in your repository](/discussions/managing-discussions-for-your-community/managing-discussions-in-your-repository#deleting-a-discussion)."
+{% data reusables.discussions.github-recognizes-members %} Эти участники отображаются в списке самых полезных участников обсуждений по проекту. По мере дальнейшего развития проекта вы можете предоставить участникам вашего сообщества более высокий уровень прав доступа. Дополнительные сведения см. в разделе [Предоставление более высокого уровня разрешений главным участникам](/discussions/guides/granting-higher-permissions-to-top-contributors)
 
-{% data reusables.discussions.github-recognizes-members %} These members appear in a list of the most helpful contributors to the project's discussions. As your project grows, you can grant higher access permissions to active members of your community. For more information, see "[Granting higher permissions to top contributors](/discussions/guides/granting-higher-permissions-to-top-contributors)"
+![Самые эффективные участники обсуждений для проекта](/assets/images/help/discussions/most-helpful.png)
 
-![Most helpful contributors to discussions for a project](/assets/images/help/discussions/most-helpful.png)
+Дополнительные сведения об участии в обсуждениях см. в разделе [Участие в обсуждении](/discussions/collaborating-with-your-community-using-discussions/participating-in-a-discussion).
 
-For more information about participation in discussions, see "[Participating in a discussion](/discussions/collaborating-with-your-community-using-discussions/participating-in-a-discussion)."
+## Предварительные требования
 
-### Требования
+Для совместной работы с ответственными лицами в обсуждениях администратор репозитория или ответственный за проект должен включить {% data variables.product.prodname_discussions %} для репозитория. Дополнительные сведения см. в разделе [Включение или отключение {% data variables.product.prodname_discussions %} для репозитория](/github/administering-a-repository/enabling-or-disabling-github-discussions-for-a-repository).
 
-To collaborate with maintainers using discussions, a repository administrator or project maintainer must enable discussions for the repository. For more information, see "[Enabling or disabling discussions for a repository](/github/administering-a-repository/enabling-or-disabling-github-discussions-for-a-repository)."
+Для совместной работы с ответственными лицами в обсуждениях организации {% data variables.product.prodname_discussions %} должен быть включен для организации. Дополнительные сведения см. в разделе [Включение или отключение {% data variables.product.prodname_discussions %} для организации](/organizations/managing-organization-settings/enabling-or-disabling-github-discussions-for-an-organization).
 
-### Starting a discussion
+## Создание обсуждения
 
 {% data reusables.discussions.starting-a-discussion %}
 
-### Filtering the list of discussions
+## Запуск опроса
 
-You can search for discussions and filter the list of discussions in a repository. For more information, see "[Searching discussions](/github/searching-for-information-on-github/searching-discussions)."
+{% data reusables.discussions.starting-a-poll %}
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.discussions.discussions-tab %}
-1. In the **Search all discussions** field, type a search query. Optionally, to the right of the search field, click a button to further filter the results. ![Search bar and buttons for filtering discussions](/assets/images/help/discussions/search-and-filter-controls.png)
-1. In the list of discussions, click the discussion you want to view. ![Discussion search results](/assets/images/help/discussions/search-result.png)
+## Фильтрация списка обсуждений
 
-### Converting an issue to a discussion
+Можно выполнять поиск по обсуждениям и фильтровать список обсуждений в репозитории или организации. Дополнительные сведения см. в разделе [Поиск в обсуждениях](/search-github/searching-on-github/searching-discussions).
 
-{% data reusables.discussions.you-can-convert-an-issue %} For more information, see "[Moderating discussions in your repository](/discussions/managing-discussions-for-your-community/moderating-discussions#converting-an-issue-to-a-discussion#converting-an-issue-to-a-discussion)."
+{% data reusables.discussions.navigate-to-repo-or-org %} {% data reusables.discussions.discussions-tab %}
+1. В поле **Поиск по всем обсуждениям** введите поисковый запрос. При необходимости справа от поля поиска нажмите кнопку, чтобы отфильтровать результаты.
+  ![Панель поиска и кнопки для фильтрации обсуждений](/assets/images/help/discussions/search-and-filter-controls.png)
+1. В списке обсуждений щелкните обсуждение, которое нужно просмотреть.
+  ![Результаты поиска обсуждений](/assets/images/help/discussions/search-result.png)
 
-### Дополнительная литература
+## Преобразование проблемы в обсуждение
 
-- "[About writing and formatting on {% data variables.product.prodname_dotcom %}](/github/writing-on-github/about-writing-and-formatting-on-github)"
-- "[Maintaining your safety on {% data variables.product.prodname_dotcom %}](/communities/maintaining-your-safety-on-github)"
+{% data reusables.discussions.you-can-convert-an-issue %} Дополнительные сведения см. в разделе [Модерация обсуждений](/discussions/managing-discussions-for-your-community/moderating-discussions#converting-an-issue-to-a-discussion).
+
+## Дополнительные материалы
+
+- "[Сведения о записи и форматировании в {% data variables.product.prodname_dotcom %}](/github/writing-on-github/about-writing-and-formatting-on-github)" {%- ifversion fpt or ghec %}
+- "[Обеспечение безопасности в {% data variables.product.prodname_dotcom %}](/communities/maintaining-your-safety-on-github)" {%- endif %}

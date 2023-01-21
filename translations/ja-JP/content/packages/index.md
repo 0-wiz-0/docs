@@ -8,32 +8,41 @@ introLinks:
 featuredLinks:
   guides:
     - /packages/learn-github-packages
-    - /packages/guides/using-github-packages-with-github-actions
-    - /packages/manage-packages/installing-a-package
+    - /packages/managing-github-packages-using-github-actions-workflows
+    - /packages/learn-github-packages/installing-a-package
   popular:
-    - /packages/guides/configuring-npm-for-use-with-github-packages
-    - /packages/guides/configuring-docker-for-use-with-github-packages
+    - /packages/working-with-a-github-packages-registry/working-with-the-npm-registry
+    - '{% ifversion docker-ghcr-enterprise-migration %}/packages/working-with-a-github-packages-registry/migrating-to-the-container-registry-from-the-docker-registry{% endif %}'
     - /packages/learn-github-packages
-    - /packages/guides/configuring-apache-maven-for-use-with-github-packages
+    - /packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry
   guideCards:
-    - /packages/guides/configuring-npm-for-use-with-github-packages
-    - /packages/guides/enabling-improved-container-support
-    - /packages/guides/configuring-rubygems-for-use-with-github-packages
+    - '{% ifversion docker-ghcr-enterprise-migration %}/packages/working-with-a-github-packages-registry/migrating-to-the-container-registry-from-the-docker-registry{% endif %}'
+    - '{% ifversion fpt or ghec or ghes > 3.4 %}/packages/working-with-a-github-packages-registry/working-with-the-container-registry{% else %}/packages/working-with-a-github-packages-registry/working-with-the-docker-registry{% endif %}'
+    - '{% ifversion packages-npm-v2 %}/packages/working-with-a-github-packages-registry/working-with-the-npm-registry{% endif %}'
+    - /packages/working-with-a-github-packages-registry/working-with-the-rubygems-registry
 changelog:
-  label: 'パッケージ'
-  prefix: 'Packages:'
+  label: packages
+  prefix: 'Packages: '
 redirect_from:
   - /github/managing-packages-with-github-packages
   - /categories/managing-packages-with-github-package-registry
   - /github/managing-packages-with-github-package-registry
 layout: product-landing
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
+children:
+  - /quickstart
+  - /learn-github-packages
+  - /working-with-a-github-packages-registry
+  - /managing-github-packages-using-github-actions-workflows
+ms.openlocfilehash: 768e5ea20b7e4242afe7a8880982052ff818df63
+ms.sourcegitcommit: 478f2931167988096ae6478a257f492ecaa11794
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147704932'
 ---
-
-<!-- {% link_with_intro /quickstart %}  -->
-<!-- {% link_with_intro /guides %} -->
-<!-- {% link_with_intro /learn-github-packages %} -->
-<!-- {% link_with_intro /manage-packages %} -->
+<!--This section is needed to determine the order of the left sidebar for now-->

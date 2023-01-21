@@ -1,64 +1,71 @@
 ---
-title: Setting guidelines for repository contributors
-intro: You can create guidelines to communicate how people should contribute to your project.
+title: Создание рекомендаций для участников репозитория
+intro: 'Вы можете создать рекомендации, чтобы сообщить о том, как пользователи должны участвовать в проекте.'
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 redirect_from:
-  - /articles/how-do-i-set-up-guidelines-for-contributors/
+  - /articles/how-do-i-set-up-guidelines-for-contributors
   - /articles/setting-guidelines-for-repository-contributors
   - /github/building-a-strong-community/setting-guidelines-for-repository-contributors
 topics:
-  - сообщество
+  - Community
+shortTitle: Contributor guidelines
+ms.openlocfilehash: 3085567f51950890c168b795aff3cac89b92a3a6
+ms.sourcegitcommit: 5f40f9341dd1e953f4be8d1642f219e628e00cc8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/04/2022
+ms.locfileid: '148009143'
 ---
-
-To help your project contributors do good work, you can add a file with contribution guidelines to your project repository's root, `docs`, or `.github` folder. When someone opens a pull request or creates an issue, they will see a link to that file.
+## Сведения о рекомендациях по участию в разработке
+Чтобы пользователи, участвующие в разработке проекта, могли качественно выполнять свою работу, добавьте файл с рекомендациями по внесению вклада в корневой каталог `docs` репозитория проекта или в папку `.github`. Когда кто-то открывает запрос на вытягивание или создает проблему, он увидит ссылку на этот файл. Ссылка на рекомендации по участию в разработке также отображается на странице `contribute` репозитория. Пример страницы `contribute` см. здесь: [статье github/docs/contribute](https://github.com/github/docs/contribute). 
 
 ![contributing-guidelines](/assets/images/help/pull_requests/contributing-guidelines.png)
 
-For the repository owner, contribution guidelines are a way to communicate how people should contribute.
+Для владельца репозитория рекомендации по участию в разработке представляют собой способ информирования о том, как люди должны вносить свой вклад.
 
-For contributors, the guidelines help them verify that they're submitting well-formed pull requests and opening useful issues.
+Следуя рекомендация, участники могут быть уверены, что они отправляют правильно сформированные запросы на вытягивание и открывают полезные проблемы.
 
-For both owners and contributors, contribution guidelines save time and hassle caused by improperly created pull requests or issues that have to be rejected and re-submitted.
+Как для владельцев, так и для участников, рекомендации по участию в разработке экономят время и силы, затрачиваемые на неправильное созданные запросы на вытягивание или проблемы, которые приходится отклонять и отправлять заново.
 
-{% if currentVersion == "free-pro-team@latest" or enterpriseServerVersions contains currentVersion %}
+{% ifversion fpt or ghes or ghec %}
 
-You can create default contribution guidelines for your organization{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.19" %} or user account{% endif %}. For more information, see "[Creating a default community health file](//communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)."
+Вы можете создать рекомендации по участию в разработке по умолчанию для организации{% ifversion fpt or ghes or ghec %} или личной учетной записи{% endif %}. Дополнительные сведения см. в статье "[Создание файла работоспособности сообщества по умолчанию](//communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)".
 
 {% endif %}
 
 {% tip %}
 
-**Tip:** Repository maintainers can set specific guidelines for issues by creating an issue or pull request template for the repository. For more information, see "[About issue and pull request templates](/articles/about-issue-and-pull-request-templates)."
+**Совет.** Издатели репозитория могут предоставлять конкретные рекомендации по проблемам, создавая шаблон запроса на вытягивание или проблему для репозитория. Дополнительные сведения см. в статье "[Сведения о шаблонах проблем и запросов на вытягивание](/articles/about-issue-and-pull-request-templates).
 
 {% endtip %}
 
-### Adding a *CONTRIBUTING* file
+## Добавление файла *CONTRIBUTING*
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.files.add-file %}
-3. Decide whether to store your contributing guidelines in your repository's root, `docs`, or `.github` directory. Then, in the filename field, type the name and extension for the file. Contributing guidelines filenames are not case sensitive, and can have an extension such as *.md* or *.txt*. ![New file name](/assets/images/help/repository/new-file-name.png)
-    - To make your contributing guidelines visible in the repository's root directory, type *CONTRIBUTING*.
-    - To make your contributing guidelines visible in the repository's `docs` directory, type *docs/* to create the new directory, then *CONTRIBUTING*.
-4. In the new file, add contribution guidelines. These could include:
-    - Steps for creating good issues or pull requests.
-    - Links to external documentation, mailing lists, or a code of conduct.
-    - Community and behavioral expectations.
-{% data reusables.files.write_commit_message %}
-{% data reusables.files.choose_commit_branch %}
-{% data reusables.files.propose_new_file %}
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.files.add-file %}
+3. Решите, где следует хранить рекомендации по участию в разработке: в корневом каталоге репозитория `docs` или в каталоге `.github`. Затем в поле имени файла введите имя и расширение файла. В именах файлов рекомендаций по участию в разработке не учитывается регистр. Файлы отображаются в виде форматированного текста, если расширение файла находится в поддерживаемом формате. Дополнительные сведения см. в статье [Работа с файлами, не связанными с кодом](/repositories/working-with-files/using-files/working-with-non-code-files#rendering-differences-in-prose-documents).
+  ![Имя нового файла](/assets/images/help/repository/new-file-name.png)
+    - Чтобы сделать рекомендации по участию в разработке видимыми в корневом каталоге репозитория, введите *CONTRIBUTING*.
+    - Чтобы сделать рекомендации по участию в разработке видимыми в каталоге `docs` репозитория, введите *docs/* , чтобы создать каталог, а затем введите *CONTRIBUTING*.
+    - Если репозиторий содержит несколько файлов *CONTRIBUTING*, файл, отображаемый по ссылкам, выбирается из расположений в следующем порядке: каталог `.github`, корневой каталог репозитория и, наконец, каталог `docs`.
+4. Добавьте рекомендации по участию в разработке в новый файл. Это могут быть:
+    - Действия по созданию полезных проблем или запросов на вытягивание.
+    - Ссылки на внешнюю документацию, списки рассылки или правила поведения.
+    - Ожидания сообщества и поведенческие ожидания.
+{% data reusables.files.write_commit_message %} {% data reusables.files.choose_commit_branch %} {% data reusables.files.propose_new_file %}
 
-### Examples of contribution guidelines
+## Примеры рекомендаций по участию в разработке
 
-If you're stumped, here are some good examples of contribution guidelines:
+Если вы в замешательстве, вот несколько хороших примеров рекомендаций:
 
-- The Atom editor [contribution guidelines](https://github.com/atom/atom/blob/master/CONTRIBUTING.md).
-- The Ruby on Rails [contribution guidelines](https://github.com/rails/rails/blob/master/CONTRIBUTING.md).
-- The Open Government [contribution guidelines](https://github.com/opengovernment/opengovernment/blob/master/CONTRIBUTING.md).
+- [Рекомендации по вкладу](https://github.com/github/docs/blob/main/CONTRIBUTING.md) в {% данных variables.product.prodname_docs %}.
+- [Рекомендации по участию в разработке](https://github.com/rails/rails/blob/main/CONTRIBUTING.md) для Ruby on Rails.
+- [Рекомендации по участию в разработке](https://github.com/opengovernment/opengovernment/blob/master/CONTRIBUTING.md) для Open Government.
 
-### Дополнительная литература
-- The Open Source Guides' section "[Starting an Open Source Project](https://opensource.guide/starting-a-project/)"{% if currentVersion == "free-pro-team@latest" %}
-- [{% data variables.product.prodname_learning %}]({% data variables.product.prodname_learning_link %}){% endif %}{% if currentVersion == "free-pro-team@latest" or enterpriseServerVersions contains currentVersion %}
-- "[Adding a license to a repository](/articles/adding-a-license-to-a-repository)"{% endif %}
+## Дополнительные материалы
+- Раздел "[Начало разработки проекта с открытым кодом](https://opensource.guide/starting-a-project/)" руководства по проектам с открытым кодом{% ifversion fpt or ghec %}
+- [{% data variables.product.prodname_learning %}]({% data variables.product.prodname_learning_link %}){% endif %}{% ifversion fpt or ghes or ghec %}
+- "[Добавление лицензии в репозиторий](/articles/adding-a-license-to-a-repository)"{% endif %}

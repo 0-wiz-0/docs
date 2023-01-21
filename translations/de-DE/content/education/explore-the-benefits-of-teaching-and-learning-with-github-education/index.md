@@ -1,26 +1,22 @@
 ---
-title: Explore the benefits of teaching and learning with GitHub Education
-shortTitle: Erkunden
-intro: Learn how {% data variables.product.prodname_education %} can benefit your classroom, schoolwork, or research and how to apply for free access to various developer tools from {% data variables.product.company_short %}'s partners.
+title: Entdecken der Vorteile der Lehrens und Lernens mit GitHub Education
+shortTitle: Explore
+intro: 'Erfahre, wie {% data variables.product.prodname_education %} deinen Unterricht, deine schulische Arbeit oder deine Recherchen unterstützen kann und wie du kostenlosen Zugriff auf verschiedene Entwicklertools der Partner von {% data variables.product.company_short %} beantragen kannst.'
 redirect_from:
   - /education/teach-and-learn-with-github-education
   - /github/teaching-and-learning-with-github-education
   - /categories/teaching-and-learning-with-github-education
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+children:
+  - /github-global-campus-for-students
+  - /github-global-campus-for-teachers
+  - /use-github-at-your-educational-institution
+ms.openlocfilehash: 0305b65dc5286123f9cba978fe36ef9b0a05c907
+ms.sourcegitcommit: 478f2931167988096ae6478a257f492ecaa11794
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147684726'
 ---
 
-### Inhaltsverzeichnis
-
-{% topic_link_in_list /use-github-at-your-educational-institution %}
-    {% link_in_list /about-github-campus-program %}
-    {% link_in_list /about-campus-experts %}
-    {% link_in_list /about-campus-advisors %}
-{% topic_link_in_list /use-github-for-your-schoolwork %}
-    {% link_in_list /about-github-education-for-students %}
-    {% link_in_list /apply-for-a-student-developer-pack %}
-    {% link_in_list /why-wasnt-my-application-for-a-student-developer-pack-approved %}
-{% topic_link_in_list /use-github-in-your-classroom-and-research %}
-    {% link_in_list /about-github-education-for-educators-and-researchers %}
-    {% link_in_list /apply-for-an-educator-or-researcher-discount %}
-    {% link_in_list /why-wasnt-my-application-for-an-educator-or-researcher-discount-approved %}

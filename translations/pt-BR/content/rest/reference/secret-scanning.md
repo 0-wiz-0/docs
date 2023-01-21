@@ -1,12 +1,19 @@
 ---
-title: Varredura secreta
+title: Verificação de segredo
+intro: Use the secret scanning API to retrieve and update secret alerts from a repository.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.1'
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
+  ghae: '*'
+miniTocMaxHeadingLevel: 3
+ms.openlocfilehash: 4fc4515c4b8024d7c6f600f334dbdbd45c2e051f
+ms.sourcegitcommit: ea9a577cff7ec16ded25ed57417c83ec04816428
+ms.translationtype: HT
+ms.contentlocale: pt-BR
+ms.lasthandoff: 04/07/2022
+ms.locfileid: "141503357"
 ---
-
-{% data reusables.secret-scanning.api-beta %}
-
-A API de {% data variables.product.prodname_secret_scanning %} permite que você recupere e atualize os alertas de varredura de segredos de um repositório privado. Para obter mais informações sobre a verificação secreta de repositórios privados, consulte "[Proteger o seu repositório](/github/administering-a-repository/securing-your-repository). ".
-
-{% include rest_operations_at_current_path %}
+<!--
+  Operations are automatically generated. Markdown for this page is located in data/reusables/rest-reference/secret-scanning
+-->

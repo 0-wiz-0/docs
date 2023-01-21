@@ -1,8 +1,16 @@
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_gt "enterprise-server@2.22" %}
+---
+ms.openlocfilehash: bd43779cdfde11268b296b12ad5f328d3fdbc291
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/10/2022
+ms.locfileid: "147877054"
+---
+{% ifversion ghes %}
 
 {% note %}
 
-**Note:** Your site administrator must enable {% data variables.product.prodname_secret_scanning %} for {% data variables.product.product_location %} before you can use this feature. For more information, see "[Configuring {% data variables.product.prodname_secret_scanning %} for your appliance](/enterprise/admin/configuration/configuring-secret-scanning-for-your-appliance)."
+**Hinweis**: Dein Websiteadministrator muss {% data variables.product.prodname_secret_scanning %} für {% data variables.product.product_location %} aktivieren, damit du dieses Feature verwenden kannst. Weitere Informationen findest du unter [Konfigurieren von {% data variables.product.prodname_secret_scanning %} für deine Appliance](/enterprise/admin/configuration/configuring-secret-scanning-for-your-appliance).
 
 {% endnote %}
 

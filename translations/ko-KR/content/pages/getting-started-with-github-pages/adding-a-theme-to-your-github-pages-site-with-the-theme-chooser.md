@@ -1,46 +1,63 @@
 ---
-title: Adding a theme to your GitHub Pages site with the theme chooser
-intro: 'You can add a theme to your {% data variables.product.prodname_pages %} site to customize your site’s look and feel.'
+title: 테마 선택기를 사용하여 GitHub Pages 사이트에 테마 추가
+intro: '{% data variables.product.prodname_pages %} 사이트에 테마를 추가하여 사이트의 모양과 느낌을 사용자 지정할 수 있습니다.'
 redirect_from:
-  - /articles/creating-a-github-pages-site-with-the-jekyll-theme-chooser/
-  - /articles/adding-a-jekyll-theme-to-your-github-pages-site-with-the-jekyll-theme-chooser/
-  - /articles/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser
-  - /github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser
+- /articles/creating-a-github-pages-site-with-the-jekyll-theme-chooser
+- /articles/adding-a-jekyll-theme-to-your-github-pages-site-with-the-jekyll-theme-chooser
+- /articles/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser
+- /github/working-with-github-pages/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser
 product: '{% data reusables.gated-features.pages %}'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
-  - pages
+- Pages
+shortTitle: Add theme to a Pages site
+permissions: People with admin permissions for a repository can use the theme chooser to add a theme to a {% data variables.product.prodname_pages %} site.
+ms.openlocfilehash: b38ce81802b5137f49fef076ffdc5a16392a446d
+ms.sourcegitcommit: febc27cb8f2d53c97b51e614a941931f85ae5d95
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 07/27/2022
+ms.locfileid: "147428367"
 ---
+## <a name="about-the-theme-chooser"></a>테마 선택기 정보
 
-People with admin permissions for a repository can use the theme chooser to add a theme to a {% data variables.product.prodname_pages %} site.
+{% ifversion pages-custom-workflow %}
 
-### About the theme chooser
+{% note %}
 
-The theme chooser adds a Jekyll theme to your repository. For more information about Jekyll, see "[About {% data variables.product.prodname_pages %} and Jekyll](/articles/about-github-pages-and-jekyll)."
+**참고**: 사용자 지정 {% data variables.product.prodname_actions %} 워크플로를 사용하여 게시된 {% data variables.product.prodname_pages %} 사이트에는 Jekyll 테마 선택이 지원되지 않습니다. Jekyll을 사용하여 사이트를 빌드하고 사용자 지정 {% data variables.product.prodname_actions %} 워크플로를 사용하여 사이트를 게시하는 경우 `_config.yml` 파일을 편집하여 테마를 추가할 수 있습니다. 자세한 내용은 "[Jekyll을 사용하여 GitHub Pages 사이트에 테마 추가](/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll)"를 참조하세요.
 
-How the theme chooser works depends on whether your repository is public or private.
-  - If {% data variables.product.prodname_pages %} is already enabled for your repository, the theme chooser will add your theme to the current publishing source.
-  - If your repository is public and {% data variables.product.prodname_pages %} is disabled for your repository, using the theme chooser will enable {% data variables.product.prodname_pages %} and configure the default branch as your publishing source.
-  - If your repository is private and {% data variables.product.prodname_pages %} is disabled for your repository, you must enable {% data variables.product.prodname_pages %} by configuring a publishing source before you can use the theme chooser.
+{% endnote %}
 
-For more information about publishing sources, see "[About {% data variables.product.prodname_pages %}](/articles/about-github-pages#publishing-sources-for-github-pages-sites)."
+{% endif %}
 
-If you manually added a Jekyll theme to your repository in the past, those files may be applied even after you use the theme chooser. To avoid conflicts, remove all manually added theme folders and files before using the theme chooser. For more information, see "[Adding a theme to your {% data variables.product.prodname_pages %} site using Jekyll](/articles/adding-a-theme-to-your-github-pages-site-using-jekyll)."
+테마 선택기가 Jekyll 테마를 리포지토리에 추가합니다. Jekyll에 대한 자세한 내용은 “[{% data variables.product.prodname_pages %} 및 Jekyll 정보](/articles/about-github-pages-and-jekyll)”를 참조하세요.
 
-### Adding a theme with the theme chooser
+테마 선택기가 작동하는 방식은 리포지토리가 퍼블릭인지 프라이빗인지에 따라 달라집니다.
+  - {% data variables.product.prodname_pages %}이(가) 이미 리포지토리에 사용하도록 설정된 경우 테마 선택기는 현재 게시 원본에 테마를 추가합니다.
+  - 리포지토리가 퍼블릭이고 {% data variables.product.prodname_pages %}이(가) 리포지토리에 대해 사용하지 않도록 설정된 경우 테마 선택기를 사용하면 {% data variables.product.prodname_pages %}을(를) 사용하도록 설정하고 기본 분기를 게시 원본으로 구성합니다.
+  - 리포지토리가 프라이빗이고 {% data variables.product.prodname_pages %}이(가) 리포지토리에 대해 사용하지 않도록 설정된 경우 테마 선택기를 사용하려면 먼저 게시 원본을 구성하여 {% data variables.product.prodname_pages %}을(를) 사용하도록 설정해야 합니다.
 
-{% data reusables.pages.navigate-site-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.pages.sidebar-pages %}
-3. Under "{% data variables.product.prodname_pages %}," click **Choose a theme** or **Change theme**. ![Choose a theme button](/assets/images/help/pages/choose-a-theme.png)
-4. On the top of the page, click the theme you want, then click **Select theme**. ![Theme options and Select theme button](/assets/images/help/pages/select-theme.png)
-5. You may be prompted to edit your site's *README.md* file.
-   - To edit the file later, click **Cancel**. ![Cancel link when editing a file](/assets/images/help/pages/cancel-edit.png)
-   - To edit the file now, see "[Editing files in your repository](/articles/editing-files-in-your-repository/)."
+게시 원본에 대한 자세한 내용은 “[{% data variables.product.prodname_pages %} 정보](/articles/about-github-pages#publishing-sources-for-github-pages-sites)”를 참조하세요.
 
-Your chosen theme will automatically apply to markdown files in your repository. To apply your theme to HTML files in your repository, you need to add YAML front matter that specifies a layout to each file. For more information, see "[Front Matter](https://jekyllrb.com/docs/front-matter/)" on the Jekyll site.
+과거에 Jekyll 테마를 리포지토리에 수동으로 추가한 경우 테마 선택기를 사용한 후에도 해당 파일이 적용될 수 있습니다. 충돌을 방지하려면 테마 선택기를 사용하기 전에 수동으로 추가된 테마 폴더와 파일을 모두 제거합니다. 자세한 내용은 “[Jekyll을 사용하여 {% data variables.product.prodname_pages %} 사이트에 테마 추가](/articles/adding-a-theme-to-your-github-pages-site-using-jekyll)”를 참조하세요.
 
-### 더 읽을거리
+## <a name="adding-a-theme-with-the-theme-chooser"></a>테마 선택기를 사용하여 테마 추가
 
-- [Themes](https://jekyllrb.com/docs/themes/) on the Jekyll site
+{% data reusables.pages.navigate-site-repo %} {% data reusables.repositories.sidebar-settings %} {% data reusables.pages.sidebar-pages %}
+3. “{% data variables.product.prodname_pages %}”에서 **테마 선택** 또는 **테마 변경** 을 클릭합니다.
+  ![테마 선택 단추](/assets/images/help/pages/choose-a-theme.png)
+4. 페이지 위쪽에서 원하는 테마를 클릭한 다음 **테마 선택** 을 클릭합니다.
+  ![테마 옵션 및 테마 선택 단추](/assets/images/help/pages/select-theme.png)
+5. 사이트의 *README.md* 파일을 편집하라는 메시지가 표시될 수 있습니다.
+   - 나중에 파일을 편집하려면 **취소** 를 클릭합니다.
+   ![파일을 편집할 때 취소 링크](/assets/images/help/pages/cancel-edit.png)
+   - 지금 파일을 편집하려면 “[파일 편집](/repositories/working-with-files/managing-files/editing-files)”을 참조하세요.
+
+선택한 테마가 리포지토리의 markdown 파일에 자동으로 적용됩니다. 리포지토리의 HTML 파일에 테마를 적용하려면 각 파일에 레이아웃을 지정하는 YAML 전면 문제를 추가해야 합니다. 자세한 내용은 Jekyll 사이트에서 “[전문](https://jekyllrb.com/docs/front-matter/)”을 참조하세요.
+
+## <a name="further-reading"></a>추가 참고 자료
+
+- Jekyll 사이트의 [테마](https://jekyllrb.com/docs/themes/)

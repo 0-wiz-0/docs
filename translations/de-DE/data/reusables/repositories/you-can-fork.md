@@ -1,7 +1,14 @@
-{% if currentVersion == "github-ae@latest" %}If the policies for your enterprise permit forking internal and private repositories, you{% else %}You{% endif %} can fork a repository to your user account or any organization where you have repository creation permissions. Weitere Informationen finden Sie unter „[Berechtigungsebenen für eine Organisation](/articles/permission-levels-for-an-organization)".
+---
+ms.openlocfilehash: 7ab0c705855f1bd271c17eacc9a2533184d1b5f1
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/11/2022
+ms.locfileid: "145105499"
+---
+{% ifversion ghae %} Wenn die Richtlinien deines Unternehmens das Forken privater und interner Repositorys zulassen, kannst du ein Repository zu deinem persönlichen Konto oder zu einer Organisation forken, in der du die Berechtigung zum Erstellen von Repositorys hast. Weitere Informationen findest du unter [Rollen in einer Organisation](/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization).
 
-{% if currentVersion == "free-pro-team@latest" or enterpriseServerVersions contains currentVersion %}
+{% elsif ghes or ghec %} Du kannst ein privates oder internes Repository zu deinem persönlichen Konto oder einer Organisation auf {% data variables.product.product_location %} forken, wo du über Berechtigungen zur Repositoryerstellung verfügst, wenn Einstellungen für das Repository und deine Unternehmensrichtlinien das Forken zulassen.
 
-If you have access to a private repository and the owner permits forking, you can fork the repository to your user account or any organization on {% if currentVersion == "free-pro-team@latest"%}{% data variables.product.prodname_team %}{% else %}{% data variables.product.product_location %}{% endif %} where you have repository creation permissions. {% if currentVersion == "free-pro-team@latest" %}You cannot fork a private repository to an organization using {% data variables.product.prodname_free_team %}. For more information, see "[GitHub's products](/articles/githubs-products)."{% endif %}
-
+{% elsif fpt %} Wenn du Zugriff auf ein privates Repository hast und der Besitzer das Forken erlaubt, kannst du das Repository zu deinem persönlichen Konto oder einer beliebigen Organisation auf {% data variables.product.prodname_team %} forken, sofern du die Berechtigungen zur Erstellung von Repositorys hast. Du kannst ein privates Repository nicht mit {% data variables.product.prodname_free_team %} zu einer Organisation forken. Weitere Informationen findest du bei den [GitHub-Produkten](/articles/githubs-products).
 {% endif %}

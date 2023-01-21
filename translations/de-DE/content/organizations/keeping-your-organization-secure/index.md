@@ -1,24 +1,27 @@
 ---
-title: Schutz Deiner Organisation
-intro: 'Organisationsinhabern stehen mehrere Funktionen zur Verfügung, mit denen sie ihre Projekte und Daten schützen können. If you''re the owner of an organization, you should regularly review your organization''s audit log{% if currentVersion != "github-ae@latest" %}, member 2FA status,{% endif %} and application settings to ensure that no unauthorized or malicious activity has occurred.'
+title: Schützen deiner Organisation
+intro: 'Du kannst die Sicherheit deiner Organisation durch das Verwalten von Sicherheitseinstellungen,{% ifversion not ghae %} die zweistufige Authentifizierung (2FA){% endif %} und das Überprüfen der Aktivitäten und Integrationen in deiner Organisation verbessern.'
 redirect_from:
-  - /articles/preventing-unauthorized-access-to-organization-information/
+  - /articles/preventing-unauthorized-access-to-organization-information
   - /articles/keeping-your-organization-secure
   - /github/setting-up-and-managing-organizations-and-teams/keeping-your-organization-secure
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - organisationen
-  - teams
+  - Organizations
+  - Teams
+children:
+  - /managing-two-factor-authentication-for-your-organization
+  - /managing-security-settings-for-your-organization
+shortTitle: Organization security
+ms.openlocfilehash: 21d2d6e6ee641dd1be2441c4ba00baf172bedb2d
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145130826'
 ---
 
-{% link_in_list /viewing-whether-users-in-your-organization-have-2fa-enabled %}
-{% link_in_list /preparing-to-require-two-factor-authentication-in-your-organization %}
-{% link_in_list /requiring-two-factor-authentication-in-your-organization %}
-{% link_in_list /managing-security-and-analysis-settings-for-your-organization %}
-{% link_in_list /managing-allowed-ip-addresses-for-your-organization %}
-{% link_in_list /restricting-email-notifications-to-an-approved-domain %}
-{% link_in_list /reviewing-the-audit-log-for-your-organization %}
-{% link_in_list /reviewing-your-organizations-installed-integrations %}

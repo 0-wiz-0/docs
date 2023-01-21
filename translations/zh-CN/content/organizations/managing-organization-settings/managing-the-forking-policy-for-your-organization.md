@@ -1,34 +1,38 @@
 ---
 title: 管理组织的复刻政策
-intro: '您可以允许或阻止对组织拥有的任何私有{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.19" or currentVersion == "github-ae@latest" %} 和内部{% endif %} 仓库进行复刻。'
+intro: '可以允许或阻止对组织拥有的任何私有{% ifversion ghes or ghae or ghec %}和内部{% endif %}存储库进行复刻。'
 redirect_from:
   - /articles/allowing-people-to-fork-private-repositories-in-your-organization
   - /github/setting-up-and-managing-organizations-and-teams/allowing-people-to-fork-private-repositories-in-your-organization
   - /github/setting-up-and-managing-organizations-and-teams/managing-the-forking-policy-for-your-organization
-permissions: 组织所有者可以管理组织组织的复刻政策。
+permissions: Organization owners can manage the forking policy for an organization.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - 组织
-  - 团队
+  - Organizations
+  - Teams
+shortTitle: Manage forking policy
+ms.openlocfilehash: 11aad8ee3c08b62f6bc352f91b6d804f35eee6e6
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145099717'
 ---
+默认情况下，新组织被配置为禁止对专用 {% ifversion ghes or ghec or ghae %} 和内部 {% endif %} 存储库创建分支。
 
-默认情况下，新的组织被配置为禁止复刻私有{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.19" or currentVersion == "github-ae@latest" %} 和内部{% endif %} 仓库。
+如果允许在组织级别对专用 {% ifversion ghes or ghec or ghae %} 和内部 {% endif %} 存储库进行分支，还可以配置对特定专用 {% ifversion ghes or ghec or ghae %} 或内部 {% endif %} 存储库进行分支的功能。 有关详细信息，请参阅“[管理存储库的分支策略](/github/administering-a-repository/managing-the-forking-policy-for-your-repository)”。
 
-如果您在组织级别上允许复刻私有{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.19" or currentVersion == "github-ae@latest" %} 和内部{% endif %} 仓库，则还可以配置复刻特定{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.19" or currentVersion == "github-ae@latest" %} 或内部{% endif %} 仓库的权限。 更多信息请参阅“[管理仓库的复刻政策](/github/administering-a-repository/managing-the-forking-policy-for-your-repository)”。
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.profile.org_member_privileges %}
+1. 在“存储库分支”下，选择“允许对专用 {% ifversion ghec or ghes or ghae %} 和内部 {% endif %} 存储库创建分支”。
 
-{% data reusables.organizations.internal-repos-enterprise %}
+   {%- ifversion fpt %} ![允许或禁止在组织中创建分支的复选框](/assets/images/help/repository/allow-disable-forking-fpt.png) {%- elsif ghes or ghec or ghae %} ![允许或禁止在组织中创建分支的复选框](/assets/images/help/repository/allow-disable-forking-organization.png) {%- endif %}
+6. 单击“ **保存**”。
 
-{% data reusables.profile.access_profile %}
-{% data reusables.profile.access_org %}
-{% data reusables.organizations.org_settings %}
-{% data reusables.organizations.member-privileges %}
-5. 在“Repository forking（仓库复刻）”下，选择 **Allow forking of private repositories（允许复刻私有仓库）**或 **Allow forking of private and internal repositories（允许复刻私有和内部仓库）**。 ![允许或禁止组织复刻的复选框](/assets/images/help/repository/allow-disable-forking-organization.png)
-6. 单击 **Save（保存）**。
+## 延伸阅读
 
-### 延伸阅读
-
-- "[关于复刻](/articles/about-forks)"
-- "[组织的仓库权限级别](/articles/repository-permission-levels-for-an-organization)"
+- [关于分支](/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks)
+- [组织的存储库角色](/organizations/managing-access-to-your-organizations-repositories/repository-roles-for-an-organization)

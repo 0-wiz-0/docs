@@ -1,67 +1,48 @@
 ---
-title: Managing default labels for repositories in your organization
-intro: You can customize the labels that are included in every new repository in your organization.
+title: Управление метками по умолчанию для репозиториев в организации
+intro: 'Вы можете настроить метки, включенные в каждый новый репозиторий в вашей организации.'
 redirect_from:
   - /articles/managing-default-labels-for-repositories-in-your-organization
   - /github/setting-up-and-managing-organizations-and-teams/managing-default-labels-for-repositories-in-your-organization
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.20'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
-  - organizations
-  - teams
+  - Organizations
+  - Teams
+shortTitle: Manage default labels
+ms.openlocfilehash: a2591c84d3844bfdadc3c7321d7ce8eec2adf293
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145125728'
 ---
+Владельцы организации могут управлять метками по умолчанию для репозиториев в организации.
 
-Organization owners can manage default labels for repositories in the organization.
+Метки по умолчанию включены в каждый новый репозиторий в вашей организации, однако любой пользователь с доступом на запись в репозиторий может позднее изменить или удалить метки в этом репозитории. Добавление, изменение или удаление метки по умолчанию не добавляет, не изменяет и не удаляет метку из существующих репозиториев.
 
-Default labels are included in every new repository in your organization, but anyone with write access to the repository can edit or delete the labels in that repository later. Adding, editing, or deleting a default label does not add, edit, or delete the label from existing repositories.
+## Создание метки по умолчанию
 
-### Creating a default label
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.organizations.oauth_app_access %}
 
-{% data reusables.profile.access_profile %}
-{% data reusables.profile.access_org %}
-{% data reusables.organizations.org_settings %}
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}
-{% data reusables.organizations.repository-defaults %}
-{% else %}
-{% data reusables.organizations.repository-labels %}
-{% endif %}
-5. Under "Repository labels", click **New label**. ![New label button](/assets/images/help/organizations/new-label-button.png)
-{% data reusables.project-management.name-label %}
-{% data reusables.project-management.label-description %}
-{% data reusables.project-management.label-color-randomizer %}
-{% data reusables.project-management.create-label %}
+5. В разделе «Метки репозитория» нажмите кнопку **Создать метку**.
+  ![Кнопка «Создать метку»](/assets/images/help/organizations/new-label-button.png) {% data reusables.project-management.name-label %} {% data reusables.project-management.label-description %} {% data reusables.project-management.label-color-randomizer %} {% data reusables.project-management.create-label %}
 
-### Editing a default label
+## Редактирование метки по умолчанию
 
-{% data reusables.profile.access_profile %}
-{% data reusables.profile.access_org %}
-{% data reusables.organizations.org_settings %}
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}
-{% data reusables.organizations.repository-defaults %}
-{% else %}
-{% data reusables.organizations.repository-labels %}
-{% endif %}
-{% data reusables.project-management.edit-label %}
-{% data reusables.project-management.name-label %}
-{% data reusables.project-management.label-description %}
-{% data reusables.project-management.label-color-randomizer %}
-{% data reusables.project-management.save-label %}
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.organizations.oauth_app_access %}
 
-### Deleting a default label
+{% data reusables.project-management.edit-label %} {% data reusables.project-management.name-label %} {% data reusables.project-management.label-description %} {% data reusables.project-management.label-color-randomizer %} {% data reusables.project-management.save-label %}
 
-{% data reusables.profile.access_profile %}
-{% data reusables.profile.access_org %}
-{% data reusables.organizations.org_settings %}
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}
-{% data reusables.organizations.repository-defaults %}
-{% else %}
-{% data reusables.organizations.repository-labels %}
-{% endif %}
-{% data reusables.project-management.delete-label %}
-{% data reusables.project-management.confirm-label-deletion %}
+## Удаление метки по умолчанию
 
-### Дополнительная литература
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %} {% data reusables.organizations.oauth_app_access %}
 
-- "[About labels](/articles/about-labels)"
+{% data reusables.project-management.delete-label %} {% data reusables.project-management.confirm-label-deletion %}
+
+## Дополнительные материалы
+
+- [Сведения о метках](/articles/about-labels)
