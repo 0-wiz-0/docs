@@ -1,24 +1,27 @@
 ---
-title: Keeping your organization secure
-intro: 'Organization owners have several features to help them keep their projects and data secure. If you''re the owner of an organization, you should regularly review your organization''s audit log{% if currentVersion != "github-ae@latest" %}, member 2FA status,{% endif %} and application settings to ensure that no unauthorized or malicious activity has occurred.'
+title: 조직의 보안 유지
+intro: '보안 설정을 관리하고,{% ifversion not ghae %}2FA(2단계 인증)을 요구하고,{% endif %}조직 내 활동 및 통합을 검토하여 조직의 보안을 강화할 수 있습니다.'
 redirect_from:
-  - /articles/preventing-unauthorized-access-to-organization-information/
+  - /articles/preventing-unauthorized-access-to-organization-information
   - /articles/keeping-your-organization-secure
   - /github/setting-up-and-managing-organizations-and-teams/keeping-your-organization-secure
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Organizations
   - Teams
+children:
+  - /managing-two-factor-authentication-for-your-organization
+  - /managing-security-settings-for-your-organization
+shortTitle: Organization security
+ms.openlocfilehash: 21d2d6e6ee641dd1be2441c4ba00baf172bedb2d
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145135148'
 ---
 
-{% link_in_list /viewing-whether-users-in-your-organization-have-2fa-enabled %}
-{% link_in_list /preparing-to-require-two-factor-authentication-in-your-organization %}
-{% link_in_list /requiring-two-factor-authentication-in-your-organization %}
-{% link_in_list /managing-security-and-analysis-settings-for-your-organization %}
-{% link_in_list /managing-allowed-ip-addresses-for-your-organization %}
-{% link_in_list /restricting-email-notifications-for-your-organization %}
-{% link_in_list /reviewing-the-audit-log-for-your-organization %}
-{% link_in_list /reviewing-your-organizations-installed-integrations %}

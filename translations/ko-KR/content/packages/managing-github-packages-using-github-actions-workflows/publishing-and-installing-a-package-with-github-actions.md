@@ -1,215 +1,140 @@
 ---
-title: Publishing and installing a package with GitHub Actions
-intro: 'You can configure a workflow in {% data variables.product.prodname_actions %} to automatically publish or install a package from {% data variables.product.prodname_registry %}.'
+title: GitHub Actions를 사용하여 패키지 게시 및 설치
+intro: '{% data variables.product.prodname_actions %}에서 워크플로를 구성하여 {% data variables.product.prodname_registry %}에서 자동으로 패키지를 게시 또는 설치할 수 있습니다.'
 product: '{% data reusables.gated-features.packages %}'
 redirect_from:
   - /github/managing-packages-with-github-packages/using-github-packages-with-github-actions
   - /packages/using-github-packages-with-your-projects-ecosystem/using-github-packages-with-github-actions
   - /packages/guides/using-github-packages-with-github-actions
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
+shortTitle: Publish & install with Actions
+ms.openlocfilehash: 80516eb55e9ffc8f2de3f92cf24a7d7f230b8407
+ms.sourcegitcommit: 6185352bc563024d22dee0b257e2775cadd5b797
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 12/09/2022
+ms.locfileid: '148193124'
 ---
+{% data reusables.package_registry.packages-ghes-release-stage %} {% data reusables.package_registry.packages-ghae-release-stage %}
 
-{% data reusables.package_registry.packages-ghes-release-stage %}
-{% data reusables.package_registry.packages-ghae-release-stage %}
-{% data reusables.actions.ae-beta %}
-{% data reusables.actions.ae-self-hosted-runners-notice %}
+## {% data variables.product.prodname_actions %}를 사용한 {% data variables.product.prodname_registry %} 정보
 
-### About {% data variables.product.prodname_registry %} with {% data variables.product.prodname_actions %}
+{% data reusables.repositories.about-github-actions %} {% data reusables.repositories.actions-ci-cd %} 자세한 내용은 “[{% data variables.product.prodname_actions %} 정보](/github/automating-your-workflow-with-github-actions/about-github-actions)”를 참조하세요.
 
-{% data reusables.repositories.about-github-actions %} {% data reusables.repositories.actions-ci-cd %} For more information, see "[About {% data variables.product.prodname_actions %}](/github/automating-your-workflow-with-github-actions/about-github-actions)."
+워크플로의 일부로 패키지를 게시하거나 설치하여 리포지토리의 CI 및 CD 기능을 확장할 수 있습니다.
 
-You can extend the CI and CD capabilities of your repository by publishing or installing packages as part of your workflow.
+{% ifversion packages-registries-v2 %}
+### 세분화된 권한으로 패키지 레지스트리에 인증
 
-{% if currentVersion == "free-pro-team@latest" %}
-#### Authenticating to the {% data variables.product.prodname_container_registry %}
+{% data reusables.package_registry.authenticate_with_pat_for_v2_registry %}
 
-{% data reusables.package_registry.container-registry-beta %}
-
-{% data reusables.package_registry.authenticate_with_pat_for_container_registry %}
-
-For an authentication example, see "[Authenticating with the {% data variables.product.prodname_container_registry %}](/packages/getting-started-with-github-container-registry/migrating-to-github-container-registry-for-docker-images#authenticating-with-the-container-registry)."
+### 리포지토리 범위 권한이 있는 패키지 레지스트리에 인증
 
 {% endif %}
 
-#### Authenticating to package registries on {% data variables.product.prodname_dotcom %}
+{% ifversion packages-registries-v2 %} 일부 {% 데이터 variables.product.prodname_registry %} 레지스트리는 리포지토리 범위 권한만 지원하고 세분화된 권한은 지원하지 않습니다. 이러한 레지스트리 목록은 "[{% data variables.product.prodname_registry %}에 대한 권한 정보"를 참조하세요](/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages).
 
-{% if currentVersion == "free-pro-team@latest" %}If you want your workflow to authenticate to {% data variables.product.prodname_registry %} to access a package registry other than the {% data variables.product.prodname_container_registry %} on {% data variables.product.product_name %}, then{% else %}To authenticate to package registries on {% data variables.product.product_name %},{% endif %} we recommend using the `GITHUB_TOKEN` that {% data variables.product.product_name %} automatically creates for your repository when you enable {% data variables.product.prodname_actions %} instead of a personal access token for authentication. {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" or currentVersion == "github-ae@next" %}You should set the permissions for this access token in the workflow file to grant read access for the `contents` scope and write access for the `packages` scope. {% else %}It has read and write permissions for packages in the repository where the workflow runs. {% endif %}For forks, the `GITHUB_TOKEN` is granted read access for the parent repository. For more information, see "[Authenticating with the GITHUB_TOKEN](/actions/configuring-and-managing-workflows/authenticating-with-the-github_token)."
+워크플로가 세분화된 권한을 지원하지 않는 {% data variables.product.prodname_registry %} 레지스트리에 액세스하려면 {% else %}{% else %}{% data variables.product.product_name %}에서 패키지 레지스트리에 인증하려면 {% data variables.product.product_name %}이(가) {% data variables.product.prodname_actions %}을(를) 사용하도록 설정할 때 리포지토리에 대해 자동으로 만드는 {% data variables.product.product_name %}을(를) 사용하는 `GITHUB_TOKEN` 것이 좋습니다. `contents` 범위에 대한 읽기 권한을 부여하고 `packages` 범위에 대한 쓰기 권한을 부여하려면 워크플로 파일에서 이 액세스 토큰에 대한 사용 권한을 설정해야 합니다. 포크의 경우 `GITHUB_TOKEN`은 부모 리포지토리에 대한 읽기 권한이 부여됩니다. 자세한 내용은 “[GITHUB_TOKEN을 사용한 인증](/actions/configuring-and-managing-workflows/authenticating-with-the-github_token)”을 참조하세요.
 
-You can reference the `GITHUB_TOKEN` in your workflow file using the {% raw %}`{{secrets.GITHUB_TOKEN}}`{% endraw %} context. For more information, see "[Authenticating with the GITHUB_TOKEN](/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token)."
+{% raw %}`{{secrets.GITHUB_TOKEN}}`{% endraw %} 컨텍스트를 사용하여 워크플로 파일에서 `GITHUB_TOKEN`을 참조할 수 있습니다. 자세한 내용은 “[GITHUB_TOKEN을 사용한 인증](/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token)”을 참조하세요.
 
-### About permissions and package access for repository-owned packages
+## 권한 및 패키지 액세스 정보
 
-{% note %}
+{% ifversion packages-registries-v2 %}
 
-**Note:** Repository-owned packages include RubyGems, npm, Apache Maven, NuGet, Gradle, and Docker packages that use the package namespace `docker.pkg.github.com`.
+### 사용자 또는 조직으로 범위가 지정된 패키지
 
-{% endnote %}
+세분화된 권한을 지원하는 레지스트리를 사용하면 사용자가 조직 수준에서 패키지를 자유형 리소스로 만들고 관리할 수 있습니다. 패키지는 조직 또는 개인 계정에서 소유할 수 있으며 리포지토리 권한과 별도로 각 패키지에 대한 액세스를 사용자 지정할 수 있습니다.
 
-When you enable GitHub Actions, GitHub installs a GitHub App on your repository. The `GITHUB_TOKEN` secret is a GitHub App installation access token. You can use the installation access token to authenticate on behalf of the GitHub App installed on your repository. The token's permissions are limited to the repository that contains your workflow. For more information, see "[Permissions for the GITHUB_TOKEN](/actions/reference/authentication-in-a-workflow#about-the-github_token-secret)."
+세분화된 권한을 지원하는 레지스트리에 액세스하는 모든 워크플로는 {% data variables.product.pat_generic %} 대신 을 사용해야 `GITHUB_TOKEN` 합니다. 보안 모범 사례에 대한 자세한 내용은 “[GitHub Actions 보안 강화](/actions/learn-github-actions/security-hardening-for-github-actions#using-secrets)”를 참조하세요.
 
-{% data variables.product.prodname_registry %} allows you to push and pull packages through the `GITHUB_TOKEN` available to a {% data variables.product.prodname_actions %} workflow.
-
-{% if currentVersion == "free-pro-team@latest" %}
-### About permissions and package access for {% data variables.product.prodname_container_registry %}
-
-The {% data variables.product.prodname_container_registry %} (`ghcr.io`) allows users to create and administer containers as free-standing resources at the organization level. Containers can be owned by an organization or personal user account and you can customize access to each of your containers separately from repository permissions.
-
-All workflows accessing the {% data variables.product.prodname_container_registry %} should use the `GITHUB_TOKEN` instead of a personal access token. For more information about security best practices, see "[Security hardening for GitHub Actions](/actions/learn-github-actions/security-hardening-for-github-actions#using-secrets)."
-
-### Default permissions and access settings for containers modified through workflows
-
-When you create, install, modify, or delete a container through a workflow, there are some default permission and access settings used to ensure admins have access to the workflow. You can adjust these access settings as well.
-
-For example, by default if a workflow creates a container using the `GITHUB_TOKEN`, then:
-- The container inherits the visibility and permissions model of the repository where the workflow is run.
-- Repository admins where the workflow is run become the admins of the container once the container is created.
-
-These are more examples of how default permissions work for workflows that manage packages.
-
-| {% data variables.product.prodname_actions %} workflow task | Default permissions and access                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Download an existing container                              | - If the container is public, any workflow running in any repository can download the container. <br> - If the container is internal, then all workflows running in any repository owned by the Enterprise account can download the container. For enterprise-owned organizations, you can read any repository in the enterprise <br> - If the container is private, only workflows running in repositories that are given read permission on that container can download the container. <br> |
-| Upload a new version to an existing container               | - If the container is private, internal, or public, only workflows running in repositories that are given write permission on that container can upload new versions to the container.                                                                                                                                                                                                                                                                                                                          |
-| Delete a container or versions of a container               | - If the container is private, internal, or public, only workflows running in repositories that are given delete permission can delete existing versions of the container.                                                                                                                                                                                                                                                                                                                                      |
-
-You can also adjust access to containers in a more granular way or adjust some of the default permissions behavior. For more information, see "[Configuring a package’s access control and visibility](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)."
+### 리포지토리로 범위가 지정된 패키지
 
 {% endif %}
 
-### Publishing a package using an action
+GitHub Actions를 사용하면 GitHub가 리포지토리에 GitHub 앱을 설치합니다. `GITHUB_TOKEN` 비밀은 GitHub 앱 설치 액세스 토큰입니다. 설치 액세스 토큰을 사용하여 리포지토리에 설치된 GitHub 앱을 대신하여 인증할 수 있습니다. 토큰의 권한은 워크플로를 포함하는 리포지토리로 제한됩니다. 자세한 내용은 “[GITHUB_TOKEN에 대한 권한](/actions/reference/authentication-in-a-workflow#about-the-github_token-secret)”을 참조하세요.
 
-You can use {% data variables.product.prodname_actions %} to automatically publish packages as part of your continuous integration (CI) flow. This approach to continuous deployment (CD) allows you to automate the creation of new package versions, if the code meets your quality standards. For example, you could create a workflow that runs CI tests every time a developer pushes code to a particular branch. If the tests pass, the workflow can publish a new package version to {% data variables.product.prodname_registry %}.
+{% data variables.product.prodname_registry %}를 사용하면 {% data variables.product.prodname_actions %} 워크플로에서 사용할 수 있는 `GITHUB_TOKEN`을 통해 패키지를 푸시하고 풀할 수 있습니다.
+
+{% ifversion packages-registries-v2 %}
+
+## 워크플로를 통해 수정된 컨테이너에 대한 기본 권한 및 액세스 설정
+
+워크플로를 통해 컨테이너를 만들거나 설치, 수정 또는 삭제할 때 관리자가 워크플로에 액세스할 수 있도록 하기 위해 사용되는 몇 가지 기본 권한 및 액세스 설정이 있습니다. 액세스 설정을 조정할 수도 있습니다.
+
+예를 들어 워크플로가 `GITHUB_TOKEN`을 사용하여 컨테이너를 만드는 경우 기본적으로 다음이 적용됩니다.
+- 컨테이너는 워크플로가 실행되는 리포지토리의 표시 여부 및 권한 모델을 상속합니다.
+- 워크플로를 실행하는 리포지토리 관리자는 컨테이너가 만들어지면 컨테이너의 관리자가 됩니다.
+
+다음은 패키지를 관리하는 워크플로에 대해 기본 사용 권한이 작동하는 방식에 대한 더 많은 예입니다.
+
+| {% data variables.product.prodname_actions %} 워크플로 작업 | 기본 권한 및 액세스 |
+|----|----|
+| 기존 컨테이너 다운로드 | - 컨테이너가 퍼블릭인 경우 모든 리포지토리에서 실행되는 모든 워크플로에서 컨테이너를 다운로드할 수 있습니다. <br> - 컨테이너가 내부용인 경우 엔터프라이즈 계정이 소유한 리포지토리에서 실행되는 모든 워크플로가 컨테이너를 다운로드할 수 있습니다. 엔터프라이즈 소유 조직의 경우 엔터프라이즈의 모든 리포지토리를 읽을 수 있습니다. <br> - 컨테이너가 비공개인 경우 해당 컨테이너에 대한 읽기 권한이 부여된 리포지토리에서 실행되는 워크플로만 컨테이너를 다운로드할 수 있습니다. <br>
+| 기존 컨테이너에 새 버전 업로드 | - 컨테이너가 프라이빗, 내부용 또는 퍼블릭인 경우 해당 컨테이너에 대한 쓰기 권한이 부여된 리포지토리에서 실행되는 워크플로만 컨테이너에 새 버전을 업로드할 수 있습니다.
+| 컨테이너 또는 컨테이너 버전 삭제 | - 컨테이너가 프라이빗, 내부용 또는 퍼블릭인 경우 삭제 권한이 부여된 리포지토리에서 실행되는 워크플로만 기존 버전의 컨테이너를 삭제할 수 있습니다.
+
+컨테이너에 대한 액세스를 보다 세부적으로 조정하거나 일부 기본 권한 동작을 조정할 수도 있습니다. 자세한 내용은 “[패키지의 액세스 제어 및 표시 여부 구성](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)”을 참조하세요.
+
+{% endif %}
+
+## 작업을 사용하여 패키지 게시
+
+{% data variables.product.prodname_actions %}를 사용하여 CI(연속 통합) 흐름의 일부로 패키지를 자동으로 게시할 수 있습니다. CD(지속적인 배포)에 대한 이 접근 방식을 사용하면 코드가 품질 표준을 충족하는 경우 새 패키지 버전 만들기를 자동화할 수 있습니다. 예를 들어 개발자가 코드를 특정 분기에 푸시할 때마다 CI 테스트를 실행하는 워크플로를 만들 수 있습니다. 테스트가 통과하면 워크플로에서 새 패키지 버전을 {% data variables.product.prodname_registry %}에 게시할 수 있습니다.
 
 {% data reusables.package_registry.actions-configuration %}
 
-The following example demonstrates how you can use {% data variables.product.prodname_actions %} to build and test your app, and then automatically create a Docker image and publish it to {% data variables.product.prodname_registry %}:
+다음 예제에서는 {% data variables.product.prodname_actions %}를 사용하여 앱을 빌드하고 {% ifversion not fpt or ghec %}테스트한 다음 {% endif %}자동으로 Docker 이미지를 만들어 {% data variables.product.prodname_registry %}에 게시하는 방법을 보여 줍니다.
 
-- Create a new workflow file in your repository (such as `.github/workflows/deploy-image.yml`), and add the following YAML:
-  ```yaml{:copy}
-  name: Create and publish a package
-  on:
-    push:
-      branches: ['release']
-  jobs:
-    run-npm-build:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: npm install and build webpack
-          run: |
-            npm install
-            npm run build
-        - uses: actions/upload-artifact@main
-          with:
-            name: webpack artifacts
-            path: public/
+리포지토리에 새 워크플로 파일(예: `.github/workflows/deploy-image.yml`)을 만들고 다음 YAML을 추가합니다.
 
-    run-npm-test:
-      runs-on: ubuntu-latest
-      needs: run-npm-build
-      strategy:
-        matrix:
-          os: [ubuntu-latest]
-          node-version: [12.x, 14.x]
-      steps: {% raw %}
-        - uses: actions/checkout@v2
-        - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v1
-          with:
-            node-version: ${{ matrix.node-version }}{% endraw %}
-        - uses: actions/download-artifact@main
-          with:
-            name: webpack artifacts
-            path: public
-        - name: npm install, and test
-          run: |
-            npm install
-            npm test
-          env:
-            CI: true
+{% ifversion fpt or ghec %} {% data reusables.package_registry.publish-docker-image %}
 
-    build-and-push-image:
-      runs-on: ubuntu-latest {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" or currentVersion == "github-ae@next" %}
-      permissions: 
-        contents: read
-        packages: write {% endif %}
-      needs: run-npm-test
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v2
-        - name: Build container image
-          uses: docker/build-push-action@v1
-          with: {% raw %}
-            username: ${{ github.actor }}
-            password: ${{ secrets.GITHUB_TOKEN }}
-            registry: {% endraw %}{% if currentVersion == "github-ae@latest" %}docker.YOUR-HOSTNAME.com{% else %}docker.pkg.github.com{% endif %}{% raw %}
-            repository: ${{ github.repository }}/octo-image {% endraw %}
-            tag_with_sha: true
-            tag_with_ref: true 
-  ```
+{% else %}
 
-  The relevant settings are explained in the following table: <table>
-  <tr>
-  <td>
+```yaml{:copy}
+{% data reusables.actions.actions-not-certified-by-github-comment %}
 
-{% raw %}
-```yaml
+{% data reusables.actions.actions-use-sha-pinning-comment %}
+
+name: Create and publish a Docker image
+
 on:
   push:
     branches: ['release']
-```
-{% endraw %}
-  </td>
-  <td>
-    Configures the <code>Create and publish a package</code> workflow to run every time a change is pushed to the branch called <code>release</code>.
-  </td>
-  </tr>
-  <tr>
-  <td>
 
-{% raw %}
-  ```yaml
+jobs:
   run-npm-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: {% data reusables.actions.action-checkout %}
       - name: npm install and build webpack
         run: |
           npm install
           npm run build
-      - uses: actions/upload-artifact@main
+      - uses: {% data reusables.actions.action-upload-artifact %}
         with:
           name: webpack artifacts
           path: public/
-  ```
-  {% endraw %}
-  </td>
-  <td>
-    This job installs NPM and uses it to build the app.
-  </td>
-  </tr>
-  <tr>
-  <td>
 
-{% raw %}
-  ```yaml
   run-npm-test:
     runs-on: ubuntu-latest
     needs: run-npm-build
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [14.x]
+        node-version: [12.x, 14.x]
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: {% data reusables.actions.action-checkout %}
+      - name: Use Node.js {% raw %}${{ matrix.node-version }}{% endraw %}
+        uses: {% data reusables.actions.action-setup-node %}
         with:
-          node-version: ${{ matrix.node-version }}
-      - uses: actions/download-artifact@main
+          node-version: {% raw %}${{ matrix.node-version }}{% endraw %}
+      - uses: {% data reusables.actions.action-download-artifact %}
         with:
           name: webpack artifacts
           path: public
@@ -219,176 +144,357 @@ on:
           npm test
         env:
           CI: true
-  ```
-{% endraw %}
-  </td>
-  <td>
-    This job uses <code>npm test</code> to test the code. The <code>needs: run-npm-build</code> command makes this job dependent on the <code>run-npm-build</code> job.
-  </td>
-  </tr> {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" or currentVersion == "github-ae@next" %}
-  <tr>
-  <td>
 
-{% raw %}
-  ```yaml
-  permissions: 
-    contents: read
-    packages: write 
-  ```
-{% endraw %}
-  </td>
-  <td>
-    Sets the permissions granted to the <code>GITHUB_TOKEN</code> for the actions in this job.
-  </td>
-  </tr> {% endif %}
-  <tr>
-  <td>
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    needs: run-npm-test {% ifversion ghes or ghae %}
+    permissions: 
+      contents: read
+      packages: write {% endif %}
+    steps:
+      - name: Checkout
+        uses: {% data reusables.actions.action-checkout %}
+      - name: Log in to GitHub Docker Registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: {% ifversion ghae %}docker.YOUR-HOSTNAME.com{% else %}docker.pkg.github.com{% endif %}
+          username: {% raw %}${{ github.actor }}{% endraw %}
+          password: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          push: true
+          tags: |
+            {% ifversion ghae %}docker.YOUR-HOSTNAME.com{% else %}docker.pkg.github.com{% endif %}/{% raw %}${{ github.repository }}/octo-image:${{ github.sha }}{% endraw %}
+```
+{% endif %}
 
-{% raw %}
-  ```yaml
-  - name: Build container image
-  ```
-{% endraw %}
-  </td>
-  <td>
-    Creates a new step called <code>Build container image</code>. This step runs as part of the <code>build-and-push-image</code> job. The <code>needs: run-npm-test</code> command makes this job dependent on the <code>run-npm-test</code> job.
-  </td>
-  </tr>
-  <tr>
-  <td>
+관련 설정은 다음 표에 설명되어 있습니다. 워크플로의 각 요소에 대한 자세한 내용은 “[{% data variables.product.prodname_actions %}에 대한 워크플로 구문](/actions/reference/workflow-syntax-for-github-actions)”을 참조하세요.
 
-{% raw %}
-  ```yaml
-uses: docker/build-push-action@v1
-  ```
+<table>
+<tr>
+<td>
+{% raw %} ```yaml
+on:
+  push:
+    branches: ['release']
+```
 {% endraw %}
-  </td>
-  <td>
-    Uses the Docker <code>build-push-action</code> action to build the image, based on your repository's <code>Dockerfile</code>. If the build succeeds, it pushes the image to {% data variables.product.prodname_registry %}.
-  </td>
-  </tr>
-  <tr>
-  <td>
+</td>
+<td>
+변경 내용이 <code>release</code>라는 분기에 푸시될 때마다 실행되도록 <code>Create and publish a Docker image</code> 워크플로를 구성합니다.
+</td>
+</tr>
 
+{% ifversion fpt or ghec %}
+
+<tr>
+<td>
 {% raw %}
-  ```yaml
+```yaml
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+```
+{% endraw %}
+</td>
+<td>
+  워크플로에 대한 두 가지 사용자 지정 환경 변수를 정의합니다. 변수는 {% data variables.product.prodname_container_registry %} 도메인과, 워크플로가 빌드하는 Docker 이미지의 이름에 사용됩니다.
+</td>
+</tr>
+
+<tr>
+<td>
+{% raw %}
+```yaml
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+```
+{% endraw %}
+</td>
+<td>
+  이 워크플로에는 단일 작업이 있습니다. 사용 가능한 최신 버전의 Ubuntu에서 실행되도록 구성되었습니다.
+</td>
+</tr>
+
+{% else %}
+
+<tr>
+<td>
+
+```yaml
+run-npm-build:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: {% data reusables.actions.action-checkout %}
+    - name: npm install and build webpack
+      run: |
+        npm install
+        npm run build
+    - uses: {% data reusables.actions.action-upload-artifact %}
+      with:
+        name: webpack artifacts
+        path: public/
+```
+
+</td>
+<td>
+  이 작업은 NPM을 설치하고 이를 사용하여 앱을 빌드합니다.
+</td>
+</tr>
+
+<tr>
+<td>
+
+```yaml
+run-npm-test:
+  runs-on: ubuntu-latest
+  needs: run-npm-build
+  strategy:
+    matrix:
+      os: [ubuntu-latest]
+      node-version: [12.x, 14.x]
+  steps:
+    - uses: {% data reusables.actions.action-checkout %}
+    - name: Use Node.js {% raw %}${{ matrix.node-version }}{% endraw %}
+      uses: {% data reusables.actions.action-setup-node %}
+      with:
+        node-version: {% raw %}${{ matrix.node-version }}{% endraw %}
+    - uses: {% data reusables.actions.action-download-artifact %}
+      with:
+        name: webpack artifacts
+        path: public
+    - name: npm install, and test
+      run: |
+        npm install
+        npm test
+      env:
+        CI: true
+```
+
+</td>
+<td>
+이 작업은 <code>npm test</code>를 사용하여 코드를 테스트합니다. <code>needs: run-npm-build</code> 명령은 이 작업을 <code>run-npm-build</code> 작업에 종속시킵니다.
+</td>
+</tr>
+
+<tr>
+<td>
+{% raw %} ```yaml
+build-and-push-image:
+  runs-on: ubuntu-latest
+  needs: run-npm-test
+```
+{% endraw %}
+</td>
+<td>
+이 작업은 패키지를 게시합니다. <code>needs: run-npm-test</code> 명령은 이 작업을 <code>run-npm-test</code> 작업에 종속시킵니다.
+</td>
+</tr>
+
+{% endif %}
+
+<tr>
+<td>
+{% raw %} ```yaml
+permissions: 
+  contents: read
+  packages: write 
+```
+{% endraw %}
+</td>
+<td>
+이 작업의 동작에 대해 <code>GITHUB_TOKEN</code>에 부여된 사용 권한을 설정합니다.
+</td>
+</tr> 
+
+{% ifversion fpt or ghec %}
+<tr>
+<td>
+{% raw %} ```yaml
+- name: Log in to the Container registry
+  uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+  with:
+    registry: ${{ env.REGISTRY }}
+    username: ${{ github.actor }}
+    password: ${{ secrets.GITHUB_TOKEN }}
+```
+{% endraw %}
+</td>
+<td>
+패키지를 게시할 계정 및 암호를 사용하여 레지스트리에 로그인하는 <code>Log in to the {% data variables.product.prodname_container_registry %}</code>라는 단계를 만듭니다. 게시되면 패키지는 여기에 정의된 계정이 소유합니다.
+</td>
+</tr>
+
+<tr>
+<td>
+{% raw %} ```yaml
+- name: Extract metadata (tags, labels) for Docker
+  id: meta
+  uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+  with:
+    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+```
+{% endraw %}
+</td>
+<td>
+이 단계에서는 <code><a href="https://github.com/docker/metadata-action#about">docker/metadata-action</a></code>을 사용하여 지정된 이미지에 적용할 태그 및 레이블을 추출합니다. <code>id</code> “meta”를 사용하면 이 단계의 출력을 후속 단계에서 참조할 수 있습니다. <code>images</code> 값은 태그 및 레이블의 기본 이름을 제공합니다.
+</td>
+</tr>
+
+{% else %}
+<tr>
+<td>
+{% raw %} ```yaml
+- name: Log in to GitHub Docker Registry
+  uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+  with:
+    registry: {% endraw %}{% ifversion ghae %}docker.YOUR-HOSTNAME.com{% else %}docker.pkg.github.com{% endif %}{% raw %}
+    username: ${{ github.actor }}
+    password: ${{ secrets.GITHUB_TOKEN }}
+```
+{% endraw %}
+</td>
+<td>
+패키지를 게시할 계정 및 암호를 사용하여 레지스트리에 로그인하는 <code>Log in to GitHub Docker Registry</code>라는 새 단계를 만듭니다. 게시되면 패키지는 여기에 정의된 계정이 소유합니다.
+</td>
+</tr>
+{% endif %}
+
+<tr>
+<td>
+{% raw %} ```yaml
+- name: Build and push Docker image
+```
+{% endraw %}
+</td>
+<td>
+<code>Build and push Docker image</code>라는 새 단계를 만듭니다. 이 단계는 <code>build-and-push-image</code> 작업의 일부로 실행됩니다.
+</td>
+</tr>
+
+<tr>
+<td>
+{% raw %} ```yaml
+uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+```
+{% endraw %}
+</td>
+<td>
+Docker <code>build-push-action</code> 작업을 사용하여 리포지토리의 <code>Dockerfile</code>에 따라 이미지를 빌드합니다. 빌드가 성공하면 이미지를 {% data variables.product.prodname_registry %}에 푸시합니다.
+</td>
+</tr>
+
+<tr>
+<td>
+{% raw %} ```yaml
 with:
-  ```
+```
 {% endraw %}
-  </td>
-  <td>
-    Sends the required parameters to the <code>build-push-action</code> action. This are defined in the subsequent lines.
-  </td>
-  </tr>
-  <tr>
-  <td>
+</td>
+<td>
+필요한 매개 변수를 <code>build-push-action</code> 작업에 보냅니다. 매개 변수는 후속 줄에서 정의됩니다.
+</td>
+</tr>
 
+{% ifversion fpt or ghec %}
+<tr>
+<td>
+{% raw %} ```yaml
+context: .
+```
+{% endraw %}
+</td>
+<td>
+빌드의 컨텍스트를 지정된 경로에 있는 파일 집합으로 정의합니다. 자세한 내용은 “<a href="https://github.com/docker/build-push-action#usage">사용법</a>”을 참조하세요.
+</td>
+</tr>
+{% endif %}
+
+<tr>
+<td>
+{% raw %} ```yaml
+push: true
+```
+{% endraw %}
+</td>
+<td>
+성공적으로 빌드된 경우 이 이미지를 레지스트리에 푸시합니다.
+</td>
+</tr>
+
+{% ifversion fpt or ghec %}
+<tr>
+<td>
 {% raw %}
-  ```yaml
-username: ${{ github.actor }}
-  ```
+```yaml
+tags: ${{ steps.meta.outputs.tags }}
+labels: ${{ steps.meta.outputs.labels }}
+```
 {% endraw %}
-  </td>
-  <td>
-    Defines the user account that will publish the packages. Once published, the packages are owned by the account defined here.
-  </td>
-  </tr>
-  <tr>
-  <td>
+</td>
+<td>
+  “meta” 단계에서 추출된 태그 및 레이블을 추가합니다.
+</td>
+</tr>
 
-{% raw %}
-  ```yaml
-password: ${{ secrets.GITHUB_TOKEN }}
-  ```
-{% endraw %}
-  </td>
-  <td>
-    Defines the password that is used to access {% data variables.product.prodname_registry %}.
-  </td>
-  </tr>
-  <tr>
-  <td>
+{% else %}
+<tr>
+<td>
+{% ifversion ghae %} {% raw %} ```yaml
+tags: |
+docker.YOUR-HOSTNAME.com/${{ github.repository }}/octo-image:${{ github.sha }}
+```
+{% endraw %} {% else %} {% raw %} ```yaml
+tags: |
+docker.pkg.github.com/${{ github.repository }}/octo-image:${{ github.sha }}
+```
+{% endraw %} {% endif %}
+</td>
+<td>
+워크플로를 트리거한 커밋의 SHA를 사용하여 이미지에 태그를 지정합니다.
+</td>
+</tr>
+{% endif %}
 
-  ```yaml
-registry: {% if currentVersion == "github-ae@latest" %}docker.YOUR-HOSTNAME.com{% else %}docker.pkg.github.com{% endif %}
-  ```
-  </td>
-  <td>
-    Defines the registry that will host the resulting packages. This example uses {% data variables.product.prodname_registry %}.{% if currentVersion == "github-ae@latest" %} Replace <code>YOUR-HOSTNAME</code> with the name of your enterprise.{% endif %} {% if currentVersion == "free-pro-team@latest" %} If you're using the {% data variables.product.prodname_container_registry %}, then use <code>ghcr.io</code> as the hostname.{% endif %}
-  </td>
-  </tr>
-  <tr>
-  <td>
+</table>
 
-{% raw %}
-  ```yaml
-repository: ${{ github.repository }}/octo-image
-  ```
-{% endraw %}
-  </td>
-  <td>
-    Defines which repository will host the resulting package, and sets the name of the published package. Replace <code>octo-image</code> with the name you want for your package.
-  </td>
-  </tr>
-  <tr>
-  <td>
+이 새 워크플로는 리포지토리에서 `release`라고 명명된 분기에 변경 사항을 푸시할 때마다 자동으로 실행됩니다. **작업** 탭에서 진행 상황을 볼 수 있습니다.
 
-{% raw %}
-  ```yaml
-tag_with_sha: true
-  ```
-{% endraw %}
-  </td>
-  <td>
-    Tags the published package with the first seven characters of the commit's SHA. For example, <code>sha-2f2d842</code>.
-  </td>
-  </tr>
-  <tr>
-  <td>
+워크플로가 완료된 후 몇 분 후에 새 패키지가 리포지토리에 표시됩니다. 사용 가능한 패키지를 찾으려면 “[리포지토리의 패키지 보기](/packages/publishing-and-managing-packages/viewing-packages#viewing-a-repositorys-packages)”를 참조하세요.
 
-{% raw %}
-  ```yaml
-tag_with_ref: true
-  ```
-{% endraw %}
-  </td>
-  <td>
-    Tags the published package with the git ref. This can be the name of the branch used to create the package.
-  </td>
-  </tr>
-  </table>
+## 작업을 사용하여 패키지 설치
 
-- This new workflow will run automatically every time you push a change to a branch named `release` in the repository. You can view the progress in the **Actions** tab.
-- A few minutes after the workflow has completed, the new package will visible in your repository. To find your available packages, see "[Viewing a repository's packages](/packages/publishing-and-managing-packages/viewing-packages#viewing-a-repositorys-packages)."
+{% data variables.product.prodname_actions %}를 사용하여 CI 흐름의 일부로 패키지를 설치할 수 있습니다. 예를 들어 개발자가 코드를 끌어오기 요청에 푸시할 때마다 워크플로가 {% data variables.product.prodname_registry %}에서 호스트하는 패키지를 다운로드하고 설치하여 종속성을 처리하도록 워크플로를 구성할 수 있습니다. 그런 다음, 워크플로는 종속성이 필요한 CI 테스트를 실행할 수 있습니다.
 
-
-### Installing a package using an action
-
-You can install packages as part of your CI flow using {% data variables.product.prodname_actions %}. For example, you could configure a workflow so that anytime a developer pushes code to a pull request, the workflow resolves dependencies by downloading and installing packages hosted by {% data variables.product.prodname_registry %}. Then, the workflow can run CI tests that require the dependencies.
-
-Installing packages hosted by {% data variables.product.prodname_registry %} through {% data variables.product.prodname_actions %} requires minimal configuration or additional authentication when you use the `GITHUB_TOKEN`.{% if currentVersion == "free-pro-team@latest" %} Data transfer is also free when an action installs a package. For more information, see "[About billing for {% data variables.product.prodname_registry %}](/github/setting-up-and-managing-billing-and-payments-on-github/about-billing-for-github-packages)."{% endif %}
+`GITHUB_TOKEN`을 사용하는 경우 {% data variables.product.prodname_actions %}를 통해 {% data variables.product.prodname_registry %}에서 호스트되는 패키지를 설치하려면 최소한의 구성 또는 추가 인증이 필요합니다.{% ifversion fpt or ghec %} 데이터 전송은 작업에서 패키지를 설치할 때도 무료입니다. 자세한 내용은 “[{% data variables.product.prodname_registry %}에 대한 청구 정보](/billing/managing-billing-for-github-packages/about-billing-for-github-packages)”를 참조하세요.{% endif %}
 
 {% data reusables.package_registry.actions-configuration %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-### Upgrading a workflow that accesses `ghcr.io`
+{% ifversion packages-registries-v2 %}
+## {% data variables.product.pat_generic %}을(를) 사용하여 레지스트리에 액세스하는 워크플로 업그레이드
 
-{% data reusables.package_registry.github-token-security-over-pat %}
+{% data variables.product.prodname_registry %}는 워크플로에서 쉽고 안전한 인증을 위해 을 지원 `GITHUB_TOKEN` 합니다. 세분화된 권한을 지원하는 레지스트리를 사용하고 워크플로가 {% data variables.product.pat_generic %}를 사용하여 레지스트리에 인증하는 경우 워크플로를 업데이트하여 를 사용하는 `GITHUB_TOKEN`것이 좋습니다.
 
-Using the `GITHUB_TOKEN` instead of a PAT, which includes the `repo` scope, increases the security of your repository as you don't need to use a long-lived PAT that offers unnecessary access to the repository where your workflow is run. For more information about security best practices, see "[Security hardening for GitHub Actions](/actions/learn-github-actions/security-hardening-for-github-actions#using-secrets)."
+`GITHUB_TOKEN`에 대한 자세한 내용은 “[워크플로의 인증](/actions/reference/authentication-in-a-workflow#using-the-github_token-in-a-workflow)”을 참조하세요.
 
-1. Navigate to your package landing page.
-1. In the left sidebar, click **Actions access**. !["Actions access" option in left menu](/assets/images/help/package-registry/organization-repo-access-for-a-package.png)
-2. To ensure your container package has access to your workflow, you must add the repository where the workflow is stored to your container. Click **Add repository** and search for the repository you want to add. !["Add repository" button](/assets/images/help/package-registry/add-repository-button.png)
-  {% note %}
+`GITHUB_TOKEN`범위와 함께 `repo` {% data variables.product.pat_v1 %} 대신 를 사용하면 워크플로가 실행되는 리포지토리에 불필요한 액세스를 제공하는 수명이 긴 {% data variables.product.pat_generic %}을(를) 사용할 필요가 없으므로 리포지토리의 보안이 강화됩니다. 보안 모범 사례에 대한 자세한 내용은 “[GitHub Actions 보안 강화](/actions/learn-github-actions/security-hardening-for-github-actions#using-secrets)”를 참조하세요.
 
-  **Note:** Adding a repository to your container through the **Actions access** menu option is different than connecting your container to a repository. For more information, see "[Ensuring workflow access to your package](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#ensuring-workflow-access-to-your-package)" and "[Connecting a repository to a package](/packages/learn-github-packages/connecting-a-repository-to-a-package)."
+1. 패키지 방문 페이지로 이동합니다.
+1. 왼쪽 사이드바에서 **작업 액세스** 를 클릭합니다.
+  ![왼쪽 메뉴의 “작업 액세스” 옵션](/assets/images/help/package-registry/organization-repo-access-for-a-package.png)
+1. 컨테이너 패키지가 워크플로에 액세스할 수 있도록 하려면 워크플로가 컨테이너에 저장되는 리포지토리를 추가해야 합니다. **리포지토리 추가** 를 클릭하고 추가할 리포지토리를 검색합니다.
+   ![“리포지토리 추가” 단추](/assets/images/help/package-registry/add-repository-button.png) {% note %}
+
+  **참고:** **작업 액세스** 메뉴 옵션을 통해 리포지토리를 컨테이너에 추가하는 것은 컨테이너를 리포지토리에 연결하는 것과 다릅니다. 자세한 내용은 “[패키지에 대한 워크플로 액세스 보장](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#ensuring-workflow-access-to-your-package)” 및 “[패키지에 리포지토리 연결](/packages/learn-github-packages/connecting-a-repository-to-a-package)”을 참조하세요.
 
   {% endnote %}
-3. Optionally, using the "role" drop-down menu, select the default access level that you'd like the repository to have to your container image. ![Permission access levels to give to repositories](/assets/images/help/package-registry/repository-permission-options-for-package-access-through-actions.png)
-5. Open your workflow file. On the line where you login to `ghcr.io`, replace your PAT with {% raw %}`${{ secrets.GITHUB_TOKEN }}`{% endraw %}.
+1. 필요에 따라, “역할” 드롭다운 메뉴를 사용하여 컨테이너 이미지에 대해 리포지토리에 부여할 기본 액세스 수준을 선택합니다.
+  ![리포지토리에 부여할 권한 액세스 수준](/assets/images/help/package-registry/repository-permission-options-for-package-access-through-actions.png)
+1. 워크플로 파일을 엽니다. 레지스트리에 로그인하는 줄에서 {% data variables.product.pat_generic %}을(를) {% raw %}`${{ secrets.GITHUB_TOKEN }}`{% endraw %}로 바꿉 있습니다.
 
-For example, this workflow publishes a Docker container using {% raw %}`${{ secrets.GITHUB_TOKEN }}`{% endraw %} to authenticate.
+예를 들어 이 워크플로는 {% data variables.product.prodname_container_registry %}에 Docker 이미지를 게시하고 {% raw %}`${{ secrets.GITHUB_TOKEN }}`{% endraw %}을 사용하여 인증합니다.
 
 ```yaml{:copy}
 name: Demo Push
@@ -414,37 +520,37 @@ jobs:
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   push:
-    runs-on: ubuntu-latest{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" or currentVersion == "github-ae@next" %}
+    runs-on: ubuntu-latest
     permissions:
       packages: write
-      contents: read{% endif %}
+      contents: read
 
-    {% raw %}steps:
-      - uses: actions/checkout@v2
+    steps:
+      - uses: {% data reusables.actions.action-checkout %}
 
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
-      - name: Log into registry
-        # This is where you will update the PAT to GITHUB_TOKEN
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Log in to registry
+        # This is where you will update the {% data variables.product.pat_generic %} to GITHUB_TOKEN
+        run: echo "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push image
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+          IMAGE_ID=ghcr.io/{% raw %}${{ github.repository_owner }}{% endraw %}/$IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          VERSION=$(echo "{% raw %}${{ github.ref }}{% endraw %}" | sed -e 's,.*/\(.*\),\1,')
           # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          [[ "{% raw %}${{ github.ref }}{% endraw %}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
           # Use Docker `latest` tag convention
           [ "$VERSION" == "master" ] && VERSION=latest
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION{% endraw %}
+          docker push $IMAGE_ID:$VERSION
 ```
 
 {% endif %}

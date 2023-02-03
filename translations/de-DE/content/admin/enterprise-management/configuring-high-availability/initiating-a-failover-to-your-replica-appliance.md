@@ -1,40 +1,62 @@
 ---
-title: Failover zu Ihrer Replikat-Appliance initiieren
-intro: 'Sie können an der Befehlszeile zu Wartungs- und Testzwecken oder beim Fehlschlagen der primären Appliance ein Failover zu einer {% data variables.product.prodname_ghe_server %}-Replikat-Appliance durchführen.'
+title: Initiating a failover to your replica appliance
+intro: 'You can failover to a {% data variables.product.prodname_ghe_server %} replica appliance using the command line for maintenance and testing, or if the primary appliance fails.'
 redirect_from:
   - /enterprise/admin/installation/initiating-a-failover-to-your-replica-appliance
   - /enterprise/admin/enterprise-management/initiating-a-failover-to-your-replica-appliance
   - /admin/enterprise-management/initiating-a-failover-to-your-replica-appliance
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Enterprise
   - High availability
   - Infrastructure
+shortTitle: Initiate failover to appliance
 ---
-Die für das Failover erforderliche Zeit hängt davon ab, wie lange es dauert, das Replikat manuell hochzustufen und den Traffic weiterzuleiten. Die Durchschnittszeit beträgt zwischen 2 und 10 Minuten.
+The time required to failover depends on how long it takes to manually promote the replica and redirect traffic. The average time ranges between 20-30 minutes.
 
 {% data reusables.enterprise_installation.promoting-a-replica %}
 
-1. Versetzen Sie die primäre Appliance in den Wartungsmodus, um den Abschluss der Replikation zuzulassen, bevor Sie die Appliances wechseln.
-    - Informationen zum Verwenden der Managementkonsole finden Sie unter  „[Wartungsmodus aktivieren und planen](/enterprise/admin/guides/installation/enabling-and-scheduling-maintenance-mode/)“.
-    - Darüber hinaus können Sie den Befehl `ghe-maintenance -s` verwenden.
+1. If the primary appliance is available, to allow replication to finish before you switch appliances, on the primary appliance, put the primary appliance into maintenance mode.
+
+    - Put the appliance into maintenance mode.
+
+       - To use the management console, see "[Enabling and scheduling maintenance mode](/enterprise/admin/guides/installation/enabling-and-scheduling-maintenance-mode/)"
+
+       - You can also use the `ghe-maintenance -s` command.
+         ```shell
+         $ ghe-maintenance -s
+         ```
+
+   - When the number of active Git operations, MySQL queries, and Resque jobs reaches zero, wait 30 seconds. 
+
+      {% note %}
+
+      **Note:** Nomad will always have jobs running, even in maintenance mode, so you can safely ignore these jobs.
+    
+      {% endnote %}
+
+   - To verify all replication channels report `OK`, use the `ghe-repl-status -vv` command.
+
       ```shell
-      $ ghe-maintenance -s
+      $ ghe-repl-status -vv
       ```
-2. Wenn die Anzahl der aktiven Git-Vorgänge null erreicht, sollten Sie 30 Sekunden lang warten.
-3. Führen Sie den Befehl `ghe-repl-status -vv` aus, um zu verifizieren, dass alle Replikationskanäle `OK` ausgeben.
-  ```shell
-  $ ghe-repl-status -vv
-  ```
-4. Führen Sie den Befehl `ghe-repl-promote` aus, um die Replikation anzuhalten und die Replikations-Appliance auf den primären Status hochzustufen. Dadurch wird der primäre Knoten automatisch in den Wartungsmodus versetzt, sofern er erreichbar ist.
+
+4. On the replica appliance, to stop replication and promote the replica appliance to primary status, use the `ghe-repl-promote` command. This will also automatically put the primary node in maintenance mode if it’s reachable.
   ```shell
   $ ghe-repl-promote
   ```
-5. Aktualisieren Sie den DNS-Eintrag so, dass er auf die IP-Adresse des Replikats verweist. Nach dem Verstreichen des TTL-Zeitraums wird der Traffic an das Replikat geleitet. Stellen Sie bei der Verwendung eines Load-Balancers sicher, dass er so konfiguriert ist, den Traffic an das Replikat zu senden.
-6. Benachrichtigen Sie die Benutzer, dass sie die normalen Vorgänge wieder aufnehmen können.
-7. Richten Sie bei Bedarf die Replikation von der neuen primären Instanz auf die bestehenden Appliances und die vorherige primäre Instanz ein. Weitere Informationen finden Sie unter „[Informationen zur Hochverfügbarkeitskonfiguration](/enterprise/{{ currentVersion }}/admin/guides/installation/about-high-availability-configuration/#utilities-for-replication-management)“.
+
+   {% note %}
+
+   **Note:** If the primary node is unavailable, warnings and timeouts may occur but can be ignored.
+
+  {% endnote %}
+
+5. Update the DNS record to point to the IP address of the replica. Traffic is directed to the replica after the TTL period elapses. If you are using a load balancer, ensure it is configured to send traffic to the replica.
+6. Notify users that they can resume normal operations.
+7. If desired, set up replication from the new primary to existing appliances and the previous primary. For more information, see "[About high availability configuration](/enterprise/admin/guides/installation/about-high-availability-configuration/#utilities-for-replication-management)."
 8. Appliances you do not intend to setup replication to that were part of the high availability configuration prior the failover, need to be removed from the high availability configuration by UUID.
     - On the former appliances, get their UUID via `cat /data/user/common/uuid`.
       ```shell
@@ -42,9 +64,9 @@ Die für das Failover erforderliche Zeit hängt davon ab, wie lange es dauert, d
       ```
     - On the new primary, remove the UUIDs using `ghe-repl-teardown`. Please replace *`UUID`* with a UUID you retrieved in the previous step.
       ```shell
-      $ ghe-repl-teardown -u <em>UUID</em>
+      $ ghe-repl-teardown -u  UUID
       ```
 
-### Weiterführende Informationen
+## Further reading
 
-- „[Dienstprogramme zur Replikationsverwaltung](/enterprise/{{ currentVersion }}/admin/guides/installation/about-high-availability-configuration/#utilities-for-replication-management)“
+- "[Utilities for replication management](/enterprise/admin/guides/installation/about-high-availability-configuration/#utilities-for-replication-management)"

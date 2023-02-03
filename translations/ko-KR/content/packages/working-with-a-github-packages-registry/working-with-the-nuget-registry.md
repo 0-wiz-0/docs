@@ -1,6 +1,6 @@
 ---
-title: Working with the NuGet registry
-intro: 'You can configure the `dotnet` command-line interface (CLI) to publish NuGet packages to {% data variables.product.prodname_registry %} and to use packages stored on {% data variables.product.prodname_registry %} as dependencies in a .NET project.'
+title: NuGet 레지스트리 작업
+intro: 'NuGet 패키지를 {% data variables.product.prodname_registry %}에 게시하고 {% data variables.product.prodname_registry %}에 저장된 패키지를 .NET 프로젝트의 종속성으로 사용하도록 `dotnet` CLI(명령줄 인터페이스)를 구성할 수 있습니다.'
 product: '{% data reusables.gated-features.packages %}'
 redirect_from:
   - /articles/configuring-nuget-for-use-with-github-package-registry
@@ -10,51 +10,59 @@ redirect_from:
   - /packages/using-github-packages-with-your-projects-ecosystem/configuring-dotnet-cli-for-use-with-github-packages
   - /packages/guides/configuring-dotnet-cli-for-use-with-github-packages
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
+shortTitle: NuGet registry
+ms.openlocfilehash: cb9e190bb6cfa86ce1bdb31581de6e7d14e9dac8
+ms.sourcegitcommit: 6185352bc563024d22dee0b257e2775cadd5b797
+ms.translationtype: MT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 12/09/2022
+ms.locfileid: '148192923'
 ---
-
-{% data reusables.package_registry.packages-ghes-release-stage %}
-{% data reusables.package_registry.packages-ghae-release-stage %}
+{% data reusables.package_registry.packages-ghes-release-stage %} {% data reusables.package_registry.packages-ghae-release-stage %}
 
 {% data reusables.package_registry.admins-can-configure-package-types %}
 
-### Authenticating to {% data variables.product.prodname_registry %}
+## {% data variables.product.prodname_registry %} 인증
 
 {% data reusables.package_registry.authenticate-packages %}
 
-#### Authenticating with `GITHUB_TOKEN` in {% data variables.product.prodname_actions %}
+{% ifversion packages-nuget-v2 %} {% data variables.product.prodname_github_codespaces %} 및 {% data variables.product.prodname_actions %}에 대해 패키지에 대한 액세스 권한을 독립적으로 부여하도록 선택할 수 있습니다. 자세한 내용은 "[Codespaces가 패키지에 액세스하도록 보장](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#ensuring-codespaces-access-to-your-package)" 및 "[패키지에 대한 워크플로 액세스 보장"을 참조하세요](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#ensuring-workflow-access-to-your-package).
+{% endif %}
 
-Use the following command to authenticate to {% data variables.product.prodname_registry %} in a {% data variables.product.prodname_actions %} workflow using the `GITHUB_TOKEN` instead of hardcoding a token in a nuget.config file in the repository:
+### {% data variables.product.prodname_actions %}에서 `GITHUB_TOKEN`으로 인증
+
+다음 명령을 사용하여 리포지토리의 nuget.config 파일에서 {% data variables.product.pat_generic %}를 하드 코딩하는 대신 을 사용하여 `GITHUB_TOKEN` {% data variables.product.prodname_actions %} 워크플로에서 {% data variables.product.prodname_registry %}에 인증합니다.
 
 ```shell
-dotnet nuget add source --username USERNAME --password {%raw%}${{ secrets.GITHUB_TOKEN }}{% endraw %} --store-password-in-clear-text --name github "https://{% if currentVersion == "free-pro-team@latest" %}nuget.pkg.github.com{% else %}nuget.HOSTNAME{% endif %}/OWNER/index.json"
+dotnet nuget add source --username USERNAME --password {%raw%}${{ secrets.GITHUB_TOKEN }}{% endraw %} --store-password-in-clear-text --name github "https://{% ifversion fpt or ghec %}nuget.pkg.github.com{% else %}nuget.HOSTNAME{% endif %}/OWNER/index.json"
 ```
 
 {% data reusables.package_registry.authenticate-packages-github-token %}
 
-#### Authenticating with a personal access token
+### {% data variables.product.pat_generic %}을(를) 사용하여 인증
 
 {% data reusables.package_registry.required-scopes %}
 
-To authenticate to {% data variables.product.prodname_registry %} with the `dotnet` command-line interface (CLI), create a *nuget.config* file in your project directory specifying {% data variables.product.prodname_registry %} as a source under `packageSources` for the `dotnet` CLI client.
+`dotnet` 명령줄 인터페이스(CLI)로 {% data variables.product.prodname_registry %}에 인증하려면 `dotnet` CLI 클라이언트에 대한 `packageSources`에서{% data variables.product.prodname_registry %}를 소스로 지정하여 프로젝트 디렉터리 파일에서 *nuget.config* 파일을 만듭니다.
 
-You must replace:
-- `USERNAME` with the name of your user account on {% data variables.product.prodname_dotcom %}.
-- `TOKEN` with your personal access token.
-- `OWNER` with the name of the user or organization account that owns the repository containing your project.{%if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %}
-- `HOSTNAME` with the host name for {% data variables.product.product_location %}.{% endif %}
+아래와 같이 바꿔야 합니다.
+- `USERNAME`을 {% data variables.product.prodname_dotcom %}에 있는 개인 계정의 이름으로 바꿉니다.
+- `TOKEN` {% data variables.product.pat_v1 %}.
+- `OWNER` {% ifversion packages-nuget-v2 %}설치하려는 패키지 또는 패키지를 게시하려는 사용자 또는 조직 계정의 이름을 사용하여{% else %}프로젝트가 포함된 리포지토리{% endif %}. {% ifversion ghes or ghae %}
+- `HOSTNAME` {% data variables.location.product_location %}의 호스트 이름을 사용합니다. {% endif %}
 
-{%if enterpriseServerVersions contains currentVersion %}If your instance has subdomain isolation enabled:
-{% endif %}
+{% ifversion ghes %}인스턴스에 하위 도메인 격리를 사용 설정한 경우: {% endif %}
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
     <packageSources>
         <clear />
-        <add key="github" value="https://{% if currentVersion == "free-pro-team@latest" %}nuget.pkg.github.com{% else %}nuget.HOSTNAME{% endif %}/OWNER/index.json" />
+        <add key="github" value="https://{% ifversion fpt or ghec %}nuget.pkg.github.com{% else %}nuget.HOSTNAME{% endif %}/OWNER/index.json" />
     </packageSources>
     <packageSourceCredentials>
         <github>
@@ -65,8 +73,7 @@ You must replace:
 </configuration>
 ```
 
-{% if enterpriseServerVersions contains currentVersion %}
-If your instance has subdomain isolation disabled:
+{% ifversion ghes %}인스턴스에 하위 도메인 격리를 사용하지 않도록 설정한 경우:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -85,47 +92,54 @@ If your instance has subdomain isolation disabled:
 ```
 {% endif %}
 
-### Publishing a package
+## 패키지 게시
 
-You can publish a package to {% data variables.product.prodname_registry %} by authenticating with a *nuget.config* file{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest"%}, or by using the `--api-key` command line option with your {% data variables.product.prodname_dotcom %} personal access token (PAT){% endif %}.
+nuget.config파일로 인증하거나 {% data variables.product.prodname_dotcom %} {% data *variables.product.pat_v1* %}와 함께 명령줄 옵션을 사용하여 `--api-key` {% data variables.product.prodname_registry %}에 패키지를 게시할 수 있습니다.
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}
-#### Publishing a package using a GitHub PAT as your API key
+{% ifversion packages-nuget-v2 %}
 
-If you don't already have a PAT to use for your {% data variables.product.prodname_dotcom %} account, see "[Creating a personal access token](/github/authenticating-to-github/creating-a-personal-access-token)."
+NuGet 레지스트리는 조직 또는 개인 계정 내에 패키지를 저장하며 패키지를 리포지토리와 연결할 수 있습니다. 리포지토리에서 사용 권한을 상속할지 또는 리포지토리와 독립적으로 세분화된 권한을 설정할지 선택할 수 있습니다.
 
-1. Create a new project.
+{% data reusables.package_registry.publishing-user-scoped-packages %}
+
+파일에서 `nuget.config` 을 `RepositoryURL` 지정하면 게시된 패키지가 지정된 리포지토리에 자동으로 연결됩니다. 자세한 내용은 "[파일을 사용하여 패키지 게시"를 `nuget.config` 참조하세요](/packages/working-with-a-github-packages-registry/working-with-the-nuget-registry#publishing-a-package-using-a-nugetconfig-file). 이미 게시된 패키지를 리포지토리에 연결하는 방법에 대한 자세한 내용은 "패키지에 [리포지토리 연결"을 참조하세요](/packages/learn-github-packages/connecting-a-repository-to-a-package).
+
+{% endif %}
+
+### GitHub {% data variables.product.pat_generic %}을(를) 사용하여 패키지를 API 키로 게시
+
+{% ifversion ghae %}{% data variables.product.product_name %}{% else %}{% data variables.location.product_location %}{% endif %}에서 계정에 사용할 PAT가 아직 없는 경우 "[{% 데이터 variables.product.pat_generic %} 만들기"를](/github/authenticating-to-github/creating-a-personal-access-token) 참조하세요.
+
+1. 새 프로젝트를 만듭니다.
   ```shell
   dotnet new console --name OctocatApp
   ```
-2. Package the project.
+2. 프로젝트를 패키지합니다.
   ```shell
   dotnet pack --configuration Release
   ```
 
-3. Publish the package using your PAT as the API key.
+3. {% data variables.product.pat_generic %}을(를) 사용하여 패키지를 API 키로 게시합니다.
   ```shell
-  dotnet nuget push "bin/Release/OctocatApp.1.0.0.nupkg"  --api-key <em>YOUR_GITHUB_PAT</em> --source "github"
+  dotnet nuget push "bin/Release/OctocatApp.1.0.0.nupkg"  --api-key YOUR_GITHUB_PAT --source "github"
   ```
 
 {% data reusables.package_registry.viewing-packages %}
 
-{% endif %}
+### *nuget.config* 파일을 사용하여 패키지 게시
 
-#### Publishing a package using a *nuget.config* file
-
-When publishing, you need to use the same value for `OWNER` in your *csproj* file that you use in your *nuget.config* authentication file. Specify or increment the version number in your *.csproj* file, then use the `dotnet pack` command to create a *.nuspec* file for that version. For more information on creating your package, see "[Create and publish a package](https://docs.microsoft.com/nuget/quickstart/create-and-publish-a-package-using-the-dotnet-cli)" in the Microsoft documentation.
+게시할 때 *nuget.config* 인증 파일에서 사용하는 *csproj* 파일에서 `OWNER`에 동일한 값을 사용해야 합니다. *.csproj* 파일에 버전 번호를 지정하거나 증분한 다음 `dotnet pack` 명령을 사용하여 해당 버전에 맞는 *.nuspec* 파일을 만듭니다. 패키지를 만드는 방법에 대한 자세한 내용은 Microsoft 설명서의 “[패키지 만들기 및 게시](https://docs.microsoft.com/nuget/quickstart/create-and-publish-a-package-using-the-dotnet-cli)”를 참조하세요.
 
 {% data reusables.package_registry.authenticate-step %}
-2. Create a new project.
+2. 새 프로젝트를 만듭니다.
   ```shell
   dotnet new console --name OctocatApp
   ```
-3. Add your project's specific information to your project's file, which ends in *.csproj*.  You must replace:
-    - `OWNER` with the name of the user or organization account that owns the repository containing your project.
-    - `REPOSITORY` with the name of the repository containing the package you want to publish.
-    - `1.0.0` with the version number of the package.{% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %}
-    - `HOSTNAME` with the host name for {% data variables.product.product_location %}.{% endif %}
+3. 프로젝트의 특정 정보를 프로젝트의 파일에 추가합니다. 이 파일은 *.csproj* 로 끝납니다.  아래와 같이 바꿔야 합니다.
+    - `OWNER` 패키지에 연결하려는 리포지토리를 소유하는 사용자 또는 조직 계정의 이름입니다.
+    - `REPOSITORY` 을 패키지에 연결하려는 리포지토리의 이름으로 을 사용합니다.                      
+    - `1.0.0`을 패키지의 버전 번호로 바꿉니다.{% ifversion ghes or ghae %}
+    - `HOSTNAME` {% data variables.location.product_location %}의 호스트 이름을 사용합니다. {% endif %}
   ``` xml
   <Project Sdk="Microsoft.NET.Sdk">
 
@@ -137,28 +151,28 @@ When publishing, you need to use the same value for `OWNER` in your *csproj* fil
       <Authors>Octocat</Authors>
       <Company>GitHub</Company>
       <PackageDescription>This package adds an Octocat!</PackageDescription>
-      <RepositoryUrl>https://{% if currentVersion == "free-pro-team@latest" %}github.com{% else %}HOSTNAME{% endif %}/OWNER/REPOSITORY</RepositoryUrl>
+      <RepositoryUrl>https://{% ifversion fpt or ghec %}github.com{% else %}HOSTNAME{% endif %}/OWNER/REPOSITORY</RepositoryUrl>
     </PropertyGroup>
 
   </Project>
   ```
-4. Package the project.
+4. 프로젝트를 패키지합니다.
   ```shell
   dotnet pack --configuration Release
   ```
 
-5. Publish the package using the `key` you specified in the *nuget.config* file.
+5. `key`를 사용해 *nuget.config* 파일에 지정한 패키지를 게시합니다.
   ```shell
   dotnet nuget push "bin/Release/OctocatApp.1.0.0.nupkg" --source "github"
   ```
 
 {% data reusables.package_registry.viewing-packages %}
 
-### Publishing multiple packages to the same repository
+## 동일한 리포지토리에 여러 패키지 게시
 
-To publish multiple packages to the same repository, you can include the same {% data variables.product.prodname_dotcom %} repository URL in the `RepositoryURL` fields in all *.csproj* project files. {% data variables.product.prodname_dotcom %} matches the repository based on that field.
+여러 패키지를 동일한 리포지토리에 연결하려면 모든 *.csproj* 프로젝트 파일의 필드에 동일한 {% 데이터 variables.product.prodname_dotcom %} 리포지토리 URL `RepositoryURL` 을 포함할 수 있습니다. {% data variables.product.prodname_dotcom %}은 해당 필드를 기반으로 리포지토리와 일치시킵니다.
 
-For example, the *OctodogApp* and *OctocatApp* projects will publish to the same repository:
+예를 들어 *OctodogApp* 및 *OctocatApp* 프로젝트는 동일한 리포지토리에 게시됩니다.
 
 ``` xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -171,7 +185,7 @@ For example, the *OctodogApp* and *OctocatApp* projects will publish to the same
     <Authors>Octodog</Authors>
     <Company>GitHub</Company>
     <PackageDescription>This package adds an Octodog!</PackageDescription>
-    <RepositoryUrl>https://{% if currentVersion == "free-pro-team@latest" %}github.com{% else %}HOSTNAME{% endif %}/octo-org/octo-cats-and-dogs</RepositoryUrl>
+    <RepositoryUrl>https://{% ifversion fpt or ghec %}github.com{% else %}HOSTNAME{% endif %}/octo-org/octo-cats-and-dogs</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
@@ -188,19 +202,19 @@ For example, the *OctodogApp* and *OctocatApp* projects will publish to the same
     <Authors>Octocat</Authors>
     <Company>GitHub</Company>
     <PackageDescription>This package adds an Octocat!</PackageDescription>
-    <RepositoryUrl>https://{% if currentVersion == "free-pro-team@latest" %}github.com{% else %}HOSTNAME{% endif %}/octo-org/octo-cats-and-dogs</RepositoryUrl>
+    <RepositoryUrl>https://{% ifversion fpt or ghec %}github.com{% else %}HOSTNAME{% endif %}/octo-org/octo-cats-and-dogs</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
 ```
 
-### Installing a package
+## 패키지 설치
 
-Using packages from {% data variables.product.prodname_dotcom %} in your project is similar to using packages from *nuget.org*. Add your package dependencies to your *.csproj* file, specifying the package name and version. For more information on using a *.csproj* file in your project, see "[Working with NuGet packages](https://docs.microsoft.com/nuget/consume-packages/overview-and-workflow)" in the Microsoft documentation.
+프로젝트에서 {% data variables.product.prodname_dotcom %}의 패키지를 사용하는 것은 *nuget.org* 패키지를 사용하는 것과 비슷합니다. *.csproj* 파일에 패키지 종속성을 추가하여 패키지 이름과 버전을 지정합니다. 프로젝트에서 *.csproj* 파일을 사용하는 방법에 한 자세한 내용은 Microsoft 설명서의 “[NuGet 패키지 작업](https://docs.microsoft.com/nuget/consume-packages/overview-and-workflow)”을 참조하세요.
 
 {% data reusables.package_registry.authenticate-step %}
 
-2. To use a package, add `ItemGroup` and configure the `PackageReference` field in the *.csproj* project file, replacing the `OctokittenApp` package with your package dependency and `1.0.0` with the version you want to use:
+2. 패키지를 사용하려면 `ItemGroup`을 추가하고 *.csproj* 프로젝트 파일에서 `PackageReference` 필드를 구성합니다. `Include="OctokittenApp"`의 `OctokittenApp` 값을 패키지 종속성으로 바꾸고 `Version="12.0.2"`의 `12.0.2` 값을 사용하려는 버전으로 바꿉니다.
   ``` xml
   <Project Sdk="Microsoft.NET.Sdk">
 
@@ -212,7 +226,7 @@ Using packages from {% data variables.product.prodname_dotcom %} in your project
       <Authors>Octocat</Authors>
       <Company>GitHub</Company>
       <PackageDescription>This package adds an Octocat!</PackageDescription>
-      <RepositoryUrl>https://{% if currentVersion == "free-pro-team@latest" %}github.com{% else %}HOSTNAME{% endif %}/OWNER/REPOSITORY</RepositoryUrl>
+      <RepositoryUrl>https://{% ifversion fpt or ghec %}github.com{% else %}HOSTNAME{% endif %}/OWNER/REPOSITORY</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
@@ -222,15 +236,19 @@ Using packages from {% data variables.product.prodname_dotcom %} in your project
   </Project>
   ```
 
-3. Install the packages with the `restore` command.
+3. `restore` 명령으로 패키지를 설치합니다.
   ```shell
   dotnet restore
   ```
 
-### 문제 해결
+## 문제 해결
 
-Your NuGet package may fail to push if the `RepositoryUrl` in *.csproj* is not set to the expected repository .
+*.csproj* 의 `RepositoryUrl`이 예상된 리포지토리로 설정되지 않은 경우 NuGet 패키지가 푸시되지 않을 수 있습니다.
 
-### 더 읽을거리
+nuspec 파일을 사용하는 경우 필수 `type` 및 `url` 특성이 있는 `repository` 요소가 있는지 확인합니다.
 
-- "{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" %}[Deleting and restoring a package](/packages/learn-github-packages/deleting-and-restoring-a-package){% elsif currentVersion ver_lt "enterprise-server@3.1" or currentVersion == "github-ae@latest" %}[Deleting a package](/packages/learn-github-packages/deleting-a-package){% endif %}"
+`GITHUB_TOKEN`을 이용해 {% data variables.product.prodname_actions %} 워크플로에서 {% data variables.product.prodname_registry %} 레지스트리를 인증한다면, 토큰은 워크플로를 실행하는 리포지토리가 아닌 다른 리포지토리에 있는 프라이빗 리포지토리 기반 패키지에는 액세스할 수 없습니다. 다른 리포지토리와 연결된 패키지에 액세스하려면 대신 범위를 사용하여 {% data variables.product.pat_v1 %} `read:packages` 를 생성하고 이 토큰을 비밀로 전달합니다.
+ 
+## 추가 참고 자료
+
+- “[패키지 삭제 및 복원](/packages/learn-github-packages/deleting-and-restoring-a-package)”

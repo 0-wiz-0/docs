@@ -1,34 +1,46 @@
 ---
-title: 更改 GitHub Pages 站点的可见性
-intro: 您可以通过公开或私下发布站点来管理项目站点的访问控制。
-product: '{% data reusables.gated-features.private-pages %}'
+title: Changing the visibility of your GitHub Pages site
+intro: You can manage access control for your project site by publishing the site publicly or privately.
 versions:
-  free-pro-team: '*'
-permissions: 'People with admin permissions for a repository can change the visibility of a {% data variables.product.prodname_pages %} site.'
+  ghec: '*'
+permissions: 'People with admin access to a repository can change the visibility of a {% data variables.product.prodname_pages %} site.'
 redirect_from:
   - /github/working-with-github-pages/changing-the-visibility-of-your-github-pages-site
+shortTitle: Change visibility of site
 ---
 
-### 关于 {% data variables.product.prodname_pages %} 站点的访问控制
+## About access control for {% data variables.product.prodname_pages %} sites
 
-如果您的项目站点是从使用 {% data variables.product.prodname_ghe_cloud %} 的组织拥有的私有或内部仓库发布的，您可以管理站点的访问控制。 通过访问控制，您可以选择将站点公开发布给互联网上的任何人，也可以选择私下发布给对仓库拥有读取权限的人。 私下发布的站点可用于与企业成员分享您的内部文档或知识库。 您无法管理组织站点的访问控制。 有关 {% data variables.product.prodname_pages %} 站点类型的更多信息，请参阅“[关于 {% data variables.product.prodname_pages %}](/pages/getting-started-with-github-pages/about-github-pages#types-of-github-pages-sites)”。
+With access control for {% data variables.product.prodname_pages %}, you can restrict access to your project site by publishing the site privately. A privately published site can only be accessed by people with read access to the repository the site is published from. You can use privately published sites to share your internal documentation or knowledge base with members of your enterprise.
 
-私下发布的站点与公开发布的站点位于不同的子域中。 这可确保您的 {% data variables.product.prodname_pages %} 站点从发布之日起是安全的：
+{% data reusables.pages.privately-publish-ghec-only %}
 
-- 我们使用 TLS 证书自动保护 `*.pages.github.io` 的每个子域，并强制执行 HSTS 以确保浏览器始终通过 HTTPS 提供页面。
-- 我们对私有页面使用独特的子域，以确保您组织中的其他仓库不能在与私有页面相同的来源发布内容。 这可保护您的私有页面免受“[cookie 抛掷](https://github.blog/2013-04-09-yummy-cookies-across-domains/)”。 这也是为什么我们不在 `github.com` 域上托管 {% data variables.product.prodname_pages %} 站点的原因。
+If your enterprise uses {% data variables.product.prodname_emus %}, access control is not available, and all {% data variables.product.prodname_pages %} sites are only accessible to other enterprise members. For more information about {% data variables.product.prodname_emus %}, see "[About {% data variables.product.prodname_pages %}](/pages/getting-started-with-github-pages/about-github-pages#limitations-for-enterprise-managed-users)."
 
-您可以在仓库设置的页面选项卡中看到站点独特的子域。 如果您使用配置为以仓库名称为路径来构建站点的静态站点生成器，则在将站点更改为私有站点时可能需要更新静态站点生成器的设置。 更多信息请参阅“[在 {% data variables.product.prodname_pages %} 站点中配置 Jekyll](/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-a-subdomain)”或静态站点生成器的文档。
+If your organization uses {% data variables.product.prodname_ghe_cloud %} without {% data variables.product.prodname_emus %}, you can choose to publish your project sites privately or publicly to anyone on the internet.
 
-要为您的私有 {% data variables.product.prodname_pages %} 站点使用更短、更令人难忘的域名，您可以配置自定义域名。 更多信息请参阅“[为 {% data variables.product.prodname_pages %} 站点配置自定义域](/pages/configuring-a-custom-domain-for-your-github-pages-site)”。
+Access control is available for project sites that are published from a private or internal repository that are owned by the organization. You cannot manage access control for an organization site. For more information about the types of {% data variables.product.prodname_pages %} sites, see "[About {% data variables.product.prodname_pages %}](/pages/getting-started-with-github-pages/about-github-pages#types-of-github-pages-sites)."
 
-### 更改 {% data variables.product.prodname_pages %} 站点的可见性
+## About subdomains for privately published sites
+
+Privately published sites are available at a different subdomain than publicly published sites. This ensures that your {% data variables.product.prodname_pages %} site is secure from the moment it's published:
+
+- We automatically secure every subdomain of `*.pages.github.io` with a TLS certificate, and enforce HSTS to ensure that browsers always serve the page over HTTPS.
+- We use a unique subdomain for the privately published site to ensure that other repositories in your organization cannot publish content on the same origin as the site. This protects your site from "[cookie tossing](https://github.blog/2013-04-09-yummy-cookies-across-domains/)". This is also why we don't host {% data variables.product.prodname_pages %} sites on the `github.com` domain.
+
+You can see your site's unique subdomain in the "Pages" tab of your repository settings. If you're using a static site generator configured to build the site with the repository name as a path, you may need to update the settings for the static site generator when changing the site to private. For more information, see "[Configuring Jekyll in your {% data variables.product.prodname_pages %} site](/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-a-subdomain)" or the documentation for your static site generator.
+
+To use a shorter and more memorable domain for your privately published site, you can configure a custom domain. For more information, see "[Configuring a custom domain for your {% data variables.product.prodname_pages %} site](/pages/configuring-a-custom-domain-for-your-github-pages-site)."
+
+## Changing the visibility of your {% data variables.product.prodname_pages %} site
 
 {% data reusables.pages.navigate-site-repo %}
 {% data reusables.repositories.sidebar-settings %}
 {% data reusables.pages.sidebar-pages %}
-3. 在 "{% data variables.product.prodname_pages %}" 下，选择 **{% data variables.product.prodname_pages %} visibility（可见性）**下拉菜单，然后单击可见性。 ![选择站点可见性的下拉菜单](/assets/images/help/pages/public-or-private-visibility.png)
-4. 要查看您已发布的站点，请在“{% data variables.product.prodname_pages %}”下点击您的站点 URL。 ![私下发布站点的 URL](/assets/images/help/pages/click-private-pages-url-to-preview.png)
+3. Under "{% data variables.product.prodname_pages %}", select the **{% data variables.product.prodname_pages %} visibility** drop-down menu, then click a visibility.
+   ![Drop-down to choose a visibility for your site](/assets/images/help/pages/public-or-private-visibility.png)
+4. To see your published site, under "{% data variables.product.prodname_pages %}", click **{% octicon "link-external" aria-label="The external link icon" %} Visit site**.
+   ![Screenshot of the "Visit site" button next to the URL of a privately published site](/assets/images/help/pages/click-private-pages-url-to-preview.png)
 
   {% note %}
 

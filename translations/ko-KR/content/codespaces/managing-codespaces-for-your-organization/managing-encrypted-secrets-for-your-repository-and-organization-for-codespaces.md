@@ -1,71 +1,77 @@
 ---
-title: Managing encrypted secrets for your repository and organization for Codespaces
-shortTitle: Managing secrets for your repository and organization
-intro: 'Encrypted secrets allow you to store sensitive information in your organization, repository, or {% data variables.product.prodname_codespaces %}.'
-permissions: 'To manage secrets for {% data variables.product.prodname_codespaces %} for an organization, you must be an organization owner.'
+title: Codespaces의 리포지토리 및 조직에 대한 암호화된 비밀 관리
+shortTitle: Encrypted secrets
+intro: 암호화된 비밀을 사용하면 조직, 리포지토리 또는 {% data variables.product.prodname_codespaces %}에 중요한 정보를 저장할 수 있습니다.
+product: '{% data reusables.gated-features.codespaces %}'
+permissions: To manage secrets for {% data variables.product.prodname_codespaces %} for an organization, you must be an organization owner.
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
-  - Codespaces
+- Codespaces
+- Secret store
+- Security
+ms.openlocfilehash: 062b73c8559b700bdbd37a6b31da44403c2092f5
+ms.sourcegitcommit: 22d665055b1bee7a5df630385e734e3a149fc720
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145119895"
 ---
+## <a name="about-secrets"></a>비밀 정보
 
-{% data reusables.codespaces.release-stage %}
+비밀은 조직 또는 리포지토리에서 만드는 암호화된 환경 변수입니다. 만든 비밀은 {% data variables.product.prodname_codespaces %}에서 사용할 수 있습니다. GitHub는 [libsodium 봉인 상자](https://libsodium.gitbook.io/doc/public-key_cryptography/sealed_boxes)를 사용하여 비밀을 GitHub에 도달하기 전에 암호화하고 codespace에서 사용할 때만 암호 해독합니다.
 
-### About secrets
-
-Secrets are encrypted environment variables that you create in an organization or  repository. The secrets that you create are available to use in {% data variables.product.prodname_codespaces %}. GitHub uses a [libsodium sealed box](https://libsodium.gitbook.io/doc/public-key_cryptography/sealed_boxes) to encrypt secrets before they reach GitHub and only decrypts them when you use them in a codespace.
-
-Organization-level secrets let you share secrets between multiple repositories, which reduces the need to create duplicate secrets. You can use access policies to control which repositories can use organization secrets.
+조직 수준 비밀을 사용하면 여러 리포지토리 간에 비밀을 공유할 수 있으므로 중복 비밀을 만들 필요가 줄어듭니다. 액세스 정책을 사용하여 조직 비밀을 사용할 수 있는 리포지토리를 제어할 수 있습니다. 
 
 {% data reusables.codespaces.secrets-on-start %}
 
-#### Naming secrets
+### <a name="naming-secrets"></a>비밀 이름 지정
 
-{% data reusables.codespaces.secrets-naming %} For example, a secret created at the repository level must have a unique name in that repository, and a secret created at the organization level must have a unique name at that level.
+{% data reusables.codespaces.secrets-naming %} 예를 들어 리포지토리 수준에서 만든 비밀은 해당 리포지토리에 고유한 이름이 있어야 하고 조직 수준에서 만든 비밀에는 해당 수준에서 고유한 이름이 있어야 합니다.
 
   {% data reusables.codespaces.secret-precedence %}
 
-#### Limits for secrets
+### <a name="limits-for-secrets"></a>비밀에 대한 제한
 
-You can store up to 100 secrets per organization and 100 secrets per repository.
+조직당 최대 100개의 비밀과 리포지토리당 100개의 비밀을 저장할 수 있습니다.
 
-Secrets are limited to 64 KB in size.
+비밀의 크기는 64KB로 제한됩니다.
 
-### Adding secrets for a repository
+## <a name="adding-secrets-for-a-repository"></a>리포지토리에 대한 비밀 추가
 
-To create secrets for an organization repository, you must have administrator access.
+조직 리포지토리에 대한 비밀을 만들려면 관리자 액세스 권한이 있어야 합니다.
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.github-actions.sidebar-secret %}
-1. Scroll down the page and under **Secrets**, select **Codespaces**. ![Codespaces option in side bar](/assets/images/help/codespaces/codespaces-option-secrets.png)
-1. At the top of the page, click **New repository secret**.
-1. Type a name for your secret in the **Name** input box.
-1. Enter the value for your secret.
-1. Click **Add secret**.
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-settings %}
+1. 사이드바의 "보안" 섹션에서 **{% octicon "key-asterisk" aria-label="The key-asterisk icon" %} 비밀** 을 선택하고 **{% data variables.product.prodname_codespaces %}** 룰 클릭합니다.
+2. 페이지 맨 위에서 **새 리포지토리 비밀** 을 클릭합니다.
+3. **이름** 입력 상자에 비밀의 이름을 입력합니다.
+4. 비밀 값을 입력합니다.
+5. **비밀 추가** 를 클릭합니다.
 
-### Adding secrets for an organization
+## <a name="adding-secrets-for-an-organization"></a>조직에 대한 비밀 추가
 
-When creating a secret in an organization, you can use a policy to limit which repositories can access that secret. For example, you can grant access to all repositories, or limit access to only private repositories or a specified list of repositories.
+조직에서 비밀을 만들 때 정책을 사용하여 해당 비밀에 액세스할 수 있는 리포지토리를 제한할 수 있습니다. 예를 들어 모든 리포지토리에 대한 액세스 권한을 부여하거나 프라이빗 리포지토리 또는 지정된 리포지토리 목록에 대해서만 액세스를 제한할 수 있습니다.
 
-{% data reusables.github-actions.permissions-statement-secrets-organization %}
+{% data reusables.actions.permissions-statement-secrets-organization %}
 
-{% data reusables.organizations.navigate-to-org %}
-{% data reusables.organizations.org_settings %}
-{% data reusables.github-actions.sidebar-secret %}
-1. Scroll down the page and under **Secrets**, select **Codespaces**. ![Codespaces option in side bar](/assets/images/help/codespaces/codespaces-option-secrets-org.png)
-1. At the top of the page, click **New organization secret**.
-1. Type a name for your secret in the **Name** input box.
-1. Enter the **Value** for your secret.
-1. From the **Repository access** dropdown list, choose an access policy. ![Repository Access list with private repositories selected](/assets/images/help/codespaces/secret-repository-access.png)
-1. Click **Add secret**.
+{% data reusables.organizations.navigate-to-org %} {% data reusables.organizations.org_settings %}
+1. 사이드바의 "보안" 섹션에서 **{% octicon "key-asterisk" aria-label="The key-asterisk icon" %} 비밀** 을 선택하고 **{% data variables.product.prodname_codespaces %}** 룰 클릭합니다.
+2. 페이지 맨 위에서 **새 조직 비밀** 을 클릭합니다.
+3. **이름** 입력 상자에 비밀의 이름을 입력합니다.
+4. **값** 필드에 비밀 값을 입력합니다.
+5. **리포지토리 액세스** 드롭다운 목록에서 액세스 정책을 선택합니다.
+    ![프라이빗 리포지토리가 선택된 리포지토리 액세스 목록](/assets/images/help/codespaces/secret-repository-access.png)
+6. **비밀 추가** 를 클릭합니다.
 
-### Reviewing access to organization-level secrets
+## <a name="reviewing-access-to-organization-level-secrets"></a>조직 수준 비밀에 대한 액세스 검토
 
-You can check which access policies are applied to a secret in your organization.
+조직의 비밀에 적용되는 액세스 정책을 확인할 수 있습니다.
 
-{% data reusables.organizations.navigate-to-org %}
-{% data reusables.organizations.org_settings %}
-{% data reusables.github-actions.sidebar-secret %}
-1. The list of secrets includes any configured permissions and policies. 예시: ![Secrets list](/assets/images/help/settings/actions-org-secrets-list.png)
-1. For more details on the configured permissions for each secret, click **Update**.
+{% data reusables.organizations.navigate-to-org %} {% data reusables.organizations.org_settings %} {% data reusables.actions.sidebar-secret %}
+1. 비밀 목록에는 구성된 사용 권한 및 정책이 포함됩니다. 예: ![비밀 목록](/assets/images/help/settings/actions-org-secrets-list.png)
+1. 각 비밀에 대해 구성된 권한에 대한 자세한 내용을 보려면 **업데이트** 를 클릭하세요.
+
+## <a name="further-reading"></a>추가 참고 자료
+
+- “[codespace에 대한 암호화된 비밀 관리](/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces)”

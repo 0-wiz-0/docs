@@ -1,179 +1,201 @@
 ---
 title: Upgrade von GitHub Enterprise Server
-intro: 'Führen Sie ein {% data variables.product.prodname_ghe_server %}-Upgrade durch, um die neuesten Features und Sicherheitsupdates zu erhalten.'
+intro: 'Führe ein {% data variables.product.prodname_ghe_server %}-Upgrade durch, um die neuesten Features und Sicherheitsupdates zu erhalten.'
 redirect_from:
   - /enterprise/admin/installation/upgrading-github-enterprise-server
-  - /enterprise/admin/articles/upgrading-to-the-latest-release/
-  - /enterprise/admin/articles/migrations-and-upgrades/
-  - /enterprise/admin/guides/installation/upgrading-the-github-enterprise-virtual-machine/
-  - /enterprise/admin/guides/installation/upgrade-packages-for-older-releases/
-  - /enterprise/admin/articles/upgrading-older-installations/
-  - /enterprise/admin/hidden/upgrading-older-installations/
-  - /enterprise/admin/hidden/upgrading-github-enterprise-using-a-hotpatch-early-access-program/
-  - /enterprise/admin/hidden/upgrading-github-enterprise-using-a-hotpatch/
-  - /enterprise/admin/guides/installation/upgrading-github-enterprise/
+  - /enterprise/admin/articles/upgrading-to-the-latest-release
+  - /enterprise/admin/articles/migrations-and-upgrades
+  - /enterprise/admin/guides/installation/upgrading-the-github-enterprise-virtual-machine
+  - /enterprise/admin/guides/installation/upgrade-packages-for-older-releases
+  - /enterprise/admin/articles/upgrading-older-installations
+  - /enterprise/admin/hidden/upgrading-older-installations
+  - /enterprise/admin/hidden/upgrading-github-enterprise-using-a-hotpatch-early-access-program
+  - /enterprise/admin/hidden/upgrading-github-enterprise-using-a-hotpatch
+  - /enterprise/admin/guides/installation/upgrading-github-enterprise
   - /enterprise/admin/enterprise-management/upgrading-github-enterprise-server
   - /admin/enterprise-management/upgrading-github-enterprise-server
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Enterprise
   - Upgrades
+shortTitle: Upgrading GHES
+ms.openlocfilehash: cbbeff601bfbbdf828ed4c5fc019c5e3bf849614
+ms.sourcegitcommit: 30b0931723b704e219c736e0de7afe0fa799da29
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 11/30/2022
+ms.locfileid: '148186427'
 ---
-### Upgrade vorbereiten
+## Upgrade vorbereiten
 
-1. Bestimmen Sie eine Upgrade-Strategie, und wählen Sie eine Version aus, auf die das Upgrade durchgeführt werden soll. Weitere Informationen finden Sie unter „[Upgrade-Anforderungen](/enterprise/{{ currentVersion }}/admin/guides/installation/upgrade-requirements/)“.
-3. Erstellen Sie mit den {% data variables.product.prodname_enterprise_backup_utilities %} ein neues Backup Ihrer primären Instanz. Weitere Informationen finden Sie in der „[{% data variables.product.prodname_enterprise_backup_utilities %}-Datei 'README.md'](https://github.com/github/backup-utils#readme)“.
-4. Wenn Sie mithilfe eines Upgrade-Pakets ein Upgrade durchführen, sollten Sie ein Wartungsfenster für {% data variables.product.prodname_ghe_server %}-Endbenutzer planen. Bei Verwendung eines Hotpatches muss der Wartungsmodus nicht verwendet werden.
+1. Bestimme eine Upgrade-Strategie, und wähle eine Version aus, auf die das Upgrade durchgeführt werden soll. Weitere Informationen findest du unter [Upgrade-Anforderungen](/enterprise/{{ currentVersion }}/admin/guides/installation/upgrade-requirements/) und [{% data variables.enterprise.upgrade_assistant %}](https://support.github.com/enterprise/server-upgrade), um den Upgrade-Pfad für deine aktuelle Version zu finden.
+1. Erstelle mit den {% data variables.product.prodname_enterprise_backup_utilities %} ein neues Backup deiner primären Instanz. Weitere Informationen findest du in der [README.md-Datei](https://github.com/github/backup-utils#readme) in der {% data variables.product.prodname_enterprise_backup_utilities %}-Projektdokumentation.
 
   {% note %}
 
-  **Hinweis:** Das Wartungsfenster hängt vom Typ des Upgrades ab, das Sie ausführen. Für Upgrades mittels Hotpatch ist in der Regel kein Wartungsfenster erforderlich. Manchmal ist ein Neustart erforderlich, den Sie später durchführen können. Entsprechend dem Versionierungsschema von MAJOR.FEATURE.PATCH führen Patch-Veröffentlichungen mit einem Upgrade-Paket in der Regel zu weniger als fünf Minuten Ausfallzeit. Feature-Veröffentlichungen mit enthaltenen Datenmigrationen dauern anhand der Speicherleistung und der zu migrierenden Daten entsprechend länger. Weitere Informationen finden Sie unter „[Wartungsmodus aktivieren und planen](/enterprise/{{ currentVersion }}/admin/guides/installation/enabling-and-scheduling-maintenance-mode)“.
+  **Hinweis:** Deine {% data variables.product.prodname_enterprise_backup_utilities %}-Version darf nicht älter als die vorletzte Version von {% data variables.location.product_location %} sein. Weitere Informationen findest du unter [Aktualisieren von GitHub Enterprise Server Backup Utilities](/admin/configuration/configuring-your-enterprise/configuring-backups-on-your-appliance#upgrading-github-enterprise-server-backup-utilities).
 
   {% endnote %}
 
-{% data reusables.enterprise_installation.upgrade-hardware-requirements %}
+1. Wenn {% data variables.location.product_location %} kurzlebige selbstgehostete Runner für {% data variables.product.prodname_actions %} verwendet und du automatische Updates deaktiviert hast, führe für deine Runner ein Upgrade auf die Version der Runneranwendung durch, die auf deiner aktualisierten Instanz ausgeführt werden soll.
+1. Wenn du mithilfe eines Upgrade-Pakets ein Upgrade durchführst, solltest du ein Wartungsfenster für {% data variables.product.prodname_ghe_server %}-Endbenutzer*innen einplanen. Bei Verwendung eines Hotpatches muss der Wartungsmodus nicht verwendet werden.
 
-### Snapshot erstellen
+  {% note %}
 
-Ein Snapshot ist ein Checkpoint einer virtuellen Maschine (VM) zu einem bestimmten Zeitpunkt. Es wird dringend empfohlen, ein Snapshot zu erstellen, bevor Sie Ihre virtuelle Maschine upgraden, damit Sie bei einem Fehlschlagen eines Upgrades Ihre VM auf den Snapshot zurücksetzen können. Wenn Sie ein Upgrade auf eine neue Feature-Veröffentlichung durchführen, müssen Sie einen VM-Snapshot erstellen. Wenn Sie ein Upgrade auf eine Patch-Veröffentlichung durchführen, können Sie die vorhandene Daten-Disk anhängen.
+  **Hinweis:** Das Wartungsfenster hängt vom Typ des Upgrades ab, das du ausführst. Für Upgrades mittels Hotpatch ist in der Regel kein Wartungsfenster erforderlich. Manchmal ist ein Neustart erforderlich, den du später durchführen kannst. Entsprechend dem Versionierungsschema von MAJOR.FEATURE.PATCH führen Patch-Veröffentlichungen mit einem Upgrade-Paket in der Regel zu weniger als fünf Minuten Ausfallzeit. Feature-Veröffentlichungen mit enthaltenen Datenmigrationen dauern anhand der Speicherleistung und der zu migrierenden Daten entsprechend länger. Weitere Informationen findest du unter „[Aktivieren und Planen des Wartungsmodus](/enterprise/admin/guides/installation/enabling-and-scheduling-maintenance-mode)“.
+
+  {% endnote %}
+
+## Snapshot erstellen
+
+Ein Snapshot ist ein Checkpoint einer virtuellen Maschine (VM) zu einem bestimmten Zeitpunkt. Es wird dringend empfohlen, eine Momentaufnahme zu erstellen, bevor du ein Upgrade für deinen virtuellen Computer durchführst, damit du bei einem Fehlschlagen des Upgrades deine VM auf die Momentaufnahme zurücksetzen kannst. Es wird nur empfohlen, eine VM-Momentaufnahme zu erstellen, wenn die Appliance heruntergefahren oder im Wartungsmodus ausgeführt wird und alle Hintergrundaufträge abgeschlossen sind.
+
+Wenn du ein Upgrade auf ein neues Featurerelease durchführst, musst du eine VM-Momentaufnahme erstellen. Wenn du ein Upgrade auf ein Patchrelease durchführst, kannst du den vorhandenen Datenträger anhängen. 
 
 Es gibt zwei Snapshot-Typen:
 
-- **VM-Snapshots** speichern den gesamten VM-Zustand, einschließlich der Benutzer- und Konfigurationsdaten. Für diese zeitraubende Snapshot-Methode ist viel Speicherplatz erforderlich.
-- **Daten-Disk-Snapshots** speichern nur die Benutzerdaten.
+- **VM-Momentaufnahmen** speichern den gesamten VM-Zustand, einschließlich der Benutzer- und Konfigurationsdaten. Für diese zeitraubende Snapshot-Methode ist viel Speicherplatz erforderlich.
+- **Datendatenträger-Momentaufnahmen** speichern nur deine Benutzerdaten.
 
   {% note %}
 
   **Hinweise:**
-  - Einige Plattformen ermöglichen es Ihnen nicht, einen Snapshot nur von Ihrer Daten-Disk zu erstellen. Bei diesen Plattformen müssen Sie einen Snapshot der gesamten VM erstellen.
-  - Wenn von Ihrem Hypervisor keine vollständigen VM-Snapshots unterstützt werden, können Sie in schneller Abfolge einen Snapshot der Root- und Daten-Disk erstellen.
+  - Bei einigen Plattformen kannst du nicht nur eine Momentaufnahme deines Datenträgers erstellen. Bei diesen Plattformen musst du eine Momentaufnahme der gesamten VM erstellen.
+  - Wenn von deinem Hypervisor keine vollständigen VM-Momentaufnahmen unterstützt werden, kannst du in schneller Abfolge Momentaufnahmen von Root-Disk und Datenträger erstellen.
 
   {% endnote %}
 
-| Plattform             | Snapshot-Methode | URL zur Snapshot-Dokumentation                                                                                                                                                                         |
-| --------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Amazon AWS            | Disk             | <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-snapshot.html>                                                                                                                       |
-| Azure                 | VM               | <https://docs.microsoft.com/azure/backup/backup-azure-vms-first-look-arm>                                                                                                                              |
-| Hyper-V               | VM               | <https://docs.microsoft.com/windows-server/virtualization/hyper-v/manage/enable-or-disable-checkpoints-in-hyper-v>                                                                                     |
-| Google Compute Engine | Disk             | <https://cloud.google.com/compute/docs/disks/create-snapshots>                                                                                                                                         |
-| VMware                | VM               | [https://pubs.vmware.com/vsphere-50/topic/com.vmware.wssdk.pg.doc_50/PG_Ch11_VM_Manage.13.3.html](https://pubs.vmware.com/vsphere-50/topic/com.vmware.wssdk.pg.doc_50/PG_Ch11_VM_Manage.13.3.html) |
-| XenServer             | VM               | <https://docs.citrix.com/en-us/xencenter/current-release/vms-snapshots.html>                                                                                                                           |
+| Plattform | Momentaufnahmenmethode | URL zur Snapshot-Dokumentation |
+|---|---|---|
+| Amazon AWS | Datenträger | <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-snapshot.html>
+| Azure | VM | <https://docs.microsoft.com/azure/backup/backup-azure-vms-first-look-arm>
+| Hyper-V | VM | <https://docs.microsoft.com/windows-server/virtualization/hyper-v/manage/enable-or-disable-checkpoints-in-hyper-v>
+| Google Compute Engine | Datenträger | <https://cloud.google.com/compute/docs/disks/create-snapshots>
+| VMware | VM | <https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.hostclient.doc/GUID-64B866EF-7636-401C-A8FF-2B4584D9CA72.html>
 
-### Upgrade mit einem Hotpatch
+## Upgrade mit einem Hotpatch
 
-{% data reusables.enterprise_installation.hotpatching-explanation %} Mit der {% data variables.enterprise.management_console %} können Sie einen Hotpatch sofort installieren oder dessen Installation für einen späteren Zeitpunkt planen. An der Verwaltungsshell können Sie mit dem Dienstprogramm `ghe-upgrade` einen Hotpatch installieren. Weitere Informationen finden Sie unter „[Upgrade-Anforderungen](/enterprise/{{ currentVersion }}/admin/guides/installation/upgrade-requirements/)“.
+{% data reusables.enterprise_installation.hotpatching-explanation %} 
+
+Mit der {% data variables.enterprise.management_console %} kannst du einen Hotpatch sofort installieren oder für die spätere Installation planen. Über die Verwaltungsshell kannst du mit dem `ghe-upgrade`-Hilfsprogramm einen Hotpatch installieren. Weitere Informationen findest du unter [Upgradeanforderungen](/enterprise/admin/guides/installation/upgrade-requirements/).
 
 {% note %}
 
-**{% if currentVersion ver_gt "enterprise-server@2.22" %}Notes{% else %}Note{% endif %}**:
+**{% ifversion ghes %}Notes{% else %}Note{% endif %}** :
 
-{% if currentVersion ver_gt "enterprise-server@2.22" %}
-- If {% data variables.product.product_location %} is running a release candidate build, you can't upgrade with a hotpatch.
+{% ifversion ghes %}
+- Wenn {% data variables.location.product_location %} einen Release Candidate-Build ausführt, kannst du kein Upgrade mit einem Hotpatch durchführen.
 
-- {% endif %}Installing a hotpatch using the {% data variables.enterprise.management_console %} is not available in clustered environments. Informationen zum Installieren eines Hotpatches in einer Clusterumgebung finden Sie unter „[Cluster-Upgrade](/enterprise/{{ currentVersion }}/admin/clustering/upgrading-a-cluster#upgrading-with-a-hotpatch)“.
+- {% endif %}In Cluster-Umgebungen ist die Installation eines Hotpatches mittels {% data variables.enterprise.management_console %} nicht verfügbar. Informationen zum Installieren eines Hotpatches in einer Clusterumgebung findest du unter [Durchführen eines Upgrades für einen Cluster](/enterprise/admin/clustering/upgrading-a-cluster#upgrading-with-a-hotpatch).
 
 {% endnote %}
 
-#### Upgrade einer einzelnen Appliance mit einem Hotpatch durchführen
+### Upgrade einer einzelnen Appliance mit einem Hotpatch durchführen
 
-##### Hotpatch mit der {% data variables.enterprise.management_console %} installieren
+#### Hotpatch mit der {% data variables.enterprise.management_console %} installieren
 
-1. Aktivieren Sie automatisch Updates. Weitere Informationen finden Sie unter „[Automatische Updates aktivieren](/enterprise/{{ currentVersion }}/admin/guides/installation/enabling-automatic-update-checks/)“.
-{% data reusables.enterprise_site_admin_settings.access-settings %}
-{% data reusables.enterprise_site_admin_settings.management-console %}
-{% data reusables.enterprise_management_console.updates-tab %}
-4. Verwenden Sie nach dem Download eines neuen Hotpatches das Dropdownmenü für das Installationspaket:
-    - Wählen Sie zur sofortigen Installation **Now** (Jetzt) aus:
-    - Wählen Sie für die spätere Installation ein späteres Datum aus.![Dropdownmenü mit Hotpatch-Installationsdatum](/assets/images/enterprise/management-console/hotpatch-installation-date-dropdown.png)
-5. Click **Install**. ![Schaltfläche zum Installieren des Hotpatches](/assets/images/enterprise/management-console/hotpatch-installation-install-button.png)
+Du kannst die {% data variables.enterprise.management_console %} verwenden, um ein Upgrade mit einem Hotpatch durchzuführen, indem du automatische Updates aktivierst. Anschließend erhältst du die neueste verfügbare Version von {% data variables.product.prodname_ghe_server %}, auf die du ein Upgrade ausführen kannst.
 
-##### Hotpatch mit der Verwaltungsshell installieren
+Wenn das Upgrade-Ziel ein Featurerelease anstatt eines Patchrelease ist, kannst du die {% data variables.enterprise.management_console %} nicht verwenden, um einen Hotpatch zu installieren. Du musst den Hotpatch stattdessen mithilfe der Verwaltungsshell installieren. Weitere Informationen findest du unter [Installieren eines Hotpatches mithilfe der Verwaltungsshell](#installing-a-hotpatch-using-the-administrative-shell).
+
+1. Aktivieren automatischer Updates. Weitere Informationen findest du unter [Aktivieren automatischer Updates](/enterprise/admin/guides/installation/enabling-automatic-update-checks/).
+{% data reusables.enterprise_site_admin_settings.access-settings %} {% data reusables.enterprise_site_admin_settings.management-console %} {% data reusables.enterprise_management_console.updates-tab %}
+4. Verwende nach dem Herunterladen eines neuen Hotpatches die Dropdownliste „Paket installieren“:
+    - Wähle **Jetzt** zum sofortigen Installieren aus:
+    - Wähle für die spätere Installation ein späteres Datum aus.
+  ![Dropdownmenü mit Hotpatch-Installationsdatum](/assets/images/enterprise/management-console/hotpatch-installation-date-dropdown.png)
+5. Klicken Sie auf **Installieren**.
+  ![Schaltfläche zum Installieren eines Hotpatches](/assets/images/enterprise/management-console/hotpatch-installation-install-button.png)
+
+#### Hotpatch mit der Verwaltungsshell installieren
 
 {% data reusables.enterprise_installation.download-note %}
 
 {% data reusables.enterprise_installation.ssh-into-instance %}
-2. {% data reusables.enterprise_installation.enterprise-download-upgrade-pkg %} Kopieren Sie die URL für das Upgrade-Hotpackage (Datei *.hpkg*).
+2. {% data reusables.enterprise_installation.enterprise-download-upgrade-pkg %} Kopiere die URL für das Upgrade-Hotpackage (*.hpkg*-Datei).
 {% data reusables.enterprise_installation.download-package %}
-4. Führen Sie den Befehl `ghe-upgrade` aus, und verwenden Sie dabei den Paketdateinamen:
+4. Führe den `ghe-upgrade`-Befehl mithilfe des Paketdateinamens aus:
   ```shell
-  admin@<em>HOSTNAME</em>:~$ ghe-upgrade <em>GITHUB-UPGRADE.hpkg</em>
+  admin@HOSTNAME:~$ ghe-upgrade GITHUB-UPGRADE.hpkg
   *** verifying upgrade package signature...
   ```
-5. Wenn für den Kernel, MySQL, ElasticSearch oder andere Programme ein Neustart erforderlich ist, werden Sie vom Hotpatch-Upgrade-Skript dahingehend benachrichtigt.
+5. Wenn für den Kernel, MySQL, ElasticSearch oder andere Programme ein Neustart erforderlich ist, wirst du vom Hotpatch-Upgradeskript dahingehend benachrichtigt.
 
-#### Upgrade einer über Replikatinstanzen verfügenden Appliance mit einem Hotpatch durchführen
-
-{% note %}
-
-**Hinweis:** Zur Installation eines Hotpatches müssen Sie nicht in den Wartungsmodus wechseln oder die Replikation beenden.
-
-{% endnote %}
-
-Für die Hochverfügbarkeit und Geo-Replikation konfigurierte Appliances verwenden zusätzlich zu den primären Instanzen Replikatinstanzen. Zum Upgraden dieser Appliances müssen Sie die primäre Instanz und alle Replikatinstanzen nacheinander upgraden.
-
-##### Upgrade der primären Instanz durchführen
-
-1. Führen Sie ein Upgrade der primären Instanz durch. Befolgen Sie dazu die unter „[Hotpatch mit der Verwaltungsshell installieren](#installing-a-hotpatch-using-the-administrative-shell)“ beschriebenen Anweisungen.
-
-##### Upgrade einer Replikatinstanz durchführen
+### Upgrade einer über Replikatinstanzen verfügenden Appliance mit einem Hotpatch durchführen
 
 {% note %}
 
-**Hinweis:** Wenn Sie als Teil der Geo-Replikation mehrere Replikatinstanzen ausführen, sollten Sie diese Prozedur für jede Replikatinstanz nacheinander wiederholen.
+**Hinweis**: Zum Installieren eines Hotpatches musst du nicht in den Wartungsmodus wechseln oder die Replikation beenden.
 
 {% endnote %}
 
-1. Upgrade the replica instance by following the instructions in "[Installing a hotpatch using the administrative shell](#installing-a-hotpatch-using-the-administrative-shell)." If you are using multiple replicas for Geo-replication, you must repeat this procedure to upgrade each replica one at a time.
-{% data reusables.enterprise_installation.replica-ssh %}
-{% data reusables.enterprise_installation.replica-verify %}
+Für die Hochverfügbarkeit und Geo-Replikation konfigurierte Appliances verwenden zusätzlich zu den primären Instanzen Replikatinstanzen. Zum Aktualisieren dieser Appliances musst du Upgrades für die primäre Instanz und alle Replikatinstanzen nacheinander durchführen.
 
-### Upgrade mit einem Upgrade-Paket
+#### Upgrade der primären Instanz durchführen
 
-Obwohl Sie einen Hotpatch verwenden können, um ein Upgrade auf die neueste Patch-Veröffentlichung in einer Featureserie durchzuführen, müssen Sie ein Upgrade-Paket verwenden, um ein Upgrade auf eine neuere Feature-Veröffentlichung durchzuführen. Wenn Sie beispielsweise ein Upgrade von `2.11.10` auf `2.12.4` durchführen möchten, müssen Sie ein Upgrade-Paket verwenden, da es sich um unterschiedliche Featureserien handelt. Weitere Informationen finden Sie unter „[Upgrade-Anforderungen](/enterprise/{{ currentVersion }}/admin/guides/installation/upgrade-requirements/)“.
+1. Aktualisiere die primäre Instanz, indem du die Anweisungen unter [Installieren eines Hotpatches mithilfe der Verwaltungsshell](#installing-a-hotpatch-using-the-administrative-shell) befolgst.
 
-#### Upgrade einer einzelnen Appliance mit einem Upgrade-Paket durchführen
+#### Upgrade einer Replikatinstanz durchführen
+
+{% note %}
+
+**Hinweis:** Wenn du als Teil der Georeplikation mehrere Replikatinstanzen ausführst, solltest du diese Prozedur für jede Replikatinstanz einzeln nacheinander wiederholen.
+
+{% endnote %}
+
+1. Aktualisiere die Replikatinstanz, indem du die Anweisungen unter [Installieren eines Hotpatches mithilfe der Verwaltungsshell](#installing-a-hotpatch-using-the-administrative-shell) befolgst. Wenn du mehrere Replikate für die Georeplikation verwendest, musst du diese Prozedur wiederholen, um jedes Replikat nacheinander zu aktualisieren.
+{% data reusables.enterprise_installation.replica-ssh %} {% data reusables.enterprise_installation.replica-verify %}
+
+## Upgrade mit einem Upgrade-Paket
+
+Obwohl du einen Hotpatch verwenden kannst, um ein Upgrade auf den neuesten Patchrelease in einer Featureserie durchzuführen, musst du ein Upgradepaket verwenden, um ein Upgrade auf ein neueres Featurerelease durchzuführen. Wenn du beispielsweise ein Upgrade von `2.11.10` auf `2.12.4` durchführen möchtest, musst du ein Upgradepaket verwenden, da es sich um unterschiedliche Featureserien handelt. Weitere Informationen findest du unter [Upgradeanforderungen](/enterprise/admin/guides/installation/upgrade-requirements/).
+
+### Upgrade einer einzelnen Appliance mit einem Upgrade-Paket durchführen
 
 {% data reusables.enterprise_installation.download-note %}
 
 {% data reusables.enterprise_installation.ssh-into-instance %}
-2. {% data reusables.enterprise_installation.enterprise-download-upgrade-pkg %} Wählen Sie die entsprechende Plattform aus, und kopieren Sie die URL für das Upgrade-Paket (Datei *.pkg*).
+2. {% data reusables.enterprise_installation.enterprise-download-upgrade-pkg %} Wähle die geeignete Plattform aus, und kopiere die URL für das Upgradepaket (*.pkg*-Datei).
 {% data reusables.enterprise_installation.download-package %}
-4. Aktivieren Sie den Wartungsmodus, und warten Sie, bis alle aktiven Prozesse auf der {% data variables.product.prodname_ghe_server %}-Instanz abgeschlossen sind. Weitere Informationen finden Sie unter „[Wartungsmodus aktivieren und planen](/enterprise/{{ currentVersion }}/admin/guides/installation/enabling-and-scheduling-maintenance-mode)“.
+4. Aktiviere den Wartungsmodus, und warte, bis alle aktiven Prozesse auf der {% data variables.product.prodname_ghe_server %}-Instanz abgeschlossen sind. Weitere Informationen findest du unter „[Aktivieren und Planen des Wartungsmodus](/enterprise/admin/guides/installation/enabling-and-scheduling-maintenance-mode)“.
 
   {% note %}
 
-  **Hinweis**: Wenn Sie in einer Hochverfügbarkeitskonfiguration ein Upgrade der primären Appliance durchführen, sollte sich die Appliance bereits im Wartungsmodus befinden, sofern Sie die unter „[Upgrade der primären Instanz durchführen](#upgrading-the-primary-instance)“ beschriebenen Anweisungen befolgen.
+  **Hinweis**: Wenn du in einer Hochverfügbarkeitskonfiguration ein Upgrade der primären Appliance durchführst, sollte sich die Appliance bereits im Wartungsmodus befinden, sofern du die unter [Durchführen eines Upgrades der primären Instanz](#upgrading-the-primary-instance) beschriebenen Anweisungen befolgst.
 
   {% endnote %}
 
-5. Führen Sie den Befehl `ghe-upgrade` aus, und verwenden Sie dabei den Paketdateinamen:
+5. Führe den `ghe-upgrade`-Befehl mithilfe des Paketdateinamens aus:
   ```shell
-  admin@<em>HOSTNAME</em>:~$ ghe-upgrade <em>GITHUB-UPGRADE.pkg</em>
+  admin@HOSTNAME:~$ ghe-upgrade GITHUB-UPGRADE.pkg
   *** verifying upgrade package signature...
   ```
-6. Bestätigen Sie, dass Sie das Upgrade fortsetzen möchten, und führen Sie nach der Überprüfung der Paketsignatur einen Neustart durch. Das neue Root-Dateisystem schreibt in die sekundäre Partition, und die Instanz startet automatisch im Wartungsmodus neu:
+6. Bestätige, dass du das Upgrade fortsetzen möchtest, und führe nach der Überprüfung der Paketsignatur einen Neustart durch. Das neue Root-Dateisystem schreibt in die sekundäre Partition, und die Instanz startet automatisch im Wartungsmodus neu:
   ```shell
   *** applying update...
-  This package will upgrade your installation to version <em>version-number</em>
-  Current root partition: /dev/xvda1 [<em>version-number</em>]
+  This package will upgrade your installation to version VERSION-NUMBER
+  Current root partition: /dev/xvda1 [VERSION-NUMBER]
   Target root partition:  /dev/xvda2
   Proceed with installation? [y/N]
   ```
-7. Deaktivieren Sie bei einzelnen Appliance-Upgrades den Wartungsmodus, damit Benutzer {% data variables.product.product_location %} verwenden können.
+{% ifversion ip-exception-list %}
+1. Optional kannst du zum Validieren des Upgrades eine IP-Ausnahmeliste konfigurieren, um den Zugriff auf eine bestimmte Liste von IP-Adressen zuzulassen. Weitere Informationen findest du unter [Überprüfen von Änderungen im Wartungsmodus mithilfe der IP-Ausnahmeliste](/admin/configuration/configuring-your-enterprise/enabling-and-scheduling-maintenance-mode#validating-changes-in-maintenance-mode-using-the-ip-exception-list).
+{% endif %}
+7. Deaktiviere bei einzelnen Appliance-Upgrades den Wartungsmodus, damit Benutzer {% data variables.location.product_location %} verwenden können.
 
   {% note %}
 
-  **Hinweis**: Wenn Sie in einer Hochverfügbarkeitskonfiguration ein Upgrade der Appliances durchführen, sollten Sie im Wartungsmodus bleiben, bis ein Upgrade sämtlicher Replikate durchgeführt wurde und die Replikation aktuell ist. Weitere Informationen finden Sie unter „[Upgrade einer Replikatinstanz durchführen](#upgrading-a-replica-instance)“.
+  **Hinweis**: Wenn du in einer Hochverfügbarkeitskonfiguration ein Upgrade der Appliances durchführst, solltest du im Wartungsmodus bleiben, bis ein Upgrade sämtlicher Replikate durchgeführt wurde und die Replikation aktuell ist. Weitere Informationen findest du unter [Durchführen eines Upgrades einer Replikatinstanz](#upgrading-a-replica-instance).
 
   {% endnote %}
 
-#### Upgrade einer über Replikatinstanzen verfügenden Appliance mit einem Upgrade-Paket durchführen
+### Upgrade einer über Replikatinstanzen verfügenden Appliance mit einem Upgrade-Paket durchführen
 
-Für die Hochverfügbarkeit und Geo-Replikation konfigurierte Appliances verwenden zusätzlich zu den primären Instanzen Replikatinstanzen. Zum Upgraden dieser Appliances müssen Sie die primäre Instanz und alle Replikatinstanzen nacheinander upgraden.
+Für die Hochverfügbarkeit und Geo-Replikation konfigurierte Appliances verwenden zusätzlich zu den primären Instanzen Replikatinstanzen. Zum Aktualisieren dieser Appliances musst du Upgrades für die primäre Instanz und alle Replikatinstanzen nacheinander durchführen.
 
-##### Upgrade der primären Instanz durchführen
+#### Upgrade der primären Instanz durchführen
 
 {% warning %}
 
@@ -181,57 +203,60 @@ Für die Hochverfügbarkeit und Geo-Replikation konfigurierte Appliances verwend
 
 {% endwarning %}
 
-1. Aktivieren Sie auf der primären Instanz den Wartungsmodus, und warten Sie auf den Abschluss sämtlicher aktiver Prozesse. Weitere Informationen finden Sie unter „[Wartungsmodus aktivieren](/enterprise/{{ currentVersion }}/admin/guides/installation/enabling-and-scheduling-maintenance-mode/)“.
+1. Aktiviere auf der primären Instanz den Wartungsmodus, und warte auf den Abschluss sämtlicher aktiver Prozesse. Weitere Informationen findest du unter [Aktivieren des Wartungsmodus](/enterprise/admin/guides/installation/enabling-and-scheduling-maintenance-mode/).
 {% data reusables.enterprise_installation.replica-ssh %}
-3. Führen Sie auf der Replikatinstanz oder auf allen Replikatinstanzen, falls Sie als Teil der Geo-Replikation mehrere Replikatinstanzen ausführen, den Befehl `ghe-repl-stop` zum Anhalten der Replikation aus.
-4. Führen Sie ein Upgrade der primären Instanz durch. Befolgen Sie dazu die unter „[Upgrade einer einzelnen Appliance mit einem Upgrade-Paket durchführen](#upgrading-a-single-appliance-with-an-upgrade-package)“ beschriebenen Anweisungen.
+3. Führe auf der Replikatinstanz oder auf allen Replikatinstanzen, falls du als Teil der Georeplikation mehrere Replikatinstanzen ausführst, `ghe-repl-stop` zum Anhalten der Replikation aus.
+4. Aktualisiere die primäre Instanz, indem du die Anweisungen unter [Durchführen eines Upgrades einer einzelnen Appliance mit einem Upgradepaket](#upgrading-a-single-appliance-with-an-upgrade-package) befolgst.
 
-##### Upgrade einer Replikatinstanz durchführen
+#### Upgrade einer Replikatinstanz durchführen
 
 {% note %}
 
-**Hinweis:** Wenn Sie als Teil der Geo-Replikation mehrere Replikatinstanzen ausführen, sollten Sie diese Prozedur für jede Replikatinstanz nacheinander wiederholen.
+**Hinweis:** Wenn du als Teil der Georeplikation mehrere Replikatinstanzen ausführst, solltest du diese Prozedur für jede Replikatinstanz einzeln nacheinander wiederholen.
 
 {% endnote %}
 
-1. Upgrade the replica instance by following the instructions in "[Upgrading a single appliance with an upgrade package](#upgrading-a-single-appliance-with-an-upgrade-package)." If you are using multiple replicas for Geo-replication, you must repeat this procedure to upgrade each replica one at a time.
-{% data reusables.enterprise_installation.replica-ssh %}
-{% data reusables.enterprise_installation.replica-verify %}
+1. Aktualisiere die primäre Instanz, indem du die Anweisungen in [Durchführen eines Upgrades einer einzelnen Appliance mit einem Upgradepaket](#upgrading-a-single-appliance-with-an-upgrade-package) befolgst. Wenn du mehrere Replikate für die Georeplikation verwendest, musst du diese Prozedur wiederholen, um jedes Replikat nacheinander zu aktualisieren.
+{% data reusables.enterprise_installation.replica-ssh %} {% data reusables.enterprise_installation.replica-verify %}
 
 {% data reusables.enterprise_installation.start-replication %}
 
-{% data reusables.enterprise_installation.replication-status %} Wenn der Befehl `Replication is not running` zurückgibt, wird die Replikation möglicherweise noch gestartet. Warten Sie etwa eine Minute, bevor Sie `ghe-repl-status` erneut ausführen.
+{% data reusables.enterprise_installation.replication-status %} Wenn der Befehl `Replication is not running` zurückgibt, wird die Replikation möglicherweise noch gestartet. Warte ungefähr eine Minute, bevor du `ghe-repl-status` erneut ausführst.
 
    {% note %}
 
-    **Hinweis:** Während die erneute Synchronisierung verarbeitet wird, gibt der Befehl „ghe-repl-status“ ggf. erwartete Meldungen dahingehend zurück, dass die Replikation im Rückstand ist.
-    Zum Beispiel: `CRITICAL: git replication is behind the primary by more than 1007 repositories and/or gists`
-
+   **Hinweis:** Während der Neusynchronisierung kann `ghe-repl-status` anzeigen, dass die Replikation im Rückstand ist. Es wird möglicherweise die folgende Meldung angezeigt.
+   
+   ```
+   CRITICAL: git replication is behind the primary by more than 1007 repositories and/or gists
+   ```
    {% endnote %}
 
-   Falls der Befehl `ghe-repl-status` nicht den Wert `OK` zurückgibt, sollten Sie die folgenden Schritte befolgen, um die Replikation manuell neu zu starten.
+   {%- ifversion ghes = 3.4 or ghes = 3.5 or ghes = 3.6 %}
 
-   1. Führen Sie auf der Replikatinstanz den Befehl `ghe-repl-setup <primary-instance-ip>` erneut aus.
-   {% data reusables.enterprise_installation.start-replication %}
-   {% data reusables.enterprise_installation.replication-status %}
-6. Deaktivieren Sie nach dem Upgrade-Abschluss des letzten Replikats und nach dem Abschluss der erneuten Synchronisierung den Wartungsmodus, damit Benutzer {% data variables.product.product_location %} verwenden können.
+   - Wenn du für jeden Knoten ein Upgrade auf {% data variables.product.product_name %} 3.6.0 oder höher durchgeführt und die Replikation gestartet hast, aber nach 45 Minuten immer noch die Meldung `git replication is behind the primary` erscheint, wende dich an den {% data variables.contact.enterprise_support %}. Weitere Informationen findest du unter [Anfordern von Unterstützung beim {% data variables.contact.github_support %}](/admin/enterprise-support/receiving-help-from-github-support).
+   {%- endif %}
 
-### Wiederherstellung nach einem fehlgeschlagenen Upgrade
+   - {% ifversion ghes = 3.4 or ghes = 3.5 or ghes = 3.6 %}Andernfalls, wenn{% else %}Wenn{% endif %} `ghe-repl-status` nicht `OK` zurückgegeben hat, wende dich an den {% data variables.contact.enterprise_support %}. Weitere Informationen findest du unter [Anfordern von Unterstützung beim {% data variables.contact.github_support %}](/admin/enterprise-support/receiving-help-from-github-support).
+6. Wenn das Upgrade des letzten Replikats abgeschlossen und die Neusynchronisierung beendet ist, deaktiviere den Wartungsmodus, damit die Benutzer {% data variables.location.product_location %} verwenden können.
 
-Wenn ein Upgrade fehlschlägt oder unterbrochen wird, sollten Sie Ihre Instanz in ihren vorherigen Zustand zurücksetzen. Der entsprechende Prozess hängt vom Upgrade-Typ ab.
+## Wiederherstellung nach einem fehlgeschlagenen Upgrade
 
-#### Rollback einer Patch-Veröffentlichung durchführen
+Wenn ein Upgrade fehlschlägt oder unterbrochen wird, solltest du deine Instanz in ihren vorherigen Zustand zurücksetzen. Der entsprechende Prozess hängt vom Upgrade-Typ ab.
 
-Führen Sie den Befehl `ghe-upgrade` mit der Option `--allow-patch-rollback` aus, um ein Rollback einer Patch-Veröffentlichung durchzuführen. {% data reusables.enterprise_installation.command-line-utilities-ghe-upgrade-rollback %}
+### Rollback einer Patch-Veröffentlichung durchführen
 
-Weitere Informationen finden Sie unter „[Befehlszeilenprogramme](/enterprise/{{ currentVersion }}/admin/guides/installation/command-line-utilities/#ghe-upgrade)“.
+Um einen Patchrelease zurückzusetzen, verwende den `ghe-upgrade`-Befehl mit dem `--allow-patch-rollback`-Parameter. Bevor sie zurückgesetzt werden, muss die Replikation vorübergehend beendet werden, indem sie auf allen Replikatinstanzen `ghe-repl-stop` ausgeführt wird. {% data reusables.enterprise_installation.command-line-utilities-ghe-upgrade-rollback %}
 
-#### Rollback einer Feature-Veröffentlichung durchführen
+Sobald der Rollback abgeschlossen ist, starte die Replikation neu, indem du `ghe-repl-start` auf allen Replikaten ausführst. 
 
-Um ein Rollback von einer Feature-Veröffentlichung durchzuführen, stellen Sie diese über einen VM-Snapshot wieder her, um sicherzustellen, dass die Root- und Datenpartitionen einen konsistenten Zustand aufweisen. Weitere Informationen finden Sie unter „[Snapshot erstellen](#taking-a-snapshot)“.
+Weitere Informationen findest du unter [Befehlszeilenprogramme](/enterprise/admin/guides/installation/command-line-utilities/#ghe-upgrade).
 
-{% if currentVersion ver_gt "enterprise-server@2.22" %}
-### Weiterführende Informationen
+### Rollback einer Feature-Veröffentlichung durchführen
 
-- "[About upgrades to new releases](/admin/overview/about-upgrades-to-new-releases)"
-{% endif %}
+Um ein Rollback eines Featurereleases durchzuführen, führe eine Wiederherstellung über eine VM-Momentaufnahme aus, um sicherzustellen, dass die Root- und Datenpartitionen einen konsistenten Zustand aufweisen. Weitere Informationen findest du unter [Eine Momentaufnahme erstellen](#taking-a-snapshot).
+
+{% ifversion ghes %}
+## Weiterführende Themen
+
+- „[Informationen zu Upgrades auf neue Releases](/admin/overview/about-upgrades-to-new-releases)“ {% endif %}

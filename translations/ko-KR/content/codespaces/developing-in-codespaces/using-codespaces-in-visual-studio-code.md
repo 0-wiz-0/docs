@@ -1,76 +1,119 @@
 ---
-title: Using Codespaces in Visual Studio Code
-intro: 'You can develop in your codespace directly in {% data variables.product.prodname_vscode %} by connecting the {% data variables.product.prodname_github_codespaces %} extension with your account on {% data variables.product.product_name %}.'
+title: Visual Studio Code에서 Codespaces 사용
+intro: '{% data variables.product.prodname_github_codespaces %} 확장을 {% data variables.product.product_name %}의 계정과 연결해 {% data variables.product.prodname_vscode %}에서 바로 Codespace에 개발할 수 있습니다.'
+product: '{% data reusables.gated-features.codespaces %}'
 redirect_from:
-  - /github/developing-online-with-codespaces/using-codespaces-in-visual-studio-code
-  - /github/developing-online-with-codespaces/connecting-to-your-codespace-from-visual-studio-code
-  - /github/developing-online-with-codespaces/using-codespaces-in-visual-studio
+- /github/developing-online-with-codespaces/using-codespaces-in-visual-studio-code
+- /github/developing-online-with-codespaces/connecting-to-your-codespace-from-visual-studio-code
+- /github/developing-online-with-codespaces/using-codespaces-in-visual-studio
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: how_to
 topics:
-  - Codespaces
-  - Visual Studio Code
-  - Developer
+- Codespaces
+- Visual Studio Code
+- Developer
+shortTitle: Visual Studio Code
+ms.openlocfilehash: b49a0504dd939a18c34073176e11359725cac7e9
+ms.sourcegitcommit: dc42bb4a4826b414751ffa9eed38962c3e3fea8e
+ms.translationtype: HT
+ms.contentlocale: ko-KR
+ms.lasthandoff: 07/13/2022
+ms.locfileid: "145148770"
 ---
+## <a name="about--data-variablesproductprodname_codespaces--in--data-variablesproductprodname_vscode-"></a>{% data variables.product.prodname_vscode %}의 {% data variables.product.prodname_codespaces %} 정보
 
-{% data reusables.codespaces.release-stage %}
+{% data variables.product.prodname_vscode %}의 로컬 설치를 사용하여 codespace를 만들고, 관리하고, 작업하고, 삭제할 수 있습니다. {% data variables.product.prodname_vscode_shortname %}에서 {% data variables.product.prodname_codespaces %}를 사용하려면 {% data variables.product.prodname_github_codespaces %} 확장을 설치해야 합니다. {% data variables.product.prodname_vscode_shortname %}에서 Codespaces를 설정하는 방법에 대한 자세한 내용은 "[필수 조건](#prerequisites)"을 참조하세요.
 
-### 빌드전 요구 사양
+기본적으로 {% data variables.product.prodname_dotcom_the_website %}에서 새 codespace를 만들면 브라우저에서 열립니다. {% data variables.product.prodname_vscode_shortname %}에서 새 codespace를 자동으로 열려면 기본 편집기를 {% data variables.product.prodname_vscode_shortname %}로 설정할 수 있습니다. 자세한 내용은 "[{% data variables.product.prodname_codespaces %}의 기본 편집기 설정](/codespaces/managing-your-codespaces/setting-your-default-editor-for-codespaces)"을 참조하세요.
 
-To develop in a codespace directly in {% data variables.product.prodname_vscode %}, you must sign into the {% data variables.product.prodname_github_codespaces %} extension. The {% data variables.product.prodname_github_codespaces %} extension requires {% data variables.product.prodname_vscode %} October 2020 Release 1.51 or later.
+브라우저에서 작업하고 싶지만 기존 {% data variables.product.prodname_vscode_shortname %} 확장, 테마 및 바로 가기를 계속 사용하려는 경우 설정 동기화를 설정할 수 있습니다. 자세한 내용은 "[계정에 대한 {% data variables.product.prodname_codespaces %} 개인 설정](/codespaces/customizing-your-codespace/personalizing-codespaces-for-your-account#settings-sync)"을 참조하세요.
 
-Use the {% data variables.product.prodname_vs %} Marketplace to install the [{% data variables.product.prodname_github_codespaces %}](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces) extension. For more information, see [Extension Marketplace](https://code.visualstudio.com/docs/editor/extension-gallery) in the {% data variables.product.prodname_vscode %} documentation.
+## <a name="prerequisites"></a>필수 조건
+
+{% data variables.product.prodname_vscode_shortname %}에서 직접 codespace에서 개발하려면 {% data variables.product.product_name %} 자격 증명을 사용하여 {% data variables.product.prodname_github_codespaces %} 확장을 설치하고 로그인해야 합니다. {% data variables.product.prodname_github_codespaces %} 확장에는 {% data variables.product.prodname_vscode_shortname %} 2020년 10월 릴리스 1.51 이상이 필요합니다.
+
+{% data variables.product.prodname_vscode_marketplace %}를 사용하여 [{% data variables.product.prodname_github_codespaces %}](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces) 확장을 설치합니다. 자세한 내용은 {% data variables.product.prodname_vscode_shortname %} 설명서의 [Extension Marketplace](https://code.visualstudio.com/docs/editor/extension-gallery)를 참조하세요.
 
 
 {% mac %}
 
 {% data reusables.codespaces.click-remote-explorer-icon-vscode %}
-2. Click **Sign in to view {% data variables.product.prodname_dotcom %}...**. ![Signing in to view {% data variables.product.prodname_codespaces %}](/assets/images/help/codespaces/sign-in-to-view-codespaces-vscode-mac.png)
-3. To authorize {% data variables.product.prodname_vscode %} to access your account on {% data variables.product.product_name %}, click **Allow**.
-4. Sign in to {% data variables.product.product_name %} to approve the extension.
+1. **로그인하여 {% data variables.product.prodname_dotcom %} 보기...** 를 클릭합니다.
+
+   ![로그인하여 {% data variables.product.prodname_codespaces %} 보기](/assets/images/help/codespaces/sign-in-to-view-codespaces-vscode-mac.png)
+
+2. {% data variables.product.prodname_vscode_shortname %}에게 {% data variables.product.product_name %}의 계정에 액세스하도록 권한을 부여하려면 **허용** 을 클릭합니다.
+3. {% data variables.product.product_name %}에 로그인하여 확장을 승인합니다.
 
 {% endmac %}
 
 {% windows %}
 
 {% data reusables.codespaces.click-remote-explorer-icon-vscode %}
-2. Use the "REMOTE EXPLORER" drop-down, then click **{% data variables.product.prodname_github_codespaces %}**. ![The {% data variables.product.prodname_codespaces %} header](/assets/images/help/codespaces/codespaces-header-vscode.png)
-3. Click **Sign in to view {% data variables.product.prodname_codespaces %}...**. ![Signing in to view {% data variables.product.prodname_codespaces %}](/assets/images/help/codespaces/sign-in-to-view-codespaces-vscode.png)
-4. To authorize {% data variables.product.prodname_vscode %} to access your account on {% data variables.product.product_name %}, click **Allow**.
-5. Sign in to {% data variables.product.product_name %} to approve the extension.
+1. "REMOTE EXPLORER" 드롭다운을 사용하고 **{% data variables.product.prodname_github_codespaces %}** 를 클릭합니다.
+
+   ![{% data variables.product.prodname_codespaces %} 헤더](/assets/images/help/codespaces/codespaces-header-vscode.png)
+
+1. **로그인하여 {% data variables.product.prodname_codespaces %} 보기...** 를 클릭합니다.
+
+   ![로그인하여 {% data variables.product.prodname_codespaces %} 보기](/assets/images/help/codespaces/sign-in-to-view-codespaces-vscode.png)
+
+1. {% data variables.product.prodname_vscode_shortname %}에게 {% data variables.product.product_name %}의 계정에 액세스하도록 권한을 부여하려면 **허용** 을 클릭합니다.
+1. {% data variables.product.product_name %}에 로그인하여 확장을 승인합니다.
 
 {% endwindows %}
 
-### Creating a codespace in {% data variables.product.prodname_vscode %}
+## <a name="creating-a-codespace-in--data-variablesproductprodname_vscode_shortname-"></a>{% data variables.product.prodname_vscode_shortname %}에서 codespace 만들기
 
-After you connect your {% data variables.product.product_name %} account to the {% data variables.product.prodname_github_codespaces %} extension, you can develop in a codespace that you created on {% data variables.product.product_name %} or in {% data variables.product.prodname_vscode %}.
+{% data reusables.codespaces.creating-a-codespace-in-vscode %}
 
-{% data reusables.codespaces.click-remote-explorer-icon-vscode %}
-2. Click the Add icon, then click **Create New Codespace**. ![The Create new Codespace option in {% data variables.product.prodname_codespaces %}](/assets/images/help/codespaces/create-codespace-vscode.png)
-3. Type, then click the repository's name you want to develop in. ![Searching for repository to create a new {% data variables.product.prodname_codespaces %}](/assets/images/help/codespaces/choose-repository-vscode.png)
-4. Click the branch you want to develop on. ![Searching for a branch to create a new {% data variables.product.prodname_codespaces %}](/assets/images/help/codespaces/choose-branch-vscode.png)
-5. Click the machine type you want to develop in. ![Instance types for a new {% data variables.product.prodname_codespaces %}](/assets/images/help/codespaces/choose-sku-vscode.png)
-### Opening a codespace in {% data variables.product.prodname_vscode %}
+## <a name="opening-a-codespace-in--data-variablesproductprodname_vscode_shortname-"></a>{% data variables.product.prodname_vscode_shortname %}에서 codespace 열기
 
 {% data reusables.codespaces.click-remote-explorer-icon-vscode %}
-2. Under "Codespaces", click the codespace you want to develop in.
-3. Click the Connect to Codespace icon. ![The Connect to Codespace icon in {% data variables.product.prodname_vscode %}](/assets/images/help/codespaces/click-connect-to-codespace-icon-vscode.png)
+1. "Codespaces" 아래에서 개발하려는 codespace를 클릭합니다.
+1. Codespace에 연결 아이콘을 클릭합니다.
 
-### Changing the machine type in {% data variables.product.prodname_vscode %}
+   ![{% data variables.product.prodname_vscode_shortname %}의 Codespace에 연결 아이콘](/assets/images/help/codespaces/click-connect-to-codespace-icon-vscode.png)
 
-{% data reusables.codespaces.codespaces-machine-types %}
+## <a name="changing-the-machine-type-in--data-variablesproductprodname_vscode_shortname-"></a>{% data variables.product.prodname_vscode_shortname %}에서 머신 유형 변경
 
-You can change the machine type of your codespace at any time.
+{% data reusables.codespaces.codespaces-machine-types %} 언제든지 codespace의 머신 유형을 변경할 수 있습니다.
 
-1. In {% data variables.product.prodname_vscode %}, open the Command Palette (`shift command P` / `shift control P`).
-2. Search for and select "Codespaces: Change Machine Type." ![Searching for a branch to create a new {% data variables.product.prodname_codespaces %}](/assets/images/help/codespaces/vscode-change-machine-type-option.png)
-3. Click the codespace that you want to change. ![Searching for a branch to create a new {% data variables.product.prodname_codespaces %}](/assets/images/help/codespaces/vscode-change-machine-choose-repo.png)
-4. Choose the machine type you want to use. ![Searching for a branch to create a new {% data variables.product.prodname_codespaces %}](/assets/images/help/codespaces/vscode-change-machine-choose-type.png)
+1. {% data variables.product.prodname_vscode_shortname %}에서 명령 팔레트를 엽니다(`shift command P` / `shift control P`).
+1. "Codespaces: Change Machine Type"을 검색하여 선택합니다.
 
-If the codespace is currently running, a message is displayed asking if you would like to restart and reconnect to your codespace now. Click **Yes** if you want to change the machine type used for this codespace immediately. If you click **No**, or if the codespace is not currently running, the change will take effect the next time the codespace restarts.
+   ![분기를 검색하여 새 {% data variables.product.prodname_codespaces %} 만들기](/assets/images/help/codespaces/vscode-change-machine-type-option.png)
 
-### Deleting a codespace in {% data variables.product.prodname_vscode %}
+1. 변경할 codespace를 클릭합니다.
 
-1. Under "Codespaces", right-click the codespace you want to delete.
-2. In the drop-down menu, click **Delete Codespace**. ![Deleting a codespace in {% data variables.product.prodname_dotcom %}](/assets/images/help/codespaces/delete-codespace-vscode.png)
+   ![분기를 검색하여 새 {% data variables.product.prodname_codespaces %} 만들기](/assets/images/help/codespaces/vscode-change-machine-choose-repo.png)
+
+1. 사용할 머신 유형을 선택합니다. 
+
+   {% note %}
+
+   **참고**: {% data reusables.codespaces.codespaces-machine-type-availability %}
+
+   {% endnote %}
+
+1. 현재 codespace가 실행 중인 경우 지금 codespace를 다시 시작하고 다시 연결할 것인지 묻는 메시지가 표시됩니다.
+
+   이 codespace에 사용되는 머신 유형을 즉시 변경하려면 **예** 를 클릭합니다.
+   
+   **아니요** 를 클릭하거나 codespace가 현재 실행되고 있지 않으면 다음에 codespace가 다시 시작될 때 변경 내용이 적용됩니다.
+
+## <a name="deleting-a-codespace-in--data-variablesproductprodname_vscode_shortname-"></a>{% data variables.product.prodname_vscode_shortname %}에서 codespace 삭제
+
+{% data reusables.codespaces.deleting-a-codespace-in-vscode %}
+
+## <a name="switching-to-the-insiders-build-of--data-variablesproductprodname_vscode_shortname-"></a>{% data variables.product.prodname_vscode_shortname %}의 참가자 빌드로 전환
+
+{% data variables.product.prodname_codespaces %} 내에서 [{% data variables.product.prodname_vscode_shortname %}의 참가자 빌드](https://code.visualstudio.com/docs/setup/setup-overview#_insiders-nightly-build)를 사용할 수 있습니다.
+
+1. {% data variables.product.prodname_codespaces %} 창의 왼쪽 아래에서 **{% octicon "gear" aria-label="The settings icon" %} 설정** 을 선택합니다.
+2. 목록에서 "참가자 버전으로 전환"을 선택합니다.
+
+   ![{% data variables.product.prodname_codespaces %}에서 "참가자 빌드" 클릭](/assets/images/help/codespaces/codespaces-insiders-vscode.png)
+3. 선택하면 {% data variables.product.prodname_codespaces %}가 참가자 버전에서 계속 열립니다.

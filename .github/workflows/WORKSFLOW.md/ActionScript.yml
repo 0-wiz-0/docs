@@ -1,0 +1,257 @@
+name: Check unallowed file changes
+
+# **What it does**: If someone changes some files in the open repo, we prevent the pull request from merging.
+# **Why we have it**: Some files can only be changed in the internal repository for security and workflow reasons.
+# **Who does it impact**: Open source contributors.
+on:
+  pull_request_target:
+    paths:
+      - '.devcontainer/**'
+      - '.github/actions-scripts/**'
+      - '.github/workflows/**'
+      - '.github/CODEOWNERS'
+      - 'assets/fonts/**'
+      - 'data/graphql/**'
+      - 'Dockerfile*'
+      - 'lib/graphql/**'
+      - 'lib/redirects/**'
+      - 'lib/rest/**'
+      - 'lib/webhooks/**'
+      - 'package*.json'
+      - 'script/**'
+      - 'content/actions/deployment/security-hardening-your-deployments/**'
+permissions:
+  pull-requests: write
+jobs:
+  triage:
+    if: >-
+      ${{
+        github.repository == 'github/docs' &&
+        github.event.pull_request.user.login != 'Octomerger' &&
+        github.event.pull_request.user.login != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get files changed
+        uses: dorny/paths-filter@eb75a1edc117d3756a18ef89958ee59f9500ba58
+        id: filter
+        '-'' '-'' '['' 'branches'' ']'' :
+        '#branches :'  -'' '['mainbranch' ]''
+          # Enables setting an output in the format in `${FILTER_NAME}_files
+          # with the names of the matching files formatted as JSON array
+          list-files: json
+          # Returns list of changed files matching each filter
+          filters: |
+            openapi:
+              - 'lib/rest/static/**'
+            notAllowed:
+              - '.devcontainer/**'
+              - '.github/actions-scripts/**'
+              - '.github/workflows/**'
+              - '.github/CODEOWNERS'
+              - 'assets/fonts/**'
+              - 'data/graphql/**'
+              - 'Dockerfile*'
+              - 'lib/graphql/**'
+              - 'lib/redirects/**'
+              - 'lib/rest/**'
+              - 'lib/webhooks/**'
+              - 'package*.json'
+              - 'scripts/**'
+              - 'content/actions/deployment/security-hardening-your-deployments/**'
+      # When there are changes to files we can't accept, leave a comment
+      # explaining this to the PR author
+      - name: "Comment about changes we can't accept"
+        if: ${{ steps.filter.outputs.notAllowed }}
+        uses: actions/github-script@2b34a689ec86a68d8ab9478298f91d5401337b7d
+        with:
+          script: |
+            const badFilesArr = [
+              '.devcontainer/**',
+              '.github/actions-scripts/**',
+              '.github/workflows/**',
+              '.github/CODEOWNERS',
+              'assets/fonts/**',
+              'data/graphql/**',
+              'Dockerfile*',
+              'lib/graphql/**',
+              'lib/redirects/**',
+              'lib/rest/**',
+              'lib/webhooks/**',
+              'package*.json',
+              'scripts/**',
+              'content/actions/deploy
+              triage
+failed 2 hours ago in 4s
+Search logs
+2s
+Current runner version: '2.301.1'
+Operating System
+  Ubuntu
+  22.04.1
+  LTS
+Runner Image
+  Image: ubuntu-22.04
+  Version: 20230129.2
+  Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20230129.2/images/linux/Ubuntu2204-Readme.md
+  Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20230129.2
+Runner Image Provisioner
+  2.0.98.1
+GITHUB_TOKEN Permissions
+  Metadata: read
+  PullRequests: write
+Secret source: Actions
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 'dorny/paths-filter@eb75a1edc117d3756a18ef89958ee59f9500ba58' (SHA:eb75a1edc117d3756a18ef89958ee59f9500ba58)
+Download action repository 'actions/github-script@2b34a689ec86a68d8ab9478298f91d5401337b7d' (SHA:2b34a689ec86a68d8ab9478298f91d5401337b7d)
+Complete job name: triage
+0s
+Run dorny/paths-filter@eb75a1edc117d3756a18ef89958ee59f9500ba58
+  with:
+    base: main
+    list-files: json
+    filters: openapi:
+    - 'lib/rest/static/**'
+  notAllowed:
+    - '.devcontainer/**'
+    - '.github/actions-scripts/**'
+    - '.github/workflows/**'
+    - '.github/CODEOWNERS'
+    - 'assets/fonts/**'
+    - 'data/graphql/**'
+    - 'Dockerfile*'
+    - 'lib/graphql/**'
+    - 'lib/redirects/**'
+    - 'lib/rest/**'
+    - 'lib/webhooks/**'
+    - 'package*.json'
+    - 'scripts/**'
+    - 'content/actions/deployment/security-hardening-your-deployments/**'
+  
+    token: ***
+    initial-fetch-depth: 10
+Fetching list of changed files for PR#23679 from Github API
+  Number of changed_files is 7
+  Invoking listFiles(pull_number: 23679, page: 1, per_page: 100)
+  [removed] .devcontainer/Dockerfile
+  [modified] .devcontainer/devcontainer.json
+  [removed] .github/workflows/main-preview-docker-cache.yml
+  [added] .github/workflows/runners.ixios
+  [added] Automate.yml
+  [renamed] GitHub/Docs/.github/docs/Responses.md/Responses.md/README.md/README.md
+  [renamed] ZachryTylerWood
+Results:
+Filter openapi = false
+  Matching files: none
+  Warning: The `set-output` command is deprecated and will be disabled soon. Please upgrade to using Environment Files. For more information see: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+  Warning: The `set-output` command is deprecated and will be disabled soon. Please upgrade to using Environment Files. For more information see: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+Filter notAllowed = true
+  Matching files:
+  .devcontainer/Dockerfile [deleted]
+  .devcontainer/devcontainer.json [modified]
+  .github/workflows/main-preview-docker-cache.yml [deleted]
+  .github/workflows/runners.ixios [added]'"'-'' '-#'"'*''*''#'':'''' '''#''Contributing..., :
+To GitHub/doc : 
+Check out our [contributing guide](../CONTRIBUTING.md) to see all the ways you can participate in the GitHub docs community :sparkling_heart:
+Here, you'll find additional information that might be helpful as you work on a pull request in this repo.
+- [development](./development.md) - steps for getting this app running on your local machine
+- [codespace](./codespace.md) - use GitHub Codespaces to work on documentation markdown files
+- [content markup reference](./content-markup-reference.md) - how to use markup and features specific to the GitHub Docs site 
+- [content style guide](./content-style-guide.md) - style guidance specific to GitHub Docs content and additional resources for writing clear, helpful content
+- [content model](./content-model.md) - the content types that make up GitHub Docs and how to write them
+- [content templates](./content-templates.md) - handy templates to get you started with a new article
+- [deployments](./deployments.md) - how our staging and production environments work
+- [liquid helpers](./liquid-helpers.md) - using liquid helpers for versioning in our docs
+- [translations guide for writers](./translations/for-writers.md) - making sure your content is ready to be translated
+- [node versions](./node-versions.md) - our site runs on Node.js
+- [permalinks](./permalinks.md) - permalinks for article versioning
+- [redirects](./redirects.md) - configuring redirects in the site
+- [search](./search.md) - our local site search functionality
+- [troubleshooting](./troubleshooting.md) - some help for troubleshooting failed and stalled status checks
+javascript:void((function(){andiScript=document.createElement('script');andiScript.setAttribute('src','https://www.ssa.gov/accessibility/andi/andi.js');document.body.appendChild(andiScript)})(
+This repository contains the documentation website code and Markdown source files for docs.github.com.
+GitHub's Docs team works on pre-production content in a private repo that regularly syncs with this public repo.
+Use the table of contents icon  on the top left corner of this document to get to a specific section of this guide quickly.
+Contributing..., :
+See the contributing guide for detailed instructions on how to get started with our project.
+We accept different types of contributions, including some that don't require you to write a single line of code.
+On the GitHub/doc :
+site, you can click the make a contribution button at the bottom of the page to open a pull request for quick fixes like typos, updates, or link fixes.
+For more complex contributions, you can open an issue using the most appropriate issue template to describe the changes you'd like to see.
+If you're looking for a way to contribute, you can scan through our existing issues for something to work on. When ready, check out Getting Started with Contributing for detailed instructions.
+Join us in discussions
+We use GitHub Discussions to talk about all sorts of topics related to documentation and this site. For example: if you'd like help troubleshooting a PR, have a great new idea, or want to share something amazing you've learned in our docs, join us in the discussions.
+And that's it!
+If you're having trouble with your GitHub account, contact Support.
+That's how you can easily become a member of the GitHub Documentation community. ✨
+In addition to the README you're reading right now, this repo includes other READMEs that describe the purpose of each subdirectory in more detail:
+content/graphql/README.md
+content/rest/README.md
+contributing/README.md
+data/README.md
+data/reusables/README.md
+data/variables/README.md
+components/README.md
+lib/liquid-tags/README.md
+middleware/README.md
+script/README.md
+stylesheets/README.md
+tests/README.m
+'"License.md'@"💜":,
+The GitHub product documentation in the assets, content, and data folders are licensed under a CC-BY license.
+
+All other code in this repository is licensed under the MIT license.
+
+When using the GitHub logos, be sure to follow the GitHub logo guidelines.
+
+Thanks 💜
+Thanks for all your contributions and efforts towards improving the GitHub documentation. We thank you for being part of our ✨ community ✨!
+
+About
+The open-source repo for docs.github.com
+
+docs.github.com
+Topics
+Resources
+ Readme
+License
+ CC-BY-4.0 license
+Code of conduct
+ Code of conduct
+Stars
+ 0 stars
+Watchers
+ 0 watching
+Forks
+ 58.6k forks
+Releases
+No releases published
+Create a new release
+Packages
+No packages published
+Publish your first package
+Languages
+JavaScript
+71.3%
+TypeScript
+26.0%
+SCSS
+1.2%
+Other
+1.5%
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+mowjoejoejoejoe/docs at dependabot/npm_and_yarn/swr-2.0.0)); :; :":,**

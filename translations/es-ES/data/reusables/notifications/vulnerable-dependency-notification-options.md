@@ -1,44 +1,29 @@
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.1" %}
-{% if currentVersion == "free-pro-team@latest"%}Predeterminadamente, recibirás notificaciones::{% endif %}{% if enterpriseServerVersions contains currentVersion and currentVersion gt "enterprise-server@3.1" %}Predeterminadamente, si tu administrador de sitio configuró el correo electrónico para las notificaciones de tu instancia, recibirás {% data variables.product.prodname_dependabot_alerts %}:{% endif %}
+---
+ms.openlocfilehash: 3cc118cb9748ada5efb83aad6c0fe3b86c76d9bb
+ms.sourcegitcommit: 738c16f6fc6d56d939a80c832497c8bfa28d10c7
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 11/05/2022
+ms.locfileid: "148134904"
+---
+{% ifversion fpt or ghec %}De manera predeterminada, recibirás notificaciones:{% endif %}{% ifversion ghes or ghae %}De manera predeterminada, si el propietario de tu empresa ha configurado las notificaciones por correo electrónico en tu instancia, recibirás {% data variables.product.prodname_dependabot_alerts %}:{% endif %}
 
-- por correo electrónico, se enviará un mensaje de correo electrónico cuando se habilite el {% data variables.product.prodname_dependabot %} para un repositorio cuando se confirme un archivo de manifiesto nuevo en dicho repositorio y cuando se encuentre una vulnerabilidad nueva de severidad crítica o alta (opción **Enviar un correo electrónico cada vez que se encuentra una vulnerabilidad**).
-- en la interface de usuario, se muestra una advertencia en tu archivo de repositorio y vistas de código si hay dependencias vulnerables (opción de **Alertas de la IU**).
-- en la línea de comandos, las advertencias se muestran como rellamados cuando subes información a los repositorios con dependencias vulnerables (opción de **Línea de comandos**).
-- en tu bandeja de entrada, como notificaciones web. Se enviará una notificación web cuando se habilite el {% data variables.product.prodname_dependabot %} en un repositorio cada que se confirme un archivo de manifiesto nuevo en dicho repositorio y cuando se enecuentre una vulnerabilidad nueva con severidad crítica o alta (opción **Web**).
-- en {% data variables.product.prodname_mobile %}, como notificaciones web. Para obtener más información, consulta la sección "[Habilitar notificaciones de subida con GitHub para móviles](/github/managing-subscriptions-and-notifications-on-github/configuring-notifications#enabling-push-notifications-with-github-for-mobile)".
+- en la bandeja de entrada, como notificaciones web. Se enviará una notificación web cuando se habilite {% data variables.product.prodname_dependabot %} en un repositorio, cuando se confirme un archivo de manifiesto nuevo en el repositorio y cuando se encuentre una vulnerabilidad nueva con gravedad crítica o alta (**en la opción {% data variables.product.prodname_dotcom %}** ).
+- por correo electrónico, se enviará un mensaje de correo electrónico cuando se habilite {% data variables.product.prodname_dependabot %} para un repositorio, cuando se confirme un archivo de manifiesto nuevo en el repositorio y cuando se encuentre una vulnerabilidad nueva de gravedad crítica o alta (la opción **Email**).{% ifversion ghes < 3.8 or ghae < 3.8 %}
+- en la interfaz de usuario, se muestra una advertencia en las vistas de archivos y código del repositorio si hay dependencias no seguras (opción **Alertas de la interfaz de usuario**).{% endif %}
+- en la línea de comandos, las advertencias se muestran como devoluciones de llamada al insertar en repositorios con dependencias no seguras (opción **CLI**).
+{% ifversion not ghae %}
+- en {% data variables.product.prodname_mobile %}, como notificaciones web. Para obtener más información, consulta "[Habilitación de las notificaciones de inserción con {% data variables.product.prodname_mobile %}](/github/managing-subscriptions-and-notifications-on-github/configuring-notifications#enabling-push-notifications-with-github-mobile)".{% endif %}
 
 {% note %}
 
-**Nota:** Las notificaciones de correo electrónico y web/de {% data variables.product.prodname_mobile %} son:
+**Nota:** Las notificaciones por correo electrónico y web{% ifversion not ghae %}/{% data variables.product.prodname_mobile %}{% endif %} son las siguientes:
 
-- _por repositorio_ cuando el {% data variables.product.prodname_dependabot %} se habilita en el repositorio o cuando se confirma un archivo de manifiesto nuevo en dicho repositorio.
+- _por repositorio_ cuando {% data variables.product.prodname_dependabot %} se habilita en el repositorio o cuando se confirma un archivo de manifiesto nuevo en el repositorio.
 
 - _por organización_ cuando se descubre una vulnerabilidad nueva.
 
 {% endnote %}
-Puede spersonalizar la forma en que se te notifica sobre
 
-{% data variables.product.prodname_dependabot_alerts %}. Por ejemplo, puedes recibir un correo electrónico semanal con el resúmen de las alertas de hasta 10 de tus repositorios si utilizas las opciones "**Enviar un resumen de vulnerabilidades por correo electrónico** y **Resumen semanal de seguridad por correo electrónico**.
-{% endif %}
-
-{% if currentVersion == "enterprise-server@2.22" or currentVersion == "enterprise-server@3.0" or currentVersion == "enterprise-server@3.1" %}
-Predeterminadamente, si tu administrador de sitio configuró el correo electrónico para recibir notificaciones en tu instancia, recibirás
-las {% data variables.product.prodname_dependabot_alerts %} nuevas:
-- por correo electrónico, se envia un correo electrónico cada vez que se enecuentre una vulnerabilidad {% if currentVersion ver_gt "enterprise-server@2.23" %}con severidad alta o crítica{% endif %} (opción **Enviar un correo electrónico cada que se encuentre una vulnerabilidad**)
-- en la interface de usuario, se muestra una advertencia en tu archivo de repositorio y vistas de código si hay dependencias vulnerables (opción de **Alertas de la IU**)
-- en la línea de comandos, las advertencias se muestran como rellamados cuando subes información a los repositorios con dependencias vulnerables (opción de **Línea de comandos**)
-- en tu bandeja de entrada, como notificaciones web {% if currentVersion ver_gt "enterprise-server@2.23" %}para vulnerabilidades nuevas con severidad alta o crítica {% endif %}(opción **Web**)
-Puede spersonalizar la forma en que se te notifica sobre
-
-{% data variables.product.prodname_dependabot_alerts %}. Por ejemplo, puedes recibir un correo electrónico semanal con el resúmen de las alertas de hasta 10 de tus repositorios si utilizas las opciones "**Enviar un resumen de vulnerabilidades por correo electrónico** y **Resumen semanal de seguridad por correo electrónico**.
-{% endif %}
-
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_lt "enterprise-server@2.22" %}
-Predeterminadamente, si tu administrador de sitio configuró las notificaciones por correo electrónico en tu instancia, recibirás alertas de seguridad:
-- por correo electrónico, se envía un conrreo electrónico cada que se encuentra una vulnerabilidad (opción de **Enviar un correo electrónico cada que se encuentre una vulnerabilidad**)
-- en la interface de usuario, como advertencias en tu archivo de repositorio y vistas de código (opción de **alertas de IU**)
-- en la línea de comandos, como advertencias que se muestran como rellamados cuando subes información a los repositorios, la cual tiene vulnerabilidades (opción de **Línea de comandos**)
-- en tu bandeja de entrada, como notificaciones web (opción de **Web**)
-
-Puedes personalizar la forma en la que se te notifica sobre las alertas de seguridad. Por ejemplo, puedes recibir un correo electrónico semanal con el resúmen de las alertas de hasta 10 de tus repositorios si utilizas las opciones "**Enviar un resumen de vulnerabilidades por correo electrónico** y **Resumen semanal de seguridad por correo electrónico**.
-{% endif %}
+{% ifversion update-notification-settings-22 %} Puedes personalizar la forma en que recibes notificaciones sobre {% data variables.product.prodname_dependabot_alerts %}. Por ejemplo, puedes recibir un correo electrónico diario o semanal con el resumen de las alertas de hasta 10 de los repositorios mediante la opción **Email weekly digest**.
+{% else %} Puedes personalizar la forma en que recibes notificaciones sobre {% data variables.product.prodname_dependabot_alerts %}. Por ejemplo, puedes recibir un correo electrónico semanal con el resumen de las alertas de hasta 10 de los repositorios mediante las opciones **Email a digest summary of vulnerabilities** y **Weekly security email digest**.{% endif %}

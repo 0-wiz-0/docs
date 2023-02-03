@@ -1,6 +1,6 @@
 ---
-title: Visualizar paquetes
-intro: Puedes ver los detalles de los paquetes que se publican en un repositorio y filtrar los resultados por organización o usuario.
+title: Viewing packages
+intro: 'You can see details about packages published to a repository, and narrow results by organization or user.'
 product: '{% data reusables.gated-features.packages %}'
 redirect_from:
   - /articles/viewing-a-repositorys-packages
@@ -10,23 +10,33 @@ redirect_from:
   - /packages/manage-packages/viewing-packages
 permissions: You must have at least read permissions to view a package.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 ---
 
 {% data reusables.package_registry.packages-ghes-release-stage %}
 {% data reusables.package_registry.packages-ghae-release-stage %}
 
-### Ver paquetes de un repositorio
+## About package views
 
 Your ability to view a package depends on several factors. By default, you can view all packages you have published.
 
-{% data reusables.package_registry.repo-scoped-and-granular-permissions-packages %}
+{% ifversion packages-registries-v2 %}
+Repository-scoped packages inherit their permissions and visibility from the repository that owns the package. Some registries **only** support repository-scoped packages. For a list of these registries, see "[About permissions for {% data variables.product.prodname_registry %}](/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages)."
+
+Other registries offer you the option of granular permissions and visibility settings that can be customized for each package owned by a personal user or organization account. You can choose to use granular permissions or connect the package to a repository and inherit the repository's permissions. For more information, see "[Connecting a repository to a package](/packages/learn-github-packages/connecting-a-repository-to-a-package)" and "[Configuring a package's access control and visibility](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)."
+
+{% else %}
+
+Packages inherit their permissions and visibility from the repository on which they are hosted. For more information, see "[About permissions for {% data variables.product.prodname_registry %}](/packages/learn-github-packages/about-permissions-for-github-packages)."
+
+{% endif %}
 
 {% data reusables.package_registry.package-page-info %}
 
-### Visualizar los paquetes de un repositorio
+## Viewing a repository's packages
 
 You can find and view a package located in a particular repository.
 
@@ -34,23 +44,24 @@ You can find and view a package located in a particular repository.
 {% data reusables.package_registry.packages-from-code-tab %}
 {% data reusables.package_registry.navigate-to-packages %}
 
-### Visualizar los paquetes de una organización
+## Viewing an organization's packages
 
 You can find and view a package located in the repositories of an organization you belong to.
 
-{% data reusables.profile.access_profile %}
 {% data reusables.profile.access_org %}
-3. Debajo del nombre de tu organización, haz clic en {% octicon "package" aria-label="The package icon" %} **Packages (Paquetes)**.
+{% data reusables.user-settings.access_org %}
+3. Under your organization name, click {% octicon "package" aria-label="The package icon" %} **Packages**.
 {% data reusables.package_registry.navigate-to-packages %}
 
-### Visualizar tus paquetes
+## Viewing your packages
 
-You can find and view any package you've published across all organizations and repositories.
+You can find and view any package you've published across all organizations and repositories. 
 
 {% data reusables.profile.access_profile %}
-2. En la zona de navegación principal, sobre la página de perfil, da clic en **Paquetes**. ![Pestaña Project (Proyecto)](/assets/images/help/package-registry/user-packages-tab.png)
+2. On the top of the profile page, in the main navigation, click **Packages**.
+  ![Project tab](/assets/images/help/package-registry/user-packages-tab.png)
 {% data reusables.package_registry.navigate-to-packages %}
 
-### Leer más
+## Further reading
 
-- "[Buscar paquetes](/github/searching-for-information-on-github/searching-for-packages)"
+- "[Searching for packages](/search-github/searching-on-github/searching-for-packages)"

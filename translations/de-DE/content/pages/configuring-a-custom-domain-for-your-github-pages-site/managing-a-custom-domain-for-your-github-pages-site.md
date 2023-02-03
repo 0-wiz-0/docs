@@ -1,121 +1,150 @@
 ---
-title: Eine benutzerdefinierte Domäne für Deine GitHub Pages-Website verwalten
-intro: 'Sie können bestimmte DNS-Datensätze und die Repository-Einstellungen so einrichten oder aktualisieren, dass die Standard-Domain für Ihre {% data variables.product.prodname_pages %}-Website auf eine benutzerdefinierte Domain verweist.'
+title: Eine benutzerdefinierte Domain für deine GitHub Pages-Website verwalten
+intro: 'Du kannst bestimmte DNS-Datensätze und die Repository-Einstellungen so einrichten oder aktualisieren, dass die Standarddomäne für deine {% data variables.product.prodname_pages %}-Website auf eine benutzerdefinierte Domäne verweist.'
 redirect_from:
-  - /articles/quick-start-setting-up-a-custom-domain/
-  - /articles/setting-up-an-apex-domain/
-  - /articles/setting-up-a-www-subdomain/
-  - /articles/setting-up-a-custom-domain/
-  - /articles/setting-up-an-apex-domain-and-www-subdomain/
-  - /articles/adding-a-cname-file-to-your-repository/
-  - /articles/setting-up-your-pages-site-repository/
+  - /articles/quick-start-setting-up-a-custom-domain
+  - /articles/setting-up-an-apex-domain
+  - /articles/setting-up-a-www-subdomain
+  - /articles/setting-up-a-custom-domain
+  - /articles/setting-up-an-apex-domain-and-www-subdomain
+  - /articles/adding-a-cname-file-to-your-repository
+  - /articles/setting-up-your-pages-site-repository
   - /articles/managing-a-custom-domain-for-your-github-pages-site
   - /github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site
 product: '{% data reusables.gated-features.pages %}'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Pages
+shortTitle: Manage a custom domain
+ms.openlocfilehash: d8c11f50369d27a1bf99b10ba843e1525b3d4014
+ms.sourcegitcommit: cfe91073c844cb762131b2de9fb41f7f9db792fc
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 11/24/2022
+ms.locfileid: '148181256'
 ---
-
 Personen mit Administratorberechtigungen für ein Repository können eine benutzerdefinierte Domäne für eine {% data variables.product.prodname_pages %}-Website konfigurieren.
 
-### Informationen zur Konfiguration einer benutzerdefinierten Domäne
+## Informationen zur Konfiguration einer benutzerdefinierten Domäne
 
-Nimm die benutzerdefinierte Domäne zunächst in die {% data variables.product.prodname_pages %} Website auf, bevor Du die benutzerdefinierte Domäne bei Deinem DNS-Provider konfigurierst. Wenn Sie Ihre benutzerdefinierte Domain bei Ihrem DNS-Provider konfigurieren, ohne Ihre benutzerdefinierte Domain zu {% data variables.product.product_name %} hinzuzufügen, könnte ein Dritter eine Website auf einer Ihrer Subdomains hosten.
+Nimm die benutzerdefinierte Domäne zunächst in die {% data variables.product.prodname_pages %} Website auf, bevor du die benutzerdefinierte Domäne bei deinem DNS-Provider konfigurierst. Wenn du deine benutzerdefinierte Domain bei deinem DNS-Provider konfigurierst, ohne deine benutzerdefinierte Domain zu {% data variables.product.product_name %} hinzuzufügen, könnte ein Dritter eine Website auf einer deiner Subdomains hosten.
 
 {% windows %}
 
-Der Befehl `dig`, mit dem die korrekte Konfiguration der DNS-Datensätze überprüft wird, ist nicht in Windows enthalten. Bevor Du die korrekte Konfiguration der DNS-Datensätze überprüfen kannst, musst Du [BIND](https://www.isc.org/bind/) installieren.
+Der Befehl `dig`, mit dem die korrekte Konfiguration der DNS-Einträge überprüft wird, ist nicht in Windows enthalten. Bevor du überprüfen kannst, ob deine DNS-Einträge korrekt konfiguriert sind, musst du [BIND](https://www.isc.org/bind/) installieren.
 
 {% endwindows %}
 
 {% note %}
 
-**Hinweis:** Die Verbreitung von DNS-Änderungen kann bis zu 24 Stunden dauern.
+**Hinweis:** Es kann bis zu 24 Stunden dauern, bis DNS-Änderungen übertragen werden.
 
 {% endnote %}
 
-### Eine Subdomäne konfigurieren
+## Eine Subdomäne konfigurieren
 
-To set up a `www` or custom subdomain, such as `www.example.com` or `blog.example.com`, you must add your domain in the repository settings, which will create a CNAME file in your site’s repository. After that, configure a CNAME record with your DNS provider.
+Zum Einrichten einer `www` oder benutzerdefinierten Unterdomäne wie `www.example.com` oder `blog.example.com` musst du deine Domäne in den Repositoryeinstellungen hinzufügen. Konfiguriere danach einen CNAME-Eintrag mit deinem DNS-Anbieter.
 
-{% data reusables.pages.navigate-site-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.pages.sidebar-pages %}
-4. Unter „Custom domain" (Benutzerdefinierte Domäne) gibst Du Deine benutzerdefinierte Domäne ein, dann klicke auf **Save** (Speichern). Dadurch wird eine Commit erzeugt, der eine _CNAME_-Datei im Stammverzeichnis Deiner Veröffentlichungsquelle hinzufügt. ![Schaltfläche „Save custom domain" (Speichere benutzerdefinierte Domäne)](/assets/images/help/pages/save-custom-subdomain.png)
-5. Navigiere zu Deinem DNS-Provider, und erstelle einen `CNAME` Datensatz, welcher Deine Subdomäne auf die Standarddomäne Deiner Website verweist. Soll beispielsweise die Subdomäne `www.example.com` für Deine Benutzer-Website verwendet werden, erstelle einen `CNAME`-Datensatz, mit dem `www.example.com` auf `<user>.github.io` verweist. If you want to use the subdomain `www.anotherexample.com` for your organization site, create a `CNAME` record that points `www.anotherexample.com` to `<organization>.github.io`. The `CNAME` record should always point to `<user>.github.io` or `<organization>.github.io`, excluding the repository name. {% data reusables.pages.contact-dns-provider %} {% data reusables.pages.default-domain-information %}
+{% data reusables.pages.navigate-site-repo %} {% data reusables.repositories.sidebar-settings %} {% data reusables.pages.sidebar-pages %}
+4. Gib unter „Benutzerdefinierte Domäne“ den Namen deiner benutzerdefinierten Domäne ein, und klicke auf **Speichern**. Wenn du deine Website über einen Branch veröffentlichst, wird dadurch ein Commit erstellt, der dem Stamm deines Quellbranch eine `CNAME`-Datei hinzufügt. Wenn du deine Website mit einem benutzerdefinierten {% data variables.product.prodname_actions %}-Workflow veröffentlichst, wird keine `CNAME`-Datei erstellt. Weitere Informationen findest du unter [Konfigurieren einer Veröffentlichungsquelle für deine GitHub Pages-Website](/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+  ![Schaltfläche „Speichere benutzerdefinierte Domäne“](/assets/images/help/pages/save-custom-subdomain.png)
 
-{% indented_data_reference reusables.pages.wildcard-dns-warning spaces=3 %}
-{% data reusables.command_line.open_the_multi_os_terminal %}
-6. Prüfe die korrekte Konfiguration des DNS-Datensatzes mit dem Befehl `dig`, und ersetze _WWW.EXAMPLE.COM_ dabei durch Deine Subdomäne.
+  {% note %}
+  
+  **Hinweis:** Wenn deine benutzerdefinierte Domäne ein internationalisierter Domänenname ist, musst du die Punycode-codierte Version eingeben.
+  
+  Weitere Informationen zu Punycodes findest du unter [Internationalisierter Domänenname](https://en.wikipedia.org/wiki/Internationalized_domain_name).
+  
+  {% endnote %}
+
+5. Navigiere zu deinem DNS-Anbieter, und erstelle einen `CNAME`-Eintrag, der deine Unterdomäne auf die Standarddomäne für deine Website verweist. Wenn du beispielsweise die Unterdomäne `www.example.com` für deine Benutzerwebsite verwenden möchtest, erstelle einen `CNAME`-Eintrag, der `www.example.com` auf `<user>.github.io` verweist. Wenn du die Unterdomäne `another.example.com` für deine Unternehmenswebsite verwenden möchtest, erstelle einen `CNAME`-Eintrag, der `another.example.com` auf `<organization>.github.io` verweist. Der `CNAME`-Eintrag sollte immer auf `<user>.github.io` oder `<organization>.github.io` verweisen, ohne den Repositorynamen. {% data reusables.pages.contact-dns-provider %} {% data reusables.pages.default-domain-information %}
+
+{% indented_data_reference reusables.pages.wildcard-dns-warning spaces=3 %} {% data reusables.command_line.open_the_multi_os_terminal %}
+6. Um zu überprüfen, ob dein DNS-Eintrag korrekt konfiguriert ist, verwende den Befehl `dig`, wobei du _WWW.EXAMPLE.COM_ durch deine Unterdomäne ersetzt.
 ```shell
-    $ dig <em>WWW.EXAMPLE.COM</em> +nostats +nocomments +nocmd
-    > ;<em>WWW.EXAMPLE.COM.</em>                     IN      A
-    > <em>WWW.EXAMPLE.COM.</em>              3592    IN      CNAME   <em>YOUR-USERNAME</em>.github.io.
-    > <em>YOUR-USERNAME</em>.github.io.      43192   IN      CNAME   <em> GITHUB-PAGES-SERVER </em>.
-    > <em> GITHUB-PAGES-SERVER </em>.         22      IN      A       192.0.2.1
+    $ dig WWW.EXAMPLE.COM +nostats +nocomments +nocmd
+    > ;WWW.EXAMPLE.COM.                    IN      A
+    > WWW.EXAMPLE.COM.             3592    IN      CNAME   YOUR-USERNAME.github.io.
+    > YOUR-USERNAME.github.io.      43192   IN      CNAME   GITHUB-PAGES-SERVER .
+    > GITHUB-PAGES-SERVER .         22      IN      A       192.0.2.1
 ```
-{% data reusables.pages.build-locally-download-cname %}
-{% data reusables.pages.enforce-https-custom-domain %}
+{% data reusables.pages.build-locally-download-cname %} {% data reusables.pages.enforce-https-custom-domain %}
 
-### Eine Apex-Domäne konfigurieren
+## Eine Apex-Domäne konfigurieren
 
-To set up an apex domain, such as `example.com`, you must configure a _CNAME_ file  in your {% data variables.product.prodname_pages %} repository and at least one `ALIAS`, `ANAME`, or `A` record with your DNS provider.
+Zum Einrichten einer Apex-Domäne, z. B. `example.com`, musst du eine benutzerdefinierte Domäne in deinen Repositoryeinstellungen und mindestens einen `ALIAS`-, `ANAME`- oder `A`-Datensatz mit deinem DNS-Anbieter konfigurieren.
 
-{% data reusables.pages.www-and-apex-domain-recommendation %} For more information, see "[Configuring a subdomain](#configuring-a-subdomain)."
+{% data reusables.pages.www-and-apex-domain-recommendation %} Weitere Informationen findest du unter [Konfigurieren einer Unterdomäne](#configuring-a-subdomain).
 
-{% data reusables.pages.navigate-site-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.pages.sidebar-pages %}
-4. Unter „Custom domain" (Benutzerdefinierte Domäne) gibst Du Deine benutzerdefinierte Domäne ein, dann klicke auf **Save** (Speichern). Dadurch wird eine Commit erzeugt, der eine _CNAME_-Datei im Stammverzeichnis Deiner Veröffentlichungsquelle hinzufügt. ![Schaltfläche „Save custom domain" (Speichere benutzerdefinierte Domäne)](/assets/images/help/pages/save-custom-apex-domain.png)
-5. Navigiere zu Deinem DNS-Provider, und erstelle entweder einen `ALIAS`-, einen `ANAME`- oder einen `A`-Datensatz. {% data reusables.pages.contact-dns-provider %}
-    - Soll ein `ALIAS`- oder `ANAME`-Datensatz erstellt werden, verweise Deine Apex-Domäne auf die Standarddomäne Deiner Website. {% data reusables.pages.default-domain-information %}
-    - To create `A` records, point your apex domain to the IP addresses for {% data variables.product.prodname_pages %}.
+{% data reusables.pages.navigate-site-repo %} {% data reusables.repositories.sidebar-settings %} {% data reusables.pages.sidebar-pages %}
+4. Gib unter „Benutzerdefinierte Domäne“ den Namen deiner benutzerdefinierten Domäne ein, und klicke auf **Speichern**. Wenn du deine Website über einen Branch veröffentlichst, wird dadurch ein Commit erstellt, der dem Stamm deines Quellbranch eine `CNAME`-Datei hinzufügt. Wenn du deine Website mit einem benutzerdefinierten {% data variables.product.prodname_actions %}-Workflow veröffentlichst, wird keine `CNAME`-Datei erstellt. Weitere Informationen findest du unter [Konfigurieren einer Veröffentlichungsquelle für deine GitHub Pages-Website](/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+  ![Schaltfläche „Speichere benutzerdefinierte Domäne“](/assets/images/help/pages/save-custom-apex-domain.png)
+5. Navigiere zu deinem DNS-Anbieter, und erstelle entweder einen `ALIAS`-, `ANAME`- oder `A`-Eintrag. Du kannst auch `AAAA`-Einträge für die IPv6-Unterstützung erstellen. {% data reusables.pages.contact-dns-provider %}
+    - Um einen `ALIAS`- oder `ANAME`-Eintrag zu erstellen, verweise deine Apex-Domäne auf die Standarddomäne für deine Website. {% data reusables.pages.default-domain-information %}
+    - Soll ein `A`-Eintrag erstellt werden, verweise deine Apex-Domäne auf die IP-Adressen für {% data variables.product.prodname_pages %}.
       ```shell
       185.199.108.153
       185.199.109.153
       185.199.110.153
       185.199.111.153
       ```
+    - Soll ein `AAAA`-Eintrag erstellt werden, verweise deine Apex-Domäne auf die IP-Adressen für {% data variables.product.prodname_pages %}.
+      ```shell
+      2606:50c0:8000::153
+      2606:50c0:8001::153
+      2606:50c0:8002::153
+      2606:50c0:8003::153
+      ```
 
-{% indented_data_reference reusables.pages.wildcard-dns-warning spaces=3 %}
-{% data reusables.command_line.open_the_multi_os_terminal %}
-6. Prüfe die korrekte Konfiguration des DNS-Datensatzes mit dem Befehl `dig`, und ersetze _EXAMPLE.COM_ dabei durch Deine Apex-Domäne. Prüfe, ob die Ergebnisse mit den obigen IP-Adressen für {% data variables.product.prodname_pages %} übereinstimmen.
-  ```shell
-  $ dig <em>EXAMPLE.COM</em> +noall +answer
-  > <em>EXAMPLE.COM</em>     3600    IN A     185.199.108.153
-  > <em>EXAMPLE.COM</em>     3600    IN A     185.199.109.153
-  > <em>EXAMPLE.COM</em>     3600    IN A     185.199.110.153
-  > <em>EXAMPLE.COM</em>     3600    IN A     185.199.111.153
-  ```
-{% data reusables.pages.build-locally-download-cname %}
-{% data reusables.pages.enforce-https-custom-domain %}
+{% indented_data_reference reusables.pages.wildcard-dns-warning spaces=3 %} {% data reusables.command_line.open_the_multi_os_terminal %}
+6. Um zu überprüfen, ob dein DNS-Eintrag korrekt konfiguriert ist, verwende den Befehl `dig`, wobei du _EXAMPLE.COM_ durch deine Apex-Domäne ersetzt. Prüfe, ob die Ergebnisse mit den obigen IP-Adressen für {% data variables.product.prodname_pages %} übereinstimmen.
+   - Für `A`-Einträge.
+    ```shell
+    $ dig EXAMPLE.COM +noall +answer -t A
+    > EXAMPLE.COM    3600    IN A     185.199.108.153
+    > EXAMPLE.COM    3600    IN A     185.199.109.153
+    > EXAMPLE.COM    3600    IN A     185.199.110.153
+    > EXAMPLE.COM    3600    IN A     185.199.111.153
+    ```
+   - Für `AAAA`-Einträge.
+    ```shell
+    $ dig EXAMPLE.COM +noall +answer -t AAAA
+    > EXAMPLE.COM     3600    IN AAAA     2606:50c0:8000::153
+    > EXAMPLE.COM     3600    IN AAAA     2606:50c0:8001::153
+    > EXAMPLE.COM     3600    IN AAAA     2606:50c0:8002::153
+    > EXAMPLE.COM     3600    IN AAAA     2606:50c0:8003::153
+    ```
+{% data reusables.pages.build-locally-download-cname %} {% data reusables.pages.enforce-https-custom-domain %}
 
-### Configuring an apex domain and the `www` subdomain variant
+## Konfigurieren einer Apex-Domäne und der Unterdomänenvariante `www`
 
-When using an apex domain, we recommend configuring your {% data variables.product.prodname_pages %} site to host content at both the apex domain and that domain's `www` subdomain variant.
+Bei Verwendung einer Apex-Domäne empfehlen wir, deine {% data variables.product.prodname_pages %}-Website so zu konfigurieren, dass Inhalte sowohl in der Apex-Domäne als auch in dieser Unterdomänenvariante `www` der Domäne gehostet werden.
 
-To set up a `www` subdomain alongside the apex domain, you must first configure an apex domain, which will create an `ALIAS`, `ANAME`, or `A` record with your DNS provider. For more information, see "[Configuring an apex domain](#configuring-an-apex-domain)."
+Zum Einrichten einer `www`-Unterdomäne neben der Apex-Domäne musst du zuerst eine Apex-Domäne konfigurieren, indem du einen `ALIAS`-, `ANAME`- oder `A`-Eintrag mit deinem DNS-Anbieter erstellst. Weitere Informationen findest du unter [Konfigurieren einer Apex-Domäne](#configuring-an-apex-domain).
 
-After you configure the apex domain, you must to configure a CNAME record with your DNS provider.
+Nachdem du die Apex-Domäne konfiguriert hast, musst du einen CNAME-Eintrag mit deinem DNS-Anbieter konfigurieren.
 
-1. Navigate to your DNS provider and create a `CNAME` record that points `www.example.com` to the default domain for your site: `<user>.github.io` or `<organization>.github.io`. Do not include the repository name. {% data reusables.pages.contact-dns-provider %} {% data reusables.pages.default-domain-information %}
-2. To confirm that your DNS record configured correctly, use the `dig` command, replacing _WWW.EXAMPLE.COM_ with your `www` subdomain variant.
+1. Navigiere zu deinem DNS-Anbieter, und erstelle einen `CNAME`-Eintrag, der `www.example.com` auf die Standarddomäne für deine Website verweist: `<user>.github.io` oder `<organization>.github.io`. Gib den Namen des Repositorys nicht an. {% data reusables.pages.contact-dns-provider %} {% data reusables.pages.default-domain-information %}
+2. Um zu überprüfen, ob dein DNS-Eintrag korrekt konfiguriert ist, verwende den Befehl `dig`, wobei du _WWW.EXAMPLE.COM_ durch deine `www`-Unterdomänenvariante ersetzt.
 ```shell
-    $ dig <em>WWW.EXAMPLE.COM</em> +nostats +nocomments +nocmd
-    > ;<em>WWW.EXAMPLE.COM.</em>                     IN      A
-    > <em>WWW.EXAMPLE.COM.</em>              3592    IN      CNAME   <em>YOUR-USERNAME</em>.github.io.
-    > <em>YOUR-USERNAME</em>.github.io.      43192   IN      CNAME   <em> GITHUB-PAGES-SERVER </em>.
-    > <em> GITHUB-PAGES-SERVER </em>.         22      IN      A       192.0.2.1
+    $ dig WWW.EXAMPLE.COM +nostats +nocomments +nocmd
+    > ;WWW.EXAMPLE.COM                     IN      A
+    > WWW.EXAMPLE.COM.              3592    IN      CNAME   YOUR-USERNAME.github.io.
+    > YOUR-USERNAME.github.io.      43192   IN      CNAME   GITHUB-PAGES-SERVER.
+    > GITHUB-PAGES-SERVER.         22      IN      A       192.0.2.1
 ```
-### Removing a custom domain
+## Entfernen einer benutzerdefinierten Domäne
 
-{% data reusables.pages.navigate-site-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.pages.sidebar-pages %}
-4. Under "Custom domain," click **Remove**. ![Schaltfläche „Save custom domain" (Speichere benutzerdefinierte Domäne)](/assets/images/help/pages/remove-custom-domain.png)
+{% data reusables.pages.navigate-site-repo %} {% data reusables.repositories.sidebar-settings %} {% data reusables.pages.sidebar-pages %}
+4. Klicke unter „Benutzerdefinierte Domäne“ auf **Entfernen**.
+  ![Schaltfläche „Speichere benutzerdefinierte Domäne“](/assets/images/help/pages/remove-custom-domain.png)
 
-### Weiterführende Informationen
+## Sichern deiner benutzerdefinierten Domäne
 
-- „[Fehlerbehebung bei benutzerdefinierten Domänen und {% data variables.product.prodname_pages %}](/articles/troubleshooting-custom-domains-and-github-pages)“
+{% data reusables.pages.secure-your-domain %} Weitere Informationen findest du unter [Überprüfen deiner benutzerdefinierten Domäne für {% data variables.product.prodname_pages %}](/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages).
+
+## Weiterführende Themen
+
+- [Problembehandlung für benutzerdefinierte Domänen und {% data variables.product.prodname_pages %}](/articles/troubleshooting-custom-domains-and-github-pages)

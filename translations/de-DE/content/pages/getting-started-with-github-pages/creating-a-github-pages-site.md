@@ -1,63 +1,62 @@
 ---
-title: Creating a GitHub Pages site
-intro: 'Sie können eine {% data variables.product.prodname_pages %}-Website in einem neuen oder vorhandenen Repository erstellen.'
+title: Erstellen einer GitHub Pages-Website
+intro: 'Du kannst eine {% data variables.product.prodname_pages %}-Website in einem neuen oder vorhandenen Repository erstellen.'
 redirect_from:
-  - /articles/creating-pages-manually/
-  - /articles/creating-project-pages-manually/
-  - /articles/creating-project-pages-from-the-command-line/
-  - /articles/creating-project-pages-using-the-command-line/
+  - /articles/creating-pages-manually
+  - /articles/creating-project-pages-manually
+  - /articles/creating-project-pages-from-the-command-line
+  - /articles/creating-project-pages-using-the-command-line
   - /articles/creating-a-github-pages-site
   - /github/working-with-github-pages/creating-a-github-pages-site
 product: '{% data reusables.gated-features.pages %}'
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Pages
+shortTitle: Create a GitHub Pages site
+ms.openlocfilehash: 45e7dead10f3f54b5c18d63352a037d04d49cb98
+ms.sourcegitcommit: 478f2931167988096ae6478a257f492ecaa11794
+ms.translationtype: HT
+ms.contentlocale: de-DE
+ms.lasthandoff: 09/09/2022
+ms.locfileid: '147643949'
 ---
-
 {% data reusables.pages.org-owners-can-restrict-pages-creation %}
 
-### Ein Repository für eine Website erstellen
+## Ein Repository für eine Website erstellen
 
 {% data reusables.pages.new-or-existing-repo %}
 
-{% data reusables.repositories.create_new %}
-{% data reusables.repositories.owner-drop-down %}
-{% data reusables.pages.create-repo-name %}
-{% data reusables.repositories.choose-repo-visibility %}
-{% data reusables.repositories.initialize-with-readme %}
-{% data reusables.repositories.create-repo %}
+{% data reusables.repositories.create_new %} {% data reusables.repositories.owner-drop-down %} {% indented_data_reference reusables.pages.emu-org-only spaces=3 %} {% data reusables.pages.create-repo-name %} {% data reusables.repositories.choose-repo-visibility %} {% data reusables.repositories.initialize-with-readme %} {% data reusables.repositories.create-repo %}
 
-### Eine Website erstellen
+## Eine Website erstellen
 
 {% data reusables.pages.must-have-repo-first %}
 
 {% data reusables.pages.private_pages_are_public_warning %}
 
-{% data reusables.pages.navigate-site-repo %}
-{% data reusables.pages.decide-publishing-source %}
-3. Wenn Deine ausgewählte Veröffentlichungsquelle bereits vorhanden ist, navigiere zu dieser Quelle. Wenn Deine ausgewählte Veröffentlichungsquelle nicht vorhanden ist, erstelle die Veröffentlichungsquelle.
-4. Erstelle im Root der Veröffentlichungsquelle eine neue Datei mit dem Namen `index.md`, die den Inhalt enthält, der auf der Hauptseite Deiner Website angezeigt werden soll.
-{% data reusables.pages.configure-publishing-source %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.pages.sidebar-pages %}{% if currentVersion == "free-pro-team@latest" %}
-{% data reusables.pages.choose-visibility %}{% endif %}
-{% data reusables.pages.visit-site %}
+{% data reusables.pages.navigate-site-repo %} {% data reusables.pages.decide-publishing-source %}
+1. Erstelle die Eintragsdatei für deine Website. {% data variables.product.prodname_pages %} sucht nach einer `index.html`-, `index.md`- oder `README.md`-Datei als Eintragsdatei für deine Website.
+
+   {% ifversion pages-custom-workflow %}Wenn deine Veröffentlichungsquelle ein Branch und ein Ordner ist, muss sich die Eintragsdatei auf oberster Ebene des Quellordners im Quellbranch befinden. Wenn deine Veröffentlichungsquelle beispielsweise der Ordner `/docs` in Branch `main` ist, muss sich deine Eintragsdatei im Ordner `/docs` in einem Branch namens `main` befinden.
+
+   Wenn deine Veröffentlichungsquelle ein {% data variables.product.prodname_actions %}-Workflow ist, muss das von dir bereitgestellte Artefakt die Eintragsdatei auf oberster Ebene des Artefakts enthalten. Anstatt die Eintragsdatei deinem Repository hinzuzufügen, kannst du deinen {% data variables.product.prodname_actions %}-Workflow deine Eintragsdatei generieren lassen, wenn der Workflow ausgeführt wird. {% else %} Die Eintragsdatei muss sich auf der obersten Ebene deiner ausgewählten Veröffentlichungsquelle befinden. Wenn deine Veröffentlichungsquelle beispielsweise der Ordner `/docs` in Branch `main` ist, muss sich deine Eintragsdatei im Ordner `/docs` in einem Branch namens `main` befinden.{% endif %} {% data reusables.pages.configure-publishing-source %} {% data reusables.repositories.sidebar-settings %} {% data reusables.pages.sidebar-pages %} {% data reusables.pages.choose-visibility %} {% data reusables.pages.visit-site %} {% data reusables.pages.check-workflow-run %}
 
 {% data reusables.pages.admin-must-push %}
 
-### Nächste Schritte:
+## Nächste Schritte
 
-Du kannst Deiner Website weitere Seiten hinzufügen, indem Du zusätzliche neue Dateien erstellst. Jede Datei wird auf Deiner Website im selben Verzeichnis verfügbar sein wie Deine Veröffentlichungsquelle. For example, if the publishing source for your project site is the `gh-pages` branch, and you create a new file called `/about/contact-us.md` on the `gh-pages` branch, the file will be available at {% if currentVersion == "free-pro-team@latest" %}`https://<user>.github.io/<repository>/{% else %}`http(s)://<hostname>/pages/<username>/<repository>/{% endif %}about/contact-us.html` verfügbar.
+Du kannst deiner Website weitere Seiten hinzufügen, indem du zusätzliche neue Dateien erstellst. Jede Datei ist auf deiner Website im selben Verzeichnis verfügbar wie deine Veröffentlichungsquelle. Wenn beispielsweise die Veröffentlichungsquelle für deine Projektwebsite der Branch `gh-pages` ist, und du eine neue Datei namens `/about/contact-us.md` in Branch `gh-pages` erstellst, steht die Datei unter {% ifversion fpt or ghec %}`https://<user>.github.io/<repository>/{% else %}`http(s)://<hostname>/pages/<username>/<repository>/{% endif %}about/contact-us.html` zur Verfügung.
 
-Du kannst auch ein Design hinzufügen, um das Aussehen der Website anzupassen. For more information, see {% if currentVersion == "free-pro-team@latest" %}"[Adding a theme to your {% data variables.product.prodname_pages %} site with the theme chooser](/articles/adding-a-theme-to-your-github-pages-site-with-the-theme-chooser){% else %}"[Adding a theme to your {% data variables.product.prodname_pages %} site using Jekyll](/articles/adding-a-theme-to-your-github-pages-site-using-jekyll){% endif %}."
+Du kannst auch ein Design hinzufügen, um das Aussehen der Website anzupassen. Weitere Informationen findest du unter [Hinzufügen eines Designs zu deiner {% data variables.product.prodname_pages %}-Website mit Jekyll](/articles/adding-a-theme-to-your-github-pages-site-using-jekyll).
 
-Um Ihre Website noch weiter anzupassen, können Sie Jekyll verwenden, einen Generator für statische Websites mit integrierter Unterstützung von {% data variables.product.prodname_pages %}. Weitere Informationen finden Sie unter „[Informationen zu {% data variables.product.prodname_pages %} und Jekyll](/articles/about-github-pages-and-jekyll)“.
+Um deine Website noch weiter anzupassen, kannst du Jekyll verwenden, einen Generator für statische Websites mit integrierter Unterstützung von {% data variables.product.prodname_pages %}. Weitere Informationen findest du unter [Informationen zu {% data variables.product.prodname_pages %} und Jekyll](/articles/about-github-pages-and-jekyll).
 
-### Weiterführende Informationen
+## Weiterführende Themen
 
-- „[Jekyll-Build-Fehler für {% data variables.product.prodname_pages %}-Websites beheben](/articles/troubleshooting-jekyll-build-errors-for-github-pages-sites)“
-- „[Branches in Ihrem Repository erstellen und löschen](/articles/creating-and-deleting-branches-within-your-repository)“
-- „[Neue Dateien erstellen](/articles/creating-new-files)“
+- "[Behandeln von Jekyll-Build-Fehlern für {% data variables.product.prodname_pages %}-Websites](/articles/troubleshooting-jekyll-build-errors-for-github-pages-sites)"
+- [Erstellen und Löschen von Branches innerhalb deines Repositorys](/articles/creating-and-deleting-branches-within-your-repository)
+- "[Erstellen neuer Dateien](/articles/creating-new-files)"
