@@ -14,13 +14,27 @@ versions:
 topics:
   - Repositories
 ---
-### About repository visibility changes
+## About repository visibility changes
 
 Organization owners can restrict the ability to change repository visibility to organization owners only. For more information, see "[Restricting repository visibility changes in your organization](/organizations/managing-organization-settings/restricting-repository-visibility-changes-in-your-organization)."
 
 We recommend reviewing the following caveats before you change the visibility of a repository.
 
-#### Making a repository private
+{% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %}
+
+{% warning %}
+
+**Warning:** Changes to the visibility of a large repository or repository network may affect data integrity. Visibility changes can also have unintended effects on forks. {% data variables.product.company_short %} recommends the following before changing the visibility of a repository network.
+
+- Wait for a period of reduced activity on {% data variables.product.product_location %}.
+
+- Contact your {% if enterpriseServerVersions contains currentVersion %}site administrator{% elsif currentVersion == "github-ae@latest" %}enterprise owner{% endif %} before proceeding. Your {% if enterpriseServerVersions contains currentVersion %}site administrator{% elsif currentVersion == "github-ae@latest" %}enterprise owner{% endif %} can contact {% data variables.contact.contact_ent_support %} for further guidance.
+
+{% endwarning %}
+
+{% endif %}
+
+### Making a repository private
 {% if currentVersion == "free-pro-team@latest" or enterpriseServerVersions contains currentVersion %}
 * {% data variables.product.product_name %} will detach public forks of the public repository and put them into a new network. Public forks are not made private.{% endif %}
 * If you change a repository's visibility from internal to private, {% data variables.product.prodname_dotcom %} will remove forks that belong to any user without access to the newly private repository. {% if currentVersion == "free-pro-team@latest" or enterpriseServerVersions contains currentVersion %}The visibility of any forks will also change to private.{% elsif currentVersion == "github-ae@latest" %}If the internal repository has any forks, the visibility of the forks is already private.{% endif %} For more information, see "[What happens to forks when a repository is deleted or changes visibility?](/articles/what-happens-to-forks-when-a-repository-is-deleted-or-changes-visibility)"{% if currentVersion == "free-pro-team@latest" %}
@@ -32,7 +46,7 @@ We recommend reviewing the following caveats before you change the visibility of
 
 {% if currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@latest" or currentVersion ver_gt "enterprise-server@2.19" %}
 
-#### Making a repository internal
+### Making a repository internal
 
 {% note %}
 
@@ -46,19 +60,19 @@ We recommend reviewing the following caveats before you change the visibility of
 
 {% if currentVersion == "free-pro-team@latest" or enterpriseServerVersions contains currentVersion %}
 
-#### Making a repository public
+### Making a repository public
 
 * {% data variables.product.product_name %} will detach private forks and turn them into a standalone private repository. For more information, see "[What happens to forks when a repository is deleted or changes visibility?](/articles/what-happens-to-forks-when-a-repository-is-deleted-or-changes-visibility#changing-a-private-repository-to-a-public-repository)"{% if currentVersion == "free-pro-team@latest" %}
 * If you're converting your private repository to a public repository as part of a move toward creating an open source project, see the [Open Source Guides](http://opensource.guide) for helpful tips and guidelines. You can also take a free course on managing an open source project with [{% data variables.product.prodname_learning %}]({% data variables.product.prodname_learning_link %}). Once your repository is public, you can also view your repository's community profile to see whether your project meets best practices for supporting contributors. For more information, see "[Viewing your community profile](/articles/viewing-your-community-profile)."
 * The repository will automatically gain access to {% data variables.product.prodname_GH_advanced_security %} features.
 
-For information about improving repository security, see "[About securing your repository](/github/administering-a-repository/about-securing-your-repository)."{% endif %}
+For information about improving repository security, see "[Securing your repository](/code-security/getting-started/securing-your-repository)."{% endif %}
 
 {% endif %}
 
 {% if currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@latest" or currentVersion ver_gt "enterprise-server@2.21" %}
 
-### Changing a repository's visibility
+## Changing a repository's visibility
 
 {% data reusables.repositories.navigate-to-repo %}
 {% data reusables.repositories.sidebar-settings %}
@@ -77,7 +91,7 @@ For information about improving repository security, see "[About securing your r
 
 {% if currentVersion ver_lt "enterprise-server@2.22" %}
 
-### Making a repository private
+## Making a repository private
 
 {% data reusables.repositories.navigate-to-repo %}
 {% data reusables.repositories.sidebar-settings %}
@@ -88,7 +102,7 @@ For information about improving repository security, see "[About securing your r
 5. Type the name of the repository that you want to make private, for example `accountname/reponame`.
 6. Click **I understand, make this repository private**.
 
-### Making a repository public
+## Making a repository public
 
 {% data reusables.repositories.navigate-to-repo %}
 {% data reusables.repositories.sidebar-settings %}
@@ -100,7 +114,7 @@ For information about improving repository security, see "[About securing your r
 6. Click **I understand, make this repository public**.
 
 {% if currentVersion ver_gt "enterprise-server@2.19" %}
-### Making a repository internal
+## Making a repository internal
 
 {% data reusables.organizations.internal-repos-enterprise %}
 
@@ -116,5 +130,5 @@ For information about improving repository security, see "[About securing your r
 
 {% endif %}
 
-### Further reading
+## Further reading
 - "[About repository visibility](/github/creating-cloning-and-archiving-repositories/about-repository-visibility)"

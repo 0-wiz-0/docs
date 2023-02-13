@@ -36,7 +36,13 @@ module.exports = function (app) {
 
   // *** Security ***
   app.use(require('./cors'))
-  app.use(require('helmet')())
+  app.use(require('helmet')({
+    // Override referrerPolicy to match the browser's default: "strict-origin-when-cross-origin".
+    // Helmet now defaults to "no-referrer", which is a problem for our archived assets proxying.
+    referrerPolicy: {
+      policy: 'strict-origin-when-cross-origin'
+    }
+  }))
   app.use(require('./csp')) // Must come after helmet
   app.use(require('./cookie-parser')) // Must come before csrf
   app.use(express.json()) // Must come before csrf
@@ -48,12 +54,14 @@ module.exports = function (app) {
   app.use(require('compression')())
   app.use(require('./disable-caching-on-safari'))
   app.use(require('./set-fastly-surrogate-key'))
+  app.use(require('./catch-bad-accept-language'))
 
   // *** Config and context for redirects ***
   app.use(require('./req-utils')) // Must come before record-redirect and events
   app.use(require('./record-redirect'))
   app.use(instrument('./detect-language')) // Must come before context, breadcrumbs, find-page, handle-errors, homepages
   app.use(asyncMiddleware(instrument('./context'))) // Must come before early-access-*, handle-redirects
+  app.use(asyncMiddleware(instrument('./contextualizers/short-versions'))) // Support version shorthands
 
   // *** Redirects, 3xx responses ***
   // I ordered these by use frequency
@@ -105,21 +113,22 @@ module.exports = function (app) {
   app.use(haltOnDroppedConnection)
 
   // *** Preparation for render-page: contextualizers ***
-  app.use(asyncMiddleware(instrument('./contextualizers/enterprise-release-notes')))
+  app.use(asyncMiddleware(instrument('./contextualizers/release-notes')))
   app.use(instrument('./contextualizers/graphql'))
   app.use(instrument('./contextualizers/rest'))
   app.use(instrument('./contextualizers/webhooks'))
   app.use(asyncMiddleware(instrument('./contextualizers/whats-new-changelog')))
   app.use(instrument('./contextualizers/layout'))
-  app.use(asyncMiddleware(instrument('./contextualizers/render-tree-titles')))
   app.use(instrument('./contextualizers/current-product-tree'))
   app.use(asyncMiddleware(instrument('./contextualizers/generic-toc')))
   app.use(asyncMiddleware(instrument('./contextualizers/breadcrumbs')))
   app.use(asyncMiddleware(instrument('./contextualizers/early-access-breadcrumbs')))
+  app.use(asyncMiddleware(instrument('./contextualizers/product-examples')))
 
   app.use(asyncMiddleware(instrument('./dev-toc')))
   app.use(asyncMiddleware(instrument('./featured-links')))
   app.use(asyncMiddleware(instrument('./learning-track')))
+  app.use(asyncMiddleware(instrument('./is-next-request')))
 
   // *** Headers for pages only ***
   app.use(require('./set-fastly-cache-headers'))

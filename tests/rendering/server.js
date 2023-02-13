@@ -3,7 +3,7 @@ const enterpriseServerReleases = require('../../lib/enterprise-server-releases')
 const { get, getDOM, head, post } = require('../helpers/supertest')
 const { describeViaActionsOnly } = require('../helpers/conditional-runs')
 const path = require('path')
-const { loadPages } = require('../../lib/pages')
+const { loadPages } = require('../../lib/page-data')
 const builtAssets = require('../../lib/built-asset-urls')
 const AZURE_STORAGE_URL = 'githubdocs.azureedge.net'
 
@@ -250,6 +250,16 @@ describe('server', () => {
     test('does not render mini TOC in non-articles', async () => {
       const $ = await getDOM('/github/getting-started-with-github')
       expect($('h2#in-this-article').length).toBe(0)
+    })
+
+    test('renders mini TOC with correct links when headings contain markup', async () => {
+      const $ = await getDOM('/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates')
+      expect($('h2#in-this-article + ul li a[href="#package-ecosystem"]').length).toBe(1)
+    })
+
+    test('renders mini TOC with correct links when headings contain markup in localized content', async () => {
+      const $ = await getDOM('/ja/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates')
+      expect($('h2#in-this-article + ul li a[href="#package-ecosystem"]').length).toBe(1)
     })
   })
 
@@ -636,10 +646,10 @@ describe('extended Markdown', () => {
 
   test('renders platform-specific content', async () => {
     const $ = await getDOM('/en/github/using-git/associating-text-editors-with-git')
-    expect($('.extended-markdown.mac h3#using-textmate-as-your-editor').length).toBe(1)
-    expect($('.extended-markdown.windows h3#using-notepad-as-your-editor').length).toBe(1)
-    expect($('.extended-markdown.linux h3#using-textmate-as-your-editor').length).toBe(0)
-    expect($('.extended-markdown.linux h3#using-notepad-as-your-editor').length).toBe(0)
+    expect($('.extended-markdown.mac h2#using-textmate-as-your-editor').length).toBe(1)
+    expect($('.extended-markdown.windows h2#using-notepad-as-your-editor').length).toBe(1)
+    expect($('.extended-markdown.linux h2#using-textmate-as-your-editor').length).toBe(0)
+    expect($('.extended-markdown.linux h2#using-notepad-as-your-editor').length).toBe(0)
   })
 
   test('renders expected mini TOC headings in platform-specific content', async () => {

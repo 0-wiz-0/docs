@@ -4,6 +4,7 @@ intro: 'If you want to use {% data variables.product.prodname_registry %} beyond
 product: '{% data reusables.gated-features.packages %}'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/about-billing-for-github-packages
+  - /github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-packages/about-billing-for-github-packages
 versions:
   free-pro-team: '*'
 type: overview
@@ -11,7 +12,7 @@ topics:
   - Packages
   - Spending limits
 ---
-### About billing for {% data variables.product.prodname_registry %}
+## About billing for {% data variables.product.prodname_registry %}
 
 {% data reusables.package_registry.packages-billing %}
 
@@ -61,7 +62,9 @@ At the end of the month, {% data variables.product.prodname_dotcom %} rounds you
 
 Your {% data variables.product.prodname_registry %} usage shares your account's existing billing date, payment method, and receipt. {% data reusables.dotcom_billing.view-all-subscriptions %}
 
-### About spending limits
+{% data reusables.user_settings.context_switcher %}
+
+## About spending limits
 
 {% data reusables.package_registry.packages-spending-limit-detailed %}
 

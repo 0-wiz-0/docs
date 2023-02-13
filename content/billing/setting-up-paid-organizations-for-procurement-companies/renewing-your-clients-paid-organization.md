@@ -5,7 +5,7 @@ redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/renewing-your-clients-paid-organization
   - /articles/renewing-your-client-s-paid-organization
   - /articles/renewing-your-clients-paid-organization
-  - /github/setting-up-and-managing-billing-and-payments-on-github/renewing-your-clients-paid-organization
+  - /github/setting-up-and-managing-billing-and-payments-on-github/setting-up-paid-organizations-for-procurement-companies/renewing-your-clients-paid-organization
 versions:
   free-pro-team: '*'
 type: how_to
@@ -20,11 +20,9 @@ topics:
 
 {% endtip %}
 
-### Updating your organization's credit card
+## Updating your organization's credit card
 
-{% data reusables.profile.access_org %}
-{% data reusables.profile.org_settings %}
-{% data reusables.organizations.billing_plans %}
+{% data reusables.organizations.billing-settings %}
 {% data reusables.dotcom_billing.update_payment_method %}
 1. Under "Payment method", click **New Card**.
 ![Billing New Card button](/assets/images/help/billing/billing-new-card-button.png)

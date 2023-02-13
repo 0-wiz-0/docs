@@ -11,29 +11,38 @@ versions:
 topics:
   - GitHub Apps
 ---
-### About {% data variables.product.prodname_github_app %} URL parameters
+## About {% data variables.product.prodname_github_app %} URL parameters
 
 You can add query parameters to these URLs to preselect the configuration of a {% data variables.product.prodname_github_app %} on a personal or organization account:
+
 * **User account:** `{% data variables.product.oauth_host_code %}/settings/apps/new`
 * **Organization account:** `{% data variables.product.oauth_host_code %}/organizations/:org/settings/apps/new`
 
 The person creating the app can edit the preselected values from the {% data variables.product.prodname_github_app %} registration page, before submitting the app. If you do not include required parameters in the URL query string, like `name`, the person creating the app will need to input a value before submitting the app.
 
+{% if currentVersion ver_gt "enterprise-server@3.1" or currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@next" %}
+For apps that require a secret to secure their webhook, the secret's value must be set in the form by the person creating the app, not by using query parameters. For more information, see "[Securing your webhooks](/developers/webhooks-and-events/webhooks/securing-your-webhooks)."
+{% endif %}
+
 The following URL creates a new public app called `octocat-github-app` with a preconfigured description and callback URL. This URL also selects read and write permissions for `checks`, subscribes to the `check_run` and `check_suite` webhook events, and selects the option to request user authorization (OAuth) during installation:
 
 {% if currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@next" or currentVersion ver_gt "enterprise-server@3.0" %}
-```
+
+```text
 {% data variables.product.oauth_host_code %}/settings/apps/new?name=octocat-github-app&description=An%20Octocat%20App&callback_urls[]=https://example.com&request_oauth_on_install=true&public=true&checks=write&events[]=check_run&events[]=check_suite
 ```
+
 {% else %}
-```
+
+```text
 {% data variables.product.oauth_host_code %}/settings/apps/new?name=octocat-github-app&description=An%20Octocat%20App&callback_url=https://example.com&request_oauth_on_install=true&public=true&checks=write&events[]=check_run&events[]=check_suite
 ```
+
 {% endif %}
 
 The complete list of available query parameters, permissions, and events is listed in the sections below.
 
-### {% data variables.product.prodname_github_app %} configuration parameters
+## {% data variables.product.prodname_github_app %} configuration parameters
 
  Name | Type | Description
 -----|------|-------------
@@ -47,13 +56,13 @@ The complete list of available query parameters, permissions, and events is list
 `setup_on_update` | `boolean` | Set to `true` to redirect people to the setup URL when installations have been updated, for example, after repositories are added or removed.
 `public` | `boolean` | Set to `true` when your {% data variables.product.prodname_github_app %} is available to the public or `false` when it is only accessible to the owner of the app.
 `webhook_url` | `string` | The full URL that you would like to send webhook event payloads to.
-`webhook_secret` | `string` | You can specify a secret to secure your webhooks. See "[Securing your webhooks](/webhooks/securing/)" for more details.
-`events` | `array of strings` | Webhook events. Some webhook events require `read` or `write` permissions for a resource before you can select the event when registering a new {% data variables.product.prodname_github_app %}. See the "[{% data variables.product.prodname_github_app %} webhook events](#github-app-webhook-events)" section for available events and their required permissions. You can select multiple events in a query string. For example, `events[]=public&events[]=label`.
+{% if currentVersion ver_lt "enterprise-server@3.2" or currentVersion == "github-ae@latest" %}`webhook_secret` | `string` | You can specify a secret to secure your webhooks. See "[Securing your webhooks](/webhooks/securing/)" for more details.
+{% endif %}`events` | `array of strings` | Webhook events. Some webhook events require `read` or `write` permissions for a resource before you can select the event when registering a new {% data variables.product.prodname_github_app %}. See the "[{% data variables.product.prodname_github_app %} webhook events](#github-app-webhook-events)" section for available events and their required permissions. You can select multiple events in a query string. For example, `events[]=public&events[]=label`.
 `domain` | `string` | The URL of a content reference.
 `single_file_name` | `string` | This is a narrowly-scoped permission that allows the app to access a single file in any repository. When you set the `single_file` permission to `read` or `write`, this field provides the path to the single file your {% data variables.product.prodname_github_app %} will manage. {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %} If you need to manage multiple files, see `single_file_paths` below. {% endif %}{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %}
-`single_file_paths` | `array of strings` | This allows the app to access up ten specified files in a repository. When you set the `single_file` permission to `read` or `write`, this array can store the paths for up to ten files that your {% data variables.product.prodname_github_app %} will manage. These files all receive the same permission set by `single_file`, and do not have separate individual permissions. When two or more files are configured, the API returns `multiple_single_files=true`, otherwise it returns `multiple_single_files=false`.{% endif %} 
+`single_file_paths` | `array of strings` | This allows the app to access up ten specified files in a repository. When you set the `single_file` permission to `read` or `write`, this array can store the paths for up to ten files that your {% data variables.product.prodname_github_app %} will manage. These files all receive the same permission set by `single_file`, and do not have separate individual permissions. When two or more files are configured, the API returns `multiple_single_files=true`, otherwise it returns `multiple_single_files=false`.{% endif %}
 
-### {% data variables.product.prodname_github_app %} permissions
+## {% data variables.product.prodname_github_app %} permissions
 
 You can select permissions in a query string using the permission name in the following table as the query parameter name and the permission type as the query value. For example, to select `Read & write` permissions in the user interface for `contents`, your query string would include `&contents=write`. To select `Read-only` permissions in the user interface for `blocking`, your query string would include `&blocking=read`. To select `no-access` in the user interface for `checks`, your query string would not include the `checks` permission.
 
@@ -91,7 +100,7 @@ Permission | Description
 `vulnerability_alerts`| Grants access to receive security alerts for vulnerable dependencies in a repository. See "[About alerts for vulnerable dependencies](/github/managing-security-vulnerabilities/about-alerts-for-vulnerable-dependencies/)" to learn more. Can be one of: `none` or `read`.{% endif %}
 `watching` | Grants access to list and change repositories a user is subscribed to. Can be one of: `none`, `read`, or `write`.
 
-### {% data variables.product.prodname_github_app %} webhook events
+## {% data variables.product.prodname_github_app %} webhook events
 
 Webhook event name | Required permission | Description
 ------------------ | ------------------- | -----------

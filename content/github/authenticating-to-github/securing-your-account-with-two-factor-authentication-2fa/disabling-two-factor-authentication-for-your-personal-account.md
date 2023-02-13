@@ -8,7 +8,7 @@ versions:
   free-pro-team: '*'
   enterprise-server: '*'
 topics:
-  - 2fa
+  - 2FA
 ---
 We strongly recommend using two-factor authentication to secure your account. If you need to disable 2FA, we recommend re-enabling it as soon as possible.
 
@@ -29,7 +29,7 @@ To remove yourself from your organization:
 3. Click **Disable**.
   ![Disable two-factor authentication button](/assets/images/help/2fa/disable-two-factor-authentication.png)
 
-### Further reading
+## Further reading
 
 - "[About two-factor authentication](/articles/about-two-factor-authentication)"
 - "[Configuring two-factor authentication](/articles/configuring-two-factor-authentication)"
