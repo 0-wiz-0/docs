@@ -1,12 +1,14 @@
 ---
 title: Mutations
+intro: The mutation type defines GraphQL operations that change data on the server.
 redirect_from:
   - /v4/mutation
   - /v4/reference/mutation
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghec: '*'
+  ghes: '*'
+  ghae: '*'
 topics:
   - API
 ---
@@ -17,6 +19,6 @@ Every GraphQL schema has a root type for both queries and mutations. The [mutati
 
 For more information, see "[About mutations](/graphql/guides/forming-calls-with-graphql#about-mutations)."
 
-{% for item in graphql.schemaForCurrentVersion.mutations %}
-  {% include graphql-mutation %}
-{% endfor %}
+{% data reusables.projects.graphql-ghes %}
+
+<!-- Content after this section is automatically generated -->

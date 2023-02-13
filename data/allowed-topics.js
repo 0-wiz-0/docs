@@ -10,7 +10,7 @@
 // content model, add the entry to this list, and ensure you loop in the
 // content and/or content strategy team for review.
 
-module.exports = [
+export default [
   '2FA',
   'Access management',
   'Accounts',
@@ -27,7 +27,9 @@ module.exports = [
   'Auditing',
   'Authentication',
   'Azure App Service',
+  'Azure Kubernetes Service',
   'Azure Pipelines',
+  'Azure Static Web Apps',
   'Backups',
   'Billing',
   'C/C++',
@@ -43,6 +45,7 @@ module.exports = [
   'Codespaces',
   'Collaboration',
   'Community',
+  'Copilot',
   'Contacting sponsors',
   'Containers',
   'CVEs',
@@ -83,7 +86,7 @@ module.exports = [
   'Java',
   'JavaScript',
   'Jenkins',
-  'Jobs',
+  'Kotlin',
   'Legal',
   'LFS',
   'Licensing',
@@ -108,7 +111,7 @@ module.exports = [
   'Permissions',
   'Policies',
   'Policy',
-  'Powershell',
+  'PowerShell',
   'Pre-receive hooks',
   'Privacy',
   'Profile',
@@ -141,6 +144,8 @@ module.exports = [
   'Support',
   'Swift',
   'Teams',
+  // TODO 47F50CA3 uncomment when transcripts are ready
+  // 'Transcripts',
   'Travis CI',
   'Trials',
   'Troubleshooting',
@@ -155,5 +160,5 @@ module.exports = [
   'Xamarin.Android',
   'Xamarin.iOS',
   'Xamarin',
-  'Xcode'
+  'Xcode',
 ]

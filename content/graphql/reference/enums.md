@@ -1,12 +1,14 @@
 ---
 title: Enums
+intro: Enums represent possible sets of values for a field.
 redirect_from:
   - /v4/enum
   - /v4/reference/enum
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghec: '*'
+  ghes: '*'
+  ghae: '*'
 topics:
   - API
 ---
@@ -19,6 +21,6 @@ For example, the [`Issue`](/graphql/reference/objects#issue) object has a field 
 
 For more information, see "[Introduction to GraphQL](/graphql/guides/introduction-to-graphql)."
 
-{% for item in graphql.schemaForCurrentVersion.enums %}
-  {% include graphql-enum %}
-{% endfor %}
+{% data reusables.projects.graphql-ghes %}
+
+<!-- Content after this section is automatically generated -->
