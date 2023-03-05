@@ -3,16 +3,17 @@ title: Managing pre-receive hooks on the GitHub Enterprise Server appliance
 intro: 'Configure how people will use pre-receive hooks within their {% data variables.product.prodname_ghe_server %} appliance.'
 redirect_from:
   - /enterprise/admin/developer-workflow/managing-pre-receive-hooks-on-the-github-enterprise-server-appliance
-  - /enterprise/admin/guides/developer-workflow/managing-pre-receive-hooks-on-the-github-enterprise-appliance/
+  - /enterprise/admin/guides/developer-workflow/managing-pre-receive-hooks-on-the-github-enterprise-appliance
   - /enterprise/admin/policies/managing-pre-receive-hooks-on-the-github-enterprise-server-appliance
   - /admin/policies/managing-pre-receive-hooks-on-the-github-enterprise-server-appliance
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Enterprise
   - Policies
   - Pre-receive hooks
+shortTitle: Manage pre-receive hooks
 ---
 ## Creating pre-receive hooks
 
@@ -57,9 +58,7 @@ An organization administrator can only configure hook permissions for an organiz
 {% data reusables.profile.access_org %}
 {% data reusables.profile.org_settings %}
 4. In the left sidebar, click **Hooks**.
-![Hooks sidebar](/assets/images/enterprise/orgs-and-teams/hooks-sidebar.png)
-5. Next to the pre-receive hook that you want to configure, click the **Hook permissions** drop-down menu. Select whether to enable or disable the pre-receive hook, or allow it to be configured by the repository administrators.
-![Hook permissions](/assets/images/enterprise/orgs-and-teams/hook-permissions.png)
+5. Next to the pre-receive hook that you want to configure, select the **Hook permissions** dropdown menu, then click an option.
 
 ## Configure pre-receive hooks for a repository
 

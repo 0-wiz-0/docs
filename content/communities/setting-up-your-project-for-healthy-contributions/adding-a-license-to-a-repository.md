@@ -5,21 +5,23 @@ redirect_from:
   - /articles/adding-a-license-to-a-repository
   - /github/building-a-strong-community/adding-a-license-to-a-repository
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
 topics:
   - Community
+shortTitle: Add a license to a repo
 ---
 If you include a detectable license in your repository, people who visit your repository will see it at the top of the repository page. To read the entire license file, click the license name.
 
 ![A repository header with an MIT license](/assets/images/help/repository/repo-license-indicator.png)
 
-Open source licenses enable others to freely use, change, and distribute the project in your repository. For more information on repository licenses, see "[Licensing a repository](/articles/licensing-a-repository)."
+Open source licenses enable others to freely use, change, and distribute the project in your repository. For more information on repository licenses, see "[AUTOTITLE](/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)."
 
 ## Including an open source license in your repository
 
 <!--Dotcom version uses the license tool-->
-{% if currentVersion == "free-pro-team@latest" %}
+{% ifversion fpt or ghec %}
 {% data reusables.repositories.navigate-to-repo %}
 {% data reusables.files.add-file %}
 3. In the file name field, type *LICENSE* or *LICENSE.md* (with all caps).
@@ -38,7 +40,7 @@ Open source licenses enable others to freely use, change, and distribute the pro
 {% endif %}
 
 <!--GHE version just adds a file named LICENSE or LICENSE.md-->
-{% if enterpriseServerVersions contains currentVersion or currentVersion == "github-ae@latest" %}
+{% ifversion ghes %}
 
 {% data reusables.repositories.navigate-to-repo %}
 {% data reusables.files.add-file %}
@@ -46,7 +48,7 @@ Open source licenses enable others to freely use, change, and distribute the pro
 4. On the **Edit new file** tab, paste the full text of the license you want to use.
 {% data reusables.files.write_commit_message %}
 {% data reusables.files.choose-commit-email %}
-7. Below the commit message fields, decide whether to add your commit to the current branch or to a new branch. If your current branch is `main`, you should choose to create a new branch for your commit and then create a pull request. For more information, see "[Creating a pull request](/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)".
+7. Below the commit message fields, decide whether to add your commit to the current branch or to a new branch. If your current branch is `main`, you should choose to create a new branch for your commit and then create a pull request. For more information, see "[AUTOTITLE](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)".
 ![Commit branch options](/assets/images/help/repository/choose-commit-branch.png)
 8. Click **Commit new file**.
   ![Commit license to branch](/assets/images/help/repository/license-submit-tool.png)
@@ -55,4 +57,4 @@ Open source licenses enable others to freely use, change, and distribute the pro
 
 ## Further reading
 
-- "[Setting guidelines for repository contributors](/articles/setting-guidelines-for-repository-contributors)"
+- "[AUTOTITLE](/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors)"

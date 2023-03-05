@@ -5,7 +5,8 @@ redirect_from:
   - /desktop/getting-started-with-github-desktop/configuring-a-default-editor
   - /desktop/installing-and-configuring-github-desktop/configuring-a-default-editor
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: Configure default editor
 ---
 ## Supported editors
 
@@ -13,9 +14,8 @@ versions:
 
 {% mac %}
 
-- [Atom](https://atom.io/)
 - [MacVim](https://macvim-dev.github.io/macvim/)
-- [Visual Studio Code](https://code.visualstudio.com/)
+- [{% data variables.product.prodname_vscode %}](https://code.visualstudio.com/)
 - [Visual Studio Codium](https://vscodium.com/)
 - [Sublime Text](https://www.sublimetext.com/)
 - [BBEdit](http://www.barebones.com/products/bbedit/)
@@ -33,23 +33,34 @@ versions:
 - [CodeRunner](https://coderunnerapp.com/)
 - [SlickEdit](https://www.slickedit.com/)
 - [Xcode](https://developer.apple.com/xcode/)
+- [RStudio](https://rstudio.com/)
+- [Nova](https://nova.app/)
 - [Android Studio](https://developer.android.com/studio)
+- [Aptana Studio](http://www.aptana.com/)
 
 {% endmac %}
 
 {% windows %}
 
-- [Atom](https://atom.io/)
-- [Visual Studio Code](https://code.visualstudio.com/)
+- [{% data variables.product.prodname_vscode %}](https://code.visualstudio.com/)
 - [Visual Studio Codium](https://vscodium.com/)
 - [Sublime Text](https://www.sublimetext.com/)
 - [ColdFusion Builder](https://www.adobe.com/products/coldfusion-builder.html)
 - [Typora](https://typora.io/)
 - [SlickEdit](https://www.slickedit.com/)
+- [JetBrains IntelliJ Idea](https://www.jetbrains.com/idea/)
 - [JetBrains WebStorm](https://www.jetbrains.com/webstorm/)
 - [JetBrains PhpStorm](https://www.jetbrains.com/phpstorm/)
 - [JetBrains Rider](https://www.jetbrains.com/rider/)
+- [JetBrains CLion](https://www.jetbrains.com/clion/)
+- [JetBrains PyCharm](https://www.jetbrains.com/pycharm/)
+- [JetBrains RubyMine](https://www.jetbrains.com/rubymine/)
+- [JetBrains GoLand](https://www.jetbrains.com/go/)
+- [Android Studio](https://developer.android.com/studio)
+- [Brackets](http://brackets.io/)
 - [Notepad++](https://notepad-plus-plus.org/)
+- [RStudio](https://rstudio.com/)
+- [Aptana Studio](http://www.aptana.com/)
 
 {% endwindows %}
 
@@ -59,9 +70,8 @@ versions:
 
 {% data reusables.desktop.mac-select-desktop-menu %}
 3. In the Preferences window, select **Integrations**.
-  ![The Integrations pane in the Preferences window](/assets/images/help/desktop/mac-select-integrations-pane.png)
-4. Use the "External Editor" drop-down menu, and choose the editor you want to set as your default.
-  ![The External editor menu in the Preferences menu bar](/assets/images/help/desktop/mac-editor-menu.png)
+  ![Screenshot of the "Preferences" window. In the left sidebar, the "Integrations" option is highlighted in blue and outlined in orange.](/assets/images/help/desktop/mac-select-integrations-pane.png)
+4. Under "External Editor", use the dropdown menu to select the editor you want to set as your default.
 5. Click **Save**.  
 
 {% endmac %}
