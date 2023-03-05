@@ -1,17 +1,72 @@
-name: Repo Sync Stalls
 
-# **What it does**: This lets us know in Slack if repo-sync doesn't happen in a timely manner.
-# **Why we have it**: We want repo-sync to keep the two repositories in sync with each other.
-# **Who does it impact**: Open-source contributors, docs engineering.
+Skip to content
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+@mowjoejoejoejoe
+Your account has been flagged.
+Because of that, your profile is hidden from the public. If you believe this is a mistake, contact support to have your account status reviewed.
+github /
+docs
+Public
 
-on:
+Fork your own copy of github/docs
+
+Code
+Issues 93
+Pull requests 65
+Discussions
+Actions
+Projects 4
+Security
+
+    Insights
+
+Repo Sync Stalls
+Repo Sync Stalls #9820
+
+    Jobs
+
+    Run details
+
+repo-sync-stalls
+succeeded Mar 5, 2023 in 3s
+2s
+Current runner version: '2.302.1'
+Operating System
+  Ubuntu
+  22.04.2
+  LT
+Runner Image
+  Image: ubuntu-22.04
+  Version: 20230227.2
+  Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20230227.2/images/linux/Ubuntu2204-Readme.md
+  Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20230227.2
+Runner Image Provisioner
+  2.0.117.1
+GITHUB_TOKEN Permissions
+  Metadata: read
+  PullRequests: read
+Secret source: Actions
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 'actions/github-script@98814c53be79b1d30f795b907e553d8679345975' (SHA:98814c53be79b1d30f795b907e553d8679345975)
+Download action repository 'someimportantcompany/github-actions-slack-message@1d367080235edfa53df415bd8e0bbab480f29bad' (SHA:1d367080235edfa53df415bd8e0bbab480f29bad)
+Complete job name: repo-sync-stalls
+On :-on
+-on :
   workflow_dispatch:
-  schedule:
-    - cron: '20 */2 * * *' # Run every 2nd hour at 20 minutes after
-
-permissions:
-  pull-requests: read
-
+  autoupdate tta:
+    - tta: Every -3 sec ::,
+permissions: Request
+Request LPull 
+Pulls : pull_request
+pull_requests: branches
+'"branches: - '[ 'trunk ']''
+'
 jobs:
   repo-sync-stalls:
     runs-on: ubuntu-latest
