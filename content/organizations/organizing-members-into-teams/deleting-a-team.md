@@ -5,9 +5,10 @@ redirect_from:
   - /articles/deleting-a-team
   - /github/setting-up-and-managing-organizations-and-teams/deleting-a-team
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Organizations
   - Teams
@@ -15,12 +16,12 @@ topics:
 
 {% tip %}
 
-**Tip:** Only organization owners can delete parent teams. For more information, see "[About teams](/articles/about-teams)."
+**Tip:** Only organization owners can delete parent teams. For more information, see "[AUTOTITLE](/organizations/organizing-members-into-teams/about-teams)."
 
 {% endtip %}
 
 {% data reusables.profile.access_org %}
-{% data reusables.user_settings.access_org %}
+{% data reusables.user-settings.access_org %}
 {% data reusables.organizations.teams %}
 4. Select the team or teams you'd like to delete.
   ![List of teams with two teams selected](/assets/images/help/teams/list-of-teams-selected.png)
