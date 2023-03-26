@@ -6,13 +6,14 @@ redirect_from:
   - /enterprise/admin/enterprise-management/removing-a-high-availability-replica
   - /admin/enterprise-management/removing-a-high-availability-replica
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Clustering
   - High availability
   - Enterprise
   - Infrastructure
+shortTitle: Remove a HA replica
 ---
 ## Stopping replication temporarily
 
@@ -38,10 +39,10 @@ topics:
   $ ghe-repl-teardown
   ```
 
-  {% if currentVersion ver_gt "enterprise-server@2.22" %}
+  {% ifversion ghes %}
   {% note %}
   
-  **Note:** If you have {% data variables.product.prodname_actions %} enabled, you should decommission the former replica server or update its {% data variables.product.prodname_actions %} configuration to use different external storage. For more information, see "[High availability for {% data variables.product.prodname_actions %}](/admin/github-actions/high-availability-for-github-actions#high-availability-replicas)."
+  **Note:** If you have {% data variables.product.prodname_actions %} enabled, you should decommission the former replica server or update its {% data variables.product.prodname_actions %} configuration to use different external storage. For more information, see "[AUTOTITLE](/admin/github-actions/advanced-configuration-and-troubleshooting/high-availability-for-github-actions#high-availability-replicas)."
   
   {% endnote %}
   {% endif %}
