@@ -5,7 +5,7 @@ redirect_from:
   - /desktop/contributing-to-projects/reverting-a-commit
   - /desktop/contributing-and-collaborating-using-github-desktop/reverting-a-commit
 versions:
-  free-pro-team: '*'
+  fpt: '*'
 ---
 When you revert to a previous commit, the revert is also a commit. The original commit also remains in the repository's history.
 
@@ -15,18 +15,6 @@ When you revert to a previous commit, the revert is also a commit. The original 
 
 {% endtip %}
 
-{% mac %}
-
 {% data reusables.desktop.history-tab %}
 {% data reusables.desktop.revert-commit %}
-  ![The Revert option above the diff view](/assets/images/help/desktop/commit-revert-mac.png)
-
-{% endmac %}
-
-{% windows %}
-
-{% data reusables.desktop.history-tab %}
-{% data reusables.desktop.revert-commit %}
-  ![The Revert option above the diff view](/assets/images/help/desktop/commit-revert-win.png)
-
-{% endwindows %}
+  ![Screenshot of a list of commits in the "History" tab. Next to a commit, in a context menu, the cursor hovers over the "Revert Changes in Commit" option.](/assets/images/help/desktop/commit-revert-mac.png)

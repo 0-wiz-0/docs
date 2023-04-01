@@ -1,154 +1,165 @@
+import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
 import cx from 'classnames'
+import { Box, Flash } from '@primer/react'
+import { LinkExternalIcon, BeakerIcon } from '@primer/octicons-react'
 
+import { Callout } from 'components/ui/Callout'
 import { DefaultLayout } from 'components/DefaultLayout'
-import { ArticleVersionPicker } from 'components/article/ArticleVersionPicker'
-import { Breadcrumbs } from 'components/Breadcrumbs'
 import { ArticleTitle } from 'components/article/ArticleTitle'
 import { useArticleContext } from 'components/context/ArticleContext'
-import { InfoIcon } from '@primer/octicons-react'
-import { useTranslation } from 'components/hooks/useTranslation'
 import { LearningTrackNav } from './LearningTrackNav'
+import { MarkdownContent } from 'components/ui/MarkdownContent'
+import { Lead } from 'components/ui/Lead'
+import { PermissionsStatement } from 'components/ui/PermissionsStatement'
+import { ArticleGridLayout } from './ArticleGridLayout'
+import { PlatformPicker } from 'components/article/PlatformPicker'
+import { ToolPicker } from 'components/article/ToolPicker'
+import { MiniTocs } from 'components/ui/MiniTocs'
+import { ClientSideHighlight } from 'components/ClientSideHighlight'
+import { LearningTrackCard } from 'components/article/LearningTrackCard'
+import { RestRedirect } from 'components/RestRedirect'
+import { Breadcrumbs } from 'components/page-header/Breadcrumbs'
+import { Link } from 'components/Link'
+import { useTranslation } from 'components/hooks/useTranslation'
+import { LinkPreviewPopover } from 'components/LinkPreviewPopover'
+import { SupportPortalVaIframe } from 'components/article/SupportPortalVaIframe'
+
+const ClientSideRefresh = dynamic(() => import('components/ClientSideRefresh'), {
+  ssr: false,
+})
+const isDev = process.env.NODE_ENV === 'development'
 
 export const ArticlePage = () => {
+  const router = useRouter()
   const {
     title,
     intro,
+    effectiveDate,
     renderedPage,
-    contributor,
     permissions,
     includesPlatformSpecificContent,
-    defaultPlatform,
+    includesToolSpecificContent,
     product,
+    productVideoUrl,
     miniTocItems,
     currentLearningTrack,
+    supportPortalVaIframeProps,
   } = useArticleContext()
-  const { t } = useTranslation('pages')
+  const isLearningPath = !!currentLearningTrack?.trackName
+  const { t } = useTranslation(['pages'])
+
   return (
     <DefaultLayout>
-      <div className="container-xl px-3 px-md-6 my-4 my-lg-4">
-        <article className="markdown-body">
-          <div className="d-lg-flex flex-justify-between">
-            <div className="d-block d-lg-none">
-              <ArticleVersionPicker />
-            </div>
-            <div className="d-flex flex-items-center">
-              <Breadcrumbs />
-            </div>
-            <div className="d-none d-lg-block">
-              <ArticleVersionPicker />
-            </div>
-          </div>
+      {supportPortalVaIframeProps.supportPortalUrl &&
+        supportPortalVaIframeProps.vaFlowUrlParameter && (
+          <SupportPortalVaIframe supportPortalVaIframeProps={supportPortalVaIframeProps} />
+        )}
+      <LinkPreviewPopover />
+      {isDev && <ClientSideRefresh />}
+      <ClientSideHighlight />
+      {router.pathname.includes('/rest/') && <RestRedirect />}
+      <div className="container-xl px-3 px-md-6 my-4">
+        <div className={cx('d-none d-xl-block mt-3 mr-auto width-full')}>
+          <Breadcrumbs />
+        </div>
+        <ArticleGridLayout
+          topper={
+            <>
+              {/* This is a temporary thing for the duration of the
+              feature-flagged release of hover preview cards on /$local/pages/
+              articles.
+              Delete this whole thing when hover preview cards is
+              available on all articles independent of path.
+               */}
+              {router.query.productId === 'pages' && (
+                <Flash variant="default" className="mb-3">
+                  <Box sx={{ display: 'flex' }}>
+                    <Box
+                      sx={{
+                        p: 1,
+                        textAlign: 'center',
+                      }}
+                    >
+                      <BeakerIcon className="mr-2 color-fg-muted" />
+                    </Box>
+                    <Box
+                      sx={{
+                        flexGrow: 1,
+                        p: 0,
+                      }}
+                    >
+                      <p>
+                        Hover over a link to another article to get more details. If you have ideas
+                        for how we can improve this page, let us know in the{' '}
+                        <a href="https://github.com/github/docs/discussions/24591">discussion</a>.
+                      </p>
+                    </Box>
+                  </Box>
+                </Flash>
+              )}
 
-          <div className="article-grid-container mt-2">
-            <div className="article-grid-head">
               <ArticleTitle>{title}</ArticleTitle>
-
-              {contributor && (
-                <div className="contributor-callout border rounded-1 mb-4 p-3 color-border-info color-bg-info f5">
-                  <p>
-                    <span className="mr-2">
-                      <InfoIcon />
-                    </span>
-                    {t('contributor_callout')} <a href={contributor.URL}>{contributor.name}</a>.
-                  </p>
-                </div>
-              )}
-
+            </>
+          }
+          intro={
+            <>
               {intro && (
-                <div className="lead-mktg">
-                  <p>{intro}</p>
-                </div>
+                // Note the `_page-intro` is used by the popover preview cards
+                // when it needs this text for in-page links.
+                <Lead data-testid="lead" data-search="lead" className="_page-intro">
+                  {intro}
+                </Lead>
               )}
 
-              {permissions && (
-                <div
-                  className="permissions-statement"
-                  dangerouslySetInnerHTML={{ __html: permissions }}
-                />
-              )}
+              {permissions && <PermissionsStatement permissions={permissions} />}
 
-              {includesPlatformSpecificContent && (
-                <nav
-                  className="UnderlineNav my-3"
-                  data-default-platform={defaultPlatform || undefined}
-                >
-                  <div className="UnderlineNav-body">
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a href="#" className="UnderlineNav-item platform-switcher" data-platform="mac">
-                      Mac
-                    </a>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a
-                      href="#"
-                      className="UnderlineNav-item platform-switcher"
-                      data-platform="windows"
-                    >
-                      Windows
-                    </a>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a
-                      href="#"
-                      className="UnderlineNav-item platform-switcher"
-                      data-platform="linux"
-                    >
-                      Linux
-                    </a>
-                  </div>
-                </nav>
-              )}
+              {includesPlatformSpecificContent && <PlatformPicker />}
+              {includesToolSpecificContent && <ToolPicker />}
 
               {product && (
-                <div
-                  className="product-callout border rounded-1 mb-4 p-3 color-border-success color-bg-success"
+                <Callout
+                  variant="success"
+                  className="mb-4"
                   dangerouslySetInnerHTML={{ __html: product }}
                 />
               )}
-            </div>
-
-            <div className="article-grid-toc border-bottom border-xl-0 pb-4 mb-5 pb-xl-0 mb-xl-0">
-              <div className="article-grid-toc-content">
-                {miniTocItems.length > 1 && (
-                  <>
-                    <h2 id="in-this-article" className="f5 mb-2">
-                      <a className="Link--primary" href="#in-this-article">
-                        {t('miniToc')}
-                      </a>
-                    </h2>
-                    <ul className="list-style-none pl-0 f5 mb-0">
-                      {miniTocItems.map((item) => {
-                        return (
-                          <li
-                            key={item.contents}
-                            className={cx(
-                              `ml-${item.indentationLevel * 3}`,
-                              item.platform,
-                              'mb-2 lh-condensed'
-                            )}
-                            dangerouslySetInnerHTML={{ __html: item.contents }}
-                          />
-                        )
-                      })}
-                    </ul>
-                  </>
-                )}
+            </>
+          }
+          toc={
+            <>
+              {isLearningPath && <LearningTrackCard track={currentLearningTrack} />}
+              {miniTocItems.length > 1 && <MiniTocs miniTocItems={miniTocItems} />}
+            </>
+          }
+        >
+          <div id="article-contents">
+            {productVideoUrl && (
+              <div className="my-2">
+                <Link id="product-video" href={productVideoUrl} target="_blank">
+                  <LinkExternalIcon className="octicon-link mr-2" />
+                  {t('video_from_transcript')}
+                </Link>
               </div>
-            </div>
+            )}
 
-            <div className="markdown-body">
-              <div
-                id="article-contents"
-                className="article-grid-body"
-                dangerouslySetInnerHTML={{ __html: renderedPage }}
-              />
-            </div>
+            <MarkdownContent>{renderedPage}</MarkdownContent>
+            {effectiveDate && (
+              <div className="mt-4" id="effectiveDate">
+                Effective as of:{' '}
+                <time dateTime={new Date(effectiveDate).toISOString()}>
+                  {new Date(effectiveDate).toDateString()}
+                </time>
+              </div>
+            )}
           </div>
+        </ArticleGridLayout>
 
-          {currentLearningTrack?.trackName ? (
-            <div className="d-block mt-4 markdown-body">
-              <LearningTrackNav track={currentLearningTrack} />
-            </div>
-          ) : null}
-        </article>
+        {isLearningPath ? (
+          <div className="mt-4">
+            <LearningTrackNav track={currentLearningTrack} />
+          </div>
+        ) : null}
       </div>
     </DefaultLayout>
   )
