@@ -1,14 +1,15 @@
 ---
-title: Managing access to your organization’s project boards
-intro: 'As an organization owner or project board admin, you can give organization members, teams, and outside collaborators different levels of access to project boards owned by your organization.'
+title: 'Управление доступом к {% data variables.product.prodname_projects_v1 %} организации'
+intro: 'Как владелец организации или администратор {% data variables.projects.projects_v1_board %} вы можете предоставить участникам организации, командам и сторонним участникам различные уровни доступа к {% data variables.projects.projects_v1_boards %}, принадлежащим вашей организации.'
 redirect_from:
   - /articles/managing-access-to-your-organization-s-project-boards
   - /articles/managing-access-to-your-organizations-project-boards
   - /github/setting-up-and-managing-organizations-and-teams/managing-access-to-your-organizations-project-boards
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Organizations
   - Teams
@@ -19,5 +20,13 @@ children:
   - /managing-an-individuals-access-to-an-organization-project-board
   - /adding-an-outside-collaborator-to-a-project-board-in-your-organization
   - /removing-an-outside-collaborator-from-an-organization-project-board
+shortTitle: 'Manage {% data variables.product.prodname_project_v1 %} access'
+allowTitleToDifferFromFilename: true
+ms.openlocfilehash: ec3c6cdaffc23dcb4df631879d17ec1ca6c1d61b
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148108835'
 ---
 

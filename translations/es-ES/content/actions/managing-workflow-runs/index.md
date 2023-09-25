@@ -1,38 +1,35 @@
 ---
 title: Administrar ejecuciones de flujo de trabajo
-shortTitle: Administrar ejecuciones de flujo de trabajo
-intro: 'Puedes ver el estado y resultados de cada paso de tu flujo de trabajo, cancelar un flujo de trabajo pendiente, {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" or currentVersion == "github-ae@latest" %}revisar los despliegues, {% endif %}ver los minutos de ejecución de jobs que se van a facturar, depurar y volver a ejecutar un flujo de trabajo fallido, buscar y descargar las bitácoras y descargar artefactos.'
+shortTitle: Manage workflow runs
+intro: 'Puedes volver a ejecutar o cancelar un flujo de trabajo, {% ifversion fpt or ghes or ghae %}revisar implementaciones, {% endif %}ver los minutos facturables de ejecución de trabajos y descargar artefactos.'
 redirect_from:
   - /actions/configuring-and-managing-workflows/managing-a-workflow-run
-  - /articles/viewing-your-repository-s-workflows
-  - /articles/viewing-your-repositorys-workflows
   - /articles/managing-a-workflow-run
   - /github/automating-your-workflow-with-github-actions/managing-a-workflow-run
   - /actions/automating-your-workflow-with-github-actions/managing-a-workflow-run
   - /actions/configuring-and-managing-workflows/configuring-and-managing-workflow-files-and-runs
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 children:
-  - /using-the-visualization-graph
-  - /viewing-workflow-run-history
-  - /using-workflow-run-logs
   - /manually-running-a-workflow
-  - /re-running-a-workflow
+  - /re-running-workflows-and-jobs
   - /canceling-a-workflow
   - /approving-workflow-runs-from-public-forks
+  - /approving-workflow-runs-from-private-forks
   - /reviewing-deployments
   - /disabling-and-enabling-a-workflow
+  - /skipping-workflow-runs
   - /deleting-a-workflow-run
-  - /viewing-job-execution-time
   - /downloading-workflow-artifacts
   - /removing-workflow-artifacts
-  - /enabling-debug-logging
-  - /adding-a-workflow-status-badge
+ms.openlocfilehash: 9e7d6f9c29fdfb2a387b84373c1140dbb3ef6713
+ms.sourcegitcommit: 73b91dd4cdf592eadec4252319379d6fbe92858e
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 11/14/2022
+ms.locfileid: '148164094'
 ---
-
-{% data reusables.actions.enterprise-beta %}
-{% data reusables.actions.enterprise-github-hosted-runners %}
-{% data reusables.actions.ae-beta %}
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@3.0" or currentVersion == "github-ae@latest" %}{% endif %}
+{% data reusables.actions.enterprise-beta %} {% data reusables.actions.enterprise-github-hosted-runners %}

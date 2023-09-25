@@ -1,35 +1,39 @@
 ---
-title: Basics of setting up GitHub Classroom
+title: Основы настройки GitHub Classroom
 shortTitle: '{% data variables.product.prodname_classroom %} basics'
-intro: 'Learn how to set up your classroom, manage assignments, and configure time-saving automation.'
+intro: 'Узнайте, как настроить класс, управлять назначениями и настраивать автоматизацию для экономии времени.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
 redirect_from:
   - /education/manage-coursework-with-github-classroom/basics-of-setting-up-github-classroom
+ms.openlocfilehash: 3303f6ba576904ef8bafca57249b15841da7b329
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145952280'
 ---
+## Видеоролики о {% data variables.product.prodname_classroom %}
 
-### Videos about {% data variables.product.prodname_classroom %}
+Просмотрите серию кратких видеороликов о конфигурации и использовании {% data variables.product.prodname_classroom %}. Чтобы просмотреть все видео в рамках непрерывного списка воспроизведения, ознакомьтесь со статьей [{% data variables.product.prodname_classroom %} Руководство по началу работы](https://www.youtube.com/playlist?list=PLIRjfNq867bewk3ZGV6Z7a16YDNRCpK3u) в YouTube.
 
-You can watch a series of short video tutorials about the configuration and use of {% data variables.product.prodname_classroom %}. To watch all videos as part of a continuous playlist, see the [{% data variables.product.prodname_classroom %} Getting Started Guide](https://www.youtube.com/playlist?list=PLIRjfNq867bewk3ZGV6Z7a16YDNRCpK3u) on YouTube.
+Дополнительные сведения о терминологии для {% data variables.product.prodname_classroom %} см. в [Глоссарии](/education/manage-coursework-with-github-classroom/glossary).
 
-For more information about terminology for {% data variables.product.prodname_classroom %}, see "[Glossary](/education/manage-coursework-with-github-classroom/glossary)".
+1. <a href="https://youtu.be/xVVeqIDgCvM" target="_blank">Начало работы</a> {% octicon "link-external" aria-label="The external link icon" %}
+2. <a href="https://youtu.be/DTzrKduaHj8" target="_blank">Добавление списка учащихся</a> {% octicon "link-external" aria-label="The external link icon" %}
+3. Создание назначений
+    - <a href="https://youtu.be/6QzKZ63KLss" target="_blank">Создание назначения с помощью репозитория {% data variables.product.prodname_dotcom %}</a> {% octicon "link-external" aria-label="The external link icon" %}
+    - <a href="https://youtu.be/Qmwh6ijsQJU" target="_blank">Создание назначения с помощью Microsoft MakeCode в качестве веб-интегрированной среды разработки</a> {% octicon "link-external" aria-label="The external link icon" %}
+4. <a href="https://youtu.be/ObaFRGp_Eko" target="_blank">Как учащиеся завершают назначения</a> {% octicon "link-external" aria-label="The external link icon" %}
+5. <a href="https://youtu.be/g45OJn3UyCU" target="_blank">Как преподаватели проверяют назначения</a> {% octicon "link-external" aria-label="The external link icon" %}
+6. <a href="https://youtu.be/QxrA3taZdNM" target="_blank">Создание назначений группы</a> {% octicon "link-external" aria-label="The external link icon" %}
+7. <a href="https://youtu.be/tJK2cmoh1KM" target="_blank">Следующие шаги в начале работы</a> {% octicon "link-external" aria-label="The external link icon" %}
+8. <a href="https://youtu.be/X87v3SFQxLU" target="_blank">{% data variables.product.prodname_dotcom %} Панель элементов преподавателя</a> {% octicon "link-external" aria-label="The external link icon" %}
 
-1. <a href="https://youtu.be/xVVeqIDgCvM" target="_blank">Getting started</a> {% octicon "link-external" aria-label="The external link icon" %}
-2. <a href="https://youtu.be/DTzrKduaHj8" target="_blank">Adding your student roster</a> {% octicon "link-external" aria-label="The external link icon" %}
-3. Creating assignments
-    - <a href="https://youtu.be/6QzKZ63KLss" target="_blank">Creating an assignment using a {% data variables.product.prodname_dotcom %} repository</a> {% octicon "link-external" aria-label="The external link icon" %}
-    - <a href="https://youtu.be/Qmwh6ijsQJU" target="_blank">Creating an assignment using Microsoft MakeCode as your online IDE</a> {% octicon "link-external" aria-label="The external link icon" %}
-    - <a href="https://youtu.be/p_g5sQ7hUis" target="_blank">Creating an assignment using Repl.it as your online IDE</a> {% octicon "link-external" aria-label="The external link icon" %}
-4. <a href="https://youtu.be/ObaFRGp_Eko" target="_blank">How students complete assignments</a> {% octicon "link-external" aria-label="The external link icon" %}
-5. <a href="https://youtu.be/g45OJn3UyCU" target="_blank">How teachers review assignments</a> {% octicon "link-external" aria-label="The external link icon" %}
-6. <a href="https://youtu.be/QxrA3taZdNM" target="_blank">Creating group assignments</a> {% octicon "link-external" aria-label="The external link icon" %}
-7. <a href="https://youtu.be/tJK2cmoh1KM" target="_blank">Next steps to get started</a> {% octicon "link-external" aria-label="The external link icon" %}
-8. <a href="https://youtu.be/X87v3SFQxLU" target="_blank">{% data variables.product.prodname_dotcom %} Teacher Toolbox</a> {% octicon "link-external" aria-label="The external link icon" %}
+## Дальнейшие действия
 
-### Дальнейшие шаги
+Дополнительные сведения о преподавании с помощью {% data variables.product.prodname_classroom %} см. в разделе [Преподавание с помощью {% data variables.product.prodname_classroom %}](/education/manage-coursework-with-github-classroom/teach-with-github-classroom).
 
-For more information about teaching with {% data variables.product.prodname_classroom %}, see "[Teach with {% data variables.product.prodname_classroom %}](/education/manage-coursework-with-github-classroom/teach-with-github-classroom)."
+## Дополнительные материалы
 
-### Дополнительная литература
-
-- "[Explore the benefits of teaching and learning with {% data variables.product.prodname_education %}](/education/teach-and-learn-with-github-education)"
+- [Изучите преимущества обучения и преподавания с помощью {% data variables.product.prodname_education %}](/education/teach-and-learn-with-github-education)"

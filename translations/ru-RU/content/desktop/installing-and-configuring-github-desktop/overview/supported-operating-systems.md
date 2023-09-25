@@ -1,62 +1,71 @@
 ---
-title: Supported operating systems
-intro: 'You can use {% data variables.product.prodname_desktop %} on any supported operating system.'
-miniTocMaxHeadingLevel: 4
+title: Поддерживаемые операционные системы
+intro: 'Можно использовать {% data variables.product.prodname_desktop %} в любой поддерживаемой операционной системе.'
+miniTocMaxHeadingLevel: 3
 redirect_from:
   - /desktop/getting-started-with-github-desktop/supported-operating-systems
   - /desktop/installing-and-configuring-github-desktop/supported-operating-systems
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: Supported OS
+ms.openlocfilehash: 13e148ccf8e254c4e40f9e20ad6c5af083e21d8c
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145117275'
 ---
+## Сведения о поддерживаемых операционных системах
 
-### About supported operating systems
-
-The following operating systems are supported for {% data variables.product.prodname_desktop %}.
+Для работы с {% data variables.product.prodname_desktop %} поддерживаются следующие операционные системы.
 - {% data variables.desktop.mac-osx-versions %}
-- {% data variables.desktop.windows-versions %}. You must have a 64-bit operating system to run {% data variables.product.prodname_desktop %}.
+- {% data variables.desktop.windows-versions %}. Для запуска {% data variables.product.prodname_desktop %} должна быть установлена 64-разрядная операционная система.
 
-### Troubleshooting problems on macOS
-If you're encountering problems using {% data variables.product.prodname_desktop %} on macOS, here are resolutions to try. For more information, see [`known-issues`](https://github.com/desktop/desktop/blob/development/docs/known-issues.md).
+## Устранение неполадок в macOS
+Если у вас возникли проблемы с использованием {% data variables.product.prodname_desktop %} в macOS, ознакомьтесь с приведенными ниже решениями. Дополнительные сведения см. на веб-сайте [`known-issues`](https://github.com/desktop/desktop/blob/development/docs/known-issues.md).
 
-#### `The username or passphrase you entered is not correct` error after signing into your account
+### Ошибка `The username or passphrase you entered is not correct` после входа в учетную запись
 
-This error can occur when {% data variables.product.prodname_desktop %} can't access your stored credentials on Keychain.
+Эта ошибка может возникать, когда {% data variables.product.prodname_desktop %} не удается получить доступ к сохраненным учетным данным в цепочке ключей.
 
-To troubleshoot this error, follow these steps.
+Для устранения этой ошибки выполните следующие действия.
 
-1. Open the "Keychain Access" app.
-2. Right-click on **login** and then click **Lock Keychain "login"**. ![The "Lock Keychain "login" option](/assets/images/help/desktop/mac-lock-keychain.png)
-3. Right-click on **login** and then click **Unlock Keychain "login"**. Follow any onscreen prompts to finish unlocking the Keychain "login." ![The "Unlock Keychain "login" option](/assets/images/help/desktop/mac-unlock-keychain.png)
-4. Re-authenticate your account on {% data variables.product.prodname_dotcom %} or {% data variables.product.prodname_enterprise %}.
+1. Откройте приложение "Доступ к цепочке ключей".
+2. Щелкните правой кнопкой мыши **login** и выберите команду **Заблокировать цепочку ключей "login"** .
+  ![Параметр "Заблокировать цепочку ключей «login»"](/assets/images/help/desktop/mac-lock-keychain.png)
+3. Щелкните правой кнопкой мыши **login** и выберите команду **Разблокировать цепочку ключей "login"** . Следуйте инструкциям на экране, чтобы завершить разблокировку цепочки ключей "login".
+  ![Параметр "Разблокировать цепочку ключей «login»"](/assets/images/help/desktop/mac-unlock-keychain.png)
+4. Повторно выполните проверку подлинности учетной записи в {% data variables.product.prodname_dotcom %} или {% data variables.product.prodname_enterprise %}.
 
-#### `Could not create temporary directory: Permission denied` error after checking for updates
+### Ошибка `Could not create temporary directory: Permission denied` после проверки наличия обновлений
 
-This error can be caused by missing permissions for the `~/Library/Caches/com.github.GitHubClient.ShipIt` directory. {% data variables.product.prodname_desktop %} uses this directory to create and unpack temporary files as part of updating the application.
+Эта ошибка может быть вызвана отсутствием разрешений на доступ к каталогу `~/Library/Caches/com.github.GitHubClient.ShipIt`. {% data variables.product.prodname_desktop %} использует этот каталог для создания и распаковки временных файлов в рамках обновления приложения.
 
-To troubleshoot this error, follow these steps.
+Для устранения этой ошибки выполните следующие действия.
 
-1. Close {% data variables.product.prodname_desktop %}.
-2. Open "Finder" and navigate to `~/Library/Caches/`.
-3. Right-click `com.github.GitHubClient.ShipIt` and then click **Get Info**.
-4. Click the arrow to the left of "Sharing & Permissions."
-5. If the Privilege to the right of your user account does not say "Read & Write," click the text and then click **Read & Write**. ![The "Sharing & Permissions" options](/assets/images/help/desktop/mac-adjust-permissions.png)
-6. Open {% data variables.product.prodname_desktop %} and check for updates.
+1. Закройте {% data variables.product.prodname_desktop %}.
+2. Откройте "Finder" и перейдите в каталог `~/Library/Caches/`.
+3. Щелкните правой кнопкой мыши `com.github.GitHubClient.ShipIt` и выберите команду **Получить сведения**.
+4. Щелкните стрелку слева от элемента "Общий доступ и разрешения".
+5. Если справа от учетной записи не указано разрешение "Чтение и запись", щелкните текст и нажмите кнопку **Чтение и запись**.
+  ![Параметры "Общий доступ и разрешения"](/assets/images/help/desktop/mac-adjust-permissions.png)
+6. Откройте {% data variables.product.prodname_desktop %} и проверьте наличие обновлений.
 
-### Troubleshooting problems on Windows
-If you're encountering problems using {% data variables.product.prodname_desktop %} on Windows, here are resolutions to try. For more information, see [`known-issues`](https://github.com/desktop/desktop/blob/development/docs/known-issues.md).
+## Устранение неполадок в Windows
+Если у вас возникли проблемы с использованием {% data variables.product.prodname_desktop %} в Windows, ознакомьтесь с приведенными ниже решениями. Дополнительные сведения см. на веб-сайте [`known-issues`](https://github.com/desktop/desktop/blob/development/docs/known-issues.md).
 
-#### `The revocation function was unable to check revocation for the certificate.` error
+### Ошибок: `The revocation function was unable to check revocation for the certificate.`
 
-This error can occur if you are using {% data variables.product.prodname_desktop %} on a corporate network that blocks Windows from checking the revocation status of a certificate.
+Эта ошибка может возникнуть, если вы используете {% data variables.product.prodname_desktop %} в корпоративной сети, которая блокирует попытки Windows проверить состояние отзыва сертификата.
 
-To troubleshoot, contact your system administrator.
+Чтобы устранить неполадку, обратитесь к системному администратору.
 
-#### `git clone failed` error while cloning a repository configured with Folder Redirection
+### Ошибка `git clone failed` при клонировании репозитория, настроенного с помощью перенаправления папок
 
-{% data variables.product.prodname_desktop %} does not support repositories configured with Folder Redirection.
+{% data variables.product.prodname_desktop %} не поддерживает репозитории, настроенные с помощью перенаправления папок.
 
-#### `cygheap base mismatch detected` error
+### Ошибок: `cygheap base mismatch detected`
 
-This error can occur when Mandatory ASLR is enabled. Enabling Mandatory ASLR affects the MSYS2 core library, which {% data variables.product.prodname_desktop %} relies upon to emulate process forking.
+Эта ошибка может возникать, если включено обязательное использование ASLR. Включение обязательного использования ASLR влияет на основную библиотеку MSYS2, на основе которой {% data variables.product.prodname_desktop %} выполняет эмуляцию создания вилки процесса.
 
-To troubleshoot this error, either disable Mandatory ASLR or explicitly allow all executables under `<Git>\usr\bin` which depend on MSYS2.
+Чтобы устранить эту ошибку, отключите обязательное использование ASLR или явным образом разрешите все исполняемые файлы в `<Git>\usr\bin`, от которых зависит MSYS2.

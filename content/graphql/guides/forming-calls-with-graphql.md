@@ -5,20 +5,24 @@ redirect_from:
   - /v4/guides/forming-calls
   - /graphql/guides/forming-calls
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghec: '*'
+  ghes: '*'
+  ghae: '*'
 topics:
   - API
+shortTitle: Form calls with GraphQL
 ---
 
 ## Authenticating with GraphQL
 
-To communicate with the GraphQL server, you'll need an OAuth token with the right scopes.
+{% data reusables.user-settings.graphql-classic-pat-only %}
 
-Follow the steps in "[Creating a personal access token](/github/authenticating-to-github/creating-a-personal-access-token)" to create a token. The scopes you require depends on the type of data you're trying to request. For example, select the **User** scopes to request user data. If you need access to repository information, select the appropriate **Repository** scopes.
+To communicate with the GraphQL server, you'll need a {% data variables.product.pat_generic %} with the right scopes.
 
-{% if currentVersion == "free-pro-team@latest" %}
+Follow the steps in "[Creating a {% data variables.product.pat_generic %}](/github/authenticating-to-github/creating-a-personal-access-token)" to create a token. The scopes you require depends on the type of data you're trying to request. For example, select the **User** scopes to request user data. If you need access to repository information, select the appropriate **Repository** scopes.
+
+{% ifversion fpt or ghec %}
 
 To match the behavior of the [GraphQL Explorer](/graphql/guides/using-the-explorer), request the following scopes:
 
@@ -30,14 +34,14 @@ The following scopes are recommended:
 
 
 ```
-user{% if currentVersion != "github-ae@latest" %}
-public_repo{% endif %}
 repo
-repo_deployment
-repo:status
-read:repo_hook
+read:packages
 read:org
 read:public_key
+read:repo_hook
+user
+read:discussion
+read:enterprise
 read:gpg_key
 ```
 
@@ -60,7 +64,7 @@ In REST, [HTTP verbs](/rest#http-verbs) determine the operation performed. In Gr
 To query GraphQL using cURL, make a `POST` request with a JSON payload. The payload must contain a string called `query`:
 
 ```shell
-curl -H "Authorization: bearer <em>token</em>" -X POST -d " \
+curl -H "Authorization: bearer TOKEN" -X POST -d " \
  { \
    \"query\": \"query { viewer { login }}\" \
  } \
@@ -88,7 +92,7 @@ GraphQL queries return only the data you specify. To form a query, you must spec
 Queries are structured like this:
 
 <pre>query {
-  <em>JSON objects to return</em>
+  JSON-OBJECT-TO-RETURN
 }</pre>
 
 For a real-world example, see "[Example query](#example-query)."
@@ -104,8 +108,8 @@ To form a mutation, you must specify three things:
 Mutations are structured like this:
 
 <pre>mutation {
-  <em>mutationName</em>(input: {<em>MutationNameInput!</em>}) {
-    <em>MutationNamePayload</em>
+  MUTATION-NAME(input: {MUTATION-NAME-INPUT!}) {
+    MUTATION-NAME-PAYLOAD
   }
 }</pre>
 
@@ -249,7 +253,7 @@ Looking at the composition line by line:
 
   The `labels` field has the type [`LabelConnection`](/graphql/reference/objects#labelconnection). As with the `issues` object, because `labels` is a connection, we must travel its edges to a connected node: the `label` object. At the node, we can specify the `label` object fields we want to return, in this case, `name`.
 
-You may notice that running this query on the Octocat's {% if currentVersion != "github-ae@latest" %}public{% endif %} `Hello-World` repository won't return many labels. Try running it on one of your own repositories that does use labels, and you'll likely see a difference.
+You may notice that running this query on the Octocat's {% ifversion not ghae %}public{% endif %} `Hello-World` repository won't return many labels. Try running it on one of your own repositories that does use labels, and you'll likely see a difference.
 
 ## Example mutation
 
@@ -409,7 +413,7 @@ For more information on the difference between enums and strings, see the [offic
 
 There is a _lot_ more you can do when forming GraphQL calls. Here are some places to look next:
 
-* [Pagination](https://graphql.github.io/learn/pagination/)
-* [Fragments](https://graphql.github.io/learn/queries/#fragments)
-* [Inline fragments](https://graphql.github.io/learn/queries/#inline-fragments)
-* [Directives](https://graphql.github.io/learn/queries/#directives)
+* [Pagination](https://graphql.org/learn/pagination/)
+* [Fragments](https://graphql.org/learn/queries/#fragments)
+* [Inline fragments](https://graphql.org/learn/queries/#inline-fragments)
+* [Directives](https://graphql.org/learn/queries/#directives)

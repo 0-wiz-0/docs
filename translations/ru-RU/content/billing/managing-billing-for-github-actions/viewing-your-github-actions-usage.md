@@ -1,54 +1,51 @@
 ---
-title: Viewing your GitHub Actions usage
-intro: 'You can view details of your usage of minutes and storage for {% data variables.product.prodname_actions %}.'
-product: '{% data reusables.gated-features.actions %}'
+title: Просмотр сведений об использовании GitHub Actions
+intro: 'Вы можете просмотреть сведения об использовании минут и хранилища для {% data variables.product.prodname_actions %}.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/viewing-your-github-actions-usage
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-actions/viewing-your-github-actions-usage
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Actions
   - Enterprise
   - Organizations
   - User account
+shortTitle: View your Actions usage
+ms.openlocfilehash: a41da21abe606b0de11bf7cf7e1b8be6f4e2edbe
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147065173'
 ---
+Вы также можете просмотреть оплачиваемые минуты выполнения задания для отдельного экземпляра рабочего процесса. Дополнительные сведения см. в разделе "[Просмотр времени выполнения задания](/actions/managing-workflow-runs/viewing-job-execution-time)".
 
-You can also view the billable job execution minutes for an individual workflow run. For more information, see "[Viewing job execution time](/actions/managing-workflow-runs/viewing-job-execution-time)."
+## Просмотр сведений об использовании {% data variables.product.prodname_actions %} для личной учетной записи
 
-### Viewing {% data variables.product.prodname_actions %} usage for your user account
+Любой человек может просматривать данные об использовании {% data variables.product.prodname_actions %} для своей личной учетной записи.
 
-Anyone can view {% data variables.product.prodname_actions %} usage for their own user account.
+{% data reusables.user-settings.access_settings %} {% data reusables.user-settings.billing_plans %} {% data reusables.dotcom_billing.actions-minutes %} {% data reusables.dotcom_billing.actions-packages-storage %} {% data reusables.dotcom_billing.actions-packages-report-download %}
 
-{% data reusables.user_settings.access_settings %}
-{% data reusables.user_settings.billing_plans %}
-{% data reusables.dotcom_billing.actions-minutes %}
-{% data reusables.dotcom_billing.actions-packages-storage %}
-{% data reusables.dotcom_billing.actions-packages-report-download %}
+## Просмотр сведений об использовании {% data variables.product.prodname_actions %} для организации
 
-### Viewing {% data variables.product.prodname_actions %} usage for your organization
+Ответственные по отделу и менеджеры по выставлению счетов могут просматривать сведения об использовании {% data variables.product.prodname_actions %} в организации. Если организация управляется корпоративной учетной записью, просматривать сведения об использовании {% data variables.product.prodname_actions %} на странице выставления счетов организации могут только ответственные по организации.
 
-Organization owners and billing managers can view {% data variables.product.prodname_actions %} usage for an organization. For organizations managed by an enterprise account, only the organization owners can view {% data variables.product.prodname_actions %} usage in the organization billing page.
+{% data reusables.organizations.billing-settings %} {% data reusables.dotcom_billing.actions-minutes %} {% data reusables.dotcom_billing.actions-packages-storage %} {% data reusables.dotcom_billing.actions-packages-report-download-org-account %}
 
-{% data reusables.organizations.billing-settings %}
-{% data reusables.dotcom_billing.actions-minutes %}
-{% data reusables.dotcom_billing.actions-packages-storage %}
-{% data reusables.dotcom_billing.actions-packages-report-download %}
+{% ifversion ghec %}
+## Просмотр сведений об использовании {% data variables.product.prodname_actions %} для корпоративной учетной записи
 
-### Viewing {% data variables.product.prodname_actions %} usage for your enterprise account
-
-Enterprise owners and billing managers can view {% data variables.product.prodname_actions %} usage for an enterprise account.
+Ответственные по предприятию и менеджеры по выставлению счетов могут просматривать сведения об использовании {% data variables.product.prodname_actions %} для корпоративной учетной записи.
 
 {% note %}
 
-**Note:** Billing details for enterprise accounts don't summarize the usage minutes for each operating system. {% data reusables.github-actions.enterprise-billing-details %}
+**Примечание.** В сведениях о выставлении счетов для корпоративных учетных записей минуты использования для каждой операционной системы не суммируются. {% data reusables.actions.enterprise-billing-details %}
 
 {% endnote %}
 
-{% data reusables.enterprise-accounts.access-enterprise %}
-{% data reusables.enterprise-accounts.settings-tab %}
-{% data reusables.enterprise-accounts.billing-tab %}
-1. Under "{% data variables.product.prodname_actions %}", view details of usage of data transfer by each organization in your enterprise account. ![Details of usage of minutes](/assets/images/help/billing/actions-minutes-enterprise.png)
-{% data reusables.dotcom_billing.actions-packages-storage-enterprise-account %}
-{% data reusables.enterprise-accounts.actions-packages-report-download-enterprise-accounts %}
+{% data reusables.enterprise-accounts.access-enterprise %} {% data reusables.enterprise-accounts.settings-tab %} {% data reusables.enterprise-accounts.billing-tab %}
+1. В разделе {% data variables.product.prodname_actions %} просмотрите сведения об использовании передачи данных каждой организацией в корпоративной учетной записи.
+  ![Сведения об использовании минут](/assets/images/help/billing/actions-minutes-enterprise.png) {% data reusables.dotcom_billing.actions-packages-storage-enterprise-account %} {% data reusables.enterprise-accounts.actions-packages-report-download-enterprise-accounts %} {% endif %}

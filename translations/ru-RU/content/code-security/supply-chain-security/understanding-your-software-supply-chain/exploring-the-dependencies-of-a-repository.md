@@ -1,6 +1,6 @@
 ---
-title: Exploring the dependencies of a repository
-intro: 'You can use the dependency graph to see the packages your project depends on{% if currentVersion == "free-pro-team@latest" %} and the repositories that depend on it{% endif %}. In addition, you can see any vulnerabilities detected in its dependencies.'
+title: Изучение зависимостей репозитория
+intro: 'Граф зависимостей позволяет выяснить, от каких пакетов зависит ваш проект{% ifversion fpt or ghec %} и какие репозитории зависят от этого проекта{% endif %}. Кроме того, вы сможете узнать, какие уязвимости обнаружены в его зависимостях.'
 redirect_from:
   - /articles/listing-the-packages-that-a-repository-depends-on
   - /github/visualizing-repository-data-with-graphs/listing-the-packages-that-a-repository-depends-on
@@ -10,104 +10,104 @@ redirect_from:
   - /github/visualizing-repository-data-with-graphs/exploring-the-dependencies-of-a-repository
   - /code-security/supply-chain-security/exploring-the-dependencies-of-a-repository
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.0'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 type: how_to
 topics:
   - Dependency graph
   - Dependencies
   - Repositories
+shortTitle: Explore dependencies
+ms.openlocfilehash: f3735844ad8bcb8fba799723f30a3d55e41ec158
+ms.sourcegitcommit: 5f9527483381cfb1e41f2322f67c80554750a47d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '147882734'
 ---
-
 <!--For this article in earlier GHES versions, see /content/github/visualizing-repository-data-with-graphs-->
 
-### Viewing the dependency graph
+## Просмотр графа зависимостей
 
-{% data reusables.repositories.enable-security-alerts %}
+Граф зависимостей показывает зависимости{% ifversion fpt or ghec %} и зависимые объекты{% endif %} вашего репозитория. Сведения об обнаружении зависимостей и о поддерживаемых экосистемах см. в разделе [Сведения о графе зависимостей](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph).
 
-The dependency graph shows the dependencies{% if currentVersion == "free-pro-team@latest" %} and dependents{% endif %} of your repository. For information about the detection of dependencies and which ecosystems are supported, see "[About the dependency graph](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph)."
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.accessing-repository-graphs %} {% data reusables.repositories.click-dependency-graph %}{% ifversion fpt or ghec %}
+4. При желании в разделе "Граф зависимостей" щелкните **Зависимые**.
+![Вкладка "Зависимые" на странице графа зависимостей](/assets/images/help/graphs/dependency-graph-dependents-tab.png){% endif %}
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.accessing-repository-graphs %}
-{% data reusables.repositories.click-dependency-graph %}{% if currentVersion == "free-pro-team@latest" %}
-4. Optionally, under "Dependency graph", click **Dependents**. ![Dependents tab on the dependency graph page](/assets/images/help/graphs/dependency-graph-dependents-tab.png){% endif %}
+{% ifversion ghes %} Владельцы предприятия могут настроить граф зависимостей на корпоративном уровне. Дополнительные сведения см. в разделе [Включение графа зависимостей для предприятия](/admin/code-security/managing-supply-chain-security-for-your-enterprise/enabling-the-dependency-graph-for-your-enterprise).
+{% endif %}
 
-#### Dependencies view
+### Представление зависимостей
 
-{% if currentVersion == "free-pro-team@latest" %}
-Dependencies are grouped by ecosystem. You can expand a dependency to view its dependencies. For dependencies on public repositories hosted on {% data variables.product.product_name %}, you can also click a dependency to view the repository. Dependencies on private repositories, private packages, or unrecognized files are shown in plain text.
+{% ifversion fpt or ghec %} Зависимости группируются по экосистемам. Вы можете развернуть зависимость, чтобы просмотреть ее зависимости.  Зависимости в частных репозиториях, частных пакетах или нераспознанных файлах отображаются в виде обычного текста. Если диспетчер пакетов для зависимости находится в общедоступном репозитории, {% data variables.product.product_name %} отобразит ссылку на этот репозиторий.
 
-If vulnerabilities have been detected in the repository, these are shown at the top of the view for users with access to {% data variables.product.prodname_dependabot_alerts %}.
+{% ifversion dependency-submission-api %} Зависимости, отправленные в проект с помощью API отправки зависимостей (бета-версия) также группируются по экосистемам, но отображаются отдельно от зависимостей, обнаруженных в файлах манифеста или блокировки в репозитории. Эти отправленные зависимости отображаются в графе зависимостей как "Зависимости моментальных снимков", так как они отправляются в составе моментального снимка (набора) зависимостей. Дополнительные сведения об использовании API отправки зависимостей см. в статье [Использование API отправки зависимостей](/code-security/supply-chain-security/understanding-your-software-supply-chain/using-the-dependency-submission-api).
+{% endif %}
+
+Если в репозитории обнаружены уязвимости, они отображаются в верхней части представления для пользователей с доступом к {% data variables.product.prodname_dependabot_alerts %}.
 
 ![График зависимостей](/assets/images/help/graphs/dependencies_graph.png)
 
 {% endif %}
 
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_gt "enterprise-server@2.21" %}
-Any direct and indirect dependencies that are specified in the repository's manifest or lock files are listed, grouped by ecosystem. If vulnerabilities have been detected in the repository, these are shown at the top of the view for users with access to {% data variables.product.prodname_dependabot_alerts %}.
+{% ifversion ghes or ghae %} Все прямые и косвенные зависимости, указанные в файлах манифеста или блокировки репозитория, сгруппированы по экосистеме. Если в репозитории обнаружены уязвимости, они отображаются в верхней части представления для пользователей с доступом к {% data variables.product.prodname_dependabot_alerts %}.
 
 ![График зависимостей](/assets/images/help/graphs/dependencies_graph_server.png)
 
 {% note %}
 
-**Note:** {% data variables.product.prodname_ghe_server %} does not populate the **Dependents** view.
+**Примечание.** {% data variables.product.product_name %} не заполняет представление **Зависимые**.
 
 {% endnote %}
 
 {% endif %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-#### Dependents view
+{% ifversion fpt or ghec %}
+### Представление "Зависимые"
 
-For public repositories, the dependents view shows how the repository is used by other repositories. To show only the repositories that contain a library in a package manager, click **NUMBER Packages** immediately above the list of dependent repositories. The dependent counts are approximate and may not always match the dependents listed.
+Для общедоступных репозиториев представление зависимых объектов показывает, как репозиторий используется другими репозиториями. Чтобы отобразить только репозитории, содержащие библиотеку в диспетчере пакетов, щелкните **NUMBER Packages** непосредственно над списком зависимых репозиториев. Количество зависимых объектов являются приблизительным и не всегда может соответствовать перечисленным зависимым объектам.
 
 ![Диаграмма зависимостей](/assets/images/help/graphs/dependents_graph.png)
 
-### Enabling and disabling the dependency graph for a private repository
+## Включение и отключение графа зависимостей для частного репозитория
 
-Repository administrators can enable or disable the dependency graph for private repositories.
+{% data reusables.dependabot.enabling-disabling-dependency-graph-private-repo %}
 
-You can also enable or disable the dependency graph for all repositories owned by your user account or organization. For more information, see "[Managing security and analysis settings for your user account](/github/setting-up-and-managing-your-github-user-account/managing-security-and-analysis-settings-for-your-user-account)" or "[Managing security and analysis settings for your organization](/organizations/keeping-your-organization-secure/managing-security-and-analysis-settings-for-your-organization)."
+## Изменение пакета раздела "Кем используется"
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.repositories.navigate-to-security-and-analysis %}
-4. Read the message about granting {% data variables.product.product_name %} read-only access to the repository data to enable the dependency graph, then next to "Dependency Graph", click **Enable**. !["Enable" button for the dependency graph](/assets/images/help/repository/dependency-graph-enable-button.png)
+Вы могли заметить, что некоторые репозитории имеют раздел "Кем используется" в боковой панели вкладки **Код**. Репозиторий будет иметь раздел "Кем используется", если:
+  * для репозитория включен граф зависимостей (дополнительные сведения см. в разделе выше);
+  * репозиторий содержит пакет, опубликованный в [поддерживаемой экосистеме пакетов](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph#supported-package-ecosystems);
+  * в экосистеме пакет имеет ссылку на _общедоступный_ репозиторий, в котором хранится источник.
 
-You can disable the dependency graph at any time by clicking **Disable** next to "Dependency Graph" on the Security & analysis tab.
+В разделе "Кем используется" отображается количество обнаруженных общедоступных ссылок на пакет, а также аватары некоторых владельцев зависимых проектов.
 
-### Changing the "Used by" package
+![Раздел боковой панели "Кем используется"](/assets/images/help/repository/used-by-section.png)
 
-If the dependency graph is enabled, and your repository contains a package that's published on a supported package ecosystem, {% data variables.product.prodname_dotcom %} displays a "Used by" section in the sidebar of the **Code** tab of your repository. For more information about the supported package ecosystems, see "[About the dependency graph](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph#supported-package-ecosystems)."
+Щелкнув любой элемент в этом разделе, вы перейдете на вкладку **Зависимые** графа зависимостей.
 
-The "Used by" section shows the number of public references to the package that were found, and displays the avatars of some of the owners of the dependent projects.
+Раздел "Кем используется" представляет один пакет из репозитория. Если у вас есть разрешения администратора на репозиторий, содержащий несколько пакетов, можно выбрать, какой пакет представляет раздел "Кем используется".
 
-!["Used by" sidebar section](/assets/images/help/repository/used-by-section.png)
-
-Clicking any item in this section takes you to the **Dependents** tab of the dependency graph.
-
-The "Used by" section represents a single package from the repository. If you have admin permissions to a repository that contains multiple packages, you can choose which package the "Used by" section represents.
-
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-settings %}
-{% data reusables.repositories.navigate-to-security-and-analysis %}
-4. Under "Configure security and analysis features", click the drop-down menu in the "Used by counter" section and choose a package. ![Choose a "Used by" package](/assets/images/help/repository/choose-used-by-package.png)
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-settings %} {% data reusables.repositories.navigate-to-code-security-and-analysis %}
+4. В разделе "Безопасность и анализ кода" щелкните раскрывающееся меню в разделе "Используется счетчиком" и выберите пакет.
+  ![Выбор пакета "Кем используется"](/assets/images/help/repository/choose-used-by-package.png)
 
 {% endif %}
 
-### Troubleshooting the dependency graph
+## Устранение неполадок графа зависимостей
 
-If your dependency graph is empty, there may be a problem with the file containing your dependencies. Check the file to ensure that it's correctly formatted for the file type.
+Если ваш граф зависимостей пуст, возможно, имеется проблема с файлом, содержащим зависимости. Проверьте файл, чтобы убедиться, что его формат соответствует типу файла.
 
-{% if currentVersion == "free-pro-team@latest" %}
-If the file is correctly formatted, then check its size. The dependency graph ignores individual manifest and lock files that are over 0.5 Mb, unless you are a {% data variables.product.prodname_enterprise %} user. It processes up to 20 manifest or lock files per repository by default, so you can split dependencies into smaller files in subdirectories of the repository.{% endif %}
+{% ifversion fpt or ghec %} Если формат файла правильный, проверьте его размер. Граф зависимостей игнорирует отдельные файлы манифеста и блокировки, размер которых превышает 1,5 МБ, если вы не являетесь пользователем {% data variables.product.prodname_enterprise %}. Он обрабатывает до 20 файлов манифеста или блокировки для каждого репозитория по умолчанию, поэтому можно разделить зависимости на файлы меньшего размера в подкаталогах репозитория.{% endif %}
 
-If a manifest or lock file is not processed, its dependencies are omitted from the dependency graph and they can't be checked for vulnerable dependencies.
+Если манифест или файл блокировки не обработан, его зависимости исключены из графа зависимостей, и невозможно проверить файл на наличие небезопасных зависимостей.
 
-### Дополнительная литература
+## Дополнительные материалы
 
-- "[About the dependency graph](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph)"
-- "[Viewing and updating vulnerable dependencies in your repository](/github/managing-security-vulnerabilities/viewing-and-updating-vulnerable-dependencies-in-your-repository)"{% if currentVersion == "free-pro-team@latest" %}
-- "[Viewing insights for your organization](/organizations/collaborating-with-groups-in-organizations/viewing-insights-for-your-organization)"
-- "[Understanding how {% data variables.product.product_name %} uses and protects your data](/github/understanding-how-github-uses-and-protects-your-data)"
-{% endif %}
+- [Сведения о графе зависимостей](/github/visualizing-repository-data-with-graphs/about-the-dependency-graph)
+- [Просмотр и обновление {% data variables.product.prodname_dependabot_alerts %}](/code-security/dependabot/dependabot-alerts/viewing-and-updating-dependabot-alerts)"{% ifversion ghec %}
+- «[Просмотр аналитических сведений для организации](/organizations/collaborating-with-groups-in-organizations/viewing-insights-for-your-organization)»{% endif %}{% ifversion fpt or ghec %}
+- [Основные сведения о том, как {% data variables.product.prodname_dotcom %} использует и защищает ваши данные](/get-started/privacy-on-github) {% endif %}

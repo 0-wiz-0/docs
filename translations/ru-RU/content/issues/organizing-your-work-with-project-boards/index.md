@@ -1,11 +1,10 @@
 ---
-title: Organizing your work with project boards
-shortTitle: Project boards
-intro: 'Use project boards to manage your work on {% data variables.product.prodname_dotcom %}'
+title: 'Организация работы с помощью компонента "{% data variables.product.prodname_projects_v1 %}"'
+shortTitle: '{% data variables.product.prodname_projects_v1_caps %}'
+intro: 'Используйте {% data variables.product.prodname_projects_v1 %} для управления своей работой на {% data variables.product.prodname_dotcom %}.'
+allowTitleToDifferFromFilename: true
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  feature: projects-v1
 topics:
   - Issues
   - Projects
@@ -18,5 +17,11 @@ redirect_from:
   - /tracking-progress-on-your-project-board
   - /filtering-cards-on-a-project-board
   - /archiving-cards-on-a-project-board
+ms.openlocfilehash: 5827065f7fe316f4ec8ea41b56be61b1e01943dd
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148109040'
 ---
-
+{% data reusables.projects.project_boards_old %}

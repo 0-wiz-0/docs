@@ -5,9 +5,10 @@ redirect_from:
   - /v3/issues/issue-event-types
   - /developers/webhooks-and-events/issue-event-types
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Events
 ---
@@ -213,6 +214,20 @@ The issue was created by converting a note in a project board to an issue. {% da
 {% data reusables.issue-events.issue-event-common-properties %}
 {% data reusables.issue-events.project-card-properties %}
 
+## converted_to_discussion
+
+The issue was closed and converted to a discussion.
+
+### Availability
+
+|Issue type | Issue events API | Timeline events API|
+|-----|-----|-----|
+| <ul><li>Issues</li></ul> | **X** | |
+
+### Event Object Properties
+
+{% data reusables.issue-events.issue-event-common-properties %}
+
 ## cross-referenced
 
 The issue or pull request was referenced from another issue or pull request.
@@ -233,7 +248,7 @@ Name | Type | Description
 `created_at` | `string` | The timestamp indicating when the cross-reference was added.
 `updated_at` | `string` | The timestamp indicating when the cross-reference was updated or created, if the cross-reference is never updated.
 `source` | `object` | The issue or pull request that added a cross-reference.
-`source[type]` | `string` | This value will always be `"issue"` because pull requests are of type issue. Only cross-reference events triggered by issues or pull requests are returned in the Timeline Events API. To determine if the issue that triggered the event is a pull request, you can check if the `source[issue][pull_request` object exists.
+`source[type]` | `string` | This value will always be `"issue"` because pull requests are of type issue. Only cross-reference events triggered by issues or pull requests are returned in the Timeline Events API. To determine if the issue that triggered the event is a pull request, you can check if the `source[issue][pull_request]` object exists.
 `source[issue]` | `object` | The `issue` object that added the cross-reference.
 `event` | `string` | The event value is `"cross-referenced"`.
 
@@ -319,6 +334,16 @@ The pull request's `HEAD` branch was restored to the last known commit.
 |:----------|:----------------:|:-----------------:|
 | <ul><li>Pull requests</li></ul> | **X** | **X** |
 
+## head_ref_force_pushed
+
+The pull request's HEAD branch was force pushed.
+
+### Availability
+
+|Issue type | Issue events API | Timeline events API|
+|:----------|:----------------:|:-----------------:|
+| <ul><li>Pull requests</li></ul> | **X** | **X** |
+
 ### Event object properties
 
 {% data reusables.issue-events.issue-event-common-properties %}
@@ -349,11 +374,6 @@ The issue or pull request was locked.
 | <ul><li>Issues</li><li>Pull requests</li></ul> | **X** | **X** |
 
 ### Event object properties
-
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_lt "enterprise-server@2.22" %}
-{% data reusables.pre-release-program.sailor-v-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
-{% endif %}
 
 {% data reusables.issue-events.issue-event-common-properties %}
 `lock_reason` | `string` | The reason an issue or pull request conversation was locked, if one was provided.
@@ -394,7 +414,7 @@ The pull request was merged. The `commit_id` attribute is the SHA1 of the `HEAD`
 
 |Issue type | Issue events API | Timeline events API|
 |:----------|:----------------:|:-----------------:|
-| <ul><li>Pull requests</li></ul> | **X** |   |
+| <ul><li>Pull requests</li></ul> | **X** | **X** |
 
 ### Event object properties
 
@@ -451,7 +471,7 @@ The issue was pinned.
 
 ## ready_for_review
 
-A pull request was created that is not in draft mode.
+A draft pull request was marked as ready for review.
 
 ### Availability
 
@@ -670,11 +690,6 @@ The issue was unlocked.
 
 ### Event object properties
 
-{% if enterpriseServerVersions contains currentVersion and currentVersion ver_lt "enterprise-server@2.22" %}
-{% data reusables.pre-release-program.sailor-v-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
-{% endif %}
-
 {% data reusables.issue-events.issue-event-common-properties %}
 `lock_reason` | `string` | The reason an issue or pull request conversation was locked, if one was provided.
 
@@ -720,7 +735,7 @@ Someone unsubscribed from receiving notifications for an issue or pull request.
 
 {% data reusables.issue-events.issue-event-common-properties %}
 
-{% if currentVersion == "free-pro-team@latest" %}
+{% ifversion fpt or ghec %}
 ## user_blocked
 
 An organization owner blocked a user from the organization. This was done [through one of the blocked user's comments on the issue](/communities/maintaining-your-safety-on-github/blocking-a-user-from-your-organization#blocking-a-user-in-a-comment).

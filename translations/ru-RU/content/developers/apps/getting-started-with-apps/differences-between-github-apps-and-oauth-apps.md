@@ -1,112 +1,121 @@
 ---
-title: Differences between GitHub Apps and OAuth Apps
-intro: 'Understanding the differences between {% data variables.product.prodname_github_app %}s and {% data variables.product.prodname_oauth_app %}s will help you decide which app you want to create. An {% data variables.product.prodname_oauth_app %} acts as a GitHub user, whereas a {% data variables.product.prodname_github_app %} uses its own identity when installed on an organization or on repositories within an organization.'
+title: Различия между приложениями GitHub и приложениями OAuth
+intro: 'Понимание различий между {% data variables.product.prodname_github_apps %} и {% data variables.product.prodname_oauth_apps %} поможет вам решить, какое приложение вы хотите создать. {% data variables.product.prodname_oauth_app %} выступает в качестве пользователя GitHub, тогда как {% data variables.product.prodname_github_app %} использует собственное удостоверение при установке в организации или в репозиториях в организации.'
 redirect_from:
-  - /early-access/integrations/integrations-vs-oauth-applications/
-  - /apps/building-integrations/setting-up-a-new-integration/about-choosing-an-integration-type/
+  - /early-access/integrations/integrations-vs-oauth-applications
+  - /apps/building-integrations/setting-up-a-new-integration/about-choosing-an-integration-type
   - /apps/differences-between-apps
   - /developers/apps/differences-between-github-apps-and-oauth-apps
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
   - OAuth Apps
+shortTitle: GitHub Apps & OAuth Apps
+ms.openlocfilehash: d70304b71de11a4a24f2acc6c2545e78cbd19b0c
+ms.sourcegitcommit: f638d569cd4f0dd6d0fb967818267992c0499110
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/25/2022
+ms.locfileid: '148008709'
 ---
+## Кто может устанавливать приложения GitHub и авторизовывать приложения OAuth?
 
-### Who can install GitHub Apps and authorize OAuth Apps?
-
-You can install GitHub Apps in your personal account or organizations you own. If you have admin permissions in a repository, you can install GitHub Apps on organization accounts. If a GitHub App is installed in a repository and requires organization permissions, the organization owner must approve the application.
+Вы можете установить приложения GitHub в личной учетной записи или в принадлежащих вам организациях. Если у вас есть права администратора в репозитории, вы можете устанавливать приложения GitHub в учетных записях организации. Если приложение GitHub установлено в репозитории и требует разрешений организации, владелец организации должен утвердить это приложение.
 
 {% data reusables.apps.app_manager_role %}
 
-By contrast, users _authorize_ OAuth Apps, which gives the app the ability to act as the authenticated user. For example, you can authorize an OAuth App that finds all notifications for the authenticated user. You can always revoke permissions from an OAuth App.
+Для приложений OAuth, наоборот, пользователи предоставляют авторизацию, что дает приложению возможность действовать в качестве пользователя, прошедшего проверку подлинности. Например, можно авторизовать приложение OAuth, которое находит все уведомления для пользователя, прошедшего проверку подлинности. Вы всегда можете отозвать разрешения из приложения OAuth.
+
+{% ifversion limit-app-access-requests %} {% data reusables.organizations.restricted-app-access-requests %} {% endif %}
 
 {% data reusables.apps.deletes_ssh_keys %}
 
-| GitHub Apps                                                                                                                                                                                                                                                      | OAuth Apps                                                                                                                                                                               |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| You must be an organization owner or have admin permissions in a repository to install a GitHub App on an organization. If a GitHub App is installed in a repository and requires organization permissions, the organization owner must approve the application. | You can authorize an OAuth app to have access to resources.                                                                                                                              |
-| You can install a GitHub App on your personal repository.                                                                                                                                                                                                        | You can authorize an OAuth app to have access to resources.                                                                                                                              |
-| You must be an organization owner, personal repository owner, or have admin permissions in a repository to uninstall a GitHub App and remove its access.                                                                                                         | You can delete an OAuth access token to remove access.                                                                                                                                   |
-| You must be an organization owner or have admin permissions in a repository to request a GitHub App installation.                                                                                                                                                | If an organization application policy is active, any organization member can request to install an OAuth App on an organization. An organization owner must approve or deny the request. |
+| Приложения GitHub | Приложения OAuth |
+| ----- | ------ |
+| Чтобы установить приложение GitHub в организации, вы должны быть владельцем организации или иметь разрешения администратора в репозитории. Если приложение GitHub установлено в репозитории и требует разрешений организации, владелец организации должен утвердить это приложение. | Вы можете авторизовать приложение OAuth для доступа к ресурсам. |
+| Приложение GitHub можно установить в личном репозитории. | Вы можете авторизовать приложение OAuth для доступа к ресурсам.|
+| Чтобы удалить приложение GitHub в организации и его права доступа, вы должны быть владельцем организации, владельцем личного репозитория или иметь разрешения администратора в репозитории. | Чтобы удалить права доступа, достаточно удалить маркер доступа OAuth. |
+| Чтобы запросить установку приложения GitHub, вы должны быть владельцем организации или иметь разрешения администратора в репозитории. | Если в организации активна политика приложения, любой участник этой организации может запросить установку приложения OAuth в организации. Владелец организации должен утвердить или отклонить запрос. |
 
-### What can GitHub Apps and OAuth Apps access?
+## Что дает доступ к приложениям GitHub и приложениям OAuth?
 
-Account owners can use a {% data variables.product.prodname_github_app %} in one account without granting access to another. For example, you can install a third-party build service on your employer's organization, but decide not to grant that build service access to repositories in your personal account. A GitHub App remains installed if the person who set it up leaves the organization.
+Владельцы учетных записей могут использовать {% data variables.product.prodname_github_app %} в одной учетной записи, не предоставляя доступа к другой учетной записи. Например, вы можете установить стороннюю службу компиляции в организации вашего работодателя, не предоставляя этой службе доступа к репозиториям в вашей личной учетной записи. Приложение GitHub остается установленным, когда настроивший его пользователь покидает организацию.
 
-An _authorized_ OAuth App has access to all of the user's or organization owner's accessible resources.
+_Авторизованное_ приложение OAuth App имеет доступ ко всем ресурсам, которые доступны пользователю или владельцу организации.
 
-| GitHub Apps                                                                                                                                                                            | OAuth Apps                                                                                                                                                                                                                                                         |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Installing a GitHub App grants the app access to a user or organization account's chosen repositories.                                                                                 | Authorizing an OAuth App grants the app access to the user's accessible resources. For example, repositories they can access.                                                                                                                                      |
-| The installation token from a GitHub App loses access to resources if an admin removes repositories from the installation.                                                             | An OAuth access token loses access to resources when the user loses access, such as when they lose write access to a repository.                                                                                                                                   |
-| Installation access tokens are limited to specified repositories with the permissions chosen by the creator of the app.                                                                | An OAuth access token is limited via scopes.                                                                                                                                                                                                                       |
-| GitHub Apps can request separate access to issues and pull requests without accessing the actual contents of the repository.                                                           | OAuth Apps need to request the `repo` scope to get access to issues, pull requests, or anything owned by the repository.                                                                                                                                           |
-| GitHub Apps aren't subject to organization application policies. A GitHub App only has access to the repositories an organization owner has granted.                                   | If an organization application policy is active, only an organization owner can authorize the installation of an OAuth App. If installed, the OAuth App gains access to anything visible to the token the organization owner has within the approved organization. |
-| A GitHub App receives a webhook event when an installation is changed or removed. This tells the app creator when they've received more or less access to an organization's resources. | OAuth Apps can lose access to an organization or repository at any time based on the granting user's changing access. The OAuth App will not inform you when it loses access to a resource.                                                                        |
+| Приложения GitHub | Приложения OAuth |
+| ----- | ------ |
+| Установка приложения GitHub предоставляет приложению доступ к выбранным репозиториям учетной записи пользователя или организации. | Авторизация приложения OAuth предоставляет приложению доступ к ресурсам, доступным пользователю. Например, к репозиториям, к которым у него есть доступ. |
+| Маркер установки из приложения GitHub теряет доступ к ресурсам, когда администратор удаляет репозитории из установки. | Маркер доступа OAuth теряет доступ к ресурсам, когда пользователь теряет доступ, например при отмене доступа на запись в репозиторий. |
+| Маркеры доступа установки ограничиваются указанными репозиториями с разрешениями, выбранными создателем приложения. | Маркер доступа OAuth ограничивается через области действия. |
+| Приложения GitHub могут запрашивать доступ отдельно к проблемам и запросам на вытягивание, без доступа к фактическому содержимому репозитория. | Приложения OAuth должны запросить область действия `repo`, чтобы получить доступ к проблемам, запросам на вытягивание или любым другим ресурсам репозитория. |
+| Приложения GitHub не подчиняются политикам приложений организации. Приложение GitHub имеет доступ только к репозиториям, для которых владелец организации предоставил соответствующие разрешения. | Если политика приложения организации активна, то только владелец организации может разрешить установку приложения OAuth. При установке приложение OAuth получает доступ к любым ресурсам, видимым для маркера, который владелец организации имеет в утвержденной организации. |
+| Приложение GitHub получает событие веб-перехватчика при изменении или удалении установки. Это позволяет создателю приложения узнать, что он получил или потерял доступ к определенным ресурсам организации. | Приложения OAuth могут в любое время потерять доступ к организации или репозиторию, если изменится уровень доступа пользователя. Приложение OAuth не сообщает, когда теряет доступ к ресурсу. |
 
-### Token-based identification
+## Идентификация на основе маркеров
 
 {% note %}
 
-**Note:** GitHub Apps can also use a user-based token. For more information, see "[Identifying and authorizing users for GitHub Apps](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/)."
+**Примечание.** Приложения GitHub также могут использовать маркер на основе пользователя. Дополнительные сведения см. в статье [Идентификация и авторизация пользователей для приложений GitHub](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/).
 
 {% endnote %}
 
-| GitHub Apps                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | OAuth Apps                                                                                                                                                                                                                                                                                   |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| A GitHub App can request an installation access token by using a private key with a JSON web token format out-of-band.                                                                                                                                                                                                                                                                                                                                                                                                                                                 | An OAuth app can exchange a request token for an access token after a redirect via a web request.                                                                                                                                                                                            |
-| An installation token identifies the app as the GitHub Apps bot, such as @jenkins-bot.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | An access token identifies the app as the user who granted the token to the app, such as @octocat.                                                                                                                                                                                           |
-| Installation tokens expire after a predefined amount of time (currently 1 hour).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | OAuth tokens remain active until they're revoked by the customer.                                                                                                                                                                                                                            |
-| {% data reusables.apps.api-rate-limits-non-ghec %}{% if currentVersion == "free-pro-team@latest" %} Higher rate limits apply for {% data variables.product.prodname_ghe_cloud %}. For more information, see "[Rate limits for GitHub Apps](/developers/apps/rate-limits-for-github-apps)."{% endif %}                                                                                                                                                                                                                                                                | OAuth tokens use the user's rate limit of 5,000 requests per hour.                                                                                                                                                                                                                           |
-| Rate limit increases can be granted both at the GitHub Apps level (affecting all installations) and at the individual installation level.                                                                                                                                                                                                                                                                                                                                                                                                                              | Rate limit increases are granted per OAuth App. Every token granted to that OAuth App gets the increased limit. |{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.21" or currentVersion == "github-ae@latest" %}
-| {% data variables.product.prodname_github_app %}s can authenticate on behalf of the user, which is called user-to-server requests. The flow to authorize is the same as the OAuth App authorization flow. User-to-server tokens can expire and be renewed with a refresh token. For more information, see "[Refreshing user-to-server access tokens](/apps/building-github-apps/refreshing-user-to-server-access-tokens/)" and "[Identifying and authorizing users for GitHub Apps](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/)." | The OAuth flow used by {% data variables.product.prodname_oauth_app %}s authorizes an {% data variables.product.prodname_oauth_app %} on behalf of the user. This is the same flow used in {% data variables.product.prodname_github_app %} user-to-server authorization. 
-{% endif %}
+| Приложения GitHub | Приложения OAuth |
+| ----- | ----------- |
+| Приложение GitHub может вне основного процесса запросить маркер доступа к установке с использованием закрытого ключа в формате веб-маркера JSON. | Приложение OAuth может обменять маркер запроса на маркер доступа после перенаправления через веб-запрос. |
+| Маркер установки идентифицирует приложение как бот приложений GitHub, например @jenkins-bot. | Маркер доступа идентифицирует приложение как пользователя, который предоставил этот маркер приложению, например @octocat. |
+| Срок действия маркеров установки истекает через определенное время (в настоящее время это 1 час). | Маркеры OAuth остаются активными, пока они не будут отозваны клиентом. |
+| Для {% data variables.product.prodname_github_apps %}, установленных в организациях или репозиториях, применяются ограничения частоты запросов между серверами. Дополнительные сведения см. в статье [Ограничения скорости для {% data variables.product.prodname_github_apps %}](/developers/apps/building-github-apps/rate-limits-for-github-apps). | Маркеры OAuth используют ограничение скорости для пользователя: {% ifversion fpt or ghec or ghes %}5000{% elsif ghae %}15 000{% endif %} запросов в час. |
+| Разрешения на увеличение ограничений скорости можно предоставлять как на уровне приложений GitHub (это затронет все установки), так и на уровне отдельных установок. | Разрешение на увеличение ограничения скорости предоставляется для каждого приложения OAuth. Каждый маркер, предоставленный этому приложению OAuth, получает увеличенное ограничение. |
+| {% data variables.product.prodname_github_apps %} может выполнять проверку подлинности от имени пользователя. Такой механизм называется запросом от пользователя к серверу. Поток для авторизации аналогичен потоку авторизации приложения OAuth. Маркеры "пользователь-сервер" имеют ограниченный срок действия, который можно продлить с помощью маркера обновления. Дополнительные сведения см. в статьях [Обновление маркеров доступа "пользователь — сервер"](/apps/building-github-apps/refreshing-user-to-server-access-tokens/) и [Идентификация и авторизация пользователей для приложений GitHub](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/). | Поток OAuth, который используется в {% data variables.product.prodname_oauth_apps %}, авторизует {% data variables.product.prodname_oauth_app %} от имени пользователя. Аналогичный поток, который используется в {% data variables.product.prodname_github_app %} для авторизации запросов от пользователя к серверу. |
 
-### Requesting permission levels for resources
+## Запрос уровней разрешений для ресурсов
 
-Unlike OAuth apps, GitHub Apps have targeted permissions that allow them to request access only to what they need. For example, a Continuous Integration (CI) GitHub App can request read access to repository content and write access to the status API. Another GitHub App can have no read or write access to code but still have the ability to manage issues, labels, and milestones. OAuth Apps can't use granular permissions.
+В отличие от приложений OAuth, приложения GitHub имеют целевые разрешения, позволяющие им запрашивать доступ только к тем ресурсам, которые им нужны. Например, приложение GitHub для непрерывной интеграции (CI) может запрашивать доступ на чтение к содержимому репозитория и доступ на запись к API состояния. Другое приложение GitHub может управлять проблемами, метками и вехами, не имея доступа на чтение или запись к коду. Приложения OAuth не могут использовать детализированные разрешения.
 
-| Access                                                  | GitHub Apps (`read` or `write` permissions)               | OAuth Apps                                   |
-| ------------------------------------------------------- | --------------------------------------------------------- | -------------------------------------------- |
-| **For access to public repositories**                   | Public repository needs to be chosen during installation. | `public_repo` scope.                         |
-| **For access to repository code/contents**              | Repository contents                                       | `repo` scope.                                |
-| **For access to issues, labels, and milestones**        | Вопросы                                                   | `repo` scope.                                |
-| **For access to pull requests, labels, and milestones** | Pull requests                                             | `repo` scope.                                |
-| **For access to commit statuses (for CI builds)**       | Commit statuses                                           | `repo:status` scope.                         |
-| **For access to deployments and deployment statuses**   | Deployments                                               | `repo_deployment` scope.                     |
-| **To receive events via a webhook**                     | A GitHub App includes a webhook by default.               | `write:repo_hook` or `write:org_hook` scope. |
+| Access | Приложения GitHub (разрешения `read` или `write`) | Приложения OAuth |
+| ------ | ----- | ----------- |
+| **Доступ к общедоступным репозиториям** | Во время установки необходимо выбрать общедоступный репозиторий. | Область `public_repo`. |
+| **Доступ к коду или содержимому репозитория** | Содержимое репозитория | Область `repo`. |
+| **Доступ к проблемам, меткам и вехам** | Проблемы | Область `repo`. |
+| **Доступ к запросам на вытягивание, меткам и вехам** | Запросы на вытягивание | Область `repo`. |
+| **Доступ к состояниям фиксации (для сборок CI)** | Состояния фиксаций | Область `repo:status`. |
+| **Доступ к развертываниям и состояниям развертывания** | Развернутые приложения | Область `repo_deployment`. |
+| **Для получения событий через веб-перехватчик** | Приложение GitHub по умолчанию включает веб-перехватчик. | Область `write:repo_hook` или `write:org_hook`. |
 
-### Repository discovery
+## Обнаружение репозитория
 
-| GitHub Apps                                                                                           | OAuth Apps                                                                                                                      |
-| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| GitHub Apps can look at `/installation/repositories` to see repositories the installation can access. | OAuth Apps can look at `/user/repos` for a user view or `/orgs/:org/repos` for an organization view of accessible repositories. |
-| GitHub Apps receive webhooks when repositories are added or removed from the installation.            | OAuth Apps create organization webhooks for notifications when a new repository is created within an organization.              |
+| Приложения GitHub | Приложения OAuth |
+| ----- | ----------- |
+| Приложения GitHub могут получить из `/installation/repositories` список репозиториев, к которые установка имеет доступ. | Приложения OAuth могут получить из `/user/repos` представление пользователя, а из `/orgs/:org/repos` — представление организации для доступных репозиториев. |
+| Приложения GitHub получают действия веб-перехватчиков при добавлении репозиториев в установку и при удалении их из нее. | Приложения OAuth создают действия веб-перехватчиков организации для уведомлений о создании нового репозитория в организации. |
 
-### Webhooks
+## Веб-перехватчики
 
-| GitHub Apps                                                                                                                                     | OAuth Apps                                                                                                                                                     |
-| ----------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| By default, GitHub Apps have a single webhook that receives the events they are configured to receive for every repository they have access to. | OAuth Apps request the webhook scope to create a repository webhook for each repository they need to receive events from.                                      |
-| GitHub Apps receive certain organization-level events with the organization member's permission.                                                | OAuth Apps request the organization webhook scope to create an organization webhook for each organization they need to receive organization-level events from. |
+| Приложения GitHub | Приложения OAuth |
+| ----- | ----------- |
+| По умолчанию приложения GitHub имеют один веб-перехватчик, который получает события, для которых она настроен, по каждому репозиторию, к которому он имеет доступ. | Приложения OAuth запрашивают область веб-перехватчика, чтобы создать веб-перехватчик на уровне репозитория для каждого репозитория, из которого они будут получать события. |
+| Приложения GitHub получают определенные события уровня организации с разрешения участника этой организации. | Приложения OAuth запрашивают область веб-перехватчика организации, чтобы создать веб-перехватчик организации для каждой организации, из которых они будут получать события уровня организации. |
+| Веб-перехватчики автоматически отключаются при удалении приложения GitHub. | Веб-перехватчики не отключаются автоматически, если маркер доступа приложения OAuth удаляется, и их невозможно очистить автоматически. Вам придется обратиться к пользователям с просьбой сделать это вручную.|
 
-### Git access
+## Доступ к Git
 
-| GitHub Apps                                                                                                                                                                                                                    | OAuth Apps                                                                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GitHub Apps ask for repository contents permission and use your installation token to authenticate via [HTTP-based Git](/apps/building-github-apps/authenticating-with-github-apps/#http-based-git-access-by-an-installation). | OAuth Apps ask for `write:public_key` scope and [Create a deploy key](/rest/reference/repos#create-a-deploy-key) via the API. You can then use that key to perform Git commands. |
-| The token is used as the HTTP password.                                                                                                                                                                                        | The token is used as the HTTP username.                                                                                                                                          |
+| Приложения GitHub | Приложения OAuth |
+| ----- | ----------- |
+| Приложения GitHub запрашивают разрешение содержимого репозитория и используют маркер установки для проверки подлинности с помощью [Git на основе HTTP](/apps/building-github-apps/authenticating-with-github-apps/#http-based-git-access-by-an-installation). | Приложения OAuth запрашивают область `write:public_key` и [создают ключ развертывания](/rest/reference/deployments#create-a-deploy-key) через API. Затем этот ключ можно использовать для выполнения команд Git. |
+| Этот маркер используется в качестве пароля HTTP. | Этот маркер используется в качестве имени пользователя HTTP. |
 
-### Machine vs. bot accounts
+## Учетные записи компьютеров и ботов
 
-Machine user accounts are OAuth-based user accounts that segregate automated systems using GitHub's user system.
+Учетные записи пользователей компьютера — это личные учетные записи на основе OAuth, которые используются для различения автоматизированных систем на основе системы пользователей GitHub.
 
-Bot accounts are specific to GitHub Apps and are built into every GitHub App.
+Учетные записи ботов используются только в приложениях GitHub и встраиваются в каждое приложение GitHub.
 
-| GitHub Apps                                                                                   | OAuth Apps                                                                                           |
-| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| GitHub App bots do not consume a {% data variables.product.prodname_enterprise %} seat.       | A machine user account consumes a {% data variables.product.prodname_enterprise %} seat.             |
-| Because a GitHub App bot is never granted a password, a customer can't sign into it directly. | A machine user account is granted a username and password to be managed and secured by the customer. |
+| Приложения GitHub | Приложения OAuth |
+| ----- | ----------- |
+| Боты приложений GitHub не используют рабочее место {% data variables.product.prodname_enterprise %}. | Каждая учетная запись пользователя использует одно рабочее место {% data variables.product.prodname_enterprise %}. |
+| Так как боту приложения GitHub никогда не назначается пароль, клиент не может войти в него напрямую. | Учетной записи пользователя компьютера предоставляется имя пользователя и пароль, управление и защиту для которого клиент выполняет самостоятельно. |

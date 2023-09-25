@@ -1,48 +1,61 @@
 ---
-title: GitHub event types
-intro: 'For the {% data variables.product.prodname_dotcom %} Events API, learn about each event type, the triggering action on {% data variables.product.prodname_dotcom %}, and each event''s unique properties.'
-product: '{% data reusables.gated-features.enterprise-accounts %}'
+title: Типы событий GitHub
+intro: 'Для API событий {% data variables.product.prodname_dotcom %} узнайте о каждом типе события, активируя действие в {% data variables.product.prodname_dotcom %}, а также уникальные свойства каждого события.'
 redirect_from:
   - /v3/activity/event_types
   - /developers/webhooks-and-events/github-event-types
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Events
+ms.openlocfilehash: 0cd519f6dcf84fc5edd6356f1f734d23030a6711
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '146064246'
 ---
+API событий может возвращать различные типы событий, инициируемые действием в GitHub. Каждый ответ события содержит общие свойства, но имеет уникальный объект `payload`, определенный его типом события. В разделе [Общие свойства объекта событий](#event-object-common-properties) описываются свойства, общие для всех событий, а каждый тип события описывает свойства `payload`, уникальные для конкретного события.
 
-The Events API can return different types of events triggered by activity on GitHub. Each event response contains shared properties, but has a unique `payload` object determined by its event type. The [Event object common properties](#event-object-common-properties) describes the properties shared by all events, and each event type describes the `payload` properties that are unique to the specific event.
-
-{% if currentVersion == "free-pro-team@latest" %}
+{% ifversion fpt or ghec %}
 
 {% endif %}
 
-### Event object common properties
+## Общие свойства объекта события
 
-The event objects returned from the Events API endpoints have the same structure.
+Объекты событий, возвращаемые конечными точками API событий, имеют одинаковую структуру.
 
-| Event API attribute name | Description                                                                                                                                                                                   |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                     | Unique identifier for the event.                                                                                                                                                              |
-| `тип`                    | The type of event. Events uses PascalCase for the name.                                                                                                                                       |
-| `actor`                  | The user that triggered the event.                                                                                                                                                            |
-| `actor.id`               | The unique identifier for the actor.                                                                                                                                                          |
-| `actor.login`            | The username of the actor.                                                                                                                                                                    |
-| `actor.display_login`    | The specific display format of the username.                                                                                                                                                  |
-| `actor.gravatar_id`      | The unique identifier of the Gravatar profile for the actor.                                                                                                                                  |
-| `actor.url`              | The REST API URL used to retrieve the user object, which includes additional user information.                                                                                                |
-| `actor.avatar_url`       | The URL of the actor's profile image.                                                                                                                                                         |
-| `repo`                   | The repository object where the event occurred.                                                                                                                                               |
-| `repo.id`                | The unique identifier of the repository.                                                                                                                                                      |
-| `repo.name`              | The name of the repository, which includes the owner and repository name. For example, `octocat/hello-world` is the name of the `hello-world` repository owned by the `octocat` user account. |
-| `repo.url`               | The REST API URL used to retrieve the repository object, which includes additional repository information.                                                                                    |
-| `payload`                | The event payload object is unique to the event type. See the event type below for the event API `payload` object.                                                                            |
+| Имя атрибута API событий | Описание |
+|--------------------------|-------------|
+| `id` | Уникальный идентификатор события. |
+| `type` | Тип события. События используют PascalCase для имени. |
+| `actor` | Пользователь, который активировал событие. |
+| `actor.id` | Уникальный идентификатор субъекта. |
+| `actor.login` | Имя пользователя субъекта. |
+| `actor.display_login` | Конкретный формат отображения имени пользователя. |
+| `actor.gravatar_id` | Уникальный идентификатор профиля Gravatar для субъекта. |
+| `actor.url` | URL-адрес REST API, используемый для получения объекта пользователя, который содержит дополнительные сведения о пользователе. |
+| `actor.avatar_url` | URL-адрес изображения профиля субъекта. |
+| `repo` | Объект репозитория, в котором произошло событие.  |
+| `repo.id` | Уникальный идентификатор репозитория. |
+| `repo.name` | Имя репозитория, включающее имя владельца и репозитория. Например, `octocat/hello-world` — это имя репозитория `hello-world`, принадлежащего личной учетной записи `octocat`. |
+| `repo.url` | URL-адрес REST API, используемый для получения объекта репозитория, который содержит дополнительные сведения о репозитории. |
+| `payload` | Объект полезных данных события уникален для каждого типа события. См. тип события ниже для объекта `payload` API событий. |
+| `public` | Отображается ли событие для всех пользователей. |
+| `created_at` | Дата и время активации события. В формате по стандарту ISO 8601. |
+| `org` | Организация, выбранная субъектом для выполнения действия, которое активировало событие.<br />_Свойство отображается в объекте события только в том случае, если это применимо._ |
+| `org.id` | Уникальный идентификатор для организации. |
+| `org.login` | Название организации. |
+| `org.gravatar_id` | Уникальный идентификатор профиля Gravatar для организации. |
+| `org.url` | URL-адрес REST API, используемый для получения объекта организации, который содержит дополнительные сведения об организации. |
+| `org.avatar_url` | URL-адрес изображения профиля организации. |
 
-#### Example WatchEvent event object
+### Пример объекта события WatchEvent
 
-This example shows the format of the [WatchEvent](#watchevent) response when using the [Events API](/rest/reference/activity#events).
+В этом примере показан формат ответа [WatchEvent](#watchevent) при использовании [API событий](/rest/reference/activity#events).
 
 ```
 HTTP/2 200
@@ -81,186 +94,188 @@ Link: <https://api.github.com/resource?page=2>; rel="next",
 ]
 ```
 
-### CommitCommentEvent
+## CommitCommentEvent
 
 {% data reusables.webhooks.commit_comment_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
 {% data reusables.webhooks.commit_comment_properties %}
 
-### CreateEvent
+## CreateEvent
 
 {% data reusables.webhooks.create_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
 {% data reusables.webhooks.create_properties %}
 
-### DeleteEvent
+## DeleteEvent
 
 {% data reusables.webhooks.delete_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
 {% data reusables.webhooks.delete_properties %}
 
-### ForkEvent
+## ForkEvent
 
 {% data reusables.webhooks.fork_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
 {% data reusables.webhooks.fork_properties %}
 
-### GollumEvent
+## GollumEvent
 
 {% data reusables.webhooks.gollum_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
 {% data reusables.webhooks.gollum_properties %}
 
-### IssueCommentEvent
+## IssueCommentEvent
 
 {% data reusables.webhooks.issue_comment_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
-{% data reusables.webhooks.issue_comment_webhook_properties %}
-{% data reusables.webhooks.issue_comment_properties %}
+{% data reusables.webhooks.issue_comment_webhook_properties %} {% data reusables.webhooks.issue_comment_properties %}
 
-### IssuesEvent
+## IssuesEvent
 
 {% data reusables.webhooks.issues_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
-{% data reusables.webhooks.issue_event_api_properties %}
-{% data reusables.webhooks.issue_properties %}
+{% data reusables.webhooks.issue_event_api_properties %} {% data reusables.webhooks.issue_properties %}
 
-### MemberEvent
+## MemberEvent
 
 {% data reusables.webhooks.member_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
-{% data reusables.webhooks.member_event_api_properties %}
-{% data reusables.webhooks.member_properties %}
+{% data reusables.webhooks.member_event_api_properties %} {% data reusables.webhooks.member_properties %}
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.19" %}
-### PublicEvent
+{% ifversion fpt or ghes or ghec %}
+## PublicEvent
 
 {% data reusables.webhooks.public_short_desc %}
-#### Event `payload` object
+### Объект события `payload`
 
-This event returns an empty `payload` object.
+Это событие возвращает пустой объект `payload`.
 {% endif %}
-### PullRequestEvent
+## PullRequestEvent
 
 {% data reusables.webhooks.pull_request_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
-{% data reusables.webhooks.pull_request_event_api_properties %}
-{% data reusables.webhooks.pull_request_properties %}
+{% data reusables.webhooks.pull_request_event_api_properties %} {% data reusables.webhooks.pull_request_properties %}
 
-### PullRequestReviewEvent
+## PullRequestReviewEvent
 
 {% data reusables.webhooks.pull_request_review_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
-| Клавиша        | Тип      | Description                                      |
-| -------------- | -------- | ------------------------------------------------ |
-| `действие`     | `строка` | The action that was performed. Can be `created`. |
-| `pull_request` | `объект` | The pull request the review pertains to.         |
-| `проверка`     | `объект` | The review that was affected.                    |
+Ключ | Тип | Описание
+----|------|-------------
+`action` | `string` | Действие, которое было выполнено. Может иметь значение `created`.
+`pull_request` | `object` | Запрос на вытягивание, к которому относится проверка.
+`review` | `object` |   Затрагиваемый обзор.
 
-### PullRequestReviewCommentEvent
+## PullRequestReviewCommentEvent
 
 {% data reusables.webhooks.pull_request_review_comment_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
-{% data reusables.webhooks.pull_request_review_comment_event_api_properties %}
-{% data reusables.webhooks.pull_request_review_comment_properties %}
+{% data reusables.webhooks.pull_request_review_comment_event_api_properties %} {% data reusables.webhooks.pull_request_review_comment_properties %}
 
-### PushEvent
+## PullRequestReviewThreadEvent
+
+{% data reusables.webhooks.pull_request_review_thread_short_desc %}
+
+{% data reusables.webhooks.events_api_payload %}
+
+### Объект события `payload`
+
+{% data reusables.webhooks.pull_request_thread_properties %}
+
+## PushEvent
 
 {% data reusables.webhooks.push_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
-| Клавиша                    | Тип       | Description                                                                                                                                                                                                                                                                                            |
-| -------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `push_id`                  | `integer` | Unique identifier for the push.                                                                                                                                                                                                                                                                        |
-| `size`                     | `integer` | The number of commits in the push.                                                                                                                                                                                                                                                                     |
-| `distinct_size`            | `integer` | The number of distinct commits in the push.                                                                                                                                                                                                                                                            |
-| `ref`                      | `строка`  | The full [`git ref`](/rest/reference/git#refs) that was pushed. Example: `refs/heads/master`.                                                                                                                                                                                                          |
-| `заголовок`                | `строка`  | The SHA of the most recent commit on `ref` after the push.                                                                                                                                                                                                                                             |
-| `before`                   | `строка`  | The SHA of the most recent commit on `ref` before the push.                                                                                                                                                                                                                                            |
-| `commits`                  | `array`   | An array of commit objects describing the pushed commits. (The array includes a maximum of 20 commits. If necessary, you can use the [Commits API](/rest/reference/repos#commits) to fetch additional commits. This limit is applied to timeline events only and isn't applied to webhook deliveries.) |
-| `commits[][sha]`           | `строка`  | The SHA of the commit.                                                                                                                                                                                                                                                                                 |
-| `commits[][message]`       | `строка`  | The commit message.                                                                                                                                                                                                                                                                                    |
-| `commits[][author]`        | `объект`  | The git author of the commit.                                                                                                                                                                                                                                                                          |
-| `commits[][author][name]`  | `строка`  | The git author's name.                                                                                                                                                                                                                                                                                 |
-| `commits[][author][email]` | `строка`  | The git author's email address.                                                                                                                                                                                                                                                                        |
-| `commits[][url]`           | `url`     | URL that points to the commit API resource.                                                                                                                                                                                                                                                            |
-| `commits[][distinct]`      | `boolean` | Whether this commit is distinct from any that have been pushed before.                                                                                                                                                                                                                                 |
+Ключ | Тип | Описание
+----|------|-------------
+`push_id` | `integer` | Уникальный идентификатор принудительной отправки.
+`size`|`integer` | Количество фиксаций в принудительной отправке.
+`distinct_size`|`integer` | Количество отдельных фиксаций в принудительной отправке.
+`ref`|`string` | Полный [`git ref`](/rest/reference/git#refs), который был принудительно отправлен. Например, `refs/heads/main`.
+`head`|`string` | SHA последней фиксации в `ref` после принудительной отправки.
+`before`|`string` | SHA последней фиксации в `ref` до принудительной отправки.
+`commits`|`array` | Массив объектов фиксации, описывающих принудительно отправленные фиксации. (Массив включает не более 20 фиксаций. При необходимости можно использовать [API фиксаций](/rest/reference/repos#commits) для получения дополнительных фиксаций. Это ограничение применяется только к событиям временной шкалы и не применяется к доставке веб-перехватчиков.)
+`commits[][sha]`|`string` | SHA фиксации.
+`commits[][message]`|`string` | Сообщение фиксации.
+`commits[][author]`|`object` | Автор Git фиксации.
+`commits[][author][name]`|`string` | Имя автора Git.
+`commits[][author][email]`|`string` | Адрес электронной почты автора Git.
+`commits[][url]`|`url` | URL-адрес, указывающий на ресурс API фиксации.
+`commits[][distinct]`|`boolean` | Отличается ли эта фиксация от остальных фиксаций, принудительно отправленных ранее.
 
-### ReleaseEvent
+## ReleaseEvent
 
 {% data reusables.webhooks.release_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
-{% data reusables.webhooks.release_event_api_properties %}
-{% data reusables.webhooks.release_properties %}
+{% data reusables.webhooks.release_event_api_properties %} {% data reusables.webhooks.release_properties %}
 
-{% if currentVersion == "free-pro-team@latest" %}
-### SponsorshipEvent
+{% ifversion fpt or ghec %}
+## SponsorshipEvent
 
 {% data reusables.webhooks.sponsorship_short_desc %}
 
-#### Event `payload` object
+### Объект события `payload`
 
-{% data reusables.webhooks.sponsorship_event_api_properties %}
-{% data reusables.webhooks.sponsorship_properties %}
-{% endif %}
+{% data reusables.webhooks.sponsorship_event_api_properties %} {% data reusables.webhooks.sponsorship_properties %} {% endif %}
 
-### WatchEvent
+## WatchEvent
 
 {% data reusables.webhooks.watch_short_desc %}
 
 {% data reusables.webhooks.events_api_payload %}
 
-#### Event `payload` object
+### Объект события `payload`
 
 {% data reusables.webhooks.watch_properties %}

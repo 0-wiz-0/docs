@@ -1,45 +1,48 @@
 ---
-title: Using content attachments
-intro: Content attachments allow a GitHub App to provide more information in GitHub for URLs that link to registered domains. GitHub renders the information provided by the app under the URL in the body or comment of an issue or pull request.
+title: Использование вложений содержимого
+intro: 'Вложения содержимого позволяют приложению GitHub предоставлять дополнительные сведения в GitHub для URL-адресов, ссылающихся на зарегистрированные домены. GitHub отображает сведения, предоставленные приложением по URL-адресу, в тексте проблемы или запроса на вытягивание либо в комментарии к ним.'
 redirect_from:
   - /apps/using-content-attachments
   - /developers/apps/using-content-attachments
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  ghes: <3.4
 topics:
   - GitHub Apps
+ms.openlocfilehash: f557a804d48144df24398f75e90a589d563d941b
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147081026'
 ---
-
 {% data reusables.pre-release-program.content-attachments-public-beta %}
 
-### About content attachments
+## Сведения о вложениях содержимого
 
-A GitHub App can register domains that will trigger `content_reference` events. When someone includes a URL that links to a registered domain in the body or comment of an issue or pull request, the app receives the [`content_reference` webhook](/webhooks/event-payloads/#content_reference). You can use content attachments to visually provide more context or data for the URL added to an issue or pull request. The URL must be a fully-qualified URL, starting with either `http://` or `https://`. URLs that are part of a markdown link are ignored and don't trigger the `content_reference` event.
+Приложение GitHub может зарегистрировать домены, которые будут запускать события `content_reference`. Когда кто-то включает в текст или комментарий к проблеме или запросу на вытягивание URL-адрес, который ссылается на зарегистрированный домен, приложение получает [веб-перехватчик `content_reference`](/webhooks/event-payloads/#content_reference). Вложения содержимого можно использовать для визуального предоставления дополнительных контекстов или данных для URL-адреса, добавленного в проблему или запрос на вытягивание. URL-адрес должен быть полным URL-адресом, который начинается с `http://` или `https://`. URL-адреса, которые являются частью ссылки Markdown, игнорируются и не запускают событие `content_reference`.
 
-Before you can use the {% data variables.product.prodname_unfurls %} API, you'll need to configure content references for your GitHub App:
-* Give your app `Read & write` permissions for "Content references."
-* Register up to 5 valid, publicly accessible domains when configuring the "Content references" permission. Do not use IP addresses when configuring content reference domains. You can register a domain name (example.com) or a subdomain (subdomain.example.com).
-* Subscribe your app to the "Content reference" event.
+Прежде чем использовать API {% data variables.product.prodname_unfurls %}, необходимо настроить ссылки на содержимое для приложения GitHub:
+* Предоставьте приложению `Read & write` разрешения "Ссылки на содержимое".
+* При настройке разрешения "Ссылки на содержимое" Зарегистрируйте до 5 допустимых общедоступных доменов. Не используйте IP-адреса при настройке доменов ссылок на содержимое. Вы можете зарегистрировать доменное имя (example.com) или поддомен (subdomain.example.com).
+* Подпишите приложение на событие "Ссылка на содержимое".
 
-Once your app is installed on a repository, issue or pull request comments in the repository that contain URLs for your registered domains will generate a content reference event. The app must create a content attachment within six hours of the content reference URL being posted.
+После установки приложения в репозитории в комментариях к проблеме или запросу на вытягивание в репозитории, содержащему URL-адреса зарегистрированных доменов будет сгенерировано событие ссылки на содержимое. Приложение должно создать вложение содержимого в течение шести часов после публикации URL-адреса ссылки на содержимое.
 
-Content attachments will not retroactively update URLs. It only works for URLs added to issues or pull requests after you configure the app using the requirements outlined above and then someone installs the app on their repository.
+Вложения содержимого не будут обновлять URL-адреса задним числом. Это работает только для URL-адресов, если они добавлены в проблемы или запросы на вытягивание после настройки приложения с помощью описанных выше требований, а затем кто-либо установил приложение в своем репозитории.
 
-See "[Creating a GitHub App](/apps/building-github-apps/creating-a-github-app/)" or "[Editing a GitHub App's permissions](/apps/managing-github-apps/editing-a-github-app-s-permissions/)" for the steps needed to configure GitHub App permissions and event subscriptions.
+Порядок настройки разрешений приложения GitHub и подписок на события см. в разделе "[Создание приложения GitHub](/apps/building-github-apps/creating-a-github-app/)" или "[Изменение разрешений приложения GitHub](/apps/managing-github-apps/editing-a-github-app-s-permissions/)".
 
-### Implementing the content attachment flow
+## Реализация потока вложения содержимого
 
-The content attachment flow shows you the relationship between the URL in the issue or pull request, the `content_reference` webhook event, and the REST API endpoint you need to call to update the issue or pull request with additional information:
+Поток вложения содержимого показывает связь между URL-адресом в проблеме или запросе на вытягивание, событием веб-перехватчика `content_reference` и конечной точкой REST API, который необходимо вызвать для обновления проблемы или запроса на вытягивание с учетом дополнительных сведений:
 
-**Step 1.** Set up your app using the guidelines outlined in [About content attachments](#about-content-attachments). You can also use the [Probot App example](#example-using-probot-and-github-app-manifests) to get started with content attachments.
+**Шаг 1.** Настройте приложение с помощью рекомендаций, описанных в разделе [Сведения о вложениях содержимого](#about-content-attachments). Вы также можете использовать [пример приложения Probot](#example-using-probot-and-github-app-manifests) для начала работы с вложениями содержимого.
 
-**Step 2.** Add the URL for the domain you registered to an issue or pull request. You must use a fully qualified URL that starts with `http://` or `https://`.
+**Шаг 2.** Добавьте URL-адрес домена, зарегистрированного в запросе на вытягивание. Необходимо использовать полный URL-адрес, который начинается с `http://` или `https://`.
 
-![URL added to an issue](/assets/images/github-apps/github_apps_content_reference.png)
+![URL-адрес, добавленный в проблему](/assets/images/github-apps/github_apps_content_reference.png)
 
-**Step 3.** Your app will receive the [`content_reference` webhook](/webhooks/event-payloads/#content_reference) with the action `created`.
+**Шаг 3.** Ваше приложение получит [веб-перехватчик `content_reference`](/webhooks/event-payloads/#content_reference) с действием `created`.
 
 ``` json
 {
@@ -60,37 +63,35 @@ The content attachment flow shows you the relationship between the URL in the is
 }
 ```
 
-**Step 4.** The app uses the `content_reference` `id` and `repository` `full_name` fields to [Create a content attachment](/rest/reference/apps#create-a-content-attachment) using the REST API. You'll also need the `installation` `id` to authenticate as a [GitHub App installation](/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation).
+**Шаг 4.** Приложение использует поля `content_reference` `id` и `repository` `full_name` для [создания вложения содержимого](/rest/reference/apps#create-a-content-attachment) с помощью REST API. Вам также потребуется выполнить проверку подлинности `installation` `id` в качестве [установки приложения GitHub](/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation).
 
-{% data reusables.pre-release-program.corsair-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
+{% data reusables.pre-release-program.corsair-preview %} {% data reusables.pre-release-program.api-preview-warning %}
 
-The `body` parameter can contain markdown:
+Параметр `body` может содержать Markdown:
 
-    ```shell
-    curl -X POST \
-      https://api.github.com/repos/Codertocat/Hello-World/content_references/17/attachments \
-      -H 'Accept: application/vnd.github.corsair-preview+json' \
-      -H 'Authorization: Bearer $INSTALLATION_TOKEN' \
-      -d '{
-        "title": "[A-1234] Error found in core/models.py file",
-        "body": "You have used an email that already exists for the user_email_uniq field.\n ## DETAILS:\n\nThe (email)=(Octocat@github.com) already exists.\n\n The error was found in core/models.py in get_or_create_user at line 62.\n\n self.save()"
-    }'
-    ```
+```shell
+curl -X POST \
+  {% data variables.product.api_url_code %}/repos/Codertocat/Hello-World/content_references/17/attachments \
+  -H 'Accept: application/vnd.github.corsair-preview+json' \
+  -H 'Authorization: Bearer $INSTALLATION_TOKEN' \
+  -d '{
+    "title": "[A-1234] Error found in core/models.py file",
+    "body": "You have used an email that already exists for the user_email_uniq field.\n ## DETAILS:\n\nThe (email)=(Octocat@github.com) already exists.\n\n The error was found in core/models.py in get_or_create_user at line 62.\n\n self.save()"
+}'
+```
 
-For more information about creating an installation token, see "[Authenticating as a GitHub App](/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation)."
+Дополнительные сведения о создании маркера установки см. в разделе "[Проверка подлинности в качестве приложения GitHub](/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation)".
 
-**Step 5.** You'll see the new content attachment appear under the link in a pull request or issue comment:
+**Шаг 5.** Вы увидите новое вложение содержимого в ссылке в комментарии к запросу на вытягивание или проблеме:
 
-![Content attached to a reference in an issue](/assets/images/github-apps/content_reference_attachment.png)
+![Содержимое, присоединенное к ссылке в проблеме](/assets/images/github-apps/content_reference_attachment.png)
 
-### Using content attachments in GraphQL
-We provide the `node_id` in the [`content_reference` webhook](/webhooks/event-payloads/#content_reference) event so you can refer to the `createContentAttachment` mutation in the GraphQL API.
+## Использование вложений содержимого в GraphQL
+Мы предоставляем событие `node_id` [веб-перехватчика `content_reference`](/webhooks/event-payloads/#content_reference), чтобы можно было ссылаться на изменения `createContentAttachment` в API GraphQL.
 
-{% data reusables.pre-release-program.corsair-preview %}
-{% data reusables.pre-release-program.api-preview-warning %}
+{% data reusables.pre-release-program.corsair-preview %} {% data reusables.pre-release-program.api-preview-warning %}
 
-Например:
+Пример:
 
 ``` graphql
 mutation {
@@ -109,10 +110,10 @@ mutation {
   }
 }
 ```
-Example cURL:
+Пример cURL:
 
 ```shell
-curl -X "POST" "https://api.github.com/graphql" \
+curl -X "POST" "{% data variables.product.api_url_code %}/graphql" \
      -H 'Authorization: Bearer $INSTALLATION_TOKEN' \
      -H 'Accept: application/vnd.github.corsair-preview+json' \
      -H 'Content-Type: application/json; charset=utf-8' \
@@ -121,16 +122,16 @@ curl -X "POST" "https://api.github.com/graphql" \
 }'
 ```
 
-For more information on `node_id`, see "[Using Global Node IDs](/graphql/guides/using-global-node-ids)."
+Дополнительные сведения о `node_id` см. в разделе "[Использование идентификаторов глобальных узлов](/graphql/guides/using-global-node-ids)".
 
-### Example using Probot and GitHub App Manifests
+## Пример использования Probot и манифестов приложений GitHub
 
-To quickly setup a GitHub App that can use the {% data variables.product.prodname_unfurls %} API, you can use [Probot](https://probot.github.io/). See "[Creating GitHub Apps from a manifest](/apps/building-github-apps/creating-github-apps-from-a-manifest/)" to learn how Probot uses GitHub App Manifests.
+Чтобы быстро настроить приложение GitHub, которое может использовать API {% data variables.product.prodname_unfurls %}, можно использовать [Probot](https://probot.github.io/). Сведения о том, как Probot использует манифест GitHub, см. в разделе "[Создание приложений GitHub из манифеста](/apps/building-github-apps/creating-github-apps-from-a-manifest/)".
 
-To create a Probot App, follow these steps:
+Чтобы создать приложение Probot, выполните следующие действия.
 
-1. [Generate a new GitHub App](https://probot.github.io/docs/development/#generating-a-new-app).
-2. Open the project you created, and customize the settings in the `app.yml` file. Subscribe to the `content_reference` event and enable `content_references` write permissions:
+1. [Создайте новое приложение GitHub](https://probot.github.io/docs/development/#generating-a-new-app).
+2. Откройте созданный проект и настройте параметры в файле `app.yml`. Подпишитесь на событие `content_reference` и включите разрешения на запись `content_references`:
 
    ``` yml
     default_events:
@@ -149,7 +150,7 @@ To create a Probot App, follow these steps:
         value: example.org
    ```
 
-3. Add this code to the `index.js` file to handle `content_reference` events and call the REST API:
+3. Добавьте этот код в файл `index.js` для обработки событий `content_reference` и вызова REST API:
 
     ``` javascript
     module.exports = app => {
@@ -170,13 +171,13 @@ To create a Probot App, follow these steps:
     }
     ```
 
-4. [Run the GitHub App locally](https://probot.github.io/docs/development/#running-the-app-locally). Navigate to `http://localhost:3000`, and click the **Register GitHub App** button:
+4. [Запустите приложение GitHub локально](https://probot.github.io/docs/development/#running-the-app-locally). Перейдите к разделу `http://localhost:3000` и нажмите кнопку **Зарегистрировать приложение GitHub**:
 
-   ![Register a Probot GitHub App](/assets/images/github-apps/github_apps_probot-registration.png)
+   ![Регистрация приложения Probot GitHub](/assets/images/github-apps/github_apps_probot-registration.png)
 
-5. Install the app on a test repository.
-6. Create an issue in your test repository.
-7. Add a comment to the issue you opened that includes the URL you configured in the `app.yml` file.
-8. Take a look at the issue comment and you'll see an update that looks like this:
+5. Установите приложение в тестовом репозитории.
+6. Создайте проблему в тестовом репозитории.
+7. Добавьте комментарий к открытой проблеме, которая содержит URL-адрес, настроенный в файле `app.yml`.
+8. Ознакомьтесь с комментарием, и вы увидите обновление, которое выглядит следующим образом:
 
-   ![Content attached to a reference in an issue](/assets/images/github-apps/content_reference_attachment.png)
+   ![Содержимое, присоединенное к ссылке в проблеме](/assets/images/github-apps/content_reference_attachment.png)

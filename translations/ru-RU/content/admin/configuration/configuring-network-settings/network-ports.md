@@ -1,54 +1,78 @@
 ---
-title: Network ports
+title: Сетевые порты
 redirect_from:
-  - /enterprise/admin/articles/configuring-firewalls/
-  - /enterprise/admin/articles/firewall/
-  - /enterprise/admin/guides/installation/network-configuration/
-  - /enterprise/admin/guides/installation/network-ports-to-open/
+  - /enterprise/admin/articles/configuring-firewalls
+  - /enterprise/admin/articles/firewall
+  - /enterprise/admin/guides/installation/network-configuration
+  - /enterprise/admin/guides/installation/network-ports-to-open
   - /enterprise/admin/installation/network-ports
   - /enterprise/admin/configuration/network-ports
   - /admin/configuration/network-ports
-intro: 'Open network ports selectively based on the network services you need to expose for administrators, end users, and email support.'
+intro: 'Выборочно откройте сетевые порты с учетом сетевых служб, которые необходимо предоставить администраторам, конечным пользователям и службе поддержки по электронной почте.'
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: reference
 topics:
   - Enterprise
   - Infrastructure
   - Networking
   - Security
+ms.openlocfilehash: 048b27ed44cea11057c781ae3043078a825f8d1a
+ms.sourcegitcommit: d82f268a6f0236d1f4d2bf3d049974ada0170402
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/10/2022
+ms.locfileid: '148160659'
 ---
+## Административные порты
 
-### Administrative ports
+Некоторые административные порты необходимы для настройки {% data variables.location.product_location %} и выполнения определенных функций. Административные порты не требуются для использования основного приложения конечными пользователями.
 
-Some administrative ports are required to configure {% data variables.product.product_location %} and run certain features. Administrative ports are not required for basic application use by end users.
+| Порт | Служба | Описание |
+|---|---|---|
+| 8443 | HTTPS | Безопасный {% data variables.enterprise.management_console %} на основе Интернета. Требуется для базовой установки и конфигурации. |
+| 8080 | HTTP | Обычный текст на основе Интернета {% data variables.enterprise.management_console %}. Не требуется, если TLS не отключен вручную. |
+| 122 | SSH | Доступ к оболочке для {% data variables.location.product_location %}. Требуется для открытия входящих подключений между всеми узлами в конфигурации высокого уровня доступности. Порт SSH по умолчанию (22) выделен для Git и сетевого трафика приложения SSH. |
+| 1194/UDP | VPN | Безопасный туннель сети репликации в конфигурации высокого уровня доступности. Должен быть открытым для связи между всеми узлами в конфигурации.|
+| 123/UDP| NTP | Требуется для операции протокола времени. |
+| 161/UDP | SNMP | Требуется для работы протокола мониторинга сети. |
 
-| Port     | Service | Description                                                                                                                                                                                                                                               |
-| -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 8443     | HTTPS   | Secure web-based {% data variables.enterprise.management_console %}. Required for basic installation and configuration.                                                                                                                                   |
-| 8080     | HTTP    | Plain-text web-based {% data variables.enterprise.management_console %}. Not required unless SSL is disabled manually.                                                                                                                                    |
-| 122      | SSH     | Shell access for {% data variables.product.product_location %}. Required to be open to incoming connections from all other nodes in a High Availability configuration. The default SSH port (22) is dedicated to Git and SSH application network traffic. |
-| 1194/UDP | VPN     | Secure replication network tunnel in High Availability configuration. Required to be open to all other nodes in the configuration.                                                                                                                        |
-| 123/UDP  | NTP     | Required for time protocol operation.                                                                                                                                                                                                                     |
-| 161/UDP  | SNMP    | Required for network monitoring protocol operation.                                                                                                                                                                                                       |
+## Порты приложений для конечных пользователей
 
-### Application ports for end users
+Порты приложений предоставляют конечным пользователям доступ к веб-приложениям и Git.
 
-Application ports provide web application and Git access for end users.
-
-| Port | Service | Description                                                                                                                                                                           |
-| ---- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 443  | HTTPS   | Access to the web application and Git over HTTPS.                                                                                                                                     |
-| 80   | HTTP    | Access to the web application. All requests are redirected to the HTTPS port when SSL is enabled.                                                                                     |
-| 22   | SSH     | Access to Git over SSH. Supports clone, fetch, and push operations to public and private repositories.                                                                                |
-| 9418 | Git     | Git protocol port supports clone and fetch operations to public repositories with unencrypted network communication. {% data reusables.enterprise_installation.when-9418-necessary %}
+| Порт | Служба | Описание |
+|---|---|---|
+| 443 | HTTPS | Доступ к веб-приложению и Git по протоколу HTTPS. |
+| 80 | HTTP | Доступ к веб-приложению. Все запросы перенаправляются на порт HTTPS, если настроен TLS. |
+| 22 | SSH | Доступ к Git через SSH. Поддерживает операции клонирования, получения и отправки в общедоступные и частные репозитории. |
+| 9418 | Git | Порт протокола Git поддерживает операции клонирования и получения в общедоступные репозитории с незашифрованным взаимодействием по сети. {% data reusables.enterprise_installation.when-9418-necessary %} |
 
 {% data reusables.enterprise_installation.terminating-tls %}
 
-### Email ports
+## Порты электронной почты
 
-Email ports must be accessible directly or via relay for inbound email support for end users.
+Порты электронной почты должны быть доступны напрямую или через ретранслятор для поддержки входящей электронной почты для конечных пользователей.
 
-| Port | Service | Description                                  |
-| ---- | ------- | -------------------------------------------- |
-| 25   | SMTP    | Support for SMTP with encryption (STARTTLS). |
+| Порт | Служба | Описание |
+|---|---|---|
+| 25 | SMTP | Поддержка SMTP с шифрованием (STARTTLS). |
+
+## Порты {% data variables.product.prodname_actions %}
+
+Порты {% data variables.product.prodname_actions %} должны быть доступны для локальных средств выполнения тестов для подключения к {% data variables.location.product_location %}. Дополнительные сведения см. в статье "[Сведения о локально размещенных средствах выполнения](/actions/hosting-your-own-runners/about-self-hosted-runners#communication-between-self-hosted-runners-and-github-enterprise-server)."
+
+| Порт | Служба | Описание |
+|---|---|---|
+| 443 | HTTPS | Локальные средства выполнения тестов подключаются к {% data variables.location.product_location %} для получения назначений заданий и скачивания новых версий приложения средства выполнения. Требуется, если настроен TLS.
+| 80 | HTTP | Локальные средства выполнения тестов подключаются к {% data variables.location.product_location %} для получения назначений заданий и скачивания новых версий приложения средства выполнения. Требуется, если TLS не настроен.
+
+Если включить автоматический доступ к действиям {% data variables.product.prodname_dotcom_the_website %}, {% data variables.product.prodname_actions %} всегда будет сначала искать действие в {% data variables.location.product_location %} через эти порты, прежде чем проверять {% data variables.product.prodname_dotcom_the_website %}. Дополнительные сведения см. в статье "[Включение автоматического доступа к действиям {% data variables.product.prodname_dotcom_the_website %} с помощью {% data variables.product.prodname_github_connect %}](/admin/github-actions/managing-access-to-actions-from-githubcom/enabling-automatic-access-to-githubcom-actions-using-github-connect#about-resolution-for-actions-using-github-connect)".
+
+## Порты {% data variables.product.prodname_github_connect %}
+
+Если вы включите {% data variables.product.prodname_github_connect %}, подключение между {% data variables.product.product_name %} и {% data variables.product.prodname_dotcom_the_website %} использует протокол HTTPS через порты 443 или 80, и требуется протокол TLS. Дополнительные сведения см. в разделе [Сведения о {% data variables.product.prodname_github_connect %}](/admin/configuration/configuring-github-connect/about-github-connect).
+
+## Дополнительные материалы
+
+- [Настройка TLS](/admin/configuration/configuring-network-settings/configuring-tls)

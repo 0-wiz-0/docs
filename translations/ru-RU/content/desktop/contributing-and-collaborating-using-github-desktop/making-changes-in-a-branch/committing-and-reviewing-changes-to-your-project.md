@@ -1,124 +1,133 @@
 ---
-title: Committing and reviewing changes to your project
-intro: '{% data variables.product.prodname_desktop %} tracks all changes to all files as you edit them. You can decide how to group the changes to create meaningful commits.'
+title: Фиксация и проверка изменений в проекте
+intro: '{% data variables.product.prodname_desktop %} отслеживает все изменения всех файлов в процессе их редактирования. Вы можете решить, как сгруппировать изменения для создания значимых фиксаций.'
 redirect_from:
   - /desktop/contributing-to-projects/committing-and-reviewing-changes-to-your-project
   - /desktop/contributing-and-collaborating-using-github-desktop/committing-and-reviewing-changes-to-your-project
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+shortTitle: Commit & review changes
+ms.openlocfilehash: ecc12722a7d0eebeedc13878972d138ca894db5a
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145117555'
 ---
+## Сведения о фиксациях
 
-### About commits
+{% data reusables.commits.about-commits %} Вы также можете добавить соавтора для фиксаций, над которыми вы работаете совместно с другими пользователями.
 
-{% data reusables.commits.about-commits %} You can also add a co-author on any commits you collaborate on.
+{% data reusables.desktop.update-email-address %} Дополнительные сведения см. в статье [Настройка Git для GitHub Desktop](/desktop/getting-started-with-github-desktop/configuring-git-for-github-desktop).
 
-{% data reusables.desktop.update-email-address %} For more information, see ["Configuring Git for GitHub Desktop](/desktop/getting-started-with-github-desktop/configuring-git-for-github-desktop)."
+## Выбор ветви и внесение изменений
 
-### Choosing a branch and making changes
+1. [Создайте новую ветвь](/desktop/guides/contributing-to-projects/managing-branches) или выберите существующую ветвь, щелкнув {% octicon "git-branch" aria-label="The branch icon" %} **Текущая ветвь** на панели инструментов и выбрав ветвь из списка.
 
-1. [Create a new branch](/desktop/guides/contributing-to-projects/managing-branches), or select an existing branch by clicking {% octicon "git-branch" aria-label="The branch icon" %} **Current Branch** on the toolbar and selecting the branch from the list.
+  ![Раскрывающееся меню для переключения текущей ветви](/assets/images/help/desktop/select-branch-from-dropdown.png) {% data reusables.desktop.make-changes %}
 
-  ![Drop down menu to switch your current branch](/assets/images/help/desktop/select-branch-from-dropdown.png)
-{% data reusables.desktop.make-changes %}
+## Выбор способа отображения различий
 
-### Choosing how to display diffs
+Вы можете изменить способ отображения различий в {% data variables.product.prodname_desktop %} в соответствии с потребностями проверки.
 
-You can change the way diffs are displayed in {% data variables.product.prodname_desktop %} to suit your reviewing needs.
+Чтобы изменить способ просмотра различий, в правом верхнем углу представления различий щелкните {% octicon "gear" aria-label="The Gear icon" %}.
+- Чтобы изменить способ отображения всего различия, в разделе "Отображение различия" выберите **Объединенное** или **Разделенное**. В объединенном представлении изменения отображаются линейно, в то время как в разделенном представлении старое содержимое отображается слева, новое — справа.
+- Чтобы скрыть изменения пробелов и сосредоточиться на более существенных изменениях, выберите **Скрыть изменения пробелов**.
 
-To change how you view diffs, in the top-right corner of the diff view, click {% octicon "gear" aria-label="The Gear icon" %}.
-- To change how the entire diff is displayed, under "Diff display", select  **Unified** or **Split**. The Unified view shows changes linearly, while the Split view shows old content on the left side and new content on the right side.
-- To hide whitespace changes so you can focus on more substantive changes, select **Hide Whitespace Changes**.
+![Меню параметров инструмента сравнения](/assets/images/help/desktop/diff-selection.png)
 
-![Diff option menu](/assets/images/help/desktop/diff-selection.png)
+Если вам нужно увидеть больше файла, чем {% data variables.product.prodname_desktop %} отображает по умолчанию, можно развернуть инструмент сравнения.
+- Чтобы увидеть следующие несколько строк выше или ниже выделенных изменений, щелкните стрелку над или под номерами строк.
+- Чтобы просмотреть весь файл, щелкните правой кнопкой мыши представление различий и выберите пункт **Развернуть весь файл**.
 
-If you need to see more of the file than {% data variables.product.prodname_desktop %} shows by default, you can expand the diff.
-- To see the next few lines above or below the highlighted changes, click the arrow above or below the line numbers.
-- To see the entire file, right-click in the diff view and click **Expand Whole File**.
+![Развертывание представления различий](/assets/images/help/desktop/expand-diff-view.png)
 
-![Expand diff view](/assets/images/help/desktop/expand-diff-view.png)
+## Выбор изменений для включения в фиксацию
 
-### Selecting changes to include in a commit
+При внесении изменений в файлы в текстовом редакторе и их локальном сохранении вы также увидите изменения в {% data variables.product.prodname_desktop %}.
 
-As you make changes to files in your text editor and save them locally, you will also see the changes in {% data variables.product.prodname_desktop %}.
+* Красный значок {% octicon "diff-removed" aria-label="The diff removed icon color-red" %} указывает на удаленные файлы.
+* Желтый значок {% octicon "diff-modified" aria-label="The diff modified icon color-yellow" %} указывает на измененные файлы.
+* Зеленый значок {% octicon "diff-added" aria-label="The diff added icon color-green" %} указывает на добавленные файлы.
+* Чтобы получить доступ к спрятанным изменениям, нажмите кнопку **Спрятанные изменения**.
 
-* The red {% octicon "diff-removed" aria-label="The diff removed icon color-red" %} icon indicates removed files.
-* The yellow {% octicon "diff-modified" aria-label="The diff modified icon color-yellow" %} icon indicates modified files.
-* The green {% octicon "diff-added" aria-label="The diff added icon color-green" %} icon indicates added files.
-* To access stashed changes, click **Stashed Changes**.
-
-  ![Stashed changes option](/assets/images/help/desktop/stashed-changes.png)
+  ![Параметр "Спрятанные изменения"](/assets/images/help/desktop/stashed-changes.png)
 * {% data reusables.desktop.commit-all-desc %}
 
-  ![Select checkbox to commit all changed files](/assets/images/help/desktop/commit-all.png)
+  ![Установите флажок для фиксации всех измененных файлов](/assets/images/help/desktop/commit-all.png)
 * {% data reusables.desktop.commit-some-desc %}
 
-  ![Select checkboxes next to the files you want to commit](/assets/images/help/desktop/commit-some.png)
+  ![Установите флажки рядом с файлами, которые нужно зафиксировать](/assets/images/help/desktop/commit-some.png)
 
-#### Creating a partial commit
+### Создание частичной фиксации
 
-If one file contains multiple changes, but you only want some of those changes to be included in a commit, you can create a partial commit. The rest of your changes will remain intact, so that you can make additional modifications and commits. This allows you to make separate, meaningful commits, such as keeping line break changes in a commit separate from code or prose changes.
+Если один файл содержит несколько изменений, но вы хотите включить некоторые из этих изменений в фиксацию, можно создать частичную фиксацию. Остальные изменения останутся неизменными, чтобы можно было внести дополнительные изменения и фиксации. Это позволяет выполнять отдельные значимые фиксации, такие как сохранение изменений разрывов строк в фиксации отдельно от изменений кода или текста.
 
-To exclude changed lines from your commit, click one or more changed lines so the blue disappears. The lines that are still highlighted in blue will be included in the commit.
+Чтобы исключить измененные строки из фиксации, щелкните одну или несколько измененных строк, чтобы синий цвет исчез. Строки, которые по-прежнему выделены синим цветом, будут включены в фиксацию.
 
-  ![Unselected lines in a file](/assets/images/help/desktop/partial-commit.png)
+  ![Невыбранные строки в файле](/assets/images/help/desktop/partial-commit.png)
 
-### Discarding changes
-If you have uncommitted changes that you don't want to keep, you can discard the changes. This will remove the changes from the files on your computer. You can discard all uncommitted changes in one or more files, or you can discard specific lines you added.
+## Отмена изменений
+Если у вас есть незафиксированные изменения, которые вы не хотите сохранить, можно отменить изменения. Это приведет к удалению изменений из файлов на компьютере. Вы можете отменить все незафиксированные изменения в одном или нескольких файлах или удалить определенные строки, добавленные вами.
 
-Discarded changes are saved in a dated file in the Trash. You can recover discarded changes until the Trash is emptied.
+Отмененные изменения сохраняются в устаревшем файле в корзине. Вы можете восстановить отмененные изменения до очистки корзины.
 
-#### Discarding changes in one or more files
+### Отмена изменений в одном или нескольких файлах
 
-{% data reusables.desktop.select-discard-files %}
-{% data reusables.desktop.click-discard-files %}
+{% data reusables.desktop.select-discard-files %} {% data reusables.desktop.click-discard-files %}
 
-  ![Discard Changes option in context menu](/assets/images/help/desktop/discard-changes-mac.png)
-{% data reusables.desktop.confirm-discard-files %}
+  ![Пункт отмены изменений в контекстном меню](/assets/images/help/desktop/discard-changes-mac.png) {% data reusables.desktop.confirm-discard-files %}
 
-  ![Discard Changes button in the confirmation dialog](/assets/images/help/desktop/discard-changes-confirm-mac.png)
+  ![Кнопка "Отменить изменения" в диалоговом окне подтверждения](/assets/images/help/desktop/discard-changes-confirm-mac.png)
 
-#### Discarding changes in one or more lines
-You can discard one or more changed lines that are uncommitted.
+### Отмена изменений в одной или нескольких строках
+Можно отменить одну или несколько измененных строк, которые не были зафиксированы.
 
 {% note %}
 
-**Note:** Discarding single lines is disabled in a group of changes that adds and removes lines.
+**Примечание:** удаление отдельных строк отключено в группе изменений, добавляющих и удаляющих строки.
 
 {% endnote %}
 
-To discard one added line, in the list of changed lines, right click on the line you want to discard and select **Discard added line**.
+Чтобы отменить одну добавленную строку, в списке измененных строк щелкните правой кнопкой мыши строку, которую нужно отменить, и выберите **Отменить добавленную строку**.
 
-  ![Discard single line in the confirmation dialog](/assets/images/help/desktop/discard-single-line.png)
+  ![Отмена одной строки в диалоговом окне подтверждения](/assets/images/help/desktop/discard-single-line.png)
 
-To discard a group of changed lines, right click the vertical bar to the right of the line numbers for the lines you want to discard, then select **Discard added lines**.
+Чтобы отменить группу измененных строк, щелкните правой кнопкой мыши вертикальную полосу справа от номеров тех строк, которые нужно отменить, а затем выберите **Отменить добавленные строки**.
 
-  ![Discard a group of added lines in the confirmation dialog](/assets/images/help/desktop/discard-multiple-lines.png)
+  ![Отмена группы добавленных строк в диалоговом окне подтверждения](/assets/images/help/desktop/discard-multiple-lines.png)
 
 
-### Write a commit message and push your changes
+## Написание сообщения о фиксации и отправка изменений
 
-Once you're satisfied with the changes you've chosen to include in your commit, write your commit message and push your changes. If you've collaborated on a commit, you can also attribute a commit to more than one author.
+Когда вы выберете все изменения, которые нужно включить в фиксацию, напишите сообщение о фиксации и отправьте изменения. Если вы совместно работали над фиксацией с другими пользователями, вы также можете атрибутировать фиксацию нескольким авторам.
 
 {% note %}
 
-**Note**: {% data reusables.desktop.tags-push-with-commits %} For more information, see "[Managing tags](/desktop/contributing-to-projects/managing-tags)."
+**Примечание:** {% data reusables.desktop.tags-push-with-commits %} Дополнительные сведения см. в статье [Управление тегами](/desktop/contributing-and-collaborating-using-github-desktop/managing-commits/managing-tags).
 
 {% endnote %}
 
 {% data reusables.desktop.commit-message %}
 
-  ![Commit message field](/assets/images/help/desktop/commit-message.png)
-2. Optionally, to attribute a commit to another author, click the add co-authors icon and type the username(s) you want to include.
+  ![Поле сообщения о фиксации](/assets/images/help/desktop/commit-message.png)
+1. При необходимости, чтобы атрибутировать фиксацию другому автору, щелкните значок добавления соавторов и введите имена пользователей, которые вы хотите включить.
 
-  ![Add a co-author to the commit message](/assets/images/help/desktop/add-co-author-commit.png)
-{% data reusables.desktop.commit-button %}
+  ![Добавление соавтора в сообщение о фиксации](/assets/images/help/desktop/add-co-author-commit.png) {% data reusables.desktop.commit-button %}
 
-  ![Commit button](/assets/images/help/desktop/commit-button.png)
-4. If the branch you're trying to commit to is protected, Desktop will warn you.
-    - To move your changes, click **switch branches**.
-    - To commit your changes to the protected branch, click **Commit to _BRANCH_**.
+  ![Кнопка "Зафиксировать"](/assets/images/help/desktop/commit-button.png)
+4. Если ветвь, которую вы пытаетесь зафиксировать, защищена, Desktop предупредит вас.
+    - Чтобы переместить изменения, щелкните **переключатель ветвей**.
+    - Чтобы зафиксировать изменения в защищенной ветви, нажмите кнопку **Зафиксировать в _название_ветви_**.
 
-  For more information about protected branches, see "[About protected branches](/github/administering-a-repository/about-protected-branches)".
+  Дополнительные сведения о защищенных ветвях см. в статье [Сведения о защищенных ветвях](/github/administering-a-repository/about-protected-branches).
 
-  ![Protected branch warning](/assets/images/help/desktop/protected-branch-warning.png)
-{% data reusables.desktop.push-origin %}
+  ![Предупреждение о защищенной ветви](/assets/images/help/desktop/protected-branch-warning.png) {% data reusables.desktop.push-origin %}
+
+6. Если у вас есть запрос на вытягивание, основанный на работающей ветви, {% data variables.product.prodname_desktop %} отобразит состояние проверок, выполненных для запроса на вытягивание. Дополнительные сведения о проверках приведены в статье [Просмотр и повторная проверка в GitHub Desktop](/desktop/contributing-and-collaborating-using-github-desktop/working-with-your-remote-repository-on-github-or-github-enterprise/viewing-and-re-running-checks-in-github-desktop).
+
+ ![Отображение проверки рядом с именем ветви](/assets/images/help/desktop/checks-dialog.png)
+
+ Если запрос на вытягивание не был создан для текущей ветви, {% data variables.product.prodname_desktop %} предоставит вам возможность создать ее. Дополнительные сведения см. в статье [Создание проблемы или запроса на вытягивание](/desktop/contributing-and-collaborating-using-github-desktop/working-with-your-remote-repository-on-github-or-github-enterprise/creating-an-issue-or-pull-request).
+
+ ![Создание запроса на включение изменений](/assets/images/help/desktop/mac-create-pull-request.png)

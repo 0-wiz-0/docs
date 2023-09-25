@@ -1,39 +1,48 @@
 ---
-title: Creating and editing milestones for issues and pull requests
-intro: You can create a milestone to track progress on groups of issues or pull requests in a repository.
+title: Создание и изменение вех для проблем и запросов на вытягивание
+intro: Вы можете создать веху для отслеживания хода выполнения в группах проблем или запросов на вытягивание в репозитории.
 redirect_from:
   - /github/managing-your-work-on-github/tracking-the-progress-of-your-work-with-milestones/creating-and-editing-milestones-for-issues-and-pull-requests
-  - /articles/creating-milestones-for-issues-and-pull-requests/
+  - /articles/creating-milestones-for-issues-and-pull-requests
   - /articles/creating-and-editing-milestones-for-issues-and-pull-requests
   - /github/managing-your-work-on-github/creating-and-editing-milestones-for-issues-and-pull-requests
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Pull requests
+  - Issues
+  - Project management
+shortTitle: Create & edit milestones
+type: how_to
+ms.openlocfilehash: c0e812b9f91f91d88d7512974f1df52efbf8c65b
+ms.sourcegitcommit: 5b1461b419dbef60ae9dbdf8e905a4df30fc91b7
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147878798'
 ---
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-issue-pr %} {% data reusables.project-management.milestones %}
+4. Выберите один из следующих параметров.
+    - Чтобы создать новую веху, нажмите кнопку **Создать веху**.
+  ![Кнопка "Создать веху"](/assets/images/help/repository/new-milestone.png)
+    - Чтобы изменить веху, нажмите кнопку **Изменить** рядом с ней.
+  ![Параметр "Изменить веху"](/assets/images/help/repository/edit-milestone.png)
+5. Введите название, описание или другие изменения вехи и нажмите кнопку **Создать веху** или **Сохранить изменения**. Вехи используют синтаксис Markdown. Дополнительные сведения о синтаксисе Markdown см. в статье "[Базовый синтаксис записи и форматирования](/github/writing-on-github/basic-writing-and-formatting-syntax)".
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-issue-pr %}
-{% data reusables.project-management.milestones %}
-4. Choose one of these options:
-    - To create a new milestone, click **New Milestone**. ![New milestone button](/assets/images/help/repository/new-milestone.png)
-    - To edit a milestone, next to the milestone you want to edit, click **Edit**. ![Edit milestone option](/assets/images/help/repository/edit-milestone.png)
-5. Type the milestone's title, description, or other changes, and click **Create milestone** or **Save changes**. Milestones will render Markdown syntax. For more information about Markdown syntax, see "[Basic writing and formatting syntax](/github/writing-on-github/basic-writing-and-formatting-syntax)."
+## Удаление вех
 
-### Deleting milestones
+Удаление вех не влияет на проблемы и запросы на вытягивание.
 
-When you delete milestones, issues and pull requests are not affected.
+{% data reusables.repositories.navigate-to-repo %} {% data reusables.repositories.sidebar-issue-pr %} {% data reusables.project-management.milestones %}
+4. Рядом с вехой, которую следует удалить, щелкните **Удалить**.
+![Параметр "Удалить веху"](/assets/images/help/repository/delete-milestone.png)
 
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.sidebar-issue-pr %}
-{% data reusables.project-management.milestones %}
-4. Next to the milestone you want to delete, click **Delete**. ![Delete milestone option](/assets/images/help/repository/delete-milestone.png)
+## Дополнительные материалы
 
-### Дополнительная литература
-
-- "[About milestones](/articles/about-milestones)"
-- "[Associating milestones with issues and pull requests](/articles/associating-milestones-with-issues-and-pull-requests)"
-- "[Viewing your milestone's progress](/articles/viewing-your-milestone-s-progress)"
-- "[Filtering issues and pull requests by milestone](/articles/filtering-issues-and-pull-requests-by-milestone)"
+- [Сведения о вехах](/articles/about-milestones)
+- [Связывание вех с проблемами и запросами на вытягивание](/articles/associating-milestones-with-issues-and-pull-requests)
+- [Просмотр хода выполнения для вехи](/articles/viewing-your-milestone-s-progress)
+- [Фильтрация проблем и запросов на вытягивание по вехам](/articles/filtering-issues-and-pull-requests-by-milestone)

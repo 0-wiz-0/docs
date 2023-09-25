@@ -1,19 +1,20 @@
 ---
-title: Aprovando execuções de fluxo de trabalho das bifurcações públicas
-intro: 'Quando um primeiro contribuidor envia um pull request para um repositório público, um mantenedor com acesso de gravação deverá aprovar qualquer execução de fluxo de trabalho.'
-product: '{% data reusables.gated-features.actions %}'
+title: Approving workflow runs from public forks
+intro: 'When an outside contributor submits a pull request to a public repository, a maintainer with write access may need to approve any workflow runs.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
+shortTitle: Approve public fork runs
 ---
 
-As bifurcações de repositórios públicos podem enviar pull requests que proponham alterações nos fluxos de trabalho de {% data variables.product.prodname_actions %} de um repositório. Embora os fluxos de trabalho das bifurcações não tenham acesso a dados confidenciais como segredos, podem ser uma dor de cabeça para os mantenedores se forem modificados para fins abusivos. Para ajudar a evitar isso, os fluxos de trabalho em pull requests não são executados automaticamente se forem recebidos de contribuidores pela primeira vez e devem ser aprovados primeiro.
+## About workflow runs from public forks
 
-Os mantenedores com acesso de gravação ao repositório podem usar o procedimento a seguir para revisar e executar fluxos de trabalho em pull requests dos primeiros colaboradores. Após um contribuidor ter pelo menos um pull request mesclado no repositório de um projeto, todos os pull requests futuros da bifurcação daquele contribuidor executarão automaticamente os fluxos de trabalho.
+{% data reusables.actions.workflow-run-approve-public-fork %}
 
-{% data reusables.repositories.sidebar-pr %}
-{% data reusables.repositories.choose-pr-review %}
-{% data reusables.repositories.changed-files %}
-1. Inspecione as alterações propostas no pull request e certifique-se de que você esteja confortável em executar seus fluxos de trabalho no branch do pull request. Você deve estar especialmente alerta para qualquer mudança proposta no diretório `.github/workflows/` que afete os arquivos do fluxo de trabalho.
-1. Se você estiver confortável em executar fluxos de trabalho no branch do pull request, retorne para a aba {% octicon "comment-discussion" aria-label="The discussion icon" %} **Conversation** e, em "Fluxo de trabalho(s) aguardando aprovação", clique em **Aprovar e executar**.
+You can configure workflow approval requirements for a [repository](/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#configuring-required-approval-for-workflows-from-public-forks), [organization](/organizations/managing-organization-settings/disabling-or-limiting-github-actions-for-your-organization#configuring-required-approval-for-workflows-from-public-forks), or [enterprise](/enterprise-cloud@latest/admin/policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-actions-in-your-enterprise#enforcing-a-policy-for-fork-pull-requests-in-your-enterprise).
 
-   ![Aprovar e executar fluxos de trabalho](/assets/images/help/pull_requests/actions-approve-and-run-workflows-from-fork.png)
+Workflow runs that have been awaiting approval for more than 30 days are automatically deleted.
+
+## Approving workflow runs on a pull request from a public fork
+
+{% data reusables.actions.workflows.approve-workflow-runs %}

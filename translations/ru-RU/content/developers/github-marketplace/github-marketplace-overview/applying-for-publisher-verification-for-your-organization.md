@@ -1,36 +1,44 @@
 ---
-title: Applying for publisher verification for your organization
-intro: 'To offer paid plans for your app or to include a marketplace badge in your app listing, you must complete the publisher verification process for your organization.'
+title: Подача заявки на подтверждение издателя для вашей организации
+intro: 'Чтобы предлагать платные планы для приложения или добавить эмблему Marketplace в описание приложения, необходимо пройти процесс проверки издателя для вашей организации.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
 redirect_from:
   - /developers/github-marketplace/applying-for-publisher-verification-for-your-organization
+shortTitle: Publisher verification
+ms.openlocfilehash: 34085acb78eba5057cea382ab250e4704dd958d1
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145089722'
 ---
+Подтверждение издателя позволяет убедиться в том, что у {% data variables.product.prodname_dotcom %} есть возможность связи с вами, что вы включили двухфакторную проверку подлинности для организации и что домен вашей организации подтвержден.
 
-Publisher verification ensures that {% data variables.product.prodname_dotcom %} has a way to contact you, that you've enabled two-factor authentication for your organization, and that your organization's domain has been verified.
+После проверки организации вы можете публиковать платные планы для вашего приложения. Дополнительные сведения см. в разделе [Настройка тарифных планов для описания](/developers/github-marketplace/setting-pricing-plans-for-your-listing).
 
-Once your organization has been verified, you can publish paid plans for your app. For information, see "[Setting pricing plans for your listing](/developers/github-marketplace/setting-pricing-plans-for-your-listing)."
+Чтобы можно было предложить платные планы для приложения, оно должно принадлежать организации, в которой у вас есть разрешения владельца. Если приложение в настоящее время принадлежит личной учетной записи, вам потребуется передать права владения приложением организации. Дополнительные сведения см. в разделе [Передача права владения приложением GitHub](/developers/apps/transferring-ownership-of-a-github-app) или [Передача владения приложением OAuth](/developers/apps/transferring-ownership-of-an-oauth-app).
 
-To offer paid plans for your app, the app must be owned by an organization and you must have owner permissions in the organization. If your app is currently owned by a user account, you'll need to transfer the ownership of the app to an organization. For more information, see "[Transferring ownership of a GitHub App](/developers/apps/transferring-ownership-of-a-github-app)" or "[Transferring ownership of an OAuth App](/developers/apps/transferring-ownership-of-an-oauth-app)."
-
-### Requesting publisher verification
+## Запрос подтверждения издателя
 
 
-{% data reusables.profile.access_org %}
-{% data reusables.profile.org_settings %}
-1. In the left sidebar, click **Developer settings**. ![Developer settings option in the organization settings sidebar](/assets/images/marketplace/developer-settings-in-org-settings.png)
-1. Under "Developer settings", click **Publisher Verification**. ![Publisher verification option in the organization settings sidebar](/assets/images/marketplace/publisher-verification-settings-option.png)
-1. Under "Publisher Verification", complete the information in the checklist:
-   - Ensure that your basic profile information is present and accurate. Also, make sure that you've included the best email address for support and updates from {% data variables.product.company_short %}.
-   - Ensure that Two-factor authentication is enabled for your organization. For more information, see "[Requiring two-factor authentication in your organization](/organizations/keeping-your-organization-secure/requiring-two-factor-authentication-in-your-organization)."
-   - Submit a verified domain and ensure that a "Verified" badge displays on your organization's profile page. For related information, see "[Verifying or approving a domain for your organization](/organizations/managing-organization-settings/verifying-or-approving-a-domain-for-your-organization)."
+{% data reusables.profile.access_org %} {% data reusables.profile.org_settings %}
+1. На левой боковой панели щелкните **Developer settings** (Параметры разработчика).
+  ![Пункт "Параметры разработчика" на боковой панели параметров организации](/assets/images/marketplace/developer-settings-in-org-settings.png)
+1. В разделе "Параметры разработчика" щелкните **Подтверждение издателя**.
+  ![Пункт "Подтверждение издателя" на боковой панели параметров организации](/assets/images/marketplace/publisher-verification-settings-option.png)
+1. В разделе "Подтверждение издателя" заполните сведения в контрольном списке:
+   - Убедитесь в том, что основные сведения профиля указаны и точны. Кроме того, убедитесь в том, что вы указали самый подходящий адрес электронной почты для получения поддержки и новостей от {% data variables.product.company_short %}.
+   - Убедитесь в том, что для организации включена двухфакторная проверка подлинности. Дополнительные сведения см. в разделе [Настройка требования двухфакторной проверки подлинности в организации](/organizations/keeping-your-organization-secure/requiring-two-factor-authentication-in-your-organization).
+   - Отправьте подтвержденный домен и убедитесь в том, что на странице профиля организации отображается эмблема "Подтверждено". Связанные сведения см. в разделе [Проверка или утверждение домена для вашей организации](/organizations/managing-organization-settings/verifying-or-approving-a-domain-for-your-organization).
 
-  ![Publisher Verification checklist](/assets/images/marketplace/publisher-verification-checklist.png)
+  ![Контрольный список подтверждения издателя](/assets/images/marketplace/publisher-verification-checklist.png)
 
-2. Click **Request Verification**. {% data variables.product.company_short %} will review your details and let you know once your publisher verification is complete.
+2. Щелкните **Запросить подтверждение**. {% data variables.product.company_short %} проверит ваши сведения и сообщит о завершения подтверждения издателя.
 
-### Дополнительная литература
+## Дополнительные материалы
 
-For information about the process of publishing apps, see "[About GitHub Marketplace](/developers/github-marketplace/about-github-marketplace)."
+Сведения о процессе публикации приложений см. в разделе [Сведения о GitHub Marketplace](/developers/github-marketplace/about-github-marketplace).

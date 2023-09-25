@@ -1,49 +1,55 @@
 ---
-title: Billing customers
-intro: 'Apps on {% data variables.product.prodname_marketplace %} should adhere to GitHub''s billing guidelines and support recommended services. Following our guidelines helps customers navigate the billing process without any surprises.'
+title: Клиенты для выставления счетов
+intro: 'Приложения в {% data variables.product.prodname_marketplace %} должны соответствовать рекомендациям по выставлению счетов GitHub и поддерживать рекомендованные службы. Следуя нашим рекомендациям, клиенты могут осуществлять навигацию по процессу выставления счетов без каких-либо непредвиденных результатов.'
 redirect_from:
-  - /apps/marketplace/administering-listing-plans-and-user-accounts/billing-customers-in-github-marketplace/
-  - /apps/marketplace/selling-your-app/billing-customers-in-github-marketplace/
+  - /apps/marketplace/administering-listing-plans-and-user-accounts/billing-customers-in-github-marketplace
+  - /apps/marketplace/selling-your-app/billing-customers-in-github-marketplace
   - /marketplace/selling-your-app/billing-customers-in-github-marketplace
   - /developers/github-marketplace/billing-customers
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+ms.openlocfilehash: 86f012c4a74d010ddaed9ec495ae2f5d8a8dd9eb
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145089645'
 ---
+## Общие сведения о периоде выставления счетов
 
-### Understanding the billing cycle
+Клиенты могут выбрать ежемесячный или годовой период выставления счетов при покупке приложения. Все изменения, внесенные клиентами в период выставления счетов и выбор плана, активируют событие `marketplace_purchase`. Вы можете обратиться к полезным данным веб-перехватчика `marketplace_purchase`, чтобы узнать, какой период выставления счетов выбирает клиент и когда начинается следующая дата выставления счетов (`effective_date`). Дополнительные сведения о полезных данных веб-перехватчика см. в статье [События веб-перехватчика для API {% data variables.product.prodname_marketplace %}](/developers/github-marketplace/webhook-events-for-the-github-marketplace-api).
 
-Customers can choose a monthly or yearly billing cycle when they purchase your app. All changes customers make to the billing cycle and plan selection will trigger a `marketplace_purchase` event. You can refer to the `marketplace_purchase` webhook payload to see which billing cycle a customer selects and when the next billing date begins (`effective_date`). For more information about webhook payloads, see "[Webhook events for the {% data variables.product.prodname_marketplace %} API](/developers/github-marketplace/webhook-events-for-the-github-marketplace-api)."
+## Предоставление услуг по выставлению счетов в пользовательском интерфейсе приложения
 
-### Providing billing services in your app's UI
-
-Customers should be able to perform the following actions from your app's website:
-- Customers should be able to modify or cancel their {% data variables.product.prodname_marketplace %} plans for personal and organizational accounts separately.
+Клиенты должны иметь возможность выполнять следующие действия на веб-сайте приложения:
+- Клиенты должны иметь возможность изменять или отменять свои планы {% data variables.product.prodname_marketplace %} для личных и организационных учетных записей отдельно.
 {% data reusables.marketplace.marketplace-billing-ui-requirements %}
 
-### Billing services for upgrades, downgrades, and cancellations
+## Службы выставления счетов для обновлений, перехода на использование более ранних версий и отмен
 
-Follow these guidelines for upgrades, downgrades, and cancellations to maintain a clear and consistent billing process. For more detailed instructions about the {% data variables.product.prodname_marketplace %} purchase events, see "[Using the {% data variables.product.prodname_marketplace %} API in your app](/developers/github-marketplace/using-the-github-marketplace-api-in-your-app)."
+Следуйте этим рекомендациям по обновлению, переходу на использование более ранних версий и отменам, чтобы обеспечить четкий и согласованный процесс выставления счетов. Более подробные инструкции о событиях покупки {% data variables.product.prodname_marketplace %} см. в статье [Использование API {% data variables.product.prodname_marketplace %} в приложении](/developers/github-marketplace/using-the-github-marketplace-api-in-your-app).
 
-You can use the `marketplace_purchase` webhook's `effective_date` key to determine when a plan change will occur and periodically synchronize the [List accounts for a plan](/rest/reference/apps#list-accounts-for-a-plan).
+Вы можете использовать ключ `effective_date` веб-перехватчика `marketplace_purchase`, чтобы определить, когда произойдет изменение плана, и периодически синхронизировать [Список учетных записей для плана](/rest/reference/apps#list-accounts-for-a-plan).
 
-#### Улучшения
+### Обновления
 
-When a customer upgrades their pricing plan or changes their billing cycle from monthly to yearly, you should make the change effective for them immediately. You need to apply a pro-rated discount to the new plan and change the billing cycle.
+Когда клиент обновляет свой тарифный план или меняет период выставления счетов с ежемесячного на годовой, вы должны немедленно применить это изменение. Необходимо применить пропорциональную скидку к новому плану и изменить период выставления счетов.
 
 {% data reusables.marketplace.marketplace-failed-purchase-event %}
 
-For information about building upgrade and downgrade workflows into your app, see "[Handling plan changes](/developers/github-marketplace/handling-plan-changes)."
+Сведения о создании рабочих процессов обновления и перехода на использование более ранних версий в приложении см. в статье [Обработка изменений плана](/developers/github-marketplace/handling-plan-changes).
 
-#### Downgrades and cancellations
+### Переход на использование более ранних версий и отмены
 
-Downgrades occur when a customer moves to a free plan from a paid plan, selects a plan with a lower cost than their current plan, or changes their billing cycle from yearly to monthly. When downgrades or cancellations occur, you don't need to provide a refund. Instead, the current plan will remain active until the last day of the current billing cycle. The `marketplace_purchase` event will be sent when the new plan takes effect at the beginning of the customer's next billing cycle.
+Переход на использование более ранних версий происходит, когда клиент переходит на бесплатный план из платного, выбирает план с более низкой стоимостью, нежели текущий, или изменяет свой период выставления счетов с ежегодного на ежемесячный. Если происходит переход на использование более ранней версии или отмены, вам не возмещать средства. Вместо этого текущий план будет оставаться активным до последнего дня текущего периода выставления счетов. Событие `marketplace_purchase` будет отправлено, когда новый план вступит в силу в начале следующего периода выставления счетов клиента.
 
-When a customer cancels a plan, you must:
-- Automatically downgrade them to the free plan, if it exists.
-
+Когда клиент отменяет план, необходимо:
+- Автоматически перевести клиента на использованием бесплатного плана, если он существует.
+  
   {% data reusables.marketplace.cancellation-clarification %}
-- Enable them to upgrade the plan through GitHub if they would like to continue the plan at a later time.
+- Разрешить клиенту обновить план через GitHub, если он захочет позже продлить его.
 
-For information about building cancellation workflows into your app, see "[Handling plan cancellations](/developers/github-marketplace/handling-plan-cancellations)."
+Сведения о создании рабочих процессов отмены в приложении см. в статье [Обработка отмен плана](/developers/github-marketplace/handling-plan-cancellations).

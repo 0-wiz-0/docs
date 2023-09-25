@@ -1,55 +1,64 @@
 ---
-title: Installing GitHub Desktop
-shortTitle: Установка
-intro: You can install GitHub Desktop on supported Windows or macOS operating systems.
+title: Установка GitHub Desktop
+shortTitle: Installation
+intro: Можно установить GitHub Desktop в поддерживаемых операционных системах Windows и macOS.
 redirect_from:
   - /desktop/getting-started-with-github-desktop/installing-github-desktop
   - /desktop/installing-and-configuring-github-desktop/installing-github-desktop
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: 4947bff541682887817198c714e7e78bff2cfc9f
+ms.sourcegitcommit: 5f9527483381cfb1e41f2322f67c80554750a47d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '147882782'
 ---
+## Сведения об установке {% data variables.product.prodname_desktop %}
 
-### About {% data variables.product.prodname_desktop %} installation
-
-You can install {% data variables.product.prodname_desktop %} on supported operating systems, which currently include {% data variables.desktop.mac-osx-versions %} and {% data variables.desktop.windows-versions %}. If you have an account on {% data variables.product.prodname_dotcom %} or {% data variables.product.prodname_enterprise %}, you can connect your account to {% data variables.product.prodname_desktop %}. For more information about creating an account, see "[Signing up for a new {% data variables.product.prodname_dotcom %} account](/articles/signing-up-for-a-new-github-account/)" or contact your {% data variables.product.prodname_enterprise %} site administrator.
+Вы можете установить {% data variables.product.prodname_desktop %} в поддерживаемых операционных системах, к которым в настоящее время относятся {% data variables.desktop.mac-osx-versions %} и {% data variables.desktop.windows-versions %}. Если у вас есть учетная запись на сайте {% data variables.product.prodname_dotcom %} или в {% data variables.product.prodname_enterprise %}, вы можете подключить ее к {% data variables.product.prodname_desktop %}. Дополнительные сведения о создании учетной записи см. в разделе [Регистрация для новой учетной записи {% data variables.product.prodname_dotcom %}](/articles/signing-up-for-a-new-github-account/) или обратитесь к своему администратору сайта {% data variables.product.prodname_enterprise %}.
 
 {% windows %}
 
-If you are a network administrator, you can deploy {% data variables.product.prodname_desktop %} to computers running Windows on an Active Directory-managed network by using the Windows Installer package file (`.msi`) with Group Policy or another remote installation system.
+Если вы являетесь администратором сети, вы можете развернуть {% data variables.product.prodname_desktop %} на компьютерах, работающих под управлением ОС Windows в сети, управляемой Active Directory, с помощью файла пакета установщика Windows (`.msi`) с групповой политикой или другой системой удаленной установки.
 
-The Windows Installer package extracts the standalone installer (`.exe`) and configures Windows to install {% data variables.product.prodname_desktop %} the next time a user signs in to their workstation. Users must have permissions to install {% data variables.product.prodname_desktop %} in their user directory.
+Пакет установщика Windows извлекает автономный установщик (`.exe`) и настраивает Windows для установки {% data variables.product.prodname_desktop %} при следующем входе пользователя на рабочую станцию. У пользователей должны быть разрешения на установку {% data variables.product.prodname_desktop %} в свой каталог пользователя.
 
-If a user runs the Windows Installer package for {% data variables.product.prodname_desktop %} directly, to complete the installation, the user must sign out of their workstation and then sign back in.
+Если пользователь запускает пакет установщика Windows для {% data variables.product.prodname_desktop %} напрямую, то для завершения установки пользователь должен выйти из рабочей станции, а затем снова войти.
 
 {% endwindows %}
 
-### Downloading and installing {% data variables.product.prodname_desktop %}
+## Скачивание и установка {% data variables.product.prodname_desktop %}
 
 {% mac %}
 
-You can install {% data variables.product.prodname_desktop %} on {% data variables.desktop.mac-osx-versions %}.
+{% data variables.product.prodname_desktop %} можно установить в {% data variables.desktop.mac-osx-versions %}.
 
 {% data reusables.desktop.download-desktop-page %}
-2. Click **Download for macOS**. ![The Download for macOS button](/assets/images/help/desktop/download-for-mac.png)
-3. In your computer's `Downloads` folder, double-click the **{% data variables.product.prodname_desktop %}** zip file. ![The GitHubDesktop.zip file](/assets/images/help/desktop/mac-zipfile.png)
-4. After the file has been unzipped, double-click **{% data variables.product.prodname_desktop %}**.
-5. {% data variables.product.prodname_desktop %} will launch after installation is complete.
+2. Нажмите **Скачать версию для macOS**.
+  ![Кнопка "Скачать версию для macOS"](/assets/images/help/desktop/download-for-mac.png)
+3. На компьютере в папке `Downloads` дважды щелкните ZIP-файл **{% data variables.product.prodname_desktop %}** .
+  ![Файл GitHubDesktop.zip](/assets/images/help/desktop/mac-zipfile.png)
+4. После извлечения файла архива дважды щелкните **{% data variables.product.prodname_desktop %}** .
+5. {% data variables.product.prodname_desktop %} запустится после завершения установки.
 
 {% endmac %}
 
 {% windows %}
 
-You can install {% data variables.product.prodname_desktop %} on {% data variables.desktop.windows-versions %}.
+{% data variables.product.prodname_desktop %} можно установить в {% data variables.desktop.windows-versions %}.
 
 {% warning %}
 
-**Warning**: You must have a 64-bit operating system to run {% data variables.product.prodname_desktop %}.
+**Предупреждение.** Для запуска {% data variables.product.prodname_desktop %} должна быть установлена 64-разрядная операционная система.
 
 {% endwarning %}
 
 {% data reusables.desktop.download-desktop-page %}
-2. Click **Download for Windows**. ![The Download for Windows button](/assets/images/help/desktop/download-for-windows.png)
-3. In your computer's `Downloads` folder, double-click the **{% data variables.product.prodname_desktop %}** setup file. ![The GitHubDesktopSetup file](/assets/images/help/desktop/windows-githubdesktopsetup.png)
-4. {% data variables.product.prodname_desktop %} will launch after installation is complete.
+2. Нажмите **Скачать версию для Windows**.
+  ![Кнопка "Скачать версию для Windows"](/assets/images/help/desktop/download-for-windows.png)
+3. На компьютере в папке `Downloads` дважды щелкните файл установки **{% data variables.product.prodname_desktop %}** .
+  ![Файл GitHubDesktopSetup](/assets/images/help/desktop/windows-githubdesktopsetup.png)
+4. {% data variables.product.prodname_desktop %} запустится после завершения установки.
 
 {% endwindows %}

@@ -1,30 +1,37 @@
 ---
-title: Configuring your server to receive payloads
-intro: Learn to set up a server to manage incoming webhook payloads.
+title: Настройка сервера для получения полезных данных
+intro: 'Узнайте, как настроить сервер для управления входящими полезными данными веб-перехватчика.'
 redirect_from:
   - /webhooks/configuring
   - /developers/webhooks-and-events/configuring-your-server-to-receive-payloads
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Webhooks
+shortTitle: Configure server for webhooks
+ms.openlocfilehash: c306cadf4dd8d9cd573d694419a51179c8995797
+ms.sourcegitcommit: 6b1c6174d0df40c90edfd7526496baabb1dd159d
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 11/04/2022
+ms.locfileid: '148132985'
 ---
-
-Now that our webhook is ready to deliver messages, we'll set up a basic Sinatra server to handle incoming payloads.
+После подготовки веб-перехватчика к доставке сообщений мы настроим базовый сервер Sinatra для обработки входящих полезных данных.
 
 {% note %}
 
-**Note:** You can download the complete source code for this project [from the platform-samples repo][platform samples].
+**Примечание.** Полный исходный код для этого проекта можно скачать [из репозитория platform-samples][platform samples].
 
 {% endnote %}
 
-### Writing the server
+## Написание сервера
 
-We want our server to listen to `POST` requests, at `/payload`, because that's where we told GitHub our webhook URL was. Because we're using ngrok to expose our local environment, we don't need to set up a real server somewhere online, and can happily test out our code locally.
+Мы хотим, чтобы сервер прослушивал запросы `POST` в `/payload`, поскольку именно это расположение мы указали в GitHub как URL-адрес нашего веб-перехватчика. Так как мы используем для `ngrok` предоставления доступа к локальной среде, нам не нужно настраивать реальный сервер где-то в Интернете, и мы можем с радостью протестировать наш код локально.
 
-Let's set up a little Sinatra app to do something with the information. Our initial setup might look something like this:
+Давайте настроим небольшое приложение Sinatra для выполнения каких-либо действий с информацией. Исходная настройка может выглядеть так:
 
 ``` ruby
 require 'sinatra'
@@ -36,11 +43,11 @@ post '/payload' do
 end
 ```
 
-(If you're unfamiliar with how Sinatra works, we recommend [reading the Sinatra guide][Sinatra].)
+(Если вы не знакомы с тем, как работает Sinatra, рекомендуем [ознакомиться с руководством по Sinatra][Sinatra].)
 
-Start this server up.
+Запустите этот сервер.
 
-Since we set up our webhook to listen to events dealing with `Issues`, go ahead and create a new issue on the repository you're testing with. Once you create it, switch back to your terminal. You should see something like this in your output:
+Поскольку мы настроили наш веб-перехватчик для прослушивания событий, которые работают с `Issues`, давайте создадим новую проблему в репозитории, который вы используете для тестирования. После его создания вернитесь в терминал. В выходных данных должны отобразиться примерно такие данные:
 
 ```shell
 $ ~/Developer/platform-samples/hooks/ruby/configuring-your-server $ ruby server.rb
@@ -51,9 +58,9 @@ $ ~/Developer/platform-samples/hooks/ruby/configuring-your-server $ ruby server.
 > I got some JSON: {"action"=>"opened", "issue"=>{"url"=>"...
 ```
 
-Success! You've successfully configured your server to listen to webhooks. Your server can now process this information any way you see fit. For example, if you were setting up a "real" web application, you might want to log some of the JSON output to a database.
+Готово! Вы успешно настроили сервер для прослушивания веб-перехватчиков. Теперь сервер может обрабатывать эти сведения любым выбранным способом. Например, если вы настроили "реальное" веб-приложение, может потребоваться записать некоторые выходные данные JSON в базу данных.
 
-For additional information on working with webhooks for fun and profit, head on over to the [Testing Webhooks](/webhooks/testing) guide.
+Дополнительные сведения об использовании веб-перехватчиков для удовольствия и выгоды см. в руководстве по [тестированию веб-перехватчиков](/webhooks/testing).
 
 [platform samples]: https://github.com/github/platform-samples/tree/master/hooks/ruby/configuring-your-server
 [Sinatra]: http://www.sinatrarb.com/

@@ -1,40 +1,46 @@
 ---
-title: Pushing changes to GitHub
+title: Отправка изменений в GitHub
 shortTitle: Pushing changes
-intro: 'As you commit changes to your project locally, you can push those changes to {% data variables.product.prodname_dotcom %} so that others may access them from the remote repository.'
+intro: 'При локальной фиксации изменений в проекте вы можете передать эти изменения в {% data variables.product.prodname_dotcom %}, чтобы другие пользователи могли получить к ним доступ из удаленного репозитория.'
 permissions: People with write permissions can push changes to a repository.
 redirect_from:
   - /desktop/contributing-to-projects/pushing-changes-to-github
   - /desktop/contributing-and-collaborating-using-github-desktop/pushing-changes-to-github
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: b881fa5d9e66c4a63b8c648d87072037a8cba543
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145092310'
 ---
+## Сведения об отправке изменений в {% data variables.product.prodname_dotcom %}
 
-### About pushing changes to {% data variables.product.prodname_dotcom %}
+При отправке изменений зафиксированные изменения в локальном репозитории отправляются в удаленный репозиторий в {% data variables.product.prodname_dotcom %}. Если вы изменяете проект локально и хотите, чтобы другие пользователи имели доступ к изменениям, необходимо отправить изменения в {% data variables.product.prodname_dotcom %}.
 
-When you push changes, you send the committed changes in your local repository to the remote repository on {% data variables.product.prodname_dotcom %}. If you change your project locally and want other people to have access to the changes, you must push the changes to {% data variables.product.prodname_dotcom %}.
-
-Before pushing changes, you should update your local branch to include any commits that have been added to the remote repository. If someone has made commits on the remote that are not on your local branch, {% data variables.product.prodname_desktop %} will prompt you to fetch the new commits before pushing your changes to avoid merge conflicts. For more information, see "[Syncing your branch](/desktop/contributing-to-projects/syncing-your-branch)."
+Перед отправкой изменений необходимо обновить локальную ветвь, чтобы включить все фиксации, добавленные в удаленный репозиторий. Если кто-то выполнил фиксации на удаленном компьютере, который не включен в локальную ветвь, {% data variables.product.prodname_desktop %} предложит получить новые фиксации перед отправкой изменений, чтобы избежать конфликтов при объединении. Дополнительные сведения см. в разделе [Синхронизация ветви](/desktop/contributing-to-projects/syncing-your-branch).
 
 {% data reusables.desktop.protected-branches %}
 
-### Pushing changes to {% data variables.product.prodname_dotcom %}
+## Отправка изменений в {% data variables.product.prodname_dotcom %}
 
 {% note %}
 
-**Note:** {% data variables.product.prodname_desktop %} will reject a push if it exceeds certain limits.
+**Примечание.** {% data variables.product.prodname_desktop %} отклоняет отправку, если она превышает определенные ограничения.
 
-- A push contains a large file over {% data variables.large_files.max_github_size %} in size.
-- A push is over {% data variables.large_files.max_file_size %} in total size.
+- Отправка содержит большой файл, размер которого превышает {% data variables.large_files.max_github_size %}.
+- Общий размер отправки превышает {% data variables.large_files.max_file_size %}.
 
-If you configure {% data variables.large_files.product_name_long %} to track your large files, you can push large files that would normally be rejected. For more information, see "[About {% data variables.large_files.product_name_long %} and {% data variables.product.prodname_desktop %}](/desktop/getting-started-with-github-desktop/about-git-large-file-storage-and-github-desktop)."
+Если настроить {% data variables.large_files.product_name_long %} для отслеживания больших файлов, можно отправить большие файлы, которые в обычном случае были бы отклонены. Дополнительные сведения см. в разделе [Сведения о {% data variables.large_files.product_name_long %} и {% data variables.product.prodname_desktop %}](/desktop/getting-started-with-github-desktop/about-git-large-file-storage-and-github-desktop).
 
 {% endnote %}
 
 {% data reusables.desktop.push-origin %}
-2. If {% data variables.product.prodname_desktop %} prompts you to fetch new commits from the remote, click **Fetch**. ![The Fetch button](/assets/images/help/desktop/fetch-newer-commits.png)
-3. Optionally, click **Create Pull Request** to open a pull request and collaborate on your changes. For more information, see "[Creating an issue or pull request](/desktop/contributing-to-projects/creating-an-issue-or-pull-request)" ![The Create Pull Request button](/assets/images/help/desktop/create-pull-request.png)
+2. Если {% data variables.product.prodname_desktop %} предлагает получить новые фиксации из удаленного расположения, нажмите **Получить**.
+  ![Кнопка "Получить"](/assets/images/help/desktop/fetch-newer-commits.png)
+3. При необходимости щелкните **Создать запрос на вытягивание**, чтобы открыть запрос на вытягивание и совместно работать над изменениями. Дополнительные сведения см. в разделе [Создание проблемы или запроса на вытягивание](/desktop/contributing-to-projects/creating-an-issue-or-pull-request) ![Кнопка "Создать запрос на вытягивание"](/assets/images/help/desktop/create-pull-request.png)
 
-### Дополнительная литература
-- "[Push](/github/getting-started-with-github/github-glossary/#push)" in the {% data variables.product.prodname_dotcom %} glossary
-- "[Committing and reviewing changes to your project](/desktop/contributing-to-projects/committing-and-reviewing-changes-to-your-project)"
+## Дополнительные материалы
+- Термин [Отправка](/github/getting-started-with-github/github-glossary/#push) в глоссарии {% data variables.product.prodname_dotcom %}
+- [Фиксация и проверка изменений в проекте](/desktop/contributing-to-projects/committing-and-reviewing-changes-to-your-project)

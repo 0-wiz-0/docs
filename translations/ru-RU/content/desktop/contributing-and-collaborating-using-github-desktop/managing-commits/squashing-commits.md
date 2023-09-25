@@ -1,52 +1,57 @@
 ---
-title: Squashing commits
-intro: "You can use {% data variables.product.prodname_desktop %} to squash commits in your branch's history."
+title: Сжатие фиксаций
+intro: 'Для сжатия фиксаций в журнале ветви можно использовать {% data variables.product.prodname_desktop %}.'
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+ms.openlocfilehash: fb8141710a99b52f1b9a93e1abc0429b5e29f116
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145117491'
 ---
+## Сведения о сжатии фиксации
 
-## About squashing a commit
+Сжатие позволяет объединить несколько фиксаций в журнале ветви в одну фиксацию. Это поможет сделать журнал репозитория более удобочитаемым и понятным.
 
-Squashing allows you to combine multiple commits in your branch's history into a single commit. This can help keep your repository's history more readable and understandable.
-
-## Squashing a commit
+## Сжатие фиксации
 
 {% mac %}
 
 {% data reusables.desktop.current-branch-menu %}
-2. In the list of branches, select the branch that has the commits that you want to squash.
+2. В списке выберите ветвь, в которой есть фиксации, которые вы хотите сжать.
 {% data reusables.desktop.history-tab %}
-4. Select the commits to squash and drop them on the commit you want to combine them with. You can select one commit or select multiple commits using <kbd>⌘</kbd> or <kbd>Shift</kbd>.
-  ![squash drag and drop](/assets/images/help/desktop/squash-drag-and-drop.png)
-5. Modify the commit message of your new commit. The commit messages of the selected commits you want to squash are pre-filled into the **Summary** and **Description** fields.
-6. Click **Squash Commmits**.
+4. Выберите фиксации для сжатия и перетащите их на фиксацию, с которой требуется их объединить. Можно выбрать одну или несколько фиксаций с помощью <kbd>клавиши Command</kbd> или <kbd>клавиши Shift</kbd>.
+  ![перетаскивание сжатия](/assets/images/help/desktop/squash-drag-and-drop.png)
+5. Измените сообщение фиксации новой фиксации. Сообщения фиксации выбранных фиксаций, которые вы хотите сжать, предварительно заполняются в поля **Сводка** и **Описание**.
+6. Щелкните **Сжать фиксации**.
 
 {% endmac %}
 
 {% windows %}
 
 {% data reusables.desktop.current-branch-menu %}
-2. In the list of branches, select the branch that has the commits that you want to squash.
+2. В списке выберите ветвь, в которой есть фиксации, которые вы хотите сжать.
 {% data reusables.desktop.history-tab %}
-4. Select the commits to squash and drop them on the commit you want to combine them with. You can select one commit or select multiple commits using <kbd>Ctrl</kbd> or <kbd>Shift</kbd>.
-  ![squash drag and drop](/assets/images/help/desktop/squash-drag-and-drop.png)
-5. Modify the commit message of your new commit. The commit messages of the selected commits you want to squash are pre-filled into the **Summary** and **Description** fields.
-6. Click **Squash Commmits**.
+4. Выберите фиксации для сжатия и перетащите их на фиксацию, с которой требуется их объединить. Можно выбрать одну фиксацию или выбрать несколько фиксаций с помощью <kbd>клавиши Ctrl</kbd> или <kbd>клавиши Shift</kbd>.
+  ![перетаскивание сжатия](/assets/images/help/desktop/squash-drag-and-drop.png)
+5. Измените сообщение фиксации новой фиксации. Сообщения фиксации выбранных фиксаций, которые вы хотите сжать, предварительно заполняются в поля **Сводка** и **Описание**.
+6. Щелкните **Сжать фиксации**.
 
 {% endwindows %}
 
-## Error messages when squashing commits
+## Сообщения об ошибках при сжатии фиксаций
 
-When you squash commits, you may see one of the following notifications or error messages.
+При сжатии фиксаций можно увидеть одно из следующих уведомлений или сообщений об ошибках.
 
-* A notification states that the requested change to the branch will require a force push to update the remote branch. Force pushing alters the commit history of the branch and will affect other collaborators who are working in that branch.  Select **Begin Squash** to start the squash, and then click **Force push origin** to push your changes.
+* Уведомление сообщает, что запрошенное изменение ветви потребует принудительной отправки для обновления удаленной ветви. Принудительная отправка изменяет журнал фиксаций ветви и повлияет на других участников совместной работы, работающих в этой ветви.  Выберите **Начать сжатие**, чтобы запустить сжатие, а затем щелкните **Принудительно отправить origin**, чтобы отправить изменения.
 
-  ![squash force push dialog](/assets/images/help/desktop/squash-force-push.png)
+  ![диалоговое окно принудительной отправки сжатия](/assets/images/help/desktop/squash-force-push.png)
 
-* An error states that the squash failed because there is a merge commit among the squashed commits.
+* Ошибка указывает, что сжатие завершилось неудачей, так как среди сжатых фиксаций есть фиксация слияния.
 
-  ![reorder merge commit dialog](/assets/images/help/desktop/squash-merge-commit-dialog.png)
+  ![изменение диалогового окна фиксации слияния](/assets/images/help/desktop/squash-merge-commit-dialog.png)
 
-* A notification is shown indicating that there are uncommitted changes present on your current branch. Select **Stash Changes and Continue** to store the changes and proceed, or select **Close** to dismiss the message and commit the changes. When there are no longer any uncommitted changes you can squash your commits.
+* Отображается уведомление о том, что в текущей ветви присутствуют незафиксированные изменения. Выберите **Спрятать изменения и продолжить**, чтобы сохранить изменения и продолжить, или выберите **Закрыть**, чтобы закрыть сообщение и зафиксировать изменения. Если никаких незафиксированных изменений больше нет, можно сжать фиксации.
 
-  ![squash stash dialog](/assets/images/help/desktop/squash-stash-dialog.png)
+  ![диалоговое окно спрятанных изменений сжатия](/assets/images/help/desktop/squash-stash-dialog.png)

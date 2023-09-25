@@ -1,24 +1,31 @@
 ---
-title: Submitting your listing for publication
-intro: 'To finish your app listing submission, you can request a review by an onboarding expert.'
+title: Отправка описания для публикации
+intro: 'Чтобы завершить отправку списка приложений, можно запросить проверку экспертом по подключению.'
 redirect_from:
   - /marketplace/listing-on-github-marketplace/submitting-your-listing-for-review
   - /developers/github-marketplace/submitting-your-listing-for-review
   - /developers/github-marketplace/submitting-your-listing-for-publication
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+shortTitle: Submit your listing
+ms.openlocfilehash: 9e70fea2fceb0fb2b1bfae316f5842f3e88c4333
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145089658'
 ---
+Когда описание приложения соответствует требованиям {% data variables.product.prodname_marketplace %}, можно отправить приложение. Общие сведения о требованиях к описанию приложений см. в разделе [Требования для размещения приложения](/developers/github-marketplace/requirements-for-listing-an-app).
 
-Once your app listing meets the {% data variables.product.prodname_marketplace %} requirements, you can submit your app. For an overview of the app listing requirements, see "[Requirements for listing an app](/developers/github-marketplace/requirements-for-listing-an-app)."
+1. В левом верхнем углу страницы размещения приложения щелкните **Обзор**. Дополнительные сведения о том, как найти страницу размещения приложения, см. в разделе [Создание черновика размещения для приложения](/developers/github-marketplace/drafting-a-listing-for-your-app).
+  
+  ![Параметр обзора для черновика размещения Marketplace](/assets/images/marketplace/edit-marketplace-listing-overview.png)
 
-1. In the top left of the app listing page, click **Overview**. For information on finding your app listing page, see "[Drafting a listing for your app](/developers/github-marketplace/drafting-a-listing-for-your-app)."
+2. Чтобы отправить готовое размещение приложения, щелкните **Запросить публикацию**.
 
-  ![Overview option for the marketplace draft listing](/assets/images/marketplace/edit-marketplace-listing-overview.png)
+  ![Контрольный список "Опубликовать приложение в Marketplace" с кнопкой отправки внизу](/assets/images/marketplace/publish-your-app-checklist-and-submission.png)
 
-2. To submit your your completed app listing, click **Request publish**.
-
-  !["Publish your app to Marketplace" checklist with submission button at the bottom](/assets/images/marketplace/publish-your-app-checklist-and-submission.png)
-
-An onboarding expert will reach out to you with additional information.
+Специалист по подключению будет обращаться к вам с дополнительной информацией.

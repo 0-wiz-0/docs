@@ -1,66 +1,73 @@
 ---
-title: Auditing SSH keys
-intro: Site administrators can initiate an instance-wide audit of SSH keys.
+title: Аудит ключей SSH
+intro: Администраторы сайта могут инициировать аудит ключей SSH на уровне экземпляра.
 redirect_from:
-  - /enterprise/admin/articles/auditing-ssh-keys/
+  - /enterprise/admin/articles/auditing-ssh-keys
   - /enterprise/admin/user-management/auditing-ssh-keys
   - /admin/user-management/auditing-ssh-keys
 versions:
-  enterprise-server: '*'
-  github-ae: '*'
+  ghes: '*'
+  ghae: '*'
 type: how_to
 topics:
   - Auditing
   - Enterprise
   - Security
   - SSH
+ms.openlocfilehash: 57fab80e5480c203d8ca8785e1b151ee7616f3d2
+ms.sourcegitcommit: 8cfc4aedcfcd5b52758adf20e7257cd6715d84f1
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/04/2022
+ms.locfileid: '148009943'
 ---
+После инициирования аудит отключает все существующие ключи SSH и заставляет пользователей утверждать или отклонять их, прежде чем они смогут клонировать, извлекать или отправлять в любые репозитории. Аудит полезен в ситуациях, когда сотрудник или подрядчик покидает компанию и необходимо убедиться, что все ключи проверены.
 
-Once initiated, the audit disables all existing SSH keys and forces users to approve or reject them before they're able to clone, pull, or push to any repositories. An audit is useful in situations where an employee or contractor leaves the company and you need to ensure that all keys are verified.
+## Инициирование аудита
 
-### Initiating an audit
+Можно инициировать аудит ключа SSH на вкладке "Все пользователи" панели мониторинга администратора сайта:
 
-You can initiate an SSH key audit from the "All users" tab of the site admin dashboard:
+![Запуск аудита открытого ключа](/assets/images/enterprise/security/Enterprise-Start-Key-Audit.png)
 
-![Starting a public key audit](/assets/images/enterprise/security/Enterprise-Start-Key-Audit.png)
+После нажатия кнопки "Начать аудит открытого ключа" откроется экран подтверждения, объясняющий, что произойдет дальше:
 
-After you click the "Start public key audit" button, you'll be taken to a confirmation screen explaining what will happen next:
+![Подтверждение аудита](/assets/images/enterprise/security/Enterprise-Begin-Audit.png)
 
-![Confirming the audit](/assets/images/enterprise/security/Enterprise-Begin-Audit.png)
+После нажатия кнопки "Начать аудит" все ключи SSH становятся недействительными и требуют утверждения. Вы увидите уведомление о начале аудита.
 
-After you click the "Begin audit" button, all SSH keys are invalidated and will require approval. You'll see a notification indicating the audit has begun.
+## Что видят пользователи
 
-### What users see
-
-If a user attempts to perform any git operation over SSH, it will fail and provide them with the following message:
+Если пользователь пытается выполнить любую операцию Git по протоколу SSH, она завершится ошибкой и предоставит ему следующее сообщение:
 
 ```shell
-ERROR: Hi <em>username</em>. We're doing an SSH key audit.
-Please visit http(s)://<em>hostname</em>/settings/ssh/audit/2
+ERROR: Hi USERNAME. We're doing an SSH key audit.
+Please visit http(s)://HOSTNAME/settings/ssh/audit/2
 to approve this key so we know it's safe.
 Fingerprint: ed:21:60:64:c0:dc:2b:16:0f:54:5f:2b:35:2a:94:91
 fatal: The remote end hung up unexpectedly
 ```
 
-When they follow the link, they're asked to approve the keys on their account:
+Когда пользователь следует по ссылке, ему будет предложено утвердить ключи в своей учетной записи:
 
-![Auditing keys](/assets/images/enterprise/security/Enterprise-Audit-SSH-Keys.jpg)
+![Аудит ключей](/assets/images/enterprise/security/Enterprise-Audit-SSH-Keys.jpg)
 
-After they approve or reject their keys, they'll be able interact with repositories as usual.
+После утверждения или отклонения ключей пользователь сможет взаимодействовать с репозиториями, как обычно.
 
-### Adding an SSH key
+## Добавление ключа SSH
 
-New users will be prompted for their password when adding an SSH key:
+{% ifversion ghes %}
 
-![Password confirmation](/assets/images/help/settings/sudo_mode_popup.png)
+Когда новый пользователь добавляет ключ SSH в учетную запись, чтобы подтвердить доступ, {% data variables.product.product_name %} запросит проверку подлинности. Дополнительные сведения см. в разделе "[Режим sudo](/authentication/keeping-your-account-and-data-secure/sudo-mode)".
 
-When a user adds a key, they'll receive a notification email that will look something like this:
+{% endif %}
+
+При добавлении ключа пользователь получит уведомление по электронной почте, которое будет выглядеть примерно так:
 
     The following SSH key was added to your account:
-    
+
     [title]
     ed:21:60:64:c0:dc:2b:16:0f:54:5f:2b:35:2a:94:91
-    
+
     If you believe this key was added in error, you can remove the key and disable access at the following location:
-    
+
     http(s)://HOSTNAME/settings/ssh

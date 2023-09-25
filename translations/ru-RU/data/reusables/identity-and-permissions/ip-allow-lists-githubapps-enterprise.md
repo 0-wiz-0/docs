@@ -1,4 +1,4 @@
-If you're using an allow list, you can also choose to automatically add to your allow list any IP addresses configured for {% data variables.product.prodname_github_apps %} that are installed in your enterprise.
+If you're using an allow list, you can also choose to automatically add to your allow list any IP addresses configured for {% data variables.product.prodname_github_apps %} that are installed in your enterprise. 
 
 {% data reusables.identity-and-permissions.ip-allow-lists-address-inheritance %}
 
@@ -11,5 +11,6 @@ To enable automatic addition of IP addresses for {% data variables.product.prodn
 {% data reusables.enterprise-accounts.access-enterprise %}
 {% data reusables.enterprise-accounts.settings-tab %}
 {% data reusables.enterprise-accounts.security-tab %}
-1. Under "IP allow list", select **Enable IP allow list configuration for installed GitHub Apps**. ![Checkbox to allow GitHub App IP addresses](/assets/images/help/security/enable-ip-allowlist-githubapps-checkbox.png)
+1. Under "IP allow list", select **Enable IP allow list configuration for installed GitHub Apps**.
+  ![Checkbox to allow GitHub App IP addresses](/assets/images/help/security/enable-ip-allowlist-githubapps-checkbox.png)
 1. Click **Save**.

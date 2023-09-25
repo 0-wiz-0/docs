@@ -1,103 +1,115 @@
 ---
-title: Migrating OAuth Apps to GitHub Apps
-intro: 'Learn about the advantages of migrating your {% data variables.product.prodname_oauth_app %} to a {% data variables.product.prodname_github_app %} and how to migrate an {% data variables.product.prodname_oauth_app %} that isn''t listed on {% data variables.product.prodname_marketplace %}.'
+title: Переход с OAuth Apps на GitHub Apps
+intro: 'Узнайте о преимуществах переноса {% data variables.product.prodname_oauth_app %} в {% data variables.product.prodname_github_app %} и о том, как перенести {% data variables.product.prodname_oauth_app %}, которого нет в {% data variables.product.prodname_marketplace %}. '
 redirect_from:
   - /apps/migrating-oauth-apps-to-github-apps
   - /developers/apps/migrating-oauth-apps-to-github-apps
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - GitHub Apps
+shortTitle: Migrate from OAuth Apps
+ms.openlocfilehash: 4fea258cc9677401d8212634fdcc04abf22724c9
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '147081035'
 ---
+В этой статье приведены рекомендации для существующих интеграторов, которые позволяют выполнять переход с OAuth Apps на GitHub Apps.
 
-This article provides guidelines for existing integrators who are considering migrating from an OAuth App to a GitHub App.
+## Причины перехода на GitHub Apps
 
-### Reasons for switching to GitHub Apps
+[GitHub Apps](/apps/) — это официально рекомендуемый способ интеграции с GitHub, так как это решение предлагает множество преимуществ по сравнению с чистой интеграцией на основе OAuth:
 
-[GitHub Apps](/apps/) are the officially recommended way to integrate with GitHub because they offer many advantages over a pure OAuth-based integration:
+- [Избирательные разрешения](/apps/differences-between-apps/#requesting-permission-levels-for-resources) предназначены для предоставления GitHub Apps доступа к определенной информации, что позволяет более широко использовать приложение людьми и организациями с политиками безопасности по сравнению с OAuth Apps без ограничивающих разрешений.
+- [Кратковременные токены](/apps/differences-between-apps/#token-based-identification) обеспечивают более безопасный метод аутентификации по сравнению с токенами OAuth. Срок действия токена OAuth не истекает до тех пор, пока лицо, которое авторизовало экземпляр OAuth Apps, не отзовет токен. В GitHub Apps используются токены с коротким сроком действия, что значительно сокращает время использования скомпрометированных токенов.
+- [Встроенные централизованные веб-перехватчики](/apps/differences-between-apps/#webhooks) получают события для всех репозиториев и организаций, к которым может получить доступ приложение. И наоборот, в OAuth Apps требуется настройка веб-перехватчика для каждого репозитория и организации, доступных пользователю.
+- [Учетные записи ботов](/apps/differences-between-apps/#machine-vs-bot-accounts) не занимают рабочие места {% data variables.product.product_name %} и остаются установленными, даже если пользователь, изначально установивший приложение, покидает организацию.
+- Встроенная поддержка OAuth по-прежнему доступна для GitHub Apps, использующих [конечные точки между пользователей и сервером](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/).
+- Выделенные [ограничения скорости API](/apps/building-github-apps/understanding-rate-limits-for-github-apps/) для учетных записей ботов масштабируются с учетом вашей интеграции.
+- Владельцы репозиториев могут [устанавливать GitHub Apps](/apps/differences-between-apps/#who-can-install-github-apps-and-authorize-oauth-apps) в репозиториях организации. Если конфигурация GitHub Apps имеет разрешения, запрашивающие ресурсы организации, владелец организации должен одобрить установку.
+- Поддержка сообщества с открытым кодом доступна через [библиотеки Octokit](/rest/overview/libraries) и другие платформы, такие как [Probot](https://probot.github.io/).
+- Интеграторы, создающие GitHub Apps, имеют возможность использовать более ранний доступ к API.
 
-- [Fine-grained permissions](/apps/differences-between-apps/#requesting-permission-levels-for-resources) target the specific information a GitHub App can access, allowing the app to be more widely used by people and organizations with security policies than OAuth Apps, which cannot be limited by permissions.
-- [Short-lived tokens](/apps/differences-between-apps/#token-based-identification) provide a more secure authentication method over OAuth tokens. An OAuth token does not expire until the person who authorized the OAuth App revokes the token. GitHub Apps use tokens that expire quickly, creating a much smaller window of time for compromised tokens to be in use.
-- [Built-in, centralized webhooks](/apps/differences-between-apps/#webhooks) receive events for all repositories and organizations the app can access. Conversely, OAuth Apps require configuring a webhook for each repository and organization accessible to the user.
-- [Bot accounts](/apps/differences-between-apps/#machine-vs-bot-accounts) don't consume a {% data variables.product.product_name %} seat and remain installed even when the person who initially installed the app leaves the organization.
-- Built-in support for OAuth is still available to GitHub Apps using [user-to-server endpoints](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/).
-- Dedicated [API rate limits](/apps/building-github-apps/understanding-rate-limits-for-github-apps/) for bot accounts scale with your integration.
-- Repository owners can [install GitHub Apps](/apps/differences-between-apps/#who-can-install-github-apps-and-authorize-oauth-apps) on organization repositories. If a GitHub App's configuration has permissions that request an organization's resources, the org owner must approve the installation.
-- Open Source community support is available through [Octokit libraries](/rest/overview/libraries) and other frameworks such as [Probot](https://probot.github.io/).
-- Integrators building GitHub Apps have opportunities to adopt earlier access to APIs.
+## Преобразование OAuth Apps в GitHub Apps
 
-### Converting an OAuth App to a GitHub App
+В этих рекомендациях предполагается, что у вас есть зарегистрированный экземпляр OAuth Apps {% ifversion fpt or ghec %}, который может быть или не быть указан в GitHub Marketplace {% endif %}. В общем вам нужно будет выполнить следующие шаги:
 
-These guidelines assume that you have a registered OAuth App{% if currentVersion == "free-pro-team@latest" %} that may or may not be listed in GitHub Marketplace{% endif %}. At a high level, you'll need to follow these steps:
+1. [Просмотр доступных конечных точек API для GitHub Apps](#review-the-available-api-endpoints-for-github-apps)
+1. [Проектирование для ограничения скорости API](#design-to-stay-within-api-rate-limits)
+1. [Регистрация нового приложения в GitHub Apps](#register-a-new-github-app)
+1. [Определение необходимых разрешений для приложения](#determine-the-permissions-your-app-requires)
+1. [Подписка на веб-перехватчики](#subscribe-to-webhooks)
+1. [Знакомство с разными методами проверки подлинности](#understand-the-different-methods-of-authentication)
+1. [Предложение пользователям установить ваш экземпляр GitHub Apps](#direct-users-to-install-your-github-app-on-repositories)
+1. [Удаление ненужных перехватчиков репозитория](#remove-any-unnecessary-repository-hooks)
+1. [Предложение пользователям отозвать доступ к экземпляру OAuth Apps](#encourage-users-to-revoke-access-to-your-oauth-app)
+1. [Удаление экземпляра OAuth Apps](#delete-the-oauth-app)
 
-1. [Review the available API endpoints for GitHub Apps](#review-the-available-api-endpoints-for-github-apps)
-1. [Design to stay within API rate limits](#design-to-stay-within-api-rate-limits)
-1. [Register a new GitHub App](#register-a-new-github-app)
-1. [Determine the permissions your app requires](#determine-the-permissions-your-app-requires)
-1. [Subscribe to webhooks](#subscribe-to-webhooks)
-1. [Understand the different methods of authentication](#understand-the-different-methods-of-authentication)
-1. [Direct users to install your GitHub App on repositories](#direct-users-to-install-your-github-app-on-repositories)
-1. [Remove any unnecessary repository hooks](#remove-any-unnecessary-repository-hooks)
-1. [Encourage users to revoke access to your OAuth app](#encourage-users-to-revoke-access-to-your-oauth-app)
+### Просмотр доступных конечных точек API для GitHub Apps
 
-#### Review the available API endpoints for GitHub Apps
+Хотя большинство конечных точек [REST API](/rest) и запросов [GraphQL](/graphql) сегодня доступны для GitHub Apps, мы все еще находимся в процессе включения некоторых конечных точек. Просмотрите [доступные конечные точки REST](/rest/overview/endpoints-available-for-github-apps), чтобы убедиться, что необходимые конечные точки совместимы с GitHub Apps. Обратите внимание, что некоторые конечные точки API, включенные для GitHub Apps, позволяют приложению действовать от имени пользователя. Список конечных точек, которые разрешают GitHub Apps выполнять проверку подлинности в качестве пользователя, см. в разделе [Запросы между пользователем и сервером](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#user-to-server-requests).
 
-While the majority of [REST API](/rest) endpoints and [GraphQL](/graphql) queries are available to GitHub Apps today, we are still in the process of enabling some endpoints. Review the [available REST endpoints](/rest/overview/endpoints-available-for-github-apps) to ensure that the endpoints you need are compatible with GitHub Apps. Note that some of the API endpoints enabled for GitHub Apps allow the app to act on behalf of the user. See "[User-to-server requests](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#user-to-server-requests)" for a list of endpoints that allow a GitHub App to authenticate as a user.
+Рекомендуется как можно раньше просмотреть список конечных точек API. Сообщите в службу поддержки, если вам нужна конечная точка, которая еще не включена для {% data variables.product.prodname_github_apps %}.
 
-We recommend reviewing the list of API endpoints you need as early as possible. Please let Support know if there is an endpoint you require that is not yet enabled for {% data variables.product.prodname_github_app %}s.
+### Проектирование для ограничения скорости API
 
-#### Design to stay within API rate limits
+В GitHub Apps используются [скользящие правила для ограничений скорости](/apps/building-github-apps/understanding-rate-limits-for-github-apps/), которые могут изменяться с учетом количества репозиториев и пользователей в организации. В GitHub Apps также могут использоваться [условные запросы](/rest/overview/resources-in-the-rest-api#conditional-requests) или консолидироваться запросы с помощью [API GraphQL](/graphql).
 
-GitHub Apps use [sliding rules for rate limits](/apps/building-github-apps/understanding-rate-limits-for-github-apps/), which can increase based on the number of repositories and users in the organization. A GitHub App can also make use of [conditional requests](/rest#conditional-requests) or consolidate requests by using the [GraphQL API V4](/graphql).
+### Регистрация нового приложения в GitHub Apps
 
-#### Register a new GitHub App
+Когда вы решите перейти на GitHub Apps, необходимо [создать новый экземпляр GitHub Apps](/apps/building-github-apps/).
 
-Once you've decided to make the switch to GitHub Apps, you'll need to [create a new GitHub App](/apps/building-github-apps/).
+### Определение необходимых разрешений для приложения
 
-#### Determine the permissions your app requires
+При регистрации экземпляра GitHub Apps необходимо выбрать разрешения, требуемые для каждой конечной точки, используемой в коде приложения. Список разрешений, требуемых для каждой конечной точки, доступной для GitHub Apps, см. в разделе [Разрешения GitHub Apps](/rest/reference/permissions-required-for-github-apps).
 
-When registering your GitHub App, you'll need to select the permissions required by each endpoint used in your app's code. See "[GitHub App permissions](/rest/reference/permissions-required-for-github-apps)" for a list of the permissions needed for each endpoint available to GitHub Apps.
+В параметрах GitHub Apps можно указать, требуется ли вашему приложению доступ к `No Access`, `Read-only` или `Read & Write` для каждого типа разрешений. Избирательные разрешения позволяют вашему приложению получать целевой доступ к набору необходимых вам данных. Мы рекомендуем указать минимально возможный набор разрешений, обеспечивающий желаемую функциональность.
 
-In your GitHub App's settings, you can specify whether your app needs `No Access`, `Read-only`, or `Read & Write` access for each permission type. The fine-grained permissions allow your app to gain targeted access to the subset of data you need. We recommend specifying the smallest set of permissions possible that provides the desired functionality.
+### Подписка на веб-перехватчики
 
-#### Subscribe to webhooks
+Когда вы создадите экземпляр GitHub Apps и выберете его разрешения, вы сможете выбрать события веб-перехватчика, на которые вы хотите подписаться. Сведения о том, как подписаться на веб-перехватчики, см. в разделе [Изменение разрешений GitHub Apps](/apps/managing-github-apps/editing-a-github-app-s-permissions/).
 
-After you've created a new GitHub App and selected its permissions, you can select the webhook events you wish to subscribe it to. See "[Editing a GitHub App's permissions](/apps/managing-github-apps/editing-a-github-app-s-permissions/)" to learn how to subscribe to webhooks.
+### Знакомство с разными методами проверки подлинности
 
-#### Understand the different methods of authentication
+В GitHub Apps в основном используется проверка подлинности на основе токенов, срок действия которых истекает через короткий промежуток времени, что обеспечивает большую безопасность, чем токен OAuth, срок действия которого не истекает. Важно знать разницу между доступными вам методами проверки подлинности и ситуации, когда их нужно использовать:
 
-GitHub Apps primarily use a token-based authentication that expires after a short amount of time, providing more security than an OAuth token that does not expire. It’s important to understand the different methods of authentication available to you and when you need to use them:
+* **JSON Web Token (JWT)** [выполняет проверку подлинности как экземпляр GitHub Apps](/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app). Например, можно выполнить проверку подлинности с помощью **JWT**, чтобы получить сведения об установке приложения или обменять **JWT** на **маркер доступа установки**.
+* **Маркер доступа установки** [выполняет проверку подлинности в качестве конкретной установки экземпляра GitHub Apps](/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) (запросы между серверами). Например, вы можете выполнить проверку подлинности с помощью **маркера доступа установки**, чтобы открыть проблему или отправить отзыв по запросу на вытягивание.
+* **Маркер доступа OAuth** может [выполнять проверку подлинности в качестве пользователя экземпляра GitHub Apps](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site) (запросы между пользователем и сервером). Например, вы можете использовать маркер доступа OAuth для проверки подлинности пользователя, когда экземпляру GitHub Apps необходимо подтвердить личность пользователя или действовать от его имени.
 
-* A **JSON Web Token (JWT)** [authenticates as the GitHub App](/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app). For example, you can authenticate with a **JWT** to fetch application installation details or exchange the **JWT** for an **installation access token**.
-* An **installation access token** [authenticates as a specific installation of your GitHub App](/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) (also called server-to-server requests). For example, you can authenticate with an **installation access token** to open an issue or provide feedback on a pull request.
-* An **OAuth access token** can [authenticate as a user of your GitHub App](/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/#identifying-users-on-your-site) (also called user-to-server requests). For example, you can use an OAuth access token to authenticate as a user when a GitHub App needs to verify a user’s identity or act on a user’s behalf.
+Наиболее распространенным сценарием является проверка подлинности в качестве конкретной установки с помощью **маркера доступа установки**.
 
-The most common scenario is to authenticate as a specific installation using an **installation access token**.
+### Предложение пользователям установить ваш экземпляр GitHub Apps
 
-#### Direct users to install your GitHub App on repositories
+После перехода с OAuth Apps на GitHub Apps необходимо сообщить пользователям, что экземпляр GitHub Apps доступен для установки. Например, можно включить ссылку на установку экземпляра GitHub Apps в баннер вызова действия в приложении. Чтобы упростить переход, вы можете использовать параметры запроса, чтобы идентифицировать учетную запись пользователя или организации, которая проходит процесс установки для вашего экземпляра GitHub Apps, и предварительно выбрать любые репозитории, к которым ваш экземпляр OAuth Apps имел доступ. Это позволит пользователям легко устанавливать GitHub Apps в репозиториях, к которых у вас уже есть доступ.
 
-Once you've made the transition from an OAuth App to a GitHub App, you will need to let users know that the GitHub App is available to install. For example, you can include an installation link for the GitHub App in a call-to-action banner inside your application. To ease the transition, you can use query parameters to identify the user or organization account that is going through the installation flow for your GitHub App and pre-select any repositories your OAuth App had access to. This allows users to easily install your GitHub App on repositories you already have access to.
+#### Параметры запроса
 
-##### Query parameters
+| Имя | Описание |
+|------|-------------|
+| `suggested_target_id` | **Обязательный.** Идентификатор пользователя или организации, устанавливающей GitHub Apps. |
+| `repository_ids[]` | Массив идентификаторов репозитория. Если этот параметр опущен, мы выбираем все репозитории. Максимальное число репозиториев, которые можно предварительно выбрать, — 100. |
 
-| Name                  | Description                                                                                                                          |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `suggested_target_id` | **Required**: ID of the user or organization that is installing your GitHub App.                                                     |
-| `repository_ids[]`    | Array of repository IDs. If omitted, we select all repositories. The maximum number of repositories that can be pre-selected is 100. |
-
-##### Example URL
+#### Пример URL-адреса
 ```
 https://github.com/apps/YOUR_APP_NAME/installations/new/permissions?suggested_target_id=ID_OF_USER_OR_ORG&repository_ids[]=REPO_A_ID&repository_ids[]=REPO_B_ID
 ```
 
-You'll need to replace `YOUR_APP_NAME` with the name of your GitHub App, `ID_OF_USER_OR_ORG` with the ID of your target user or organization, and include up to 100 repository IDs (`REPO_A_ID` and `REPO_B_ID`). To get a list of repositories your OAuth App has access to, use the [List repositories for the authenticated user](/rest/reference/repos#list-repositories-for-the-authenticated-user) and [List organization repositories](/rest/reference/repos#list-organization-repositories) endpoints.
+Вам нужно будет изменить `YOUR_APP_NAME` на имя вашего экземпляра GitHub Apps, `ID_OF_USER_OR_ORG` на идентификатор вашего целевого пользователя или организации и включить до 100 идентификаторов репозитория (`REPO_A_ID` и `REPO_B_ID`). Чтобы получить список репозиториев, к которым у вашего экземпляра OAuth Apps есть доступ, используйте конечные точки [Перечисление репозиториев для аутентифицированных пользователей](/rest/reference/repos#list-repositories-for-the-authenticated-user) и [Перечисление репозиториев организации](/rest/reference/repos#list-organization-repositories).
 
-#### Remove any unnecessary repository hooks
+### Удаление ненужных перехватчиков репозитория
 
-Once your GitHub App has been installed on a repository, you should remove any unnecessary webhooks that were created by your legacy OAuth App. If both apps are installed on a repository, they may duplicate functionality for the user. To remove webhooks, you can listen for the [`installation_repositories` webhook](/webhooks/event-payloads/#installation_repositories) with the `repositories_added` action and [Delete a repository webhook](/rest/reference/repos#delete-a-repository-webhook) on those repositories that were created by your OAuth App.
+Когда вы установите экземпляр GitHub Apps в репозитории, удалите ненужные веб-перехватчики, созданные устаревшим экземпляром OAuth Apps. Если оба приложения будут установлены в репозитории, они могут дублировать функции для пользователя. Чтобы удалить веб-перехватчики, можно прослушивать [веб-перехватчик `installation_repositories`](/webhooks/event-payloads/#installation_repositories) с `repositories_added` помощью действия и [удалить веб-перехватчик репозитория](/rest/reference/webhooks#delete-a-repository-webhook) в этих репозиториях, созданных экземпляром OAuth Apps.
 
-#### Encourage users to revoke access to your OAuth app
+### Предложение пользователям отозвать доступ к экземпляру OAuth Apps
 
-As your GitHub App installation base grows, consider encouraging your users to [revoke access](/articles/authorizing-oauth-apps/) to the legacy OAuth integration.
+С расширением базы установки GitHub Apps рекомендуется поощрять пользователей отменять доступ к устаревшей интеграции OAuth. Дополнительные сведения см. в разделе [Авторизация приложений OAuth](/github/authenticating-to-github/keeping-your-account-and-data-secure/authorizing-oauth-apps).
+
+### Удаление экземпляра OAuth Apps
+
+Чтобы избежать злоупотребления учетными данными экземпляра OAuth Apps, рекомендуется удалить этот экземпляр OAuth Apps. Это действие также отменит все оставшиеся разрешения экземпляра OAuth Apps. Дополнительные сведения см. в разделе [Удаление экземпляра OAuth Apps](/developers/apps/managing-oauth-apps/deleting-an-oauth-app).

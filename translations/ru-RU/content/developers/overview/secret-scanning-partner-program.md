@@ -1,15 +1,17 @@
 ---
 title: Secret scanning partner program
 intro: 'As a service provider, you can partner with {% data variables.product.prodname_dotcom %} to have your secret token formats secured through secret scanning, which searches for accidental commits of your secret format and can be sent to a service provider''s verify endpoint.'
-miniTocMaxHeadingLevel: 4
+miniTocMaxHeadingLevel: 3
 redirect_from:
-  - /partnerships/token-scanning/
+  - /partnerships/token-scanning
   - /partnerships/secret-scanning
   - /developers/overview/secret-scanning
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - API
+shortTitle: Secret scanning
 ---
 
 {% data variables.product.prodname_dotcom %} scans repositories for known secret formats to prevent fraudulent use of credentials that were committed accidentally. {% data variables.product.prodname_secret_scanning_caps %} happens by default on public repositories, and can be enabled on private repositories by repository administrators or organization owners. As a service provider, you can partner with {% data variables.product.prodname_dotcom %} so that your secret formats are included in our {% data variables.product.prodname_secret_scanning %}.
@@ -20,15 +22,15 @@ When a match of your secret format is found in a private repository configured f
 
 This article describes how you can partner with {% data variables.product.prodname_dotcom %} as a service provider and join the {% data variables.product.prodname_secret_scanning %} partner program.
 
-### The {% data variables.product.prodname_secret_scanning %} process
+## The {% data variables.product.prodname_secret_scanning %} process
 
-##### How {% data variables.product.prodname_secret_scanning %} works in a public repository
+#### How {% data variables.product.prodname_secret_scanning %} works in a public repository
 
 The following diagram summarizes the {% data variables.product.prodname_secret_scanning %} process for public repositories, with any matches sent to a service provider's verify endpoint.
 
 ![Flow diagram showing the process of scanning for a secret and sending matches to a service provider's verify endpoint](/assets/images/secret-scanning-flow.png "{% data variables.product.prodname_secret_scanning_caps %} flow")
 
-### Joining the {% data variables.product.prodname_secret_scanning %} program on {% data variables.product.prodname_dotcom %}
+## Joining the {% data variables.product.prodname_secret_scanning %} program on {% data variables.product.prodname_dotcom %}
 
 1. Contact {% data variables.product.prodname_dotcom %} to get the process started.
 1. Identify the relevant secrets you want to scan for and create regular expressions to capture them.
@@ -37,13 +39,13 @@ The following diagram summarizes the {% data variables.product.prodname_secret_s
 1. Implement secret revocation and user notification in your secret alert service.
 1. Provide feedback for false positives (optional).
 
-#### Contact {% data variables.product.prodname_dotcom %} to get the process started
+### Contact {% data variables.product.prodname_dotcom %} to get the process started
 
 To get the enrollment process started, email <a href="mailto:secret-scanning@github.com">secret-scanning@github.com</a>.
 
 You will receive details on the {% data variables.product.prodname_secret_scanning %} program, and you will need to agree to {% data variables.product.prodname_dotcom %}'s terms of participation before proceeding.
 
-#### Identify your secrets and create regular expressions
+### Identify your secrets and create regular expressions
 
 To scan for your secrets, {% data variables.product.prodname_dotcom %} needs the following pieces of information for each secret that you want included in the {% data variables.product.prodname_secret_scanning %} program:
 
@@ -53,43 +55,64 @@ To scan for your secrets, {% data variables.product.prodname_dotcom %} needs the
 
 Send this information to <a href="mailto:secret-scanning@github.com">secret-scanning@github.com</a>.
 
-#### Create a secret alert service
+### Create a secret alert service
 
 Create a public, internet accessible HTTP endpoint at the URL you provided to us. When a match of your regular expression is found in a public repository, {% data variables.product.prodname_dotcom %} will send an HTTP `POST` message to your endpoint.
 
-##### Example POST sent to your endpoint
+#### Example request body
 
-```http
-POST / HTTP/2
-Host: HOST
-Accept: */*
-Content-Type: application/json
-GITHUB-PUBLIC-KEY-IDENTIFIER: 90a421169f0a406205f1563a953312f0be898d3c7b6c06b681aa86a874555f4a
-GITHUB-PUBLIC-KEY-SIGNATURE: MEQCIA6C6L8ZYvZnqgV0zwrrmRab10QmIFV396gsba/WYm9oAiAI6Q+/jNaWqkgG5YhaWshTXbRwIgqIK6Ru7LxVYDbV5Q==
-Content-Length: 0123
-
-[{"token":"NMIfyYncKcRALEXAMPLE","type":"mycompany_api_token","url":"https://github.com/octocat/Hello-World/commit/123456718ee16e59dabbacb1b4049abc11abc123"}]
+```json
+[
+  {
+    "token":"NMIfyYncKcRALEXAMPLE",
+    "type":"mycompany_api_token",
+    "url":"https://github.com/octocat/Hello-World/blob/12345600b9cbe38a219f39a9941c9319b600c002/foo/bar.txt",
+    "source":"content"
+  }
+]
 ```
 
-The message body is a JSON array that contains one or more objects with the following contents. When multiple matches are found, {% data variables.product.prodname_dotcom %}  may send a single message with more than one secret match. Your endpoint should be able to handle requests with a large number of matches without timing out.
+The message body is a JSON array that contains one or more objects, with each object representing a single secret match. Your endpoint should be able to handle requests with a large number of matches without timing out. The keys for each secret match are:
 
-* **Token**: The value of the secret match.
-* **Type**: The unique name you provided to identify your regular expression.
-* **URL**: The public commit URL where the match was found.
+* **token**: The value of the secret match.
+* **type**: The unique name you provided to identify your regular expression.
+* **url**: The public URL where the match was found (may be empty)
+* **source**: Where the token was found on {% data variables.product.prodname_dotcom %}.
 
-#### Implement signature verification in your secret alert service
+The list of valid values for `source` are:
 
-We strongly recommend you implement signature validation in your secret alert service to ensure that the messages you receive are genuinely from {% data variables.product.prodname_dotcom %} and not malicious.
+* content
+* commit
+* pull_request_description
+* pull_request_comment
+* issue_description
+* issue_comment
+* discussion_body
+* discussion_comment
+* commit_comment
+* gist_content
+* gist_comment
+* unknown
 
-You can retrieve the {% data variables.product.prodname_dotcom %} secret scanning public key from https://api.github.com/meta/public_keys/secret_scanning and validate the message using the `ECDSA-NIST-P256V1-SHA256` algorithm.
+### Implement signature verification in your secret alert service
+
+The HTTP request to your service will also contain headers that we strongly recommend using
+to validate the messages you receive are genuinely from {% data variables.product.prodname_dotcom %}, and are not malicious.
+
+The two HTTP headers to look for are:
+
+* `GITHUB-PUBLIC-KEY-IDENTIFIER`: Which `key_identifier` to use from our API
+* `GITHUB-PUBLIC-KEY-SIGNATURE`: Signature of the payload
+
+You can retrieve the {% data variables.product.prodname_dotcom %} secret scanning public key from https://api.github.com/meta/public_keys/secret_scanning and validate the message using the `ECDSA-NIST-P256V1-SHA256` algorithm. The endpoint
+will provide several `key_identifier` and public keys. You can determine which public
+key to use based on the value of `GITHUB-PUBLIC-KEY-IDENTIFIER`.
 
 {% note %}
 
-**Note**: When you send a request to the public key endpoint above, you may hit rate limits. To avoid hitting rate limits, you can use a personal access token (no scopes required) as suggested in the samples below, or use a conditional request. For more information, see "[Getting started with the REST API](/rest/guides/getting-started-with-the-rest-api#conditional-requests)."
+**Note**: When you send a request to the public key endpoint above, you may hit rate limits. To avoid hitting rate limits, you can use a {% data variables.product.pat_v1 %} (no scopes required){% ifversion pat-v2 %} or a {% data variables.product.pat_v2 %} (only the automatic public repositories read access required){% endif %} as suggested in the samples below, or use a conditional request. For more information, see "[Getting started with the REST API](/rest/guides/getting-started-with-the-rest-api#conditional-requests)."
 
 {% endnote %}
-
-Assuming you receive the following message, the code snippets below demonstrate how you could perform signature validation. The code snippets assume you've set an environment variable called `GITHUB_PRODUCTION_TOKEN` with a generated PAT (https://github.com/settings/tokens) to avoid hitting rate limits. The PAT does not need any scopes/permissions.
 
 {% note %}
 
@@ -97,18 +120,36 @@ Assuming you receive the following message, the code snippets below demonstrate 
 
 {% endnote %}
 
-**Sample message sent to verify endpoint**
+**Sample HTTP POST sent to verify endpoint**
+
 ```http
 POST / HTTP/2
 Host: HOST
 Accept: */*
 content-type: application/json
-GITHUB-PUBLIC-KEY-IDENTIFIER: 90a421169f0a406205f1563a953312f0be898d3c7b6c06b681aa86a874555f4a
-GITHUB-PUBLIC-KEY-SIGNATURE: MEUCIQDKZokqnCjrRtw0tni+2Ltvl/uiMJ1EGumEsp1BsNr32AIgQY1YXD2nlj+XNfGK4rBfkMJ1JDOQcYXxa2sY8FNkrKc=
-Content-Length: 0000
+GITHUB-PUBLIC-KEY-IDENTIFIER: f9525bf080f75b3506ca1ead061add62b8633a346606dc5fe544e29231c6ee0d
+GITHUB-PUBLIC-KEY-SIGNATURE: MEUCIFLZzeK++IhS+y276SRk2Pe5LfDrfvTXu6iwKKcFGCrvAiEAhHN2kDOhy2I6eGkOFmxNkOJ+L2y8oQ9A2T9GGJo6WJY=
+Content-Length: 83
 
-[{"token":"some_token","type":"some_type","url":"some_url"}]
+[{"token":"some_token","type":"some_type","url":"some_url","source":"some_source"}]
 ```
+
+{% note %}
+
+**Note**: The key id and signature from the example payload is derived from a test key.
+The public key for them is:
+
+```
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEsz9ugWDj5jK5ELBK42ynytbo38gP
+HzZFI03Exwz8Lh/tCfL3YxwMdLjB+bMznsanlhK0RwcGP3IDb34kQDIo3Q==
+-----END PUBLIC KEY-----
+```
+
+{% endnote %}
+
+The following code snippets demonstrate how you could perform signature validation.
+The code examples assume you've set an environment variable called `GITHUB_PRODUCTION_TOKEN` with a generated [{% data variables.product.pat_generic %}](https://github.com/settings/tokens) to avoid hitting rate limits. The {% data variables.product.pat_generic %} does not need any scopes/permissions.
 
 **Validation sample in Go**
 ```golang
@@ -130,11 +171,11 @@ import (
 )
 
 func main() {
-  payload := `[{"token":"some_token","type":"some_type","url":"some_url"}]`
+  payload := `[{"token":"some_token","type":"some_type","url":"some_url","source":"some_source"}]`
 
-  kID := "90a421169f0a406205f1563a953312f0be898d3c7b6c06b681aa86a874555f4a"
+  kID := "f9525bf080f75b3506ca1ead061add62b8633a346606dc5fe544e29231c6ee0d"
 
-  kSig := "MEUCIQDKZokqnCjrRtw0tni+2Ltvl/uiMJ1EGumEsp1BsNr32AIgQY1YXD2nlj+XNfGK4rBfkMJ1JDOQcYXxa2sY8FNkrKc="
+  kSig := "MEUCIFLZzeK++IhS+y276SRk2Pe5LfDrfvTXu6iwKKcFGCrvAiEAhHN2kDOhy2I6eGkOFmxNkOJ+L2y8oQ9A2T9GGJo6WJY="
 
   // Fetch the list of GitHub Public Keys
   req, err := http.NewRequest("GET", "https://api.github.com/meta/public_keys/secret_scanning", nil)
@@ -249,14 +290,14 @@ require 'json'
 require 'base64'
 
 payload = <<-EOL
-[{"token":"some_token","type":"some_type","url":"some_url"}]
+[{"token":"some_token","type":"some_type","url":"some_url","source":"some_source"}]
 EOL
 
 payload = payload
 
-signature = "MEUCIQDKZokqnCjrRtw0tni+2Ltvl/uiMJ1EGumEsp1BsNr32AIgQY1YXD2nlj+XNfGK4rBfkMJ1JDOQcYXxa2sY8FNkrKc="
+signature = "MEUCIFLZzeK++IhS+y276SRk2Pe5LfDrfvTXu6iwKKcFGCrvAiEAhHN2kDOhy2I6eGkOFmxNkOJ+L2y8oQ9A2T9GGJo6WJY="
 
-key_id = "90a421169f0a406205f1563a953312f0be898d3c7b6c06b681aa86a874555f4a"
+key_id = "f9525bf080f75b3506ca1ead061add62b8633a346606dc5fe544e29231c6ee0d"
 
 url = URI.parse('https://api.github.com/meta/public_keys/secret_scanning')
 
@@ -322,11 +363,11 @@ const verify_signature = async (payload, signature, keyID) => {
 };
 ```
 
-#### Implement secret revocation and user notification in your secret alert service
+### Implement secret revocation and user notification in your secret alert service
 
 For {% data variables.product.prodname_secret_scanning %} in public repositories, you can enhance your secret alert service to revoke the exposed secrets and notify the affected users. How you implement this in your secret alert service is up to you, but we recommend considering any secrets that {% data variables.product.prodname_dotcom %} sends you messages about as public and compromised.
 
-#### Provide feedback for false positives
+### Provide feedback for false positives
 
 We collect feedback on the validity of the detected individual secrets in partner responses. If you wish to take part, email us at <a href="mailto:secret-scanning@github.com">secret-scanning@github.com</a>.
 

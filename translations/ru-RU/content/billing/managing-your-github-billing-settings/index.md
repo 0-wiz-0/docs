@@ -1,18 +1,19 @@
 ---
-title: Managing your GitHub billing settings
+title: Управление параметрами выставления счетов GitHub
 shortTitle: Billing settings
-intro: 'Your account''s billing settings apply to every paid feature or product you add to the account. You can manage settings like your payment method, billing cycle, and billing email. You can also view billing information such as your subscription, billing date, payment history, and past receipts.'
+intro: 'Параметры выставления счетов вашей учетной записи применяются ко всем платным функциям и продуктам, которые вы добавляете в учетную запись. Вы можете управлять такими параметрами, как способ оплаты, цикл выставления счетов и электронная почта для выставления счетов. Вы также можете просматривать такие сведения о выставлении счетов, как подписка, дата выставления счета, журнал платежей и квитанции за прошлые периоды.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-your-github-billing-settings
-  - /articles/viewing-and-managing-your-personal-account-s-billing-information/
-  - /articles/paying-for-user-accounts/
-  - /articles/viewing-and-managing-your-organization-s-billing-information/
-  - /articles/paying-for-organization-accounts/
-  - /categories/paying-for-organization-accounts/articles/
-  - /categories/99/articles/
+  - /articles/viewing-and-managing-your-personal-account-s-billing-information
+  - /articles/paying-for-user-accounts
+  - /articles/viewing-and-managing-your-organization-s-billing-information
+  - /articles/paying-for-organization-accounts
+  - /categories/paying-for-organization-accounts/articles
+  - /categories/99/articles
   - /articles/managing-your-github-billing-settings
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 children:
   - /about-billing-on-github
   - /viewing-your-subscriptions-and-billing-date
@@ -24,6 +25,11 @@ children:
   - /redeeming-a-coupon
   - /troubleshooting-a-declined-credit-card-charge
   - /unlocking-a-locked-account
-  - /removing-a-payment-method
+ms.openlocfilehash: 6b9d87e20022431675c949132c9a84a23650abe7
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145087855'
 ---
 

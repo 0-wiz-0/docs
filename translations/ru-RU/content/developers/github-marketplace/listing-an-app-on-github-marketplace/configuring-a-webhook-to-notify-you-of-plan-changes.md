@@ -1,43 +1,50 @@
 ---
-title: Configuring a webhook to notify you of plan changes
-intro: 'After [creating a draft {% data variables.product.prodname_marketplace %} listing](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/), you can configure a webhook that notifies you when changes to customer account plans occur. After you configure the webhook, you can [handle the `marketplace_purchase` event types](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) in your app.'
+title: Настройка веб-перехватчика для уведомления об изменениях плана
+intro: 'После [создания черновой версии списка {% data variables.product.prodname_marketplace %}](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/) можно настроить веб-перехватчик, который уведомит вас о внесении изменений в планы учетной записи клиента. После настройки веб-перехватчика можно [обрабатывать `marketplace_purchase`типы событий](/marketplace/integrating-with-the-github-marketplace-api/github-marketplace-webhook-events/) в приложении.'
 redirect_from:
-  - /apps/adding-integrations/managing-listings-on-github-marketplace/adding-webhooks-for-a-github-marketplace-listing/
-  - /apps/marketplace/managing-github-marketplace-listings/adding-webhooks-for-a-github-marketplace-listing/
-  - /apps/marketplace/setting-up-github-marketplace-webhooks/creating-a-webhook-for-a-github-marketplace-listing/
-  - /apps/marketplace/listing-on-github-marketplace/configuring-the-github-marketplace-webhook/
+  - /apps/adding-integrations/managing-listings-on-github-marketplace/adding-webhooks-for-a-github-marketplace-listing
+  - /apps/marketplace/managing-github-marketplace-listings/adding-webhooks-for-a-github-marketplace-listing
+  - /apps/marketplace/setting-up-github-marketplace-webhooks/creating-a-webhook-for-a-github-marketplace-listing
+  - /apps/marketplace/listing-on-github-marketplace/configuring-the-github-marketplace-webhook
   - /marketplace/listing-on-github-marketplace/configuring-the-github-marketplace-webhook
   - /developers/github-marketplace/configuring-a-webhook-to-notify-you-of-plan-changes
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 topics:
   - Marketplace
+shortTitle: Webhooks for plan changes
+ms.openlocfilehash: 85ffaa8809860ff4b693075e416723717296f86c
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145089701'
 ---
+Веб-перехватчик событий {% data variables.product.prodname_marketplace %} можно настроить только на странице профиля приложения в {% data variables.product.prodname_marketplace %}. Все остальные события можно настроить на [странице параметров разработчика приложения](https://github.com/settings/developers). Если вы еще не создали профиль в {% data variables.product.prodname_marketplace %}, см. раздел [Создание черновика профиля в {% data variables.product.prodname_marketplace %}](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/).
 
-The {% data variables.product.prodname_marketplace %} event webhook can only be set up from your application's {% data variables.product.prodname_marketplace %} listing page. You can configure all other events from your [application's developer settings page](https://github.com/settings/developers). If you haven't created a {% data variables.product.prodname_marketplace %} listing, read "[Creating a draft {% data variables.product.prodname_marketplace %} listing](/marketplace/listing-on-github-marketplace/creating-a-draft-github-marketplace-listing/)" to learn how.
+## Создание объекта Webhook
 
-### Creating a webhook
+Чтобы создать веб-перехватчик для профиля в {% data variables.product.prodname_marketplace %}, щелкните **Веб-перехватчик** на левой боковой панели [страницы профиля в {% data variables.product.prodname_marketplace %}](https://github.com/marketplace/manage). Вы увидите следующие параметры конфигурации веб-перехватчика, необходимые для его настройки:
 
-To create a webhook for your {% data variables.product.prodname_marketplace %} listing, click **Webhook** in the left sidebar of your [{% data variables.product.prodname_marketplace %} listing page](https://github.com/marketplace/manage). You'll see the following webhook configuration options needed to configure your webhook:
-
-#### Payload URL
+### URL-адрес полезных данных
 
 {% data reusables.webhooks.payload_url %}
 
-#### Content type
+### Тип содержимого
 
-{% data reusables.webhooks.content_type %} GitHub recommends using the `application/json` content type.
+{% data reusables.webhooks.content_type %} GitHub рекомендует использовать тип содержимого `application/json`.
 
-#### Secret
+### Секрет
 
 {% data reusables.webhooks.secret %}
 
-#### Active
+### Активен
 
-By default, webhook deliveries are "Active." You can choose to disable the delivery of webhook payloads during development by deselecting "Active." If you've disabled webhook deliveries, you will need to select "Active" before you submit your app for review.
+По умолчанию доставки веб-перехватчика имеют статус "Активно". Вы можете отключить доставку полезных данных веб-перехватчика, отменив выбор статуса "Активно". Если вы отключили доставку данных веб-перехватчика, перед отправкой приложения на проверку необходимо выбрать статус "Активно".
 
-### Viewing webhook deliveries
+## Просмотр доставленных данных веб-перехватчика
 
-Once you've configured your {% data variables.product.prodname_marketplace %} webhook, you'll be able to inspect `POST` request payloads from the **Webhook** page of your application's [{% data variables.product.prodname_marketplace %} listing](https://github.com/marketplace/manage). GitHub doesn't resend failed delivery attempts. Ensure your app can receive all webhook payloads sent by GitHub.
+После настройки веб-перехватчика {% data variables.product.prodname_marketplace %} вы сможете проверить полезные данные запроса `POST` на странице **Веб-перехватчик** в [профиле приложения в {% data variables.product.prodname_marketplace %}](https://github.com/marketplace/manage). GitHub не выполняет повторную отправку в случае сбоя доставки. Убедитесь, что приложение может принимать все полезные данные веб-перехватчика, отправленные GitHub.
 
-![Inspect recent {% data variables.product.prodname_marketplace %} webhook deliveries](/assets/images/marketplace/marketplace_webhook_deliveries.png)
+![Проверка последних доставленных данных веб-перехватчиков {% data variables.product.prodname_marketplace %}](/assets/images/marketplace/marketplace_webhook_deliveries.png)

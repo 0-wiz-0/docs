@@ -1,11 +1,12 @@
 ---
-title: Using labels and milestones to track work
+title: Использование меток и вех для отслеживания работы
 shortTitle: Labels and milestones
-intro: 'Labels and milestones to categorize and track work on {% data variables.product.prodname_dotcom %}'
+intro: 'Используйте метки и вехи для классификации и отслеживания работы в {% data variables.product.prodname_dotcom %}.'
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Issues
 children:
@@ -17,5 +18,11 @@ children:
   - /viewing-your-milestones-progress
 redirect_from:
   - /github/managing-your-work-on-github/tracking-the-progress-of-your-work-with-milestones
+ms.openlocfilehash: 5da559e68d6ed61d7ec6d9c82039a86ffd47d4f2
+ms.sourcegitcommit: 5b1461b419dbef60ae9dbdf8e905a4df30fc91b7
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '147878763'
 ---
 

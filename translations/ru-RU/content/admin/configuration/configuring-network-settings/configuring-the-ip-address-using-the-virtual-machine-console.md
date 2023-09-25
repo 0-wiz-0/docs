@@ -1,27 +1,34 @@
 ---
-title: Configuring the IP address using the virtual machine console
-intro: 'By default, {% data variables.product.prodname_ghe_server %} retrieves network settings via the dynamic host configuration protocol (DHCP). If your platform supports it, or if DHCP is unavailable, you can also configure the network settings using the virtual machine console.'
+title: Настройка IP-адреса с помощью консоли виртуальной машины
+intro: 'По умолчанию {% data variables.product.prodname_ghe_server %} извлекает параметры сети с помощью протокола DHCP. Можно также настроить параметры сети с помощью консоли виртуальной машины, если платформа поддерживает эту функцию или если DHCP недоступен.'
 redirect_from:
   - /enterprise/admin/installation/configuring-the-ip-address-using-the-virtual-machine-console
   - /enterprise/admin/configuration/configuring-the-ip-address-using-the-virtual-machine-console
   - /admin/configuration/configuring-the-ip-address-using-the-virtual-machine-console
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: how_to
 topics:
   - Enterprise
   - Fundamentals
   - Infrastructure
   - Networking
+shortTitle: Set the IP using the console
+ms.openlocfilehash: db183677409757e516515a5ac7def5a70affd01f
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145120771'
 ---
-
 {% note %}
 
-**Note:** We do not support adding additional network adapters to {% data variables.product.prodname_ghe_server %}.
+**Примечание.** Мы не поддерживаем добавление дополнительных сетевых адаптеров в {% data variables.product.prodname_ghe_server %}.
 
 {% endnote %}
 
 {% data reusables.enterprise_installation.open-vm-console-start %}
-3. Choose to configure the `IPv4` or `IPv6` protocol. ![Options to choose the IPv4 or the IPv6 protocol](/assets/images/enterprise/network-configuration/IPv4-or-IPv6-protocol.png)
-4. Configure options for the protocol you chose. ![Menu with IP protocol options](/assets/images/enterprise/network-configuration/network-settings-selection.png)
-{% data reusables.enterprise_installation.vm-console-done %}
+3. Выберите настройку `IPv4` или протокол `IPv6`.
+  ![Параметры выбора протокола IPv4 или IPv6](/assets/images/enterprise/network-configuration/IPv4-or-IPv6-protocol.png)
+4. Настройте параметры для выбранного протокола.
+  ![Меню с параметрами протокола IP](/assets/images/enterprise/network-configuration/network-settings-selection.png) {% data reusables.enterprise_installation.vm-console-done %}

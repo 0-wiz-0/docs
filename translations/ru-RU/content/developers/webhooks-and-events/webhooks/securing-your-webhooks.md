@@ -1,52 +1,57 @@
 ---
-title: Securing your webhooks
-intro: 'Ensure your server is only receiving the expected {% data variables.product.prodname_dotcom %} requests for security reasons.'
+title: Защита веб-перехватчиков
+intro: 'Убедитесь, что сервер получает только ожидаемые запросы {% data variables.product.prodname_dotcom %} по соображениям безопасности.'
 redirect_from:
   - /webhooks/securing
   - /developers/webhooks-and-events/securing-your-webhooks
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Webhooks
+ms.openlocfilehash: c58d4f301eadff8e20d626074b95fd8b888f65c4
+ms.sourcegitcommit: 5f40f9341dd1e953f4be8d1642f219e628e00cc8
+ms.translationtype: MT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 10/04/2022
+ms.locfileid: '148008871'
 ---
-
-Once your server is configured to receive payloads, it'll listen for any payload sent to the endpoint you configured. For security reasons, you probably want to limit requests to those coming from GitHub. There are a few ways to go about this--for example, you could opt to allow requests from GitHub's IP address--but a far easier method is to set up a secret token and validate the information.
+После настройки сервера для получения полезных данных он будет ожидать передачи всех полезных данных, отправляемых в настроенную конечную точку. Из соображений безопасности можно разрешить только запросы, поступающие из GitHub. Это можно сделать несколькими способами. Например, можно разрешить запросы с IP-адреса GitHub, но гораздо проще настроить секретный маркер и проверить сведения.
 
 {% data reusables.webhooks.webhooks-rest-api-links %}
 
-### Setting your secret token
+## Настройка секретного маркера
 
-You'll need to set up your secret token in two places: GitHub and your server.
+Вам потребуется настроить секретный маркер в двух местах: в GitHub и на сервере.
 
-To set your token on GitHub:
+Чтобы задать маркер в GitHub, выполните следующие действия.
 
-1. Navigate to the repository where you're setting up your webhook.
-2. Fill out the Secret textbox. Use a random string with high entropy (e.g., by taking the output of `ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'` at the terminal). ![Webhook secret token field](/assets/images/webhook_secret_token.png)
-3. Click **Update Webhook**.
+1. Перейдите в репозиторий, в котором вы настраиваете веб-перехватчик.
+2. Заполните текстовое поле "Секрет". Используйте произвольную строку с высокой энтропией (например, путем принятия выходных данных `ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'` в терминале).
+![Поле маркера секрета веб-перехватчика](/assets/images/webhook_secret_token.png)
+3. Щелкните **Обновить веб-перехватчик**.
 
-Next, set up an environment variable on your server that stores this token. Typically, this is as simple as running:
+Затем настройте переменную среды на сервере, в которой хранится этот маркер. Как правило, для этого достаточно просто выполнить:
 
 ```shell
-$ export SECRET_TOKEN=<em>your_token</em>
+$ export SECRET_TOKEN=YOUR-TOKEN
 ```
 
-**Never** hardcode the token into your app!
+**Никогда не** применяйте жесткое кодирование маркера в приложении!
 
-### Validating payloads from GitHub
+## Проверка полезных данных из GitHub
 
-When your secret token is set, {% data variables.product.product_name %} uses it to create a hash signature with each payload. This hash signature is included with the headers of each request as {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}`X-Hub-Signature-256`{% elsif currentVersion ver_lt "enterprise-server@2.23" %}`X-Hub-Signature`{% endif %}.
+При установке секретного маркера {% data variables.product.product_name %} будет использовать его для создания хэш-подписи для каждой полезной нагрузки. Эта хэш-подпись включается в заголовки каждого запроса как `x-hub-signature-256`.
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" %}
-{% note %}
+{% ifversion fpt or ghes or ghec %} {% note %}
 
-**Note:** For backward-compatibility, we also include the `X-Hub-Signature` header that is generated using the SHA-1 hash function. If possible, we recommend that you use the `X-Hub-Signature-256` header for improved security. The example below demonstrates using the `X-Hub-Signature-256` header.
+**Примечание.** Чтобы обеспечить обратную совместимость, мы также включаем заголовок `x-hub-signature`, созданный с помощью хэш-функции SHA-1. По возможности рекомендуется использовать заголовок `x-hub-signature-256` для повышения безопасности. В приведенном ниже примере показано использование заголовка `x-hub-signature-256`.
 
-{% endnote %}
-{% endif %}
+{% endnote %} {% endif %}
 
-For example, if you have a basic server that listens for webhooks, it might be configured similar to this:
+Например, если у вас есть базовый сервер, который прослушивает веб-перехватчики, его можно настроить следующим образом:
 
 ``` ruby
 require 'sinatra'
@@ -59,7 +64,7 @@ post '/payload' do
 end
 ```
 
-The intention is to calculate a hash using your `SECRET_TOKEN`, and ensure that the result matches the hash from {% data variables.product.product_name %}. {% data variables.product.product_name %} uses an HMAC hex digest to compute the hash, so you could reconfigure your server to look a little like this:
+Цель состоит в том, чтобы вычислить хэш с помощью вашего `SECRET_TOKEN` и убедиться, что результат соответствует хэшу из {% data variables.product.product_name %}. {% data variables.product.product_name %} использует хэш-код HMAC в шестнадцатеричном формате для вычисления хэша, что позволяет перенастроить сервер примерно следующим образом:
 
 ``` ruby
 post '/payload' do
@@ -70,27 +75,22 @@ post '/payload' do
   "I got some JSON: #{push.inspect}"
 end
 
-{% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or currentVersion == "github-ae@latest" %}
 def verify_signature(payload_body)
   signature = 'sha256=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), ENV['SECRET_TOKEN'], payload_body)
   return halt 500, "Signatures didn't match!" unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE_256'])
-end{% elsif currentVersion ver_lt "enterprise-server@2.23" %}
-def verify_signature(payload_body)
-  signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['SECRET_TOKEN'], payload_body)
-  return halt 500, "Signatures didn't match!" unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
-end{% endif %}
+end
 ```
 
 {% note %}
 
-**Note:** Webhook payloads can contain unicode characters. If your language and server implementation specifies a character encoding, ensure that you handle the payload as UTF-8.
+**Примечание.** Полезные данные веб-перехватчика могут содержать символы Юникода. Если в реализации языка и сервера указана кодировка символов, убедитесь, что полезные данные обрабатываются как символы UTF-8.
 
 {% endnote %}
 
-Your language and server implementations may differ from this example code. However, there are a number of very important things to point out:
+Используемая вами реализации языка и сервера может отличаться от этого примера кода. Однако есть ряд важных моментов, которые следует учесть:
 
-* No matter which implementation you use, the hash signature starts with {% if currentVersion == "free-pro-team@latest" or currentVersion ver_gt "enterprise-server@2.22" or "github-ae@latest" %}`sha256=`{% elsif currentVersion ver_lt "enterprise-server@2.23" %}`sha1=`{% endif %}, using the key of your secret token and your payload body.
+* Независимо от используемой реализации хэш-подпись начинается с `sha256=`, используя ключ секретного маркера и текстовую область полезных данных.
 
-* Using a plain `==` operator is **not advised**. A method like [`secure_compare`][secure_compare] performs a "constant time" string comparison, which helps mitigate certain timing attacks against regular equality operators.
+* Использовать обычный оператор `==` **не рекомендуется**. Такой метод, как [`secure_compare`][secure_compare], выполняет сравнение "постоянных во времени" строк, что позволяет снизить определенные атаки по времени на регулярные операторы равенства.
 
-[secure_compare]: https://rubydoc.info/github/rack/rack/master/Rack/Utils:secure_compare
+[secure_compare]: https://rubydoc.info/github/rack/rack/main/Rack/Utils:secure_compare

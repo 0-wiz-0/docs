@@ -1,5 +1,10 @@
-{% if currentVersion == "free-pro-team@latest" or currentVersion == "github-ae@latest" or currentVersion ver_gt "enterprise-server@2.21" %}1. {% data variables.product.product_name %}の右上で、プロフィール写真をクリックし、続いて**Your organizations（あなたのOrganization）**をクリックしてください。
-![プロフィールメニューのあなたのOrganization](/assets/images/help/profile/your-organizations.png)
-  {% else %}1. {% data variables.product.product_name %}の右上で、プロフィール画像をクリックし、続いて**Your profile（あなたのプロフィール）**をクリックしてください。
-  ![プロフィール画像](/assets/images/enterprise/settings/top_right_avatar.png)
- 2. プロフィールページの左側で、"Organizations"の下であなたのOrganizationのアイコンをクリックしてください。 ![organization icons](/assets/images/help/profile/profile_orgs_box.png){% endif %}
+---
+ms.openlocfilehash: 08564f054c871af7f61db8dba021b32a618a6e18
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 09/10/2022
+ms.locfileid: "145121381"
+---
+1. {% ifversion fpt or ghec %}{% data variables.product.prodname_dotcom_the_website %}{% else %}{% data variables.product.product_name %}{% endif %} の右上隅にあるプロファイル写真をクリックし、 **[自分の Organization]** をクリックします。
+  ![プロファイル メニューの組織](/assets/images/help/profile/your-organizations.png)

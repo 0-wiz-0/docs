@@ -1,61 +1,69 @@
 ---
-title: About billing for GitHub Marketplace
-intro: 'If you install a paid app in {% data variables.product.prodname_marketplace %}, your subscription shares your account''s existing billing date, payment method, and receipt.'
+title: Сведения о выставлении счетов для GitHub Marketplace
+intro: 'Если вы устанавливаете платное приложение в {% data variables.product.prodname_marketplace %}, ваша подписка использует ту же существующую дату выставления счетов, которая используется для вашей учетной записи, тот же способ оплаты и квитанцию.'
 redirect_from:
   - /github/setting-up-and-managing-billing-and-payments-on-github/about-billing-for-github-marketplace
   - /articles/about-billing-for-github-marketplace
-  - /github/setting-up-and-managing-billing-and-payments-on-github/about-billing-for-github-marketplace
   - /github/setting-up-and-managing-billing-and-payments-on-github/managing-billing-for-github-marketplace-apps/about-billing-for-github-marketplace
 versions:
-  free-pro-team: '*'
+  fpt: '*'
+  ghec: '*'
 type: overview
 topics:
   - Marketplace
+shortTitle: Billing for GitHub Marketplace
+ms.openlocfilehash: 815303fa5c0c1a006a0bd4bd017039cf1e035f15
+ms.sourcegitcommit: fcf3546b7cc208155fb8acdf68b81be28afc3d2d
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/10/2022
+ms.locfileid: '145088046'
 ---
-
-{% data variables.product.prodname_marketplace %} includes apps with free and paid pricing plans. After you purchase and install an app, you can upgrade, downgrade, or cancel at any time.
+{% data variables.product.prodname_marketplace %} включает приложения с бесплатными и платными тарифными планами. После приобретения и установки приложения его можно в любой момент обновить, перейти на более раннюю версию или отменить.
 
 {% data reusables.marketplace.marketplace-apps-only %}
 
 {% data reusables.marketplace.marketplace-org-perms %}
 
-### Payment methods and billing cycles for {% data variables.product.prodname_marketplace %} purchases
+## Методы оплаты и периоды выставления счетов для покупок в {% data variables.product.prodname_marketplace %}
 
-You will have the same payment method for all paid plans and subscriptions across {% data variables.product.prodname_dotcom %}.
+Для всех платных планов и подписок на {% data variables.product.prodname_dotcom %} применяется один и тот же метод оплаты.
 
-If your personal account or organization doesn't have a payment method on file, when you choose a paid plan for an app:
-- Your billing date is today.
-- You must add a payment method to your personal account or the organization in which you want to install the app.
-- Your payment method is charged the full amount of your subscription.
-- Your receipt is sent to the primary or billing email address on file for your personal account or organization.
+Если в вашей личной учетной записи или в организации метод оплаты не указан, при выборе платного плана для приложения происходит следующее:
+- Датой выставления счетов считается текущая дата.
+- Необходимо добавить метод оплаты в личную учетную запись или в организацию, где нужно установить приложение.
+- Посредством выбранного метода оплаты взимается полная стоимость подписки.
+- Квитанция отправляется на основной адрес электронной почты или адрес электронной почты для выставления счетов, указанный для личной учетной записи или для организации.
 
-If your personal account or organization has an existing payment method, when you choose a paid plan for an app:
-- The payment method on file is immediately charged a prorated amount based on the time remaining until your next billing date.
-- The monthly or yearly billing date for your app subscription is the same as the account or organization's regular billing date.
-- On your next billing date, your receipt lists charges for your paid {% data variables.product.prodname_dotcom %} plan and your app subscription.
+Если в вашей личной учетной записи или в организации уже настроен метод оплаты, при выборе платного плана для приложения происходит следующее:
+- Посредством указанного метода оплаты немедленно взимается сумма, пропорциональная времени, оставшемуся до следующей даты выставления счетов.
+- Дата ежемесячного или ежегодного выставления счетов для подписки на приложение совпадает со стандартной датой выставления счетов в учетной записи или организации.
+- В следующую дату выставления счетов в квитанции будут указаны стоимость платного плана {% data variables.product.prodname_dotcom %} и подписки на приложение.
 
-When you choose a paid plan with a free trial:
-- You must have an existing payment method or add a new payment method for your personal account or the organization in which you want to install the app.
-- If you don't have any other paid plans or subscriptions, you are charged the full amount of your subscription at the end of the 14-day free trial.
-- If you have other paid plans or subscriptions, once your 14-day free trial ends, the payment method on file is immediately charged a prorated amount based on the time remaining until your next billing date.
-- If you have other paid plans or subscriptions, on your next billing date, your receipt lists charges for your paid {% data variables.product.prodname_dotcom %} plan and your app subscription.
+При выборе платного плана с бесплатной пробной версией происходит следующее:
+- У вас должен быть существующий метод оплаты, либо нужно добавить новый метод оплаты для личной учетной записи или организации, где необходимо установить приложение.
+- Если у вас нет других платных планов или подписок, по завершении 14-дневного бесплатного пробного периода с вас взимается полная стоимость подписки.
+- Если у вас есть другие платные планы или подписки, по завершении 14-дневного бесплатного пробного периода посредством указанного метода оплаты будет сразу взиматься сумма, пропорциональная времени, оставшемуся до следующей даты выставления счетов.
+- Если у вас есть другие платные планы или подписки, в следующую дату выставления счетов в квитанции будут указаны стоимость платного плана {% data variables.product.prodname_dotcom %} и подписки на приложение.
 
-### Unit plan limits
+{% data reusables.user-settings.context_switcher %}
 
-If you choose a unit plan (for example, a plan that charges per user), and you exceed the units that you're paying for, the integrator may disable your access until you upgrade the app. For more information, see "[Upgrading the billing plan for a {% data variables.product.prodname_marketplace %} app](/articles/upgrading-the-billing-plan-for-a-github-marketplace-app)."
+## Ограничения поэлементного тарифного плана
 
-### Downgrading a {% data variables.product.prodname_marketplace %} app
+Если вы выбрали поэлементный тарифный план (например, с оплатой за пользователя), но количество оплаченных единиц превышено, интегратор может заблокировать вам доступ, пока вы не обновите приложение. Дополнительные сведения см. в разделе [Обновление плана выставления счетов для приложения {% data variables.product.prodname_marketplace %}](/articles/upgrading-the-billing-plan-for-a-github-marketplace-app).
 
-If you downgrade your app subscription to a less expensive plan or if you cancel a paid app subscription, your changes will take effect at the end your current billing cycle. Your subscription will be moved to your new plan on your next billing date.
+## Понижение уровня приложения {% data variables.product.prodname_marketplace %}
 
-If you cancel an app on a free plan, your subscription will immediately end and you'll lose access to the app.
+Если вы переводите подписку на приложение на более дешевый план или отменяете платную подписку, изменения вступают в силу в конце текущего периода выставления счетов. Подписка будет переведена на новый план в следующую дату выставления счетов.
+
+Если вы отмените приложение с бесплатным планом, действие подписки завершится немедленно и вы потеряете доступ к приложению.
 
 {% data reusables.marketplace.downgrade-marketplace-only %}
 
-If you cancel a free trial on a paid plan, your subscription is immediately canceled and you will lose access to the app. For more information, see "[Canceling a {% data variables.product.prodname_marketplace %} app](/articles/canceling-a-github-marketplace-app)."
+Если вы отмените бесплатную пробную версию приложения с платным планом, действие подписки завершится немедленно и вы потеряете доступ к приложению. Дополнительные сведения см. в разделе [Отмена приложения {% data variables.product.prodname_marketplace %}](/articles/canceling-a-github-marketplace-app).
 
-### Дополнительная литература
+## Дополнительные материалы
 
-- "[About {% data variables.product.prodname_marketplace %}](/articles/about-github-marketplace)"
-- "[Purchasing and installing apps in {% data variables.product.prodname_marketplace %}](/articles/purchasing-and-installing-apps-in-github-marketplace)"
-- "[{% data variables.product.prodname_marketplace %} support](/articles/github-marketplace-support)"
+- [Сведения о {% data variables.product.prodname_marketplace %}](/articles/about-github-marketplace)
+- [Приобретение и установка приложений в {% data variables.product.prodname_marketplace %}](/articles/purchasing-and-installing-apps-in-github-marketplace)
+- [Поддержка {% data variables.product.prodname_marketplace %}](/articles/github-marketplace-support)

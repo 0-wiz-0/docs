@@ -1,24 +1,28 @@
 ---
 title: Configurar GitHub Enterprise
-shortTitle: Configurar GitHub Enterprise
+shortTitle: Configure GitHub Enterprise
 intro: Puedes configurar tu empresa para que se ajuste a las necesidades de tu organización.
 redirect_from:
   - /enterprise/admin/configuration
 versions:
-  enterprise-server: '*'
-  github-ae: '*'
+  ghec: '*'
+  ghes: '*'
+  ghae: '*'
 topics:
   - Enterprise
 children:
   - /configuring-your-enterprise
   - /configuring-network-settings
-  - /managing-connections-between-github-enterprise-server-and-github-enterprise-cloud
+  - /configuring-github-connect
+ms.openlocfilehash: da67d011e017d84e5eb3c384355e047bbdd669ae
+ms.sourcegitcommit: fb047f9450b41b24afc43d9512a5db2a2b750a2a
+ms.translationtype: HT
+ms.contentlocale: es-ES
+ms.lasthandoff: 09/11/2022
+ms.locfileid: '145120658'
 ---
+{% ifversion ghes %} {% note %}
 
-{% if currentVersion ver_gt "enterprise-server@2.21" %}
-{% note %}
+**Nota:** Para configurar {% data variables.product.prodname_actions %} o el {% data variables.product.prodname_registry %} para su empresa, consulte "[Administración de Acciones de GitHub para su empresa](/admin/github-actions)" o "[Administración de paquetes de GitHub para su empresa](/admin/packages)".
 
-**Nota:** Para configurar {% data variables.product.prodname_actions %} o {% data variables.product.prodname_registry %} para tu empresa, consulta la sección "[Administrar GitHub Actions para tu empresa](/admin/github-actions)" o la sección "[Administrar GitHub Packages para tu empresa](/admin/packages)."
-
-{% endnote %}
-{% endif %}
+{% endnote %} {% endif %}

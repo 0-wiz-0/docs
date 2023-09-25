@@ -1,39 +1,47 @@
 ---
-title: Testing webhooks
-intro: 'Review your webhook deliveries on {% data variables.product.prodname_dotcom %}, including the HTTP Request and payload as well as the response.'
+title: Тестирование веб-перехватчиков
+intro: 'Проверьте результаты работы веб-перехватчика на сайте {% data variables.product.prodname_dotcom %}, включая HTTP-запрос и полезные данные, а также ответ.'
 redirect_from:
   - /webhooks/testing
   - /developers/webhooks-and-events/testing-webhooks
+  - /articles/testing-webhooks
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
 topics:
   - Webhooks
+ms.openlocfilehash: 5b9287030169ecac751b407ad915d4fa69bf8182
+ms.sourcegitcommit: 47bd0e48c7dba1dde49baff60bc1eddc91ab10c5
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 09/05/2022
+ms.locfileid: '145996220'
 ---
+После того как вы [настроили локальный сервер](/webhooks/configuring/), может потребоваться передать код в ограничения. Для этого представление веб-перехватчиков GitHub предоставляет ряд средств для тестирования развернутых полезных данных.
 
-Now that you've [configured your local server](/webhooks/configuring/), you might be interested in pushing your code to the limits. To that end, GitHub's webhooks view provides some tooling for testing your deployed payloads.
+## Перечисление последних доставок
 
-### Listing recent deliveries
+Каждый веб-перехватчик содержит свой собственный раздел "Последние доставки", в котором приведен краткий список успешных (зеленая галочка) или неуспешных (красный значок X) доставок. Вы также можете понять, когда была предпринята каждая попытка доставки.
 
-Every webhook has its own "Recent Deliveries" section, which lists, at a glance whether a delivery was successful (green check) or failed (red x). You can also identify when each delivery was attempted.
+{% data variables.product.product_name %} ведет журнал всех доставок веб-перехватчиков в течение {% ifversion fpt or ghec %} 30 {% else %} 8 {% endif %} дней.
 
-{% data variables.product.product_name %} keeps a log of each webhook delivery for {% if currentVersion == "free-pro-team@latest" %} 30 {% else %} 8 {% endif %} days.
+![Представление "Последние доставки"](/assets/images/webhooks_recent_deliveries.png)
 
-![Recent Deliveries view](/assets/images/webhooks_recent_deliveries.png)
+## Подробное изучение результатов
 
-### Digging into results
+Развернув каждую отдельную доставку, вы сможете *в точности* понять, какие сведения GitHub пытается отправить на сервер. Сюда входят HTTP-запрос и ответ.
 
-By expanding an individual delivery, you'll be able to witness *precisely* what information GitHub is attempting to send to your server. This includes both the HTTP Request and Response.
+### Запрос
 
-#### Request
+Представление доставки веб-перехватчика содержит сведения о том, какие заголовки отправил GitHub.
+Здесь также содержатся сведения о полезных данных JSON.
 
-The webhook delivery view provides information on which Headers were sent by GitHub. It also includes details about the JSON payload.
+![Просмотр запроса касательно полезных данных](/assets/images/payload_request_tab.png)
 
-![Viewing a payload request](/assets/images/payload_request_tab.png)
+### Ответ
 
-#### Response
+На вкладке ответа показано, как сервер ответил после получения полезных данных от GitHub. Сюда входят код статуса, заголовки и все дополнительные данные в тексте ответа.
 
-The response tab lists how your server replied once it received the payload from GitHub. This includes the status code, the headers, and any additional data within the response body.
-
-![Viewing a payload response](/assets/images/payload_response_tab.png)
+![Просмотр ответа касательно полезных данных](/assets/images/payload_response_tab.png)
