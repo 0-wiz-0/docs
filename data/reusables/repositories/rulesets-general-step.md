@@ -1,0 +1,1 @@
+1. In the "General" section, type a name for the ruleset, then select {% octicon "skip" aria-hidden="true" %} **Disabled** {% octicon "triangle-down" aria-hidden="true" %} and select an enforcement status.
