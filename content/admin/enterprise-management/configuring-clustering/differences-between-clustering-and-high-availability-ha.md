@@ -6,13 +6,14 @@ redirect_from:
   - /enterprise/admin/enterprise-management/differences-between-clustering-and-high-availability-ha
   - /admin/enterprise-management/differences-between-clustering-and-high-availability-ha
 versions:
-  enterprise-server: '*'
+  ghes: '*'
 type: reference
 topics:
   - Clustering
   - Enterprise
   - High availability
   - Infrastructure
+shortTitle: Choosing cluster or HA
 ---
 ## Failure scenarios
 
@@ -33,7 +34,7 @@ High Availability (HA) and Clustering both provide redundancy by eliminating the
 
 ## Backups and disaster recovery
 
-Neither HA or Clustering should be considered a replacement for regular backups. For more information, see "[Configuring backups on your appliance](/enterprise/admin/guides/installation/configuring-backups-on-your-appliance)."
+Neither HA nor Clustering should be considered a replacement for regular backups. For more information, see "[Configuring backups on your appliance](/enterprise/admin/guides/installation/configuring-backups-on-your-appliance)."
 
 ## Monitoring
 
