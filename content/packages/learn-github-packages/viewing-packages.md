@@ -10,19 +10,20 @@ redirect_from:
   - /packages/manage-packages/viewing-packages
 permissions: You must have at least read permissions to view a package.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=2.22'
-  github-ae: '*'
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
 ---
 
 {% data reusables.package_registry.packages-ghes-release-stage %}
-{% data reusables.package_registry.packages-ghae-release-stage %}
 
 ## About package views
 
-Your ability to view a package depends on several factors. By default, you can view all packages you have published. 
+Your ability to view a package depends on several factors. By default, you can view all packages you have published.
 
-{% data reusables.package_registry.repo-scoped-and-granular-permissions-packages %}
+Repository-scoped packages inherit their permissions and visibility from the repository in which the package is published. Some registries **only** support repository-scoped packages. For a list of these registries, see [AUTOTITLE](/packages/learn-github-packages/about-permissions-for-github-packages#permissions-for-repository-scoped-packages).
+
+Other registries offer you the option of granular permissions and visibility settings that can be customized for each package scoped to a personal account or organization. You can choose to use granular permissions or connect the package to a repository and inherit the repository's permissions. For more information, see [AUTOTITLE](/packages/learn-github-packages/connecting-a-repository-to-a-package) and [AUTOTITLE](/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility).
 
 {% data reusables.package_registry.package-page-info %}
 
@@ -39,19 +40,17 @@ You can find and view a package located in a particular repository.
 You can find and view a package located in the repositories of an organization you belong to.
 
 {% data reusables.profile.access_org %}
-{% data reusables.user_settings.access_org %}
-3. Under your organization name, click {% octicon "package" aria-label="The package icon" %} **Packages**.
+{% data reusables.user-settings.access_org %}
+1. Under your organization name, click **{% octicon "package" aria-hidden="true" %} Packages**.
 {% data reusables.package_registry.navigate-to-packages %}
 
 ## Viewing your packages
 
-You can find and view any package you've published across all organizations and repositories. 
+You can find and view any package you've published across all organizations and repositories.
 
-{% data reusables.profile.access_profile %}
-2. On the top of the profile page, in the main navigation, click **Packages**.
-  ![Project tab](/assets/images/help/package-registry/user-packages-tab.png)
+{% data reusables.package_registry.package-settings-from-user-level %}
 {% data reusables.package_registry.navigate-to-packages %}
 
 ## Further reading
 
-- "[Searching for packages](/github/searching-for-information-on-github/searching-for-packages)"
+* [AUTOTITLE](/search-github/searching-on-github/searching-for-packages)
