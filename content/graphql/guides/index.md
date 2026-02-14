@@ -4,9 +4,9 @@ intro: 'Learn about getting started with GraphQL, migrating from REST to GraphQL
 redirect_from:
   - /v4/guides
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
+  fpt: '*'
+  ghec: '*'
+  ghes: '*'
 topics:
   - API
 children:
@@ -14,8 +14,9 @@ children:
   - /forming-calls-with-graphql
   - /using-global-node-ids
   - /migrating-from-rest-to-graphql
-  - /using-the-explorer
+  - /using-graphql-clients
+  - /using-pagination-in-the-graphql-api
   - /managing-enterprise-accounts
   - /using-the-graphql-api-for-discussions
+  - /migrating-graphql-global-node-ids
 ---
-
