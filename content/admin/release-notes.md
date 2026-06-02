@@ -1,10 +1,10 @@
 ---
 title: Release notes
-intro: 'The release notes for {{ allVersions[currentVersion].versionTitle }}.'
 layout: release-notes
+intro: 'Detailed information for all releases of the currently selected version of {% data variables.product.prodname_ghe_server %}.'
 versions:
-  enterprise-server: '*'
-topics:
-  - Enterprise
+  ghes: '*'
+redirect_from:
+  - /admin/overview/github-ae-release-notes
 ---
 

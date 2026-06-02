@@ -1,15 +1,15 @@
 ---
-title: Getting started with code security
+title: Getting started with secure coding
 shortTitle: Getting started
-intro: 'Introduction to code security with {% data variables.product.product_name %}.'
+allowTitleToDifferFromFilename: true
+intro: Introduction to secure coding with {% data variables.product.github %}.
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.0'
-  github-ae: '*'
-topics:
-  - Security
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
+children:
+  - /github-security-features
+  - /quickstart-for-securing-your-repository
+contentType: get-started
 ---
 
-### Table of Contents
-
-{% link_in_list /about-securing-your-repository %}
