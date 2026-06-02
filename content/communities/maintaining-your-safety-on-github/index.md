@@ -9,9 +9,8 @@ redirect_from:
   - /articles/encouraging-positive-contributions-to-your-project
   - /github/building-a-strong-community/maintaining-your-safety-on-github
 versions:
-  free-pro-team: '*'
-topics:
-  - Community
+  fpt: '*'
+  ghec: '*'
 children:
   - /blocking-a-user-from-your-personal-account
   - /viewing-users-youve-blocked-from-your-personal-account
