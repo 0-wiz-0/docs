@@ -1,0 +1,1 @@
+{% data variables.product.prodname_GHAS %} features help developers improve and maintain the security and quality of code. For more information, see [AUTOTITLE](/get-started/learning-about-github/about-github-advanced-security).
