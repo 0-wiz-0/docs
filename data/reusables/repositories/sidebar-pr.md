@@ -1,2 +1,1 @@
-1. Under your repository name, click {% octicon "git-pull-request" aria-label="The pull request icon" %} **Pull requests**.
-![Issues and pull requests tab selection](/assets/images/help/repository/repo-tabs-pull-requests.png)
+1. Under your repository name, click **{% octicon "git-pull-request" aria-hidden="true" aria-label="git-pull-request" %} Pull requests**.

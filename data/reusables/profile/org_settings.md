@@ -1,2 +1,2 @@
-2. Click **Settings** next to the organization.
-  ![The settings button](/assets/images/help/organizations/settings-button.png)
+1. Select an organization by clicking on it.
+{% data reusables.organizations.org_settings %}
