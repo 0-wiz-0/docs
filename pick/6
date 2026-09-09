@@ -1,0 +1,4 @@
+git cherry-pick <commit-hash>
+# After manually resolving conflicts
+git add .
+git cherry-pick --continue

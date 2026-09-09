@@ -1,23 +1,48 @@
 ---
-title: Code security
-shortTitle: Code security
-intro: Learn how to keep the code stored in your repositories secure.
+title: Security and code quality documentation
+shortTitle: Security and code quality
+intro: Build security and code quality into your {% data variables.product.github %} workflow with integrated tooling.
+redirect_from:
+  - /code-security/guides
+  - /enterprise-onboarding/govern-people-and-repositories/about-enterprise-security
+  - /enterprise-onboarding/feature-enhancements/about-code-security-for-your-enterprise
+  - /enterprise-onboarding/feature-enhancements/about-enterprise-security
+introLinks:
+  overview: '{% ifversion ghes %}/code-security/getting-started/github-security-features{% endif %}'
+  generate_secret_risk_assessment_report_for_free: '{% ifversion secret-risk-assessment %}https://github.com/get_started?with=risk-assessment{% endif %}'
+layout: discovery-landing
+contentType: landing
+includedCategories:
+  - Plan your security strategy
+  - Protect your secrets
+  - Find and fix code vulnerabilities
+  - Customize vulnerability detection with CodeQL
+  - Secure your dependencies
+  - Secure at scale
+  - Report and disclose vulnerabilities
+  - Improve code quality
+  - Troubleshoot security tools
+  - Find CodeQL CLI commands
+carousels:
+  recommended:
+    - /code-security/getting-started/quickstart-for-securing-your-repository
+    - /code-security/getting-started/github-security-features
+    - /code-security/tutorials/trialing-github-advanced-security/planning-a-trial-of-ghas
+    - /code-security/concepts/secret-security/secret-scanning
+    - /code-security/concepts/code-scanning/code-scanning
+    - /code-security/tutorials/secure-your-dependencies/dependabot-quickstart
+    - /code-security/tutorials/code-quality-adoption-path
+    - /code-security/tutorials/secure-your-organization/prevent-data-leaks
+    - /code-security/concepts/supply-chain-security/best-practices-for-maintaining-dependencies
 versions:
-  free-pro-team: '*'
-  enterprise-server: '>=3.0'
-  github-ae: '*'
-topics:
-  - Security
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
+children:
+  - /getting-started
+  - /concepts
+  - /how-tos
+  - /reference
+  - /tutorials
+  - /responsible-use
 ---
-
-{% link_with_intro /getting-started %}
-
-{% link_with_intro /secret-security %}
-
-{% link_with_intro /secure-coding %}
-
-{% link_with_intro /security-advisories %}
-
-{% link_with_intro /supply-chain-security %}
-
-{% link_with_intro /security-overview %}
