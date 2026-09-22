@@ -23,6 +23,16 @@ interface GetRemoteJSONConfig {
   }
 }
 
+function isValidJSON(value: string): boolean {
+  try {
+    JSON.parse(value)
+    return true
+  } catch (error) {
+    if (error instanceof SyntaxError) return false
+    throw error
+  }
+}
+
 function compressStringToCache(cacheKey: string, jsonString: string): void {
   cache.set(cacheKey, zlib.deflateSync(Buffer.from(jsonString)))
 }
@@ -72,20 +82,17 @@ export default async function getRemoteJSON(
 
     try {
       const body = fs.readFileSync(onDisk, 'utf-8')
-      // It might exist on disk, but it could be empty
-      if (body) {
-        try {
-          // Validate JSON, then compress the raw string directly
-          // instead of parse → stringify → compress
-          JSON.parse(body)
-          compressStringToCache(cacheKey, body)
-          fromCache = 'disk'
-          foundOnDisk = true
-        } catch (error) {
-          if (!(error instanceof SyntaxError)) {
-            throw error
-          }
-        }
+      // It might exist on disk, but it could be empty or malformed.
+      if (!body) {
+        fs.rmSync(onDisk, { force: true })
+      } else if (isValidJSON(body)) {
+        // Validate JSON, then compress the raw string directly
+        // instead of parse → stringify → compress
+        compressStringToCache(cacheKey, body)
+        fromCache = 'disk'
+        foundOnDisk = true
+      } else {
+        fs.rmSync(onDisk, { force: true })
       }
     } catch (error) {
       if (
@@ -125,12 +132,15 @@ export default async function getRemoteJSON(
       )
 
       const contentType = res.headers.get('content-type')
-      if (!contentType || !contentType.startsWith('application/json')) {
+      if (!contentType || !contentType.toLowerCase().startsWith('application/json')) {
         throw new Error(`Fetching '${url}' resulted in a non-JSON response (${contentType})`)
       }
 
       const body = await res.text()
-      JSON.parse(body)
+      if (!isValidJSON(body)) {
+        fs.rmSync(onDisk, { force: true })
+        throw new Error(`Fetching '${url}' resulted in invalid JSON response`)
+      }
       compressStringToCache(cacheKey, body)
 
       // Only write to disk for testing and local review.

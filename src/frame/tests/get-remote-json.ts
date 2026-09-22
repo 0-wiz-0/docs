@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import os from 'os'
+import crypto from 'crypto'
 
 import { rimraf } from 'rimraf'
 import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest'
@@ -99,6 +100,24 @@ describe('getRemoteJSON', () => {
 
     const data = await getRemoteJSON(url, {})
     expect((data as Record<string, unknown>).cool).toBe(true)
+  })
+
+  test('cleans stale malformed disk cache before re-fetching', async () => {
+    const tempTempDir = path.join(tempDir, 'stale-files')
+    process.env.GET_REMOTE_JSON_DISK_CACHE_ROOT = tempTempDir
+    const url = 'http://example.com/stale.json'
+    const { origin, pathname } = new URL(url)
+    const cacheFilename = path.join(tempTempDir, `${crypto.createHash('md5').update(url).digest('hex')}.json`)
+
+    fs.mkdirSync(tempTempDir, { recursive: true })
+    fs.writeFileSync(cacheFilename, '{"not:JSON{', 'utf-8')
+
+    cache.delete(url)
+    nock(origin).get(pathname).reply(200, { cool: true })
+
+    const data = await getRemoteJSON(url, {})
+    expect((data as Record<string, unknown>).cool).toBe(true)
+    expect(fs.readFileSync(cacheFilename, 'utf-8')).toContain('cool')
   })
 
   test('not-actually JSON despite URL', async () => {
