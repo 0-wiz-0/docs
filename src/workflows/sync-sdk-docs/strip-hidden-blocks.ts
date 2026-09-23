@@ -23,7 +23,7 @@
  *
  * Nothing enforced the publishing half of that contract. The markers are plain
  * HTML comments, and a Markdown parser treats each as a self-contained
- * single-line HTML block — the fence between them is a sibling node, not a
+ * single-line HTML block. The fence between them is a sibling node, not a
  * child, so it renders like any other code block. Without this step both
  * samples ship and readers see the same example twice.
  */
@@ -38,7 +38,7 @@ const HIDDEN_CLOSE = /^\s*<!--\s*\/\s*docs-validate:\s*hidden\s*-->/i
 // indented at most 3 spaces, and the run of backticks or tildes may exceed 3.
 const FENCE = /^ {0,3}(`{3,}|~{3,})(.*)$/
 
-interface OpenFence {
+export interface OpenFence {
   char: string
   length: number
 }
@@ -50,7 +50,7 @@ interface OpenFence {
  * long, and carry no info string. Tracking the length matters because a
  * four-backtick fence can legally contain a three-backtick line as content.
  */
-function nextFenceState(line: string, open: OpenFence | null): OpenFence | null {
+export function nextFenceState(line: string, open: OpenFence | null): OpenFence | null {
   const match = FENCE.exec(line)
   if (!match) return open
 
@@ -142,7 +142,7 @@ export function stripHiddenBlocks(content: string): StripHiddenBlocksResult {
       const nextIsBlank = next === undefined || next.trim() === ''
 
       if (previousIsBlank && nextIsBlank) {
-        // Both sides were blank and are now adjacent — keep only one.
+        // Both sides were blank and are now adjacent, so keep only one.
         i++
       } else if (!previousIsBlank && !nextIsBlank) {
         // The range was the only thing separating two blocks. Without a blank
