@@ -5,15 +5,12 @@ redirect_from:
   - /articles/managing-your-sponsorship
   - /github/supporting-the-open-source-community-with-github-sponsors/managing-your-sponsorship
 versions:
-  free-pro-team: '*'
-type: how_to
-topics:
-  - Contacting sponsors
-  - Privacy
-  - Open Source
+  fpt: '*'
+  ghec: '*'
+contentType: how-tos
+category:
+  - Manage your sponsored account
 ---
-
-{% data reusables.sponsors.org-sponsors-release-phase %}
 
 ## Managing the privacy setting for your sponsorship
 
@@ -37,5 +34,5 @@ You can choose whether an account you sponsor can send you email updates about t
 
 ## Further reading
 
-- "[Upgrading a sponsorship](/articles/upgrading-a-sponsorship)"
-- "[Downgrading a sponsorship](/articles/downgrading-a-sponsorship)"
+* [AUTOTITLE](/billing/how-tos/pay-third-parties/upgrade-sponsorship)
+* [AUTOTITLE](/billing/how-tos/pay-third-parties/downgrade-sponsorship)

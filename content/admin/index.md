@@ -1,52 +1,114 @@
 ---
-title: GitHub Enterprise Documentation
-shortTitle: GitHub Enterprise
-intro: 'Documentation and guides for enterprise administrators, system administrators, and security specialists who {% if enterpriseServerVersions contains currentVersion %}deploy, {% endif %}configure{% if enterpriseServerVersions contains currentVersion %},{% endif %} and manage {% data variables.product.product_name %}.'
-introLinks:
-  overview: '{% if enterpriseServerVersions contains currentVersion %}/admin/overview/system-overview{% elsif currentVersion == "github-ae@latest" %}/admin/overview/about-github-ae{% endif %}'
-changelog:
-  label: enterprise
-featuredLinks:
-  guides:
-    - '{% if currentVersion == "github-ae@latest" %}/admin/overview/managing-billing-for-your-enterprise{% endif %}'
-    - '{% if currentVersion == "github-ae@latest" %}/admin/user-management/auditing-users-across-your-enterprise{% endif %}'
-    - '{% if currentVersion == "github-ae@latest" %}/admin/configuration/restricting-network-traffic-to-your-enterprise{% endif %}'
-    - '{% if enterpriseServerVersions contains currentVersion %}/admin/configuration/configuring-backups-on-your-appliance{% endif %}'
-    - '{% if enterpriseServerVersions contains currentVersion %}/admin/enterprise-management/creating-a-high-availability-replica{% endif %}'
-    - '{% if enterpriseServerVersions contains currentVersion %}/admin/enterprise-management/upgrading-github-enterprise-server{% endif %}'
-  guideCards:
-    - '{% if currentVersion ver_gt "enterprise-server@2.22" %} /admin/github-actions/getting-started-with-github-actions-for-github-enterprise-server {% elsif currentVersion ver_lt "enterprise-server@3.0" %} /admin/enterprise-management/upgrading-github-enterprise-server {% endif %}'
-    - '{% if currentVersion ver_gt "enterprise-server@2.22" %} /admin/packages/getting-started-with-github-packages-for-your-enterprise {% elsif currentVersion ver_lt "enterprise-server@3.0" %} /admin/user-management/customizing-user-messages-for-your-enterprise {% endif %}'
-    - '{% if currentVersion ver_gt "enterprise-server@2.22" %} /admin/configuration/configuring-advanced-security-features {% elsif currentVersion ver_lt "enterprise-server@3.0" %} /admin/installation/setting-up-a-staging-instance {% endif %}'
-    - '{% if currentVersion == "github-ae@latest" %}/admin/configuration/initializing-github-ae{% endif %}'
-    - '{% if currentVersion == "github-ae@latest" %}/admin/user-management/customizing-user-messages-for-your-enterprise{% endif %}'
-    - '{% if currentVersion == "github-ae@latest" %}/admin/github-actions/getting-started-with-github-actions-for-github-ae{% endif %}'
-  popular:
-    - '{% if currentVersion == "github-ae@latest" %}/admin/release-notes{% endif %}'
-    - '{% if enterpriseServerVersions contains currentVersion %}/github/getting-started-with-github/setting-up-a-trial-of-github-enterprise-server{% endif %}'
-    - '{% if enterpriseServerVersions contains currentVersion %}/admin/installation{% endif %}'
-    - '{% if currentVersion == "github-ae@latest" %}/admin/authentication/configuring-authentication-and-provisioning-for-your-enterprise-using-azure-ad{% endif %}'
-    - '{% if currentVersion == "github-ae@latest" %}/admin/overview/about-upgrades-to-new-releases{% endif %}'
-    - '{% if enterpriseServerVersions contains currentVersion %}/admin/overview/managing-your-github-enterprise-license{% endif %}'
-    - '{% if enterpriseServerVersions contains currentVersion %}/admin/configuration/command-line-utilities{% endif %}'
-    - /admin/enterprise-support/about-github-enterprise-support
-layout: product-landing
+title: Enterprise administrator documentation
+shortTitle: Enterprise administrators
+intro: Documentation and guides for enterprise administrators{% ifversion ghes %}, system administrators,{% endif %} and security specialists who {% ifversion ghes %}deploy, {% endif %}configure{% ifversion ghes %},{% endif %} and manage {% data variables.product.prodname_enterprise %}.
+redirect_from:
+  - /github/setting-up-and-managing-your-enterprise/managing-your-enterprise-account
+  - /github/setting-up-and-managing-your-enterprise
+  - /github/installing-and-configuring-github-insights/exploring-your-usage-of-github-enterprise
+  - /github/installing-and-configuring-github-insights/metrics-available-with-github-insights
+  - /github/installing-and-configuring-github-insights/key-metrics-for-collaboration-in-pull-requests
+  - /github/installing-and-configuring-github-insights/viewing-and-filtering-key-metrics-and-reports
+  - /github/installing-and-configuring-github-insights/github-insights-and-data-protection-for-your-organization
+  - /github/site-policy/github-insights-and-data-protection-for-your-organization
+  - /insights/installing-and-configuring-github-insights/configuring-the-connection-between-github-insights-and-github-enterprise
+  - /github/installing-and-configuring-github-insights/navigating-between-github-insights-and-github-enterprise
+  - /github/installing-and-configuring-github-insights/enabling-a-link-between-github-insights-and-github-enterprise
+  - /insights/installing-and-configuring-github-insights/enabling-a-link-between-github-insights-and-github-enterprise
+  - /insights/installing-and-configuring-github-insights/managing-permissions-in-github-insights
+  - /github/installing-and-configuring-github-insights/about-github-insights
+  - /insights/installing-and-configuring-github-insights/about-github-insights
+  - /github/installing-and-configuring-github-insights/installing-github-insights
+  - /insights/installing-and-configuring-github-insights/installing-github-insights
+  - /github/installing-and-configuring-github-insights/system-overview-for-github-insights
+  - /insights/installing-and-configuring-github-insights/system-overview-for-github-insights
+  - /github/installing-and-configuring-github-insights/updating-github-insights
+  - /insights/installing-and-configuring-github-insights/updating-github-insights
+  - /insights/installing-and-configuring-github-insights/about-data-in-github-insights
+  - /github/installing-and-configuring-github-insights/managing-data-in-github-insights
+  - /github/installing-and-configuring-github-insights/managing-settings-in-github-insights
+  - /insights/installing-and-configuring-github-insights/managing-available-metrics-and-reports
+  - /github/installing-and-configuring-github-insights/managing-contributors-and-teams
+  - /insights/installing-and-configuring-github-insights/managing-contributors-and-teams
+  - /github/installing-and-configuring-github-insights/creating-and-managing-events
+  - /insights/installing-and-configuring-github-insights/managing-events
+  - /github/installing-and-configuring-github-insights/creating-and-managing-goals
+  - /insights/installing-and-configuring-github-insights/managing-goals
+  - /github/installing-and-configuring-github-insights/managing-organizations
+  - /insights/installing-and-configuring-github-insights/managing-organizations
+  - /github/installing-and-configuring-github-insights/managing-repositories
+  - /insights/installing-and-configuring-github-insights/managing-repositories
+  - /insights/exploring-your-usage-of-github-enterprise
+  - /insights/exploring-your-usage-of-github-enterprise/metrics-available-with-github-insights
+  - /insights/exploring-your-usage-of-github-enterprise/navigating-between-github-enterprise-and-github-insights
+  - /insights/exploring-your-usage-of-github-enterprise/setting-your-timezone-for-github-insights
+  - /insights/exploring-your-usage-of-github-enterprise/viewing-key-metrics-and-reports
+  - /insights
+  - /insights/installing-and-configuring-github-insights/configuring-github-insights/configuring-the-connection-between-github-insights-and-github-enterprise
+  - /insights/installing-and-configuring-github-insights/configuring-github-insights/enabling-a-link-between-github-insights-and-github-enterprise
+  - /insights/installing-and-configuring-github-insights/configuring-github-insights
+  - /insights/installing-and-configuring-github-insights/configuring-github-insights/managing-permissions-in-github-insights
+  - /insights/installing-and-configuring-github-insights
+  - /insights/installing-and-configuring-github-insights/installing-and-updating-github-insights/about-github-insights
+  - /insights/installing-and-configuring-github-insights/installing-and-updating-github-insights
+  - /insights/installing-and-configuring-github-insights/installing-and-updating-github-insights/installing-github-insights
+  - /insights/installing-and-configuring-github-insights/installing-and-updating-github-insights/system-overview-for-github-insights
+  - /insights/installing-and-configuring-github-insights/installing-and-updating-github-insights/updating-github-insights
+  - /insights/installing-and-configuring-github-insights/managing-data-in-github-insights/about-data-in-github-insights
+  - /insights/installing-and-configuring-github-insights/managing-data-in-github-insights
+  - /insights/installing-and-configuring-github-insights/managing-data-in-github-insights/managing-available-metrics-and-reports
+  - /insights/installing-and-configuring-github-insights/managing-data-in-github-insights/managing-contributors-and-teams
+  - /insights/installing-and-configuring-github-insights/managing-data-in-github-insights/managing-events
+  - /insights/installing-and-configuring-github-insights/managing-data-in-github-insights/managing-goals
+  - /insights/installing-and-configuring-github-insights/managing-data-in-github-insights/managing-organizations
+  - /insights/installing-and-configuring-github-insights/managing-data-in-github-insights/managing-repositories
+  - /admin/configuration/configuring-your-enterprise/configuring-data-encryption-for-your-enterprise
+  - /admin/guides
+layout: discovery-landing
+includedCategories:
+  - Get started with GitHub Enterprise
+  - Install and configure your instance
+  - Configure authentication
+  - Provision and manage enterprise users
+  - Manage accounts and repositories
+  - Secure and govern your enterprise
+  - Monitor and audit your enterprise
+  - Back up and upgrade your instance
+  - Scale your instance
+  - Enable GitHub features for your enterprise
+carousels:
+  recommended:
+    - /admin/overview/about-github-enterprise-cloud
+    - /admin/overview/about-github-enterprise-server
+    - /admin/concepts/enterprise-fundamentals/enterprise-accounts
+    - /admin/concepts/identity-and-access-management/identity-and-access-management-fundamentals
+    - /admin/concepts/identity-and-access-management/enterprise-managed-users
+    - /admin/concepts/security-and-compliance/audit-log-for-an-enterprise
+    - /admin/overview/about-upgrades-to-new-releases
+    - /admin/overview/accessing-compliance-reports-for-your-enterprise
+    - /admin/managing-github-actions-for-your-enterprise/getting-started-with-github-actions-for-your-enterprise/getting-started-with-github-actions-for-github-enterprise-server
 versions:
-  enterprise-server: '*'
-  github-ae: '*'
+  ghec: '*'
+  ghes: '*'
 children:
+  - /enterprise-onboarding
   - /overview
-  - /installation
-  - /configuration
-  - /authentication
-  - /user-management
-  - /policies
-  - /enterprise-management
-  - /github-actions
-  - /packages
-  - /enterprise-support
-  - /advanced-security
-  - /guides
+  - /concepts
+  - /data-residency
+  - /managing-your-enterprise-account
+  - /installing-your-enterprise-server
+  - /configuring-settings
+  - /administering-your-instance
+  - /managing-iam
+  - /managing-accounts-and-repositories
+  - /upgrading-your-instance
+  - /backing-up-and-restoring-your-instance
+  - /enforcing-policies
+  - /monitoring-activity-in-your-enterprise
+  - /monitoring-and-managing-your-instance
+  - /managing-github-apps-for-your-enterprise
+  - /managing-github-actions-for-your-enterprise
+  - /configuring-packages
   - /release-notes
   - /all-releases
 ---

@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Node: check",
+      "type": "npm",
+      "script": "check",
+      "path": "untitled/",
+      "group": "build",
+      "problemMatcher": "$tsc"
+    },
+    {
+      "label": "Node: dev",
+      "type": "npm",
+      "script": "dev",
+      "path": "untitled/",
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}
