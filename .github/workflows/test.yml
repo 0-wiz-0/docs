@@ -1,74 +1,166 @@
-# NOTE: Changes to this file should also be applied to './test-windows.yml'
+name: Test
 
-name: Node.js Tests
-
-# **What it does**: Runs our tests.
-# **Why we have it**: We want our tests to pass before merging code.
-# **Who does it impact**: Docs engineering, open-source engineering contributors.
+# Runs required test suites before merge. src/tests/SUITES.md explains coverage and merge risk.
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+  merge_group:
   pull_request:
 
+permissions:
+  contents: read
+  pull-requests: read
+
+# Cancel older test runs for the same ref so newer commits get the runner.
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
 env:
-  CI: true
+  # ELASTICSEARCH_URL enables Vitest suites that send real search queries.
+  ELASTICSEARCH_URL: http://localhost:9200/
 
 jobs:
   test:
-    # Run on self-hosted if the private repo or ubuntu-latest if the public repo
-    # See pull # 17442 in the private repo for context
-    runs-on: ${{ fromJson('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    name: ${{ matrix.name }}
+    if: github.repository == 'github/docs-internal' || github.repository == 'github/docs'
+    runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
-        # The same array lives in test-windows.yml, so make any updates there too.
-        test-group: [content, graphql, meta, rendering, routing, unit, linting]
+        # Add new matrix suites to branch protection required checks too.
+        name:
+          # Lists every src directory. Commented-out entries have no suite-specific tests.
+          # - app
+          - archives
+          - article-api
+          - assets
+          - audit-logs
+          - automated-pipelines
+          # - codeql-cli # Enable when the broken scratch test is removed.
+          # - codeql-queries
+          - color-schemes
+          - content-linter
+          # - content-pipelines
+          - content-render
+          - data-directory
+          # - deployments
+          # - dev-toc
+          - early-access
+          # - eslint-rules
+          - events
+          - fixtures
+          - frame
+          - ghes-releases
+          - github-apps
+          - graphql
+          - journeys
+          - landings
+          - languages
+          - links
+          - observability
+          # - pages
+          - products
+          - redirects
+          - release-notes
+          - rest
+          - search
+          - secret-scanning
+          - shielding
+          # - tests
+          # - tools
+          # - types
+          - versions
+          - webhooks
+          - workflows
+
+        # The languages suite only runs on docs-internal.
+        isPrivateRepo:
+          - ${{ github.repository == 'github/docs-internal' }}
+        exclude:
+          - name: languages
+            isPrivateRepo: false
+
     steps:
-      # Each of these ifs needs to be repeated at each step to make sure the required check still runs
-      # Even if if doesn't do anything
+      # Repeat each if on its step so skipped work still leaves the required check present.
       - name: Check out repo
-        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
-          # Enables cloning the Early Access repo later with the relevant PAT
-          persist-credentials: 'false'
+          # Fetch 2 commits so tj-actions/changed-files can diff without extra API calls
+          fetch-depth: 2
 
-      - name: Setup node
-        uses: actions/setup-node@c46424eee26de4078d34105d3de3cc4992202b1e
+      - uses: ./.github/actions/setup-elasticsearch
+        if: ${{ matrix.name == 'search' || matrix.name == 'languages' }}
+
+      - uses: ./.github/actions/node-npm-setup
+
+      - uses: ./.github/actions/get-docs-early-access
+        if: ${{ github.repository == 'github/docs-internal' }}
         with:
-          node-version: 16.x
+          token: ${{ secrets.DOCS_BOT_PAT_BASE }}
 
-      - name: Get npm cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Check the test fixture data (if applicable)
+        if: ${{ matrix.name == 'fixtures' }}
+        run: npm run copy-fixture-data -- --check
 
-      - name: Cache node modules
-        uses: actions/cache@0781355a23dac32fd3bac414512f4b903437991a
-        with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        run: npm ci
-
-      - if: ${{ github.repository == 'github/docs-internal' }}
-        name: Clone early access
-        run: npm run heroku-postbuild
+      - name: Check the test fixture content (if applicable)
+        if: ${{ matrix.name == 'fixtures' }}
         env:
-          DOCUBOT_REPO_PAT: ${{ secrets.DOCUBOT_REPO_PAT }}
-          GIT_BRANCH: ${{ github.head_ref || github.ref }}
+          ROOT: src/fixtures/fixtures
+        run: |
+          # A failure means fixture content has stale internal links the dry run can update.
+          npm run update-internal-links -- --dry-run --check --strict \
+            src/fixtures/fixtures/content \
+            --exclude src/fixtures/fixtures/content/get-started/foo/typo-autotitling.md \
+            --exclude src/fixtures/fixtures/content/get-started/foo/anchor-autotitling.md
+          npm run update-internal-links -- --dry-run --check --strict \
+            src/fixtures/fixtures/data
 
-      - if: ${{ github.repository != 'github/docs-internal' }}
-        name: Run build script
+      - name: Clone all translations
+        if: ${{ matrix.name == 'languages' }}
+        uses: ./.github/actions/clone-translations
+        with:
+          token: ${{ secrets.DOCS_BOT_PAT_BASE }}
+
+      - name: Gather files changed
+        if: ${{ matrix.name == 'content-linter' }}
+        id: changed_files
+        uses: tj-actions/changed-files@22103cc46bda19c2b464ffe86db46df6922fd323 # v47.0.5
+
+      - name: Write changed files to diff file
+        if: ${{ matrix.name == 'content-linter' }}
+        run: echo "${{ steps.changed_files.outputs.all_modified_files }}" > get_diff_files.txt
+
+      - uses: ./.github/actions/cache-nextjs
+
+      - name: Run build script
         run: npm run build
 
-      - name: Run tests
-        run: npx jest tests/${{ matrix.test-group }}/
+      - uses: ./.github/actions/warmup-remotejson-cache
+        # Only routing tests cover archived enterprise server URLs.
+        if: ${{ matrix.name == 'redirects' }}
+
+      - uses: ./.github/actions/precompute-pageinfo
+        # Only pageinfo tests cover precomputed page info.
+        if: ${{ matrix.name == 'article-api' }}
         env:
-          NODE_OPTIONS: '--max_old_space_size=8192'
+          ROOT: src/fixtures/fixtures
+
+      - name: Index fixtures into the local Elasticsearch
+        # Run indexing only for suites that query the local Elasticsearch service.
+        if: ${{ matrix.name == 'search' || matrix.name == 'languages' }}
+        run: npm run index-test-fixtures
+
+      - name: Run tests
+        env:
+          DIFF_FILE: get_diff_files.txt
+          CHANGELOG_CACHE_FILE_PATH: src/fixtures/fixtures/changelog-feed.json
+          # NODE_ENV=test forces English-only tests; the languages suite needs every language.
+          ENABLED_LANGUAGES: ${{ matrix.name == 'languages' && 'all' || '' }}
+          ROOT: ${{ (matrix.name == 'fixtures' || matrix.name == 'article-api' || matrix.name == 'landings' ) && 'src/fixtures/fixtures' || '' }}
+          TRANSLATIONS_FIXTURE_ROOT: ${{ (matrix.name == 'fixtures' || matrix.name == 'article-api') && 'src/fixtures/fixtures/translations' || '' }}
+          # RUNNER_DEBUG enables timing and path logs when Actions reruns jobs with debug logging.
+          RUNNER_DEBUG: ${{ runner.debug }}
+          VITEST_FLAGS: ${{ matrix.name == 'article-api' && '--no-file-parallelism --maxWorkers=1' || '' }}
+        run: npm test -- $VITEST_FLAGS src/${{ matrix.name }}/tests/

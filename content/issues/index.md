@@ -1,25 +1,45 @@
 ---
-title: Issues and projects
-shortTitle: Issues and projects
-intro: Use issues and projects to manage your work on {% data variables.product.prodname_dotcom %}.
+title: '{% data variables.product.prodname_github_issues %} documentation'
+shortTitle: '{% data variables.product.prodname_github_issues %}'
+intro: Learn how you can use {% data variables.product.prodname_github_issues %} to plan and track your work.
+introLinks:
+  overview: /issues/tracking-your-work-with-issues/learning-about-issues/about-issues
+  quickstart: /issues/tracking-your-work-with-issues/learning-about-issues/quickstart
+includedCategories:
+  - Create and work with issues
+  - Triage and organize issues
+  - Set up and manage projects
+  - Manage project items and fields
+  - Customize project views and insights
+  - Automate your project
+  - Use project boards (classic)
+carousels:
+  recommended:
+    - /issues/tracking-your-work-with-issues/learning-about-issues/quickstart
+    - /issues/tracking-your-work-with-issues/learning-about-issues/about-issues
+    - /issues/tracking-your-work-with-issues/learning-about-issues/planning-and-tracking-work-for-your-team-or-project
+    - /issues/planning-and-tracking-with-projects/learning-about-projects/quickstart-for-projects
+    - /issues/planning-and-tracking-with-projects/learning-about-projects/best-practices-for-projects
+    - /issues/tracking-your-work-with-issues/using-issues/creating-an-issue
+    - /issues/planning-and-tracking-with-projects/customizing-views-in-your-project/changing-the-layout-of-a-view
+    - /issues/planning-and-tracking-with-projects/automating-your-project/using-the-built-in-automations
+    - /issues/tracking-your-work-with-issues/administering-issues/triaging-an-issue-with-ai
+layout: discovery-landing
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
-topics:
-  - Issues
-  - Projects
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
 children:
   - /tracking-your-work-with-issues
-  - /organizing-your-work-with-project-boards
+  - /planning-and-tracking-with-projects
   - /using-labels-and-milestones-to-track-work
 redirect_from:
   - /github/managing-your-work-on-github/managing-your-work-with-issues-and-pull-requests
   - /github/managing-your-work-on-github/managing-your-work-with-issues
   - /github/managing-your-work-on-github
-  - /categories/100/articles/
-  - /categories/managing-projects/
-  - /categories/managing-projects-on-github/
+  - /categories/100/articles
+  - /categories/managing-projects
+  - /categories/managing-projects-on-github
   - /categories/managing-your-work-on-github
   - /about-issues
   - /creating-an-issue
@@ -38,5 +58,6 @@ redirect_from:
   - /disabling-issues
   - /linking-a-pull-request-to-an-issue
   - /about-duplicate-issues-and-pull-requests
+  - /issues/guides
+  - /video-transcripts/transcript-using-projects-for-feature-planning
 ---
-
