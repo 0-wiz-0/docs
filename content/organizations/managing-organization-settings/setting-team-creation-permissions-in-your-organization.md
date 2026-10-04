@@ -5,22 +5,20 @@ redirect_from:
   - /articles/setting-team-creation-permissions-in-your-organization
   - /github/setting-up-and-managing-organizations-and-teams/setting-team-creation-permissions-in-your-organization
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
-topics:
-  - organizations
-  - teams
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
+shortTitle: Restrict team creation
+category:
+  - Assign roles and permissions
 ---
 
 Organization owners can set team creation permissions.
 
 If you do not set team creation permissions, all organization members will be able to create teams by default.
 
-{% data reusables.profile.access_profile %}
 {% data reusables.profile.access_org %}
-{% data reusables.organizations.org_settings %}
+{% data reusables.profile.org_settings %}
 {% data reusables.organizations.member-privileges %}
-5. Under "Team creation rules", select or deselect **Allow members to create teams**.
-![Checkbox to allow members to create teams](/assets/images/help/organizations/allow-members-to-create-teams.png)
-6. Click **Save**.
+1. Under "Team creation rules", select or deselect **Allow members to create teams**.
+1. Click **Save**.

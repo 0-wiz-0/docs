@@ -1,0 +1,50 @@
+name: Move and unlabel ready to merge PRs
+
+# Public PRs labeled ready to merge leave waiting for review and move to Triage
+# on the open source board.
+
+on:
+  # pull_request_target lets forked PRs trigger project-board and label automation.
+  pull_request_target:
+    types:
+      - labeled
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  unmark_for_review:
+    if: >-
+      ${{
+        github.repository == 'github/docs' &&
+        github.event.label.name == 'ready to merge'
+      }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add PR to the open source board
+        uses: actions/add-to-project@5afcf98fcd03f1c2f92c3c83f58ae24323cc57fd # v2.0.0
+        with:
+          project-url: https://github.com/orgs/github/projects/2936
+          github-token: ${{ secrets.DOCS_BOT_PAT_BASE }}
+
+      - name: Move PR to Triage on the open source board
+        uses: github/update-project-action@af4f6083118f5080c89828b421ef598d1906fb60 # v4
+        with:
+          github_token: ${{ secrets.DOCS_BOT_PAT_BASE }}
+          organization: github
+          project_number: 2936
+          content_id: ${{ github.event.pull_request.node_id }}
+          field: Status
+          value: Triage
+
+      - name: Check out repo
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - uses: ./.github/actions/node-npm-setup
+
+      - name: remove label
+        uses: ./.github/actions/labeler
+        with:
+          ignoreifAssigned: 'false'
+          removeLabels: 'waiting for review'
