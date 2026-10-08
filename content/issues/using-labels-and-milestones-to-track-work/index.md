@@ -1,13 +1,11 @@
 ---
 title: Using labels and milestones to track work
 shortTitle: Labels and milestones
-intro: 'Labels and milestones to categorize and track work on {% data variables.product.prodname_dotcom %}'
+intro: 'Use labels and milestones to categorize and track work on {% data variables.product.prodname_dotcom %}.'
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
-topics:
-  - Issues
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
 children:
   - /managing-labels
   - /about-milestones
