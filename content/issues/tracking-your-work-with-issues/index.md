@@ -1,15 +1,17 @@
 ---
 title: Tracking your work with issues
 shortTitle: Issues
-intro: 'Use issues to track ideas and work on {% data variables.product.prodname_dotcom %}'
+intro: 'Use {% data variables.product.prodname_github_issues %} to track ideas and work on {% data variables.product.prodname_dotcom %}'
 versions:
-  free-pro-team: '*'
-  enterprise-server: '*'
-  github-ae: '*'
-topics:
-  - Issues
+  fpt: '*'
+  ghes: '*'
+  ghec: '*'
 children:
-  - /creating-issues
-  - /managing-issues
+  - /learning-about-issues
+  - /using-issues
+  - /administering-issues
+redirect_from:
+  - /issues/tracking-your-work-with-issues/creating-issues
+  - /issues/tracking-your-work-with-issues/managing-issues
+  - /issues/tracking-your-work-with-issues/configuring-issues
 ---
-

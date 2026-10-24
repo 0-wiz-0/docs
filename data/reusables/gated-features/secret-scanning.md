@@ -1,6 +1,5 @@
-{% if currentVersion == "free-pro-team@latest" %}{% data variables.product.prodname_secret_scanning_caps %} is available for all public repositories, and for private repositories owned by organizations where {% data variables.product.prodname_GH_advanced_security %} is enabled.
-{%- elsif currentVersion ver_gt "enterprise-server@3.0" or currentVersion == "github-ae@next" %}{% data variables.product.prodname_secret_scanning_caps %} is available for organization-owned repositories where {% data variables.product.prodname_GH_advanced_security %} is enabled.
-{%- elsif currentVersion == "github-ae@latest" %}
-{% data variables.product.prodname_secret_scanning_caps %} is available as part of {% data variables.product.prodname_GH_advanced_security %}, which is free during the beta release.
-{%- else %}
-{% data variables.product.prodname_secret_scanning_caps %} is available if you have a license for {% data variables.product.prodname_GH_advanced_security %}.{% endif %} {% data reusables.advanced-security.more-info-ghas %}
+{% data variables.product.prodname_secret_scanning_caps %} is available for the following repository types:
+
+* **Public repositories**: {% data variables.product.prodname_secret_scanning_caps %} runs automatically for free.
+* **Organization-owned private and internal repositories**: Available with [{% data variables.product.prodname_GH_secret_protection %}](/get-started/learning-about-github/about-github-advanced-security) enabled on {% data variables.product.prodname_team %} or {% data variables.product.prodname_ghe_cloud %}.
+* **User-owned repositories**: Available on {% data variables.product.prodname_ghe_cloud %} with {% data variables.product.prodname_emus %}. Available on {% data variables.product.prodname_ghe_server %} when the enterprise has [{% data variables.product.prodname_GH_secret_protection %}](/get-started/learning-about-github/about-github-advanced-security) enabled.
